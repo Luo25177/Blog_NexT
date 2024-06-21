@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="gcc编译器的使用，g++与其语法基本一致">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gcc使用">
+<meta property="og:url" content="https://luo25177.github.io/2024/03/19/gcc%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="gcc编译器的使用，g++与其语法基本一致">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-18T16:32:34.000Z">
+<meta property="article:modified_time" content="2024-06-17T16:44:59.808Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="gcc">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/03/19/gcc%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>gcc使用 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/03/19/gcc%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gcc使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-19 00:32:34" itemprop="dateCreated datePublished" datetime="2024-03-19T00:32:34+08:00">2024-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-18 00:44:59" itemprop="dateModified" datetime="2024-06-18T00:44:59+08:00">2024-06-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">小工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">gcc编译器的使用，g++与其语法基本一致</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<h3 id="介绍">介绍</h3>
+<p>GCC（英文全拼：GNU Compiler Collection）是 GNU 工具链的主要组成部分，是一套以 GPL 和 LGPL 许可证发布的程序语言编译器自由软件，由 Richard Stallman 于 1985 年开始开发。</p>
+<p>GCC 原名为 GNU C语言编译器，因为它原本只能处理 C 语言，但如今的 GCC ，不仅可以编译 C、C++ 和 Objective-C，还可以通过不同的前端模块支持各种语言，包括 Java、Fortran、Ada、Pascal、Go 和 D 语言等等。</p>
+<p>GCC支持多种硬件开发平台，还能进行跨平台交叉编译。此外，GCC是按模块化设计的，可以加入新语言和新CPU架构的支持。</p>
+<h3 id="gcc-gcc-g-三者之间的关系">GCC、gcc、g++三者之间的关系</h3>
+<p>gcc（GUN C Compiler）是GCC中的c编译器，而g++（GUN C++ Compiler）是GCC中的c++编译器。</p>
+<p>gcc和g++两者都可以编译c和cpp文件，但存在差异。gcc在编译cpp时语法按照c来编译但默认不能链接到c++的库（gcc默认链接c库，g++默认链接c++库）。g++编译.c和.cpp文件都统一按cpp的语法规则来编译。所以一般编译c用gcc，编译c++用g++。</p>
+<h2 id="安装">安装</h2>
+<h3 id="linux">linux</h3>
+<p>只需要一行指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gcc</span><br><span class="line">sudo apt install g++</span><br></pre></td></tr></table></figure>
+<h3 id="windows">windows</h3>
+<p>可以使用 <code>mingw</code> 来安装 <code>gnuc</code> 的工具</p>
+<p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z/download">mingw</a></p>
+<p>下载压缩包之后，解压到软件的位置，然后再添加系统环境变量</p>
+<h2 id="gcc编译指令参数-gcc-option-file">gcc编译指令参数 <code>gcc [option] file</code></h2>
+<ol>
+<li>
+<p>-o 用于指定编译之后的文件名称</p>
+</li>
+<li>
+<p>-g 在可执行文件中加入源码信息供gdb调试使用，但是并不是把整个源文件嵌入到可执行文件中，而是几条机器码对应几行源代码</p>
+</li>
+<li>
+<p>-c 只生成目标文件 .o 文件</p>
+</li>
+<li>
+<p>-Wall 通常gcc不会提示一些不重要的警告，加上之后会提示所有警告</p>
+</li>
+<li>
+<p>-O 编译优化等级<br>
+gcc 编译有 -O0, -O1, -O2, -O3, -Os, -Ofast, -Og 等几个优化等级，对于前几个来说，随着数字变大，代码的优化程度也越高，但是某种程度上来说是牺牲可调试性能作为代价的，当然有些代码部分是不能进行优化的</p>
+<ul>
+<li>-O0 默认优化等级，实质上没有任何优化</li>
+<li>-O1 最基本优化，短时间内生成可执行文件，主要对代码的分支，常量以及表达式进行优化</li>
+<li>-O2 相对于-O1来说，增加了编译时间的基础上，提高了生成代码的执行效率</li>
+<li>-Os 在-O2的基础上，去掉了导致最终可执行程序增大的优化，可以生成执行效率较高并且更小的执行程序</li>
+<li>-O3 延长编译时间，在-O2基础上进行更多的优化，编译成的软件将生成更大体积更耗内存的二进制文件，增加编译失败的机会并且产生不可预知的程序行为，不建议使用</li>
+<li>-Ofast 在-O3基础上添加一些非常规优化，通过打破一些国际标准来实现的，不仅以使用</li>
+<li>-Og 在-O1的基础上去掉了一些影响调试的优化，如果最终为了调试可以使用这种优化方式</li>
+</ul>
+</li>
+<li>
+<p>-E 只做预处理而不编译</p>
+</li>
+<li>
+<p>-S 生成汇编代码</p>
+</li>
+<li>
+<p>-l 链接，告诉编译器去哪里寻找头文件，参数后紧跟库的名字告诉编译器要链接的库</p>
+<ul>
+<li>-lpthread 代表使用pthread库实现多线程，代表使用C++11的线程库</li>
+<li>lm 代表使用数学库</li>
+</ul>
+</li>
+<li>
+<p>-L 告诉编译器去哪里寻找需要的库文件，但是即使库文件就在当前目录下，编译器也不会去找的，所以必须加此参数，除非你的库在默认的寻找目录里，默认目录可以用gcc -print-search-dirs查看。</p>
+</li>
+<li>
+<p>-v 可以详细看到编译的过程</p>
+</li>
+<li>
+<p>-share 这个选项将尽量使用动态库，生成文件较小，但是需要动态库</p>
+</li>
+<li>
+<p>-static 这个将禁止使用动态库，编译出来的东西很大，不需要动态链接库就可以运行</p>
+<ul>
+<li>static-libgcc 静态链接，编译时使用，用于生成独立的可执行文件</li>
+</ul>
+</li>
+<li>
+<p>-f 有点怪没找到，好像是一些配置 ^-^?</p>
+<ul>
+<li>fPIE与-fpie是等价的。这个选项与-fPIC/-fpic大致相同，不同点在于：-fPIC用于生成动态库，-fPIE用与生成可执行文件。再说得直白一点：-fPIE用来生成位置无关的可执行代码。</li>
+<li>fPIC与-fpic都是在编译时加入的选项，用于生成位置无关的代码(Position-Independent-Code)，生成动态库。这两个选项都是可以使代码在加载到内存时使用相对地址，所有对固定地址的访问都通过全局偏移表(GOT)来实现。-fPIC和-fpic最大的区别在于是否对GOT的大小有限制。-fPIC对GOT表大小无限制，所以如果在不确定的情况下，使用-fPIC是更好的选择</li>
+<li>openmp 代表使用OpenMP多线程库</li>
+<li>stack-protector-strong 启用栈保护功能</li>
+</ul>
+</li>
+<li>
+<p>-M 可以自动分析目标文件和源文件的依赖关系</p>
+</li>
+<li>
+<p>-MM 可以自动分析目标文件和源文件的依赖关系，它将忽略由 <code>#include&lt;file&gt;</code> 造成的依赖关系</p>
+</li>
+<li>
+<p>std=c++11 代表使用C++11的规范</p>
+</li>
+<li>
+<p>-D 代表定义一个宏，例如-DDEBUG</p>
+</li>
+<li>
+<p>-U 代表取消一个宏，例如-UDEBUG</p>
+</li>
+<li>
+<p>Werror 代表将所有警告视为错误</p>
+</li>
+<li>
+<p>Wno-* 代表取消某一类警告，例如-Wno-unused-variable表示取消未使用变量的警告</p>
+<ul>
+<li>Wno-format-nonliteral 忽略对printf格式化字符串的检查</li>
+<li>Wno-unused-parameter 忽略未使用的参数</li>
+</ul>
+</li>
+<li>
+<p>Wl,<em>代表将</em>传递给连接器，例如-Wl,-rpath=./指定运行时动态链接库的搜索路径为当前目录</p>
+<ul>
+<li>Wl,–no-as-needed 静态链接，编译时使用，告诉编译器必须链接所有的库</li>
+</ul>
+</li>
+<li>
+<p>Wformat=2 检查printf格式化字符串的正确性</p>
+</li>
+<li>
+<p>Wconversion 检查隐式类型转换</p>
+</li>
+<li>
+<p>Wsign-conversion 检查有符号和无符号类型之间的转换</p>
+</li>
+<li>
+<p>-s 从可执行文件中删除所有符号表和重定位信息.</p>
+</li>
+</ol>
+<h3 id="gcc编译过程">gcc编译过程</h3>
+<ol>
+<li>
+<p>预处理</p>
+<p>将源文件处理为 <code>.i/.ii</code> 文件，处理各种预处理的指令，例如一些宏定义等</p>
+</li>
+<li>
+<p>编译</p>
+<p>将预处理后的 <code>.i/.ii</code> 文件编译为 <code>.S/.asm</code> 文件，也就是汇编语言文件</p>
+</li>
+<li>
+<p>汇编</p>
+<p>将 <code>.S/.asm</code> 文件处理为 <code>.o</code> 文件，也就是把汇编文件处理为机器码</p>
+</li>
+<li>
+<p>链接</p>
+<p>将各种依赖的静态库/动态库文件， <code>.o</code> 文件，启动文件链接成最终可执行文件或者库文件</p>
+</li>
+</ol>
+<h3 id="预处理">预处理</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -E a.c -o a.i</span><br></pre></td></tr></table></figure>
+<h3 id="编译">编译</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -S a.c</span><br><span class="line">gcc -S a.i</span><br></pre></td></tr></table></figure>
+<h3 id="汇编">汇编</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c a.c</span><br><span class="line">gcc -c a.s</span><br></pre></td></tr></table></figure>
+<p>第二条处理汇编语言的指令，实际上是使用汇编器 <code>as</code> 将 <code>.s</code> 文件处理为 <code>.o</code> 文件的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">as a.s -o a.o</span><br></pre></td></tr></table></figure>
+<h3 id="链接">链接</h3>
+<p>其中有两个参数 <code>-L</code> 和 <code>-l</code> 用于指定链接的文件的地址和名称，使用 <code>-l</code> 可以省略库文件开头的 <code>lib</code> 和后缀</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc a.c -Ldir -lname</span><br></pre></td></tr></table></figure>
+<h3 id="查看gcc编译过程">查看gcc编译过程</h3>
+<p>使用 <code>-v</code> 来查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc a.c -v</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/03/19/gcc%E4%BD%BF%E7%94%A8/" title="gcc使用">https://luo25177.github.io/2024/03/19/gcc使用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/gcc/" rel="tag"># gcc</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/19/PF%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="prev" title="PF粒子滤波器">
+      <i class="fa fa-chevron-left"></i> PF粒子滤波器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/19/gdb%E4%BD%BF%E7%94%A8/" rel="next" title="gdb使用">
+      gdb使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gcc-gcc-g-%E4%B8%89%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">GCC、gcc、g++三者之间的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-number">2.1.</span> <span class="nav-text">linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows"><span class="nav-number">2.2.</span> <span class="nav-text">windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4%E5%8F%82%E6%95%B0-gcc-option-file"><span class="nav-number">3.</span> <span class="nav-text">gcc编译指令参数 gcc [option] file</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gcc%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">gcc编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">3.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96"><span class="nav-number">3.4.</span> <span class="nav-text">汇编</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">3.5.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bgcc%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">3.6.</span> <span class="nav-text">查看gcc编译过程</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

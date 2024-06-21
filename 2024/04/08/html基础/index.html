@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="html5基础语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html基础">
+<meta property="og:url" content="https://luo25177.github.io/2024/04/08/html%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="html5基础语法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-08T07:36:17.000Z">
+<meta property="article:modified_time" content="2024-05-13T08:24:37.549Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="html5">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/04/08/html%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>html基础 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/04/08/html%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          html基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-08 15:36:17" itemprop="dateCreated datePublished" datetime="2024-04-08T15:36:17+08:00">2024-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-13 16:24:37" itemprop="dateModified" datetime="2024-05-13T16:24:37+08:00">2024-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">html5基础语法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
+<h2 id="前言">前言</h2>
+<p>html 是一种描述网页的语言，是一种超文本标记语言，是一套标记标签，标签是被尖括号包围的关键字</p>
+<p>html 需要有 <code>DOCTYPE</code> 的声明，是文档类型的缩写，声明位于文档最前面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="html标签">html标签</h2>
+<p>定义 html 文档，这个元素是一种声明文档为 html ，而且其他的元素必须包含在内，限定文档的开始和结束</p>
+<h3 id="head标签">head标签</h3>
+<p>用于定义文档的头部，文档的头部描述了文档的各种属性和信息，包括文档的标题，在 web 中的位置以及其他和文档的关系等。大部分内容都不会被看到</p>
+<h3 id="body标签">body标签</h3>
+<p>定义文档的主体，元素包含文档的所有内容，比如文本，图像等，会在页面中直接显示</p>
+<h3 id="title标签">title标签</h3>
+<p>可以定义文档的标题，显示在浏览器窗口的标题栏或者状态栏上，是在 <code>head</code> 标签中必须要包含的标签， <code>title</code> 标签有利于 <code>SEO</code> 优化</p>
+<h3 id="meta标签">meta标签</h3>
+<p>用来描述一个网页文档的属性，关键词等</p>
+<h3 id="标题标签">标题标签</h3>
+<p>标题是通过 <code>&lt;h1&gt;~&lt;h6&gt;</code> 标签进行定义的，其中 <code>&lt;h1&gt;</code> 定义最大的标题， <code>&lt;h6&gt;</code> 定义最小的标题</p>
+<p>其中生成标题的快捷键 <code>h$*1</code> ~ <code>h$*6</code></p>
+<p>在标签中添加属性 <code>align=&quot;left|center|right&quot;</code> 默认为居左</p>
+<h3 id="段落标签">段落标签</h3>
+<p>段落是通过 <code>&lt;p&gt;</code> 标签定义的</p>
+<p>标签中使用 <code>&lt;br&gt;</code> 进行换行，单标签</p>
+<h3 id="水平线">水平线</h3>
+<p>水平线通过 <code>&lt;hr&gt;</code> 标签创建的，单标签</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>color</code> 颜色</li>
+<li><code>width</code> 长度</li>
+<li><code>size</code> 高度</li>
+<li><code>align</code> 对齐方式 <code>left|center|right</code> 默认为 <code>center</code></li>
+</ul>
+<h3 id="图片标签">图片标签</h3>
+<p>图片使用 <code>&lt;img&gt;</code> 标签定义，单标签</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>src</code> 图片路径</li>
+<li><code>alt</code> 图像的替代文本，也就是图像不能正常显示时所显示的文字</li>
+<li><code>title</code> 鼠标悬停在图像上时显示的提示</li>
+<li><code>width</code> 规定图像的宽度</li>
+<li><code>height</code> 规定图像的高度</li>
+</ul>
+<h3 id="超文本链接标签">超文本链接标签</h3>
+<p>使用 <code>&lt;a&gt;</code> 来设置超文本链接，超链接可以时一个字，一个词，也可以是一幅图，可以点击跳转到新的文档或者是当前文档的某一部分，可以在 <code>&lt;a&gt;</code> 标签的内部添加标题或者是图片来进行跳转</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>href</code> 用来描述链接的地址，一般来说，链接将以以下形式出现在浏览器中
+<ul>
+<li>未访问过的：蓝色字体带下划线</li>
+<li>访问过的，紫色字体带下划线</li>
+<li>点击时，链接显示为红色带下划线</li>
+</ul>
+</li>
+<li><code>target</code> 用来表示链接打开时的表现
+<ul>
+<li><code>_parent</code> 在本页面打开</li>
+<li><code>_blank</code> 在新页面打开</li>
+<li><code>_self</code> 在本页面打开</li>
+<li><code>_top</code> 在本页面打开</li>
+</ul>
+</li>
+</ul>
+<h3 id="文本标签">文本标签</h3>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;em&gt;</code></td>
+<td>定义着重文字</td>
+</tr>
+<tr>
+<td><code>&lt;b&gt;</code></td>
+<td>定义粗体</td>
+</tr>
+<tr>
+<td><code>&lt;i&gt;</code></td>
+<td>斜体</td>
+</tr>
+<tr>
+<td><code>&lt;strong&gt;</code></td>
+<td>加重语气</td>
+</tr>
+<tr>
+<td><code>&lt;del&gt;</code></td>
+<td>删除字</td>
+</tr>
+<tr>
+<td><code>&lt;span&gt;</code></td>
+<td>元素没有特定含义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="有序列表">有序列表</h3>
+<p>是一列项目，列表项目使用数字进行标记，有序列表用 <code>&lt;ol&gt;</code> 表示，其中的每个元素用 <code>&lt;li&gt;</code> 表示，列表是可以嵌套的。无序列表可以嵌套。生成的快捷键 <code>ol&gt;li*n</code> 这里的 <code>n</code> 表示生成几个元素</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>type</code> 属性，表示列表的显示类型
+<ul>
+<li><code>1</code> 表示列表用数字标号</li>
+<li><code>a</code> 表示列表用小写字母标号</li>
+<li><code>A</code> 表示列表用大写字母标号</li>
+<li><code>i</code> 表示列表用小写罗马数字标号</li>
+<li><code>I</code> 表示列表用大写罗马数字标号</li>
+</ul>
+</li>
+</ul>
+<h3 id="无序列表">无序列表</h3>
+<p>无序列表是一个项目的列表，项目使用醋圆点标记，用 <code>&lt;ul&gt;</code> 表示，其中每个元素用 <code>&lt;li&gt;</code> 表示，无序列表可以嵌套。生成的快捷键 <code>ul&gt;li*n</code> 这里的 <code>n</code> 表示生成几个元素</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>type</code> 表示列表的显示类型
+<ul>
+<li><code>disc</code> 默认实心圆</li>
+<li><code>circle</code> 空心圆</li>
+<li><code>square</code> 小方块</li>
+<li><code>none</code> 不显示</li>
+</ul>
+</li>
+</ul>
+<h3 id="定义列表">定义列表</h3>
+<p>使用 <code>&lt;dl&gt;</code> 属性表示定义列表，自定义列表不仅仅是一列项目，而是项目及其注释的组合，自定义列表以 <code>&lt;dl&gt;</code> 标签开始。每个自定义列表项以 <code>&lt;dt&gt;</code> 开始。每个自定义列表项的定义以 <code>&lt;dd&gt;</code> 开始</p>
+<h3 id="表格标签">表格标签</h3>
+<p>表格用来展示数据非常方便简单，使用 <code>&lt;table&gt;</code> 标签表示，快捷生成 <code>table&gt;tr*m&gt;td*n&#123;content&#125;</code> 表示生成 m * n 的表格</p>
+<p><strong>组成</strong></p>
+<ul>
+<li>行 <code>&lt;tr&gt;</code></li>
+<li>列 <code>&lt;td&gt;</code></li>
+<li>单元格</li>
+</ul>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>border</code> 单个表格的边框</li>
+<li><code>width</code> 单个表格宽度</li>
+<li><code>height</code> 单个表格高度</li>
+</ul>
+<p><strong>单元格合并</strong></p>
+<ul>
+<li><code>colspan</code> 水平合并 保留左边，删除右边</li>
+<li><code>rowspan</code> 垂直合并 保留上边，删除下边</li>
+</ul>
+<h3 id="表单属性">表单属性</h3>
+<p>在 web 网页中用来给用户填写信息，从而采集用户信息，是一个输入框，一个表单是由容器和控件组成的，一般应该包含用户填写信息的输入框，提交按钮，表单就是容器，能容纳各种各样的控件</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>action</code> 是服务器地址</li>
+<li><code>name</code> 表单名称</li>
+<li><code>method</code> 中 <code>get</code> 或 <code>post</code> 申请，是数据提交方式， <code>get</code> 提交的数据可以被 <code>url</code> 看到，但是 <code>post</code> 不能，一般 <code>get</code> 提交少数据， <code>post</code> 提交大数据</li>
+</ul>
+<p><strong>表单元素</strong></p>
+<ul>
+<li>表单标签</li>
+<li>表单域 <code>&lt;input type=&quot;text&quot;&gt;</code></li>
+<li>表单按钮 <code>&lt;input type=&quot;submit&quot;&gt;</code> 点击之后表单的内容会传递到另一个文件，表单的动作属性定义了目的文件的文件名</li>
+<li>密码 <code>&lt;input type=&quot;password&quot;&gt;</code></li>
+</ul>
+<h3 id="块元素与内联元素">块元素与内联元素</h3>
+<p>在 HTML5 中。元素的分类为</p>
+<ul>
+<li>元数据型</li>
+<li>区块型</li>
+<li>标题型</li>
+<li>文档流型</li>
+<li>语句型</li>
+<li>内嵌型</li>
+<li>交互型</li>
+</ul>
+<p>元素不属于任何一种类型，被称为穿透的，元素属于不止一个类别，被称为混合的。上述的分类太细了，所以这里只说明块级元素与内联元素的区别</p>
+<table>
+<thead>
+<tr>
+<th>块级元素</th>
+<th>内联元素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块元素会在页面中单独占据一行</td>
+<td>行内元素不会占据一行，只占自身大小</td>
+</tr>
+<tr>
+<td>可以设置 width 和 height 属性</td>
+<td>设置 width 与 height 元素无效</td>
+</tr>
+<tr>
+<td>一般块级元素可以包含行内元素与其它块级元素</td>
+<td>一般内联元素包含内联元素，但不包含块级元素</td>
+</tr>
+</tbody>
+</table>
+<p><strong>块级元素</strong></p>
+<ul>
+<li><code>&lt;div&gt;</code></li>
+<li><code>&lt;form&gt;</code></li>
+<li><code>&lt;h1&gt;~&lt;h6&gt;</code></li>
+<li><code>&lt;hr&gt;</code></li>
+<li><code>&lt;p&gt;</code></li>
+<li><code>&lt;table&gt;</code></li>
+<li><code>&lt;ul&gt;</code></li>
+</ul>
+<p><strong>内联元素</strong></p>
+<ul>
+<li><code>&lt;a&gt;</code></li>
+<li><code>&lt;b&gt;</code></li>
+<li><code>&lt;em&gt;</code></li>
+<li><code>&lt;i&gt;</code></li>
+<li><code>&lt;span&gt;</code></li>
+<li><code>&lt;strong&gt;</code></li>
+</ul>
+<p><strong>行内块级元素</strong></p>
+<ul>
+<li><code>&lt;button&gt;</code></li>
+<li><code>&lt;img&gt;</code></li>
+<li><code>&lt;input&gt;</code></li>
+</ul>
+<h3 id="容器div标签">容器div标签</h3>
+<p>使用 <code>&lt;div&gt;</code> 表示，内部有 <code>id</code> 属性，用于定义 <code>div</code> 的类型</p>
+<ul>
+<li><code>header</code> 表示为头</li>
+<li><code>nav</code> 表示导航栏</li>
+<li><code>article</code> 文章</li>
+<li><code>section</code> 章节属于 <code>article</code> 的子元素</li>
+<li><code>silder</code> 侧边栏</li>
+<li><code>footer</code> 脚部</li>
+</ul>
+<p><strong>替代div的一些标签</strong></p>
+<ul>
+<li><code>&lt;header&gt;</code> 头部</li>
+<li><code>&lt;nav&gt;</code> 导航</li>
+<li><code>&lt;section&gt;</code> 定义文档中的节，比如章节，页眉页脚等</li>
+<li><code>&lt;aside&gt;</code> 侧边栏</li>
+<li><code>&lt;footer&gt;</code> 脚部</li>
+<li><code>&lt;article&gt;</code> 代表一个独立的完整的相关内容块</li>
+</ul>
+<h3 id="iframe标签">iframe标签</h3>
+<p>框架标签，可以使得再同一个浏览器窗口中显示不止一个页面，也就是网页嵌套</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;./image.html&quot;</span> <span class="attr">width</span>=<span class="string">&quot;500px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;500px&quot;</span> <span class="attr">frameborder</span>=<span class="string">&quot;0&quot;</span> <span class="attr">name</span>=<span class="string">&quot;iframe_a&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://seashore.top&quot;</span> <span class="attr">target</span>=<span class="string">&quot;iframe_a&quot;</span>&gt;</span>seashore.top<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>src</code> 就是显示的另一个网页</li>
+<li><code>width</code> 和 <code>height</code> 显示页面的大小</li>
+<li><code>frameborder</code> 边框的线宽</li>
+</ul>
+<h3 id="字符实体">字符实体</h3>
+<p>在 <code>html</code> 中，某些字符是预留的，不能使用，所以必须在源码中使用字符实体来使用该标签，可以直接使用实体名称，也可以使用实体编号，但是有些浏览器对实体名称支持不很好</p>
+<table>
+<thead>
+<tr>
+<th>显示结果</th>
+<th>描述</th>
+<th>实体名称</th>
+<th>实体编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>空格</td>
+<td><code>&amp;nbsp;</code></td>
+<td><code>&amp;#160;</code></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于号</td>
+<td><code>&amp;lt;</code></td>
+<td><code>&amp;#60;</code></td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于号</td>
+<td><code>&amp;gt;</code></td>
+<td><code>&amp;#62;</code></td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>和号</td>
+<td><code>&amp;amp;</code></td>
+<td><code>&amp;#38;</code></td>
+</tr>
+<tr>
+<td>&quot;</td>
+<td>引号</td>
+<td><code>&amp;quot;</code></td>
+<td><code>&amp;#34;</code></td>
+</tr>
+<tr>
+<td>’</td>
+<td>撇号</td>
+<td><code>&amp;apos;</code> (IE不支持)</td>
+<td><code>&amp;#39;</code></td>
+</tr>
+<tr>
+<td>￠</td>
+<td>分</td>
+<td><code>&amp;cent;</code></td>
+<td><code>&amp;#162;</code></td>
+</tr>
+<tr>
+<td>£</td>
+<td>镑</td>
+<td><code>&amp;pound;</code></td>
+<td><code>&amp;#163;</code></td>
+</tr>
+<tr>
+<td>¥</td>
+<td>人民币/日元</td>
+<td><code>&amp;yen;</code></td>
+<td><code>&amp;#165;</code></td>
+</tr>
+<tr>
+<td>€</td>
+<td>欧元</td>
+<td><code>&amp;euro;</code></td>
+<td><code>&amp;#8364;</code></td>
+</tr>
+<tr>
+<td>§</td>
+<td>小节</td>
+<td><code>&amp;sect;</code></td>
+<td><code>&amp;#167;</code></td>
+</tr>
+<tr>
+<td>©</td>
+<td>版权</td>
+<td><code>&amp;copy;</code></td>
+<td><code>&amp;#169;</code></td>
+</tr>
+<tr>
+<td>®</td>
+<td>注册商标</td>
+<td><code>&amp;reg;</code></td>
+<td><code>&amp;#174;</code></td>
+</tr>
+<tr>
+<td>™</td>
+<td>商标</td>
+<td><code>&amp;trade;</code></td>
+<td><code>&amp;#8482;</code></td>
+</tr>
+<tr>
+<td>×</td>
+<td>乘号</td>
+<td><code>&amp;times;</code></td>
+<td><code>&amp;#215;</code></td>
+</tr>
+<tr>
+<td>÷</td>
+<td>除号</td>
+<td><code>&amp;divide;</code></td>
+<td><code>&amp;#247;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="结合音标符">结合音标符</h3>
+<p>类似于上述的字符实体，这个是加到字母上的一个字形，变音符号可以出现在字母的上面和下面，或者字母里和字母之间，可以与字母，数字字符组合使用</p>
+<table>
+<thead>
+<tr>
+<th>音标符</th>
+<th>字符</th>
+<th>代码</th>
+<th>输出结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>̀</td>
+<td>a</td>
+<td><code>a&amp;#768;</code></td>
+<td>à</td>
+</tr>
+<tr>
+<td>́</td>
+<td>a</td>
+<td><code>a&amp;#769;</code></td>
+<td>á</td>
+</tr>
+<tr>
+<td>̂</td>
+<td>a</td>
+<td><code>a&amp;#770;</code></td>
+<td>â</td>
+</tr>
+<tr>
+<td>̃</td>
+<td>a</td>
+<td><code>a&amp;#771;</code></td>
+<td>ã</td>
+</tr>
+<tr>
+<td>̀</td>
+<td>O</td>
+<td><code>O&amp;#768;</code></td>
+<td>Ò</td>
+</tr>
+<tr>
+<td>́</td>
+<td>O</td>
+<td><code>O&amp;#769;</code></td>
+<td>Ó</td>
+</tr>
+<tr>
+<td>̂</td>
+<td>O</td>
+<td><code>O&amp;#770;</code></td>
+<td>Ô</td>
+</tr>
+<tr>
+<td>̃</td>
+<td>O</td>
+<td><code>O&amp;#771;</code></td>
+<td>Õ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="canvas元素">canvas元素</h3>
+<p><code>&lt;canvas&gt;</code> 标签定义图形，比如图表和其他图像。该标签基于 JavaScript 的绘图 API</p>
+<h3 id="新多媒体元素">新多媒体元素</h3>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;audio&gt;</code></td>
+<td>定义音频内容</td>
+</tr>
+<tr>
+<td><code>&lt;video&gt;</code></td>
+<td>定义视频（video 或者 movie）</td>
+</tr>
+<tr>
+<td><code>&lt;source&gt;</code></td>
+<td>定义多媒体资源 video 和 audio</td>
+</tr>
+<tr>
+<td><code>&lt;embde&gt;</code></td>
+<td>定义嵌入的内容，比如插件。</td>
+</tr>
+<tr>
+<td><code>&lt;track&gt;</code></td>
+<td>为诸如 video 和 audio 元素之类的媒介规定外部文本轨道。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="新表单元素">新表单元素</h3>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;datalist&gt;</code></td>
+<td>定义选项列表。请与 input 元素配合使用该元素，来定义 input 可能的值。</td>
+</tr>
+<tr>
+<td><code>&lt;keygen&gt;</code></td>
+<td>规定用于表单的密钥对生成器字段。</td>
+</tr>
+<tr>
+<td><code>&lt;output&gt;</code></td>
+<td>定义不同类型的输出，比如脚本的输出。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="新语义和结构元素">新语义和结构元素</h3>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;article&gt;</code></td>
+<td>定义页面独立的内容区域。</td>
+</tr>
+<tr>
+<td><code>&lt;aside&gt;</code></td>
+<td>定义页面的侧边栏内容。</td>
+</tr>
+<tr>
+<td><code>&lt;bdi&gt;</code></td>
+<td>允许您设置一段文本，使其脱离其父元素的文本方向设置。</td>
+</tr>
+<tr>
+<td><code>&lt;command&gt;</code></td>
+<td>定义命令按钮，比如单选按钮、复选框或按钮</td>
+</tr>
+<tr>
+<td><code>&lt;details&gt;</code></td>
+<td>用于描述文档或文档某个部分的细节</td>
+</tr>
+<tr>
+<td><code>&lt;dialog&gt;</code></td>
+<td>定义对话框，比如提示框</td>
+</tr>
+<tr>
+<td><code>&lt;summary&gt;</code></td>
+<td>标签包含 details 元素的标题</td>
+</tr>
+<tr>
+<td><code>&lt;figure&gt;</code></td>
+<td>规定独立的流内容（图像、图表、照片、代码等等）。</td>
+</tr>
+<tr>
+<td><code>&lt;figcaption&gt;</code></td>
+<td>定义 figure 元素的标题</td>
+</tr>
+<tr>
+<td><code>&lt;footer&gt;</code></td>
+<td>定义 section 或 document 的页脚。</td>
+</tr>
+<tr>
+<td><code>&lt;header&gt;</code></td>
+<td>定义了文档的头部区域</td>
+</tr>
+<tr>
+<td><code>&lt;mark&gt;</code></td>
+<td>定义带有记号的文本。</td>
+</tr>
+<tr>
+<td><code>&lt;meter&gt;</code></td>
+<td>定义度量衡。仅用于已知最大和最小值的度量。</td>
+</tr>
+<tr>
+<td><code>&lt;nav&gt;</code></td>
+<td>定义导航链接的部分。</td>
+</tr>
+<tr>
+<td><code>&lt;progress&gt;</code></td>
+<td>定义任何类型的任务的进度。</td>
+</tr>
+<tr>
+<td><code>&lt;ruby&gt;</code></td>
+<td>定义 ruby 注释（中文注音或字符）。</td>
+</tr>
+<tr>
+<td><code>&lt;rt&gt;</code></td>
+<td>定义字符（中文注音或字符）的解释或发音。</td>
+</tr>
+<tr>
+<td><code>&lt;rp&gt;</code></td>
+<td>在 ruby 注释中使用，定义不支持 ruby 元素的浏览器所显示的内容。</td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code></td>
+<td>定义文档中的节（section、区段）。</td>
+</tr>
+<tr>
+<td><code>&lt;time&gt;</code></td>
+<td>定义日期或时间。</td>
+</tr>
+<tr>
+<td><code>&lt;wbr&gt;</code></td>
+<td>规定在文本中的何处适合添加换行符。</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/04/08/html%E5%9F%BA%E7%A1%80/" title="html基础">https://luo25177.github.io/2024/04/08/html基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/html5/" rel="tag"># html5</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/" rel="prev" title="GTest使用">
+      <i class="fa fa-chevron-left"></i> GTest使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/08/css%E5%9F%BA%E7%A1%80/" rel="next" title="css基础">
+      css基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html%E6%A0%87%E7%AD%BE"><span class="nav-number">2.</span> <span class="nav-text">html标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#head%E6%A0%87%E7%AD%BE"><span class="nav-number">2.1.</span> <span class="nav-text">head标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#body%E6%A0%87%E7%AD%BE"><span class="nav-number">2.2.</span> <span class="nav-text">body标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#title%E6%A0%87%E7%AD%BE"><span class="nav-number">2.3.</span> <span class="nav-text">title标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#meta%E6%A0%87%E7%AD%BE"><span class="nav-number">2.4.</span> <span class="nav-text">meta标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E9%A2%98%E6%A0%87%E7%AD%BE"><span class="nav-number">2.5.</span> <span class="nav-text">标题标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E8%90%BD%E6%A0%87%E7%AD%BE"><span class="nav-number">2.6.</span> <span class="nav-text">段落标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E7%BA%BF"><span class="nav-number">2.7.</span> <span class="nav-text">水平线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE"><span class="nav-number">2.8.</span> <span class="nav-text">图片标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E6%96%87%E6%9C%AC%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE"><span class="nav-number">2.9.</span> <span class="nav-text">超文本链接标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"><span class="nav-number">2.10.</span> <span class="nav-text">文本标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">2.11.</span> <span class="nav-text">有序列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">2.12.</span> <span class="nav-text">无序列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8"><span class="nav-number">2.13.</span> <span class="nav-text">定义列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E6%A0%87%E7%AD%BE"><span class="nav-number">2.14.</span> <span class="nav-text">表格标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E5%B1%9E%E6%80%A7"><span class="nav-number">2.15.</span> <span class="nav-text">表单属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%97%E5%85%83%E7%B4%A0%E4%B8%8E%E5%86%85%E8%81%94%E5%85%83%E7%B4%A0"><span class="nav-number">2.16.</span> <span class="nav-text">块元素与内联元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8div%E6%A0%87%E7%AD%BE"><span class="nav-number">2.17.</span> <span class="nav-text">容器div标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iframe%E6%A0%87%E7%AD%BE"><span class="nav-number">2.18.</span> <span class="nav-text">iframe标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93"><span class="nav-number">2.19.</span> <span class="nav-text">字符实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E5%90%88%E9%9F%B3%E6%A0%87%E7%AC%A6"><span class="nav-number">2.20.</span> <span class="nav-text">结合音标符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas%E5%85%83%E7%B4%A0"><span class="nav-number">2.21.</span> <span class="nav-text">canvas元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A4%9A%E5%AA%92%E4%BD%93%E5%85%83%E7%B4%A0"><span class="nav-number">2.22.</span> <span class="nav-text">新多媒体元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E8%A1%A8%E5%8D%95%E5%85%83%E7%B4%A0"><span class="nav-number">2.23.</span> <span class="nav-text">新表单元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E8%AF%AD%E4%B9%89%E5%92%8C%E7%BB%93%E6%9E%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.24.</span> <span class="nav-text">新语义和结构元素</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

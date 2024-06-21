@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="python爬虫的学习记录和使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="request-python学习记录">
+<meta property="og:url" content="https://luo25177.github.io/2024/03/19/request-python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="python爬虫的学习记录和使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-19T01:56:56.000Z">
+<meta property="article:modified_time" content="2024-04-10T00:20:50.641Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="request">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/03/19/request-python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>request-python学习记录 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/03/19/request-python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          request-python学习记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-19 09:56:56" itemprop="dateCreated datePublished" datetime="2024-03-19T09:56:56+08:00">2024-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-10 08:20:50" itemprop="dateModified" datetime="2024-04-10T08:20:50+08:00">2024-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">python爬虫的学习记录和使用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="requests-学习">requests 学习</h2>
+<p><strong>静态网络与动态网络</strong></p>
+<ul>
+<li>动态xml页面: 如果网络界面是由js加载上去的，那么网络就是动态的</li>
+<li>静态xml页面: 没有使用js加载</li>
+<li>通用爬虫: 通常指搜索引擎的爬虫 面向互联网上所有的网站</li>
+<li>聚焦爬虫: 针对特定网站的爬虫 针对几个网站，特定的网站</li>
+</ul>
+<p><strong>步骤</strong></p>
+<ol>
+<li>url list</li>
+<li>响应内容 提取url</li>
+<li>提取数据</li>
+<li>入库</li>
+</ol>
+<p><strong>DNS服务器</strong>: 根据客户给定的域名，来返回对应的 ip 地址，客户通过 ip 地址请求页面，返回页面的 html+js+css+.jpg</p>
+<h3 id="url形式">url形式:</h3>
+<ul>
+<li>scheme://host[:port# ]/path/…/[?query-string ][#anchor ]</li>
+<li>scheme: 协议(http,https,ftp)</li>
+<li>host: 服务器的ip地址或者域名</li>
+<li>port: 服务器的端口(如果是默认端口就是 80 / 443)</li>
+<li>path: 访问资源的路径</li>
+<li>query-string: 参数，发送给http服务器的数据</li>
+<li>anchor: 锚点(跳转到网页的指定冒点位置)<br>
+url地址带上锚点与不带锚点是一样的</li>
+</ul>
+<h3 id="http">HTTP</h3>
+<p>http</p>
+<ul>
+<li>超文本传输协议</li>
+<li>默认端口号: 80<br>
+https / <a target="_blank" rel="noopener" href="http://xn--yfr16ad4eh64dhfza.cn/">网址后面加.cn</a></li>
+<li>http + SSL(安全套接字层)</li>
+<li>默认端口号: 443<br>
+https 比 http 更安全，但是性能更低<br>
+https 在发送数据之前会对数据进行加密，服务端接收到数据之后还需要对数据进行解密，就可以获得内容</li>
+</ul>
+<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法,HTTP是一种基于&quot;请求与响应&quot;模式的、无状态的应用层协议。HTTP协议采用URL作为定位网络资源的的标识符。<br>
+<a target="_blank" rel="noopener" href="http://host/">http://host</a>[:post][path]<br>
+host:合法的Internet主机域名或ip地址<br>
+port:端口号，缺省为80<br>
+path:请求资源的路径</p>
+<p><strong>user-agent</strong>: 包括电脑的版本号，浏览器的版本号，浏览器的内核版本，操作系统的信息(linux,windows,macos 以及对应的版本)<br>
+通过user-agent能够让网页知道访问它的对象的信息等，如果发现<br>
+<strong>cookie</strong>: 就是保存在浏览器本地的本人浏览器信息，但是不太安全，而且一个站点的cookie都是有限的，不能无线申请<br>
+<strong>session</strong>: 就是保存在网址上的个人信息数据，一般可以存储无限个</p>
+<p>我们在申请网址的时候只需要带上name和value就可以</p>
+<p>Ajax</p>
+<h3 id="http-url的理解">HTTP URl的理解:</h3>
+<p>url是通过HTTP协议存取资源的的Internet路径，一个URL对应一个数据资源</p>
+<h3 id="http协议对资源的操作">HTTP协议对资源的操作</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>请求获取URL位置的资源</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>请求获取URL位置资源的响应消息报告，即获得资源的头部信息</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>请求向URL位置的资源后附加新的消息</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>请求向URL位置存储一个资源，覆盖原URL位置的资源</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>请求局部更新URL位置的资源,即改变该处资源的部分内容</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求删除URL位置存储的资源</td>
+</tr>
+<tr>
+<td>以上方法中，GET,HEAD是从服务器获取信息到本地，PUT,POST,PATCH,DELETE是从本地向服务器提交信息。通过URL和命令管理资源，操作独立无状态，网络通道及服务器成了黑盒子。</td>
+<td></td>
+</tr>
+<tr>
+<td>文档</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="requests库7个主要方法">requests库7个主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requsts.requst()</td>
+<td>构造一个请求，最基本的方法，是下面方法的支撑</td>
+</tr>
+<tr>
+<td>requsts.get()</td>
+<td>获取网页，对应HTTP中的GET方法</td>
+</tr>
+<tr>
+<td>requsts.post()</td>
+<td>向网页提交信息，对应HTTP中的POST方法</td>
+</tr>
+<tr>
+<td>requsts.head()</td>
+<td>获取html网页的头信息，对应HTTP中的HEAD方法</td>
+</tr>
+<tr>
+<td>requsts.put()</td>
+<td>向html提交put方法，对应HTTP中的PUT方法</td>
+</tr>
+<tr>
+<td>requsts.patch()</td>
+<td>向html网页提交局部请求修改的的请求，对应HTTP中的PATCH方法</td>
+</tr>
+<tr>
+<td>requsts.delete()</td>
+<td>向html提交删除请求，对应HTTP中的DELETE方法</td>
+</tr>
+</tbody>
+</table>
+<p>只有post请求才能够请求数据</p>
+<p>应用场景:<br>
+get(): 除了post请求之外的指令一般都使用get请求<br>
+post(): 提交表单，传输数据非常多的时候，例如:利用百度翻译或者传输图片</p>
+<h3 id="响应状态码"><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45477063/article/details/124810709">响应状态码</a></h3>
+<ul>
+<li>200: 成功</li>
+<li>302: 临时转移至新的url</li>
+<li>307: 临时转移至新的url</li>
+<li>404: not found</li>
+<li>500: 服务器内部错误，可能是对方反爬虫</li>
+</ul>
+<p>assert 断言<br>
+str 可以通过endode方法转化为 bytes<br>
+bytes 也可以通过decode方法转化为 str</p>
+<h3 id="爬虫的流程">爬虫的流程</h3>
+<ul>
+<li>url—&gt;发送请求，获取响应—&gt;提取数据—&gt;保存</li>
+<li>发送请求，获取相应—&gt;提取url<br>
+爬虫要根据当前的url地址对应的相应为准，当前的url地址的elements的内容和url的响应不一样</li>
+</ul>
+<h2 id="get">get()</h2>
+<p>get()请求的返回值就是一个响应数据，也就是请求的结果，响应状态码<br>
+get()的返回值包括text，就是返回值的一个属性</p>
+<ul>
+<li>text
+<ul>
+<li>类型 str</li>
+<li>解码类型 根据http头部对响应的编码做出有根据的推测来推测出来的文本编码</li>
+<li>修改解码方式: response.text.encoding = “utf8”<br>
+encoding，响应内容的编码方式</li>
+</ul>
+</li>
+<li>content
+<ul>
+<li>类型 bytes</li>
+<li>解码类型 没有指定</li>
+<li>可以修改解码方式 response.content.decode(“utf8”)</li>
+</ul>
+</li>
+</ul>
+<h3 id="判断是否请求成功">判断是否请求成功</h3>
+<p>使用assert，后面加入判断内容，如果判断内容是真的，那就不报错，否则就会报错</p>
+<h3 id="response-的常用方法">response 的常用方法</h3>
+<ul>
+<li>response.text</li>
+<li>response.content</li>
+<li>response.status_code</li>
+<li>response.request.headers</li>
+<li>response.headers</li>
+<li>response.url 会打印出当前的网址，并且带参数，是一种url的编码方式，可以使用url解码</li>
+</ul>
+<h3 id="字符串格式化的方式">字符串格式化的方式</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&quot;&lt;http://www.baidu.com/s?wd=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;pyhton&gt;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="post">post()</h2>
+<h3 id="使用场景">使用场景</h3>
+<ul>
+<li>登录注册(post比get更安全)</li>
+<li>需要传输大文本内容的时候</li>
+</ul>
+<h3 id="用法">用法</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reponse = requests.post(<span class="string">&quot;&lt;http://www.baidu.com&gt;&quot;</span>,data = data,headers = headers)</span><br></pre></td></tr></table></figure>
+<p>data:字典的形式，用来存储需要传输的数据<br>
+传回的数据是 json 类型的一个数据</p>
+<p>返回的数据的类型:json,text,html</p>
+<h3 id="使用代理ip">使用代理ip</h3>
+<ul>
+<li>使用爬虫需要使用代理</li>
+<li>根据ip地址能够追查到某个地址某个人，防止真实的ip地址暴漏</li>
+<li>代理ip:
+<ul>
+<li>透明代理 可以追查到真实的ip地址</li>
+<li>普匿代理</li>
+<li>高匿代理 不易追查</li>
+</ul>
+</li>
+<li>检查代理ip的可用性:
+<ul>
+<li>可以使用requests添加超时参数，判断ip地址的质量</li>
+</ul>
+</li>
+<li>可以准备一堆ip地址，组成ip池，随机选择一个ip来用
+<ul>
+<li>随机选择ip代理地址
+<ul>
+<li>{“ip”:ip,“times”:0}</li>
+<li>[{},{},{}]用列表来进行排序，按照使用次数来排列</li>
+<li>选择使用较少的10个ip地址，从中选取一个</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="cookie-和-session">cookie 和 session</h3>
+<ul>
+<li>cookie存放在客户的浏览器上，session保存在服务器上</li>
+<li>cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗</li>
+<li>session会在一定时间内保存在服务器上，当访问增多，会比较占用你的服务器的性能</li>
+<li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点只能保存20个cookie</li>
+<li>带上cookie和session的好处:能够请求到登录之后的界面</li>
+<li>带上cookie和session的弊端:
+<ul>
+<li>一套cookie和session往往之和一个用户对应</li>
+<li>请求太快，请求太多，容易被服务器识别为爬虫</li>
+</ul>
+</li>
+<li>不需要cookie的时候尽量不使用cookie</li>
+<li>但是为了获取登录之后的页面，必须使用cookie</li>
+</ul>
+<h3 id="携带cookie进行请求">携带cookie进行请求</h3>
+<ul>
+<li>携带一堆cookie进行请求，把cookie组成一个cookie池</li>
+<li>cookie储存为一个字典，然后字典组成列表，进行排序使用</li>
+</ul>
+<h3 id="requests中的session类">requests中的session类</h3>
+<p>session来实现客户端和服务端的会话保持<br>
+使用方法:</p>
+<ul>
+<li>实例化一个session对象</li>
+<li>让session来发送get或者post请求</li>
+<li>session = requests.session()</li>
+<li>response = session.get(url,header)</li>
+<li>这个session中保存了对方服务器中设置的cookie,其实就是获取到了之前登陆的信息</li>
+</ul>
+<p>请求登陆网站的思路:</p>
+<ul>
+<li>实例化session</li>
+<li>先使用session发送请求，登录对应网站，把cookie保存在session中</li>
+<li>在使用session请求登陆之后才能访问的网站，session能够自动携带登陆成功时保存在其中的cookie信息，进行请求</li>
+</ul>
+<h3 id="不发送post请求-使用cookie获取登陆后的页面">不发送post请求，使用cookie获取登陆后的页面</h3>
+<ul>
+<li>cookie过期时间太长的网站</li>
+<li>cookie过期之前能够拿到所有的数据</li>
+<li>配合其他的程序一起使用，其他的程序获取cookie，当前程序专门请求页面</li>
+</ul>
+<h3 id="字典生成-字典推导式">字典生成 字典推导式</h3>
+<p>能够把cookie转化为字典:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cookies = &#123;i.split(<span class="string">&quot;=&quot;</span>)[<span class="number">0</span>]:i.split(<span class="string">&quot;=&quot;</span>)[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> cookies.splits(<span class="string">&quot;;&quot;</span>)&#125;</span><br></pre></td></tr></table></figure>
+<p>就是能把 ; 作为分割的工具，把一个个元素分割，而且等号前面的作为 key，等号后面的作为 value<br>
+cookie是存在于headers中的，也可以直接放到请求里去</p>
+<h3 id="获取登陆后页面的三种方式">获取登陆后页面的三种方式</h3>
+<ol>
+<li>实例化session，使用session发送post请求，在使用session来获取登录之后的界面</li>
+<li>headers中添加cookie键，值为cookie字符串</li>
+<li>在请求方法中添加cookie作为参数，接受字典形式的cookie，字典形式的cookie中的键是cookie的name，值是cookie的valuek</li>
+</ol>
+<h3 id="寻找登陆的-post-地址">寻找登陆的 post 地址</h3>
+<ul>
+<li>在form表单中寻找action地址
+<ul>
+<li>post的数据是input标签中name的值作为变量，真正的用户名密码作为值的字典，post的url地址就是action对应的地址</li>
+<li>如果没有action的url地址的解决方法:
+<ul>
+<li>抓包,但是登陆的时候页面会跳转就看不到之前的界面的源码了
+<ul>
+<li>使用错误的密码登录</li>
+<li>在检查界面勾选上 preserve log</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="requests-小技巧">requests 小技巧</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests.utils</span><br><span class="line">requests.utils.dict_from_cookiejar  <span class="comment"># 就是把cookie对象转化为字典</span></span><br><span class="line">requests.utils.cookiejar_from_dict  <span class="comment"># 就是把为字典转化为cookies</span></span><br><span class="line">requests.utils.unquote(未解码的url地址) <span class="comment"># 就是对url地址解码</span></span><br><span class="line">requests.utils.quote(url) <span class="comment"># 就是把url进行编码，但是不会把/编码，会对:?进行编码</span></span><br><span class="line">response = requests.get(url,timeout = <span class="number">10</span>) <span class="comment"># 设置超时，10s钟之内没有返回响应就会报错</span></span><br><span class="line">response = requests.get(<span class="string">&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;</span>,verify = <span class="literal">False</span>) <span class="comment"># 获取证书验证 verify 就是表示是否证书验证，false就是不验证，默认为true</span></span><br><span class="line"><span class="keyword">assert</span> response.status_code == <span class="number">200</span> <span class="comment"># 断言，如果为真就继续运行，如果为假就会报错</span></span><br></pre></td></tr></table></figure>
+<p>cookie 是存在于 response 中的，就是网页保存到我们本地的 cookie</p>
+<p>alias:可以对指令进行重命名，但是只能在linux中使用，例如<br>
+alias fanyi=“Python 绝对路径/xxx.py”,就相当于在终端种输入了 python 绝对路径/xxx.py</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/03/19/request-python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="request-python学习记录">https://luo25177.github.io/2024/03/19/request-python学习记录/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/python/" rel="tag"># python</a>
+              <a href="/Blog_NexT/tags/request/" rel="tag"># request</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/19/stm32-ucos%E4%BD%BF%E7%94%A8/" rel="prev" title="stm32-ucos使用">
+      <i class="fa fa-chevron-left"></i> stm32-ucos使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/" rel="next" title="unity游戏开发-MYSQL">
+      unity游戏开发-MYSQL <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#requests-%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">requests 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">url形式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-url%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP URl的理解:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http%E5%8D%8F%E8%AE%AE%E5%AF%B9%E8%B5%84%E6%BA%90%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP协议对资源的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests%E5%BA%937%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">requests库7个主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.6.</span> <span class="nav-text">响应状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E8%99%AB%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.7.</span> <span class="nav-text">爬虫的流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get"><span class="nav-number">2.</span> <span class="nav-text">get()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E8%AF%B7%E6%B1%82%E6%88%90%E5%8A%9F"><span class="nav-number">2.1.</span> <span class="nav-text">判断是否请求成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#response-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">response 的常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">字符串格式化的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post"><span class="nav-number">3.</span> <span class="nav-text">post()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86ip"><span class="nav-number">3.3.</span> <span class="nav-text">使用代理ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-%E5%92%8C-session"><span class="nav-number">3.4.</span> <span class="nav-text">cookie 和 session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%BA%E5%B8%A6cookie%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82"><span class="nav-number">3.5.</span> <span class="nav-text">携带cookie进行请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests%E4%B8%AD%E7%9A%84session%E7%B1%BB"><span class="nav-number">3.6.</span> <span class="nav-text">requests中的session类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82-%E4%BD%BF%E7%94%A8cookie%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E5%90%8E%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="nav-number">3.7.</span> <span class="nav-text">不发送post请求，使用cookie获取登陆后的页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90-%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="nav-number">3.8.</span> <span class="nav-text">字典生成 字典推导式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E5%90%8E%E9%A1%B5%E9%9D%A2%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.9.</span> <span class="nav-text">获取登陆后页面的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E7%99%BB%E9%99%86%E7%9A%84-post-%E5%9C%B0%E5%9D%80"><span class="nav-number">3.10.</span> <span class="nav-text">寻找登陆的 post 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">3.11.</span> <span class="nav-text">requests 小技巧</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

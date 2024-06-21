@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="我愿称之为神中之神，心目中的最强文本编辑器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim使用">
+<meta property="og:url" content="https://luo25177.github.io/2024/03/19/vim%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="我愿称之为神中之神，心目中的最强文本编辑器">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-18T16:43:47.000Z">
+<meta property="article:modified_time" content="2024-04-10T00:21:56.418Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/03/19/vim%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vim使用 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/03/19/vim%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vim使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-19 00:43:47" itemprop="dateCreated datePublished" datetime="2024-03-19T00:43:47+08:00">2024-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-10 08:21:56" itemprop="dateModified" datetime="2024-04-10T08:21:56+08:00">2024-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">小工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">我愿称之为神中之神，心目中的最强文本编辑器</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<p>作为一个历史上最出色的编辑器，拥有自定义按键功能，并且可以大大提高工作效率</p>
+<h2 id="在linux中的安装">在linux中的安装</h2>
+<p>在linux中只需要一行指令安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vim</span><br></pre></td></tr></table></figure>
+<h2 id="linux-上的配置文件">linux 上的配置文件</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; etc/vim/vimrc</span></span><br><span class="line"><span class="string">&quot;</span> the call to :runtime you can find below.  If you wish to change any of those</span><br><span class="line"><span class="string">&quot; settings, you should do it in this file (/etc/vim/vimrc), since debian.vim</span></span><br><span class="line"><span class="string">&quot;</span> will be overwritten everytime an upgrade of the vim packages is performed.</span><br><span class="line"><span class="string">&quot; It is recommended to make changes after sourcing debian.vim since it alters</span></span><br><span class="line"><span class="string">&quot;</span> the value of the <span class="string">&#x27;compatible&#x27;</span> option.</span><br><span class="line"></span><br><span class="line">runtime! debian.vim</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Vim will load $VIMRUNTIME/defaults.vim if the user does not have a vimrc.</span></span><br><span class="line"><span class="string">&quot;</span> This happens after /etc/vim/vimrc(.local) are loaded, so it will override</span><br><span class="line"><span class="string">&quot; any settings in these files.</span></span><br><span class="line"><span class="string">&quot;</span> If you don<span class="number">&#x27;</span>t want that to happen, uncomment the below line to prevent</span><br><span class="line"><span class="string">&quot; defaults.vim from being loaded.</span></span><br><span class="line"><span class="string">&quot;</span> let g:skip_defaults_vim = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Uncomment the next line to make Vim more Vi-compatible</span></span><br><span class="line"><span class="string">&quot;</span> NOTE: debian.vim sets <span class="string">&#x27;nocompatible&#x27;</span>.  Setting <span class="string">&#x27;compatible&#x27;</span> changes numerous</span><br><span class="line"><span class="string">&quot; options, so any other options should be set AFTER setting &#x27;compatible&#x27;.</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> compatible</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Vim5 and later versions support syntax highlighting. Uncommenting the next</span></span><br><span class="line"><span class="string">&quot;</span> line enables syntax highlighting by <span class="keyword">default</span>.</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> has(<span class="string">&quot;syntax&quot;</span>)</span><br><span class="line">syntax on</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; If using a dark background within the editing area and syntax highlighting</span></span><br><span class="line"><span class="string">&quot;</span> turn on this option as well</span><br><span class="line"><span class="string">&quot;set background=dark</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Uncomment the following to have Vim jump to the last position when</span><br><span class="line"><span class="string">&quot; reopening a file</span></span><br><span class="line"><span class="string">&quot;</span>au BufReadPost * <span class="keyword">if</span> line(<span class="string">&quot;&#x27;\&quot;&quot;</span>) &gt; <span class="number">1</span> &amp;&amp; line(<span class="string">&quot;&#x27;\&quot;&quot;</span>) &lt;= line(<span class="string">&quot;$&quot;</span>) | exe <span class="string">&quot;normal! g&#x27;\&quot;&quot;</span> | endif</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Uncomment the following to have Vim load indentation rules and plugins</span></span><br><span class="line"><span class="string">&quot;</span> according to the detected filetype.</span><br><span class="line"><span class="string">&quot;filetype plugin indent on</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> The following are commented out as they cause vim to behave a lot</span><br><span class="line"><span class="string">&quot; differently from regular Vi. They are highly recommended though.</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> showcmd		<span class="string">&quot; Show (partial) command in status line.</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> showmatch		<span class="string">&quot; Show matching brackets.</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> ignorecase		<span class="string">&quot; Do case insensitive matching</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> smartcase		<span class="string">&quot; Do smart case matching</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> incsearch		<span class="string">&quot; Incremental search</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> autowrite		<span class="string">&quot; Automatically save before commands like :next and :make</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> hidden		<span class="string">&quot; Hide buffers when they are abandoned</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">set</span> mouse=a		<span class="string">&quot; Enable mouse usage (all modes)</span></span><br><span class="line"><span class="string">&quot;</span> Source a global configuration file <span class="keyword">if</span> available</span><br><span class="line"></span><br><span class="line">autocmd BufNewFile *.py,*.sh,*.java exec<span class="string">&quot;:call SetTitleJ()&quot;</span></span><br><span class="line">func SetTitleJ()</span><br><span class="line">call setline(<span class="number">1</span>,<span class="string">&quot;\#########################################################################&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>), <span class="string">&quot;\# File Name: &quot;</span>.expand(<span class="string">&quot;%&quot;</span>))</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">1</span>, <span class="string">&quot;\# Author: Dragon&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">2</span>, <span class="string">&quot;\# mail: [beloved25177@126.com](mailto:beloved25177@126.com)&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">3</span>, <span class="string">&quot;\# Created Time: &quot;</span>.strftime(<span class="string">&quot;%c&quot;</span>))</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">4</span>, <span class="string">&quot;\# Description:&quot;</span> )</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">5</span>, <span class="string">&quot;\#########################################################################&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">6</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line">autocmd BufNewFile *.c,*.cpp,*.h exec<span class="string">&quot;:call SetTitleC()&quot;</span></span><br><span class="line">func SetTitleC()</span><br><span class="line">call setline(<span class="number">1</span>,<span class="string">&quot;\//------------------------------------------------------------------------&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>), <span class="string">&quot;\// File Name: &quot;</span>.expand(<span class="string">&quot;%&quot;</span>))</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">1</span>, <span class="string">&quot;\// Author: Dragon&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">2</span>, <span class="string">&quot;\// mail: [beloved25177@126.com](mailto:beloved25177@126.com)&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">3</span>, <span class="string">&quot;\// Created Time: &quot;</span>.strftime(<span class="string">&quot;%c&quot;</span>))</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">4</span>, <span class="string">&quot;\// Description:&quot;</span> )</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">5</span>, <span class="string">&quot;\//------------------------------------------------------------------------&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">6</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line">autocmd BufNewFile *.md exec<span class="string">&quot;:call SetTitleM()&quot;</span></span><br><span class="line">func SetTitleM()</span><br><span class="line">call setline(<span class="number">1</span>,<span class="string">&quot;\&lt;!-- ########################################################################&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>), <span class="string">&quot;\File Name: &quot;</span>.expand(<span class="string">&quot;%&quot;</span>))</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">1</span>, <span class="string">&quot;\Author: Dragon&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">2</span>, <span class="string">&quot;\mail: [beloved25177@126.com](mailto:beloved25177@126.com)&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">3</span>, <span class="string">&quot;\Created Time: &quot;</span>.strftime(<span class="string">&quot;%c&quot;</span>))</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">4</span>, <span class="string">&quot;\Description:&quot;</span> )</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">5</span>, <span class="string">&quot;\######################################################################### --!&gt;&quot;</span>)</span><br><span class="line">call append(line(<span class="string">&quot;.&quot;</span>)+<span class="number">6</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line">nmap &lt;space&gt;w :w!</span><br><span class="line">nmap L g_</span><br><span class="line">nmap H ^</span><br><span class="line">nmap &lt;space&gt;d dd</span><br><span class="line">nmap &lt;C-n&gt; :nohl</span><br><span class="line">nmap &lt;space&gt;s :w</span><br><span class="line">nmap &lt;C-x&gt; gb</span><br><span class="line">nmap &lt;space&gt;q :q</span><br><span class="line">nmap &lt;space&gt;r &lt;C-r&gt;</span><br><span class="line">nmap gh gt</span><br><span class="line">nmap g+ :!g++&lt;space&gt;%</span><br><span class="line">nmap gc :!gcc&lt;space&gt;%</span><br><span class="line">nmap K Ojj</span><br><span class="line">nmap dL dg_</span><br><span class="line">nmap yL yg_</span><br><span class="line">nmap cL cg_</span><br><span class="line">nmap dH d^</span><br><span class="line">nmap yH y^</span><br><span class="line">nmap cH c^</span><br><span class="line">nmap nm :nohlsearch</span><br><span class="line"></span><br><span class="line">vmap L g_</span><br><span class="line">vmap H ^</span><br><span class="line"></span><br><span class="line">imap jj &lt;Esc&gt;</span><br><span class="line">imap jk &lt;Esc&gt;</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span> &lt;C-A&gt; ggVGY</span><br><span class="line"><span class="built_in">map</span>! &lt;C-A&gt; &lt;Esc&gt;ggVGY</span><br><span class="line"></span><br><span class="line">vmap L g_</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> autowrite</span><br><span class="line"><span class="built_in">set</span> ruler                   <span class="string">&quot; 打开状态栏标尺</span></span><br><span class="line"><span class="string">set cursorline              &quot;</span> 突出显示当前行</span><br><span class="line"><span class="built_in">set</span> magic                   <span class="string">&quot; 设置魔术</span></span><br><span class="line"><span class="string">set guioptions-=T           &quot;</span> 隐藏工具栏</span><br><span class="line"><span class="built_in">set</span> guioptions-=m           <span class="string">&quot; 隐藏菜单栏</span></span><br><span class="line"><span class="string">syntax on</span></span><br><span class="line"><span class="string">set tabstop=2</span></span><br><span class="line"><span class="string">set softtabstop=2</span></span><br><span class="line"><span class="string">set autoindent</span></span><br><span class="line"><span class="string">set cindent</span></span><br><span class="line"><span class="string">set number</span></span><br><span class="line"><span class="string">set hlsearch</span></span><br><span class="line"><span class="string">set noexpandtab &quot;</span> 不使用空格代替tab</span><br><span class="line"><span class="built_in">set</span> smartindent</span><br><span class="line"><span class="built_in">set</span> ignorecase</span><br><span class="line"><span class="built_in">set</span> number</span><br><span class="line"><span class="built_in">set</span> nocompatible</span><br><span class="line"><span class="built_in">set</span> backspace=<span class="number">2</span></span><br><span class="line">setlocal noswapfile <span class="string">&quot; 不要生成swap文件</span></span><br><span class="line"><span class="string">set shiftwidth=2 &quot;</span> 设定 &lt;&lt; 和 &gt;&gt; 命令移动时的宽度为 <span class="number">4</span></span><br><span class="line"><span class="built_in">set</span> bufhidden=hide <span class="string">&quot; 当buffer被丢弃的时候隐藏它</span></span><br><span class="line"><span class="string">set backupcopy=yes &quot;</span> 设置备份时的行为为覆盖</span><br><span class="line"><span class="built_in">set</span> backspace=indent,eol,start <span class="string">&quot; 不设定在插入状态无法用退格键和 Delete 键删除回车符</span></span><br><span class="line"><span class="string">set laststatus=2 &quot;</span> 显示状态栏 (默认值为 <span class="number">1</span>, 无法显示状态栏)</span><br><span class="line"><span class="built_in">set</span> autochdir <span class="string">&quot; 自动切换当前目录为当前文件所在的目录</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">if filereadable(&quot;</span>/etc/vim/vimrc.local<span class="string">&quot;)</span></span><br><span class="line"><span class="string">source /etc/vim/vimrc.local</span></span><br><span class="line"><span class="string">endif</span></span><br></pre></td></tr></table></figure>
+<h2 id="vim使用">vim使用</h2>
+<h3 id="移动光标">移动光标</h3>
+<ul>
+<li><code>h j k l</code> 上 下 左 右</li>
+<li><code>ctrl-y1</code> 上移一行</li>
+<li><code>ctrl-e1</code> 下移一行</li>
+<li><code>ctrl-u1</code> 上翻半页</li>
+<li><code>ctrl-d1</code> 下翻半页</li>
+<li><code>ctrl-f1</code> 上翻一页</li>
+<li><code>ctrl-b1</code> 下翻一页</li>
+<li><code>w</code> 跳到下一个词首，按标点或单词分割</li>
+<li><code>W</code> 跳到下一个词首，以空格分割</li>
+<li><code>e</code> 跳到下一个词尾，以标点分割</li>
+<li><code>E</code> 跳到下一个词尾</li>
+<li><code>b</code> 跳到上一个词，以标点分割</li>
+<li><code>B</code> 跳到上一个词首</li>
+<li><code>0</code> 跳至行首，不管有无缩进，就是跳到第0个字符</li>
+<li><code>^</code> 跳至行首的第一个字符</li>
+<li><code>$</code> 跳至行尾</li>
+<li><code>gg</code> 跳至文首</li>
+<li><code>G</code> 调至文尾</li>
+<li><code>ngg/nG</code> 调至第n行</li>
+<li><code>gd</code> 跳至当前光标所在的变量的声明处</li>
+<li><code>fx</code> 在当前行向后找x字符，找到了就跳转到字符位置</li>
+<li><code>;</code> 重复上一个f命令，而不用重复的输入fx</li>
+<li><code>*</code> 查找光标所在处的单词，向下查找</li>
+<li><code>#</code> 查找光标所在处的单词，向上查找</li>
+</ul>
+<h3 id="删除复制">删除复制</h3>
+<ul>
+<li><code>dd</code> 删除光标所在行，应该说是剪切，删除之后 vim 的缓冲区中会存放删除的内容</li>
+<li><code>dw</code> 删除一个字符</li>
+<li><code>diw</code> 删除一个单词</li>
+<li><code>dg_</code> 或 <code>D</code> 从当前位置删除到行末</li>
+<li><code>x</code> 删除当前字符</li>
+<li><code>X</code> 删除前一个字符</li>
+<li><code>yy</code> 复制一行，会复制换行符</li>
+<li><code>yw</code> 复制一个字符</li>
+<li><code>yiw</code> 复制一个单词</li>
+<li><code>yg_</code> 或 <code>Y</code> 复制到行末</li>
+<li><code>p</code> 粘贴粘贴板的内容到当前光标之前</li>
+<li><code>P</code> 粘贴粘贴板的内容到当前光标之后</li>
+</ul>
+<h3 id="模式转换">模式转换</h3>
+<ul>
+<li><code>i</code> 从当前光标之前进入插入模式</li>
+<li><code>I</code> 在行首进入插入模式</li>
+<li><code>a</code> 追加模式，当前光标之后进入插入模式</li>
+<li><code>A</code> 在行尾进入插入模式</li>
+<li><code>o</code> 在当前行之下新加一行，并进入插入模式</li>
+<li><code>O</code> 在当前行之上新加一行，并进入插入模式</li>
+<li><code>Esc</code> 退出当前模式</li>
+<li><code>v</code> 进入可视模式 visual mode，进入可视模式之后可以使用在普通模式的按键进行相应的操作</li>
+<li><code>V</code> 进入行可视模式 line visual mode</li>
+<li><code>ctrl-v</code> 进入块可视模式 block visual mode，但是要注意在 windows 中的 ideavim 中，默认是 <code>ctrl-q</code></li>
+</ul>
+<h3 id="编辑">编辑</h3>
+<ul>
+<li><code>J</code> 将下一行和当前行连接为一行</li>
+<li><code>cc</code> 删除当前行并进入编辑模式</li>
+<li><code>cw</code> 删除当前字符，并进入编辑模式</li>
+<li><code>c$</code> 擦除从当前位置至行末的内容，并进入编辑模式</li>
+<li><code>s</code> 删除当前字符并进入编辑模式</li>
+<li><code>S</code> 删除光标所在行并进入编辑模式</li>
+<li><code>xp</code> 交换当前字符和下一个字符</li>
+<li><code>u</code> 撤销</li>
+<li><code>r</code> 替换为输入的字符</li>
+<li><code>R</code> 连续替换</li>
+<li><code>ctrl+r</code> 重做</li>
+<li><code>guw</code> 当前字符切换为小写</li>
+<li><code>gUw</code> 当前字符切换为大写</li>
+<li><code>guiw</code> 当前单词切换为小写</li>
+<li><code>gUiw</code> 当前单词切换为大写</li>
+<li><code>~</code> 切换当前字符的大小写</li>
+<li><code>&gt;&gt;</code> 将当前行右移一个tab</li>
+<li><code>&lt;&lt;</code> 将当前行左移一个tab</li>
+<li><code>==</code> 自动缩进当前行</li>
+<li><code>gg=G</code></li>
+</ul>
+<h3 id="查找替换">查找替换</h3>
+<ul>
+<li><code>/pattern</code> 向后搜索字符串pattern</li>
+<li><code>?pattern</code> 向前搜索字符串pattern</li>
+<li><code>&quot;\c&quot;</code> 忽略大小写</li>
+<li><code>&quot;\C&quot;</code> 大小写敏感</li>
+<li><code>n</code> 下一个匹配(如果是/搜索，则是向下的下一个，?搜索则是向上的下一个)</li>
+<li><code>N</code> 上一个匹配(同上)</li>
+<li><code>:%s/old/new/g</code> 搜索整个文件，将所有的old替换为new</li>
+<li><code>:%s/old/new/gc</code> 搜索整个文件，将所有的old替换为new，每次都要你确认是否替换</li>
+</ul>
+<h3 id="退出文件">退出文件</h3>
+<ul>
+<li><code>:w</code> 将缓冲区写入文件，即保存修改</li>
+<li><code>:wq</code> 保存修改并退出</li>
+<li><code>:wq!</code> 强制保存修改并退出</li>
+<li><code>:x</code> 保存修改并退出</li>
+<li><code>:q</code> 退出，如果对缓冲区进行过修改，则会提示</li>
+<li><code>:q!</code> 强制退出，放弃修改</li>
+</ul>
+<h3 id="多文件编辑">多文件编辑</h3>
+<ul>
+<li><code>vim file1..</code> 同时打开多个文件</li>
+<li><code>:args</code> 显示当前编辑文件</li>
+<li><code>:next</code> 切换到下个文件</li>
+<li><code>:prev</code> 切换到前个文件</li>
+<li><code>:next!</code> 不保存当前编辑文件并切换到下个文件</li>
+<li><code>:prev!</code> 不保存当前编辑文件并切换到上个文件</li>
+<li><code>:wnext</code> 保存当前编辑文件并切换到下个文件</li>
+<li><code>:wprev</code> 保存当前编辑文件并切换到上个文件</li>
+<li><code>:first</code> 定位首文件</li>
+<li><code>:last</code> 定位尾文件</li>
+<li><code>ctrl+^</code> 快速在最近打开的两个文件间切换</li>
+<li><code>:split</code> 或者 <code>:sp</code> 把当前文件水平分割</li>
+<li><code>:split file</code> 把当前窗口水平分割，并且打开文件file</li>
+<li><code>:vsplit[vsp] file</code> 把当前窗口垂直分割，并且打开文件file</li>
+<li><code>:new file</code> 同 <code>split file</code></li>
+<li><code>:close</code> 关闭当前窗口</li>
+<li><code>:only</code> 只显示当前窗口, 关闭所有其他的窗口</li>
+<li><code>:all</code> 打开所有的窗口</li>
+<li><code>:vertical all</code> 打开所有的窗口, 垂直打开</li>
+<li><code>:qall</code> 对所有窗口执行：q操作</li>
+<li><code>:qall!</code> 对所有窗口执行：q!操作</li>
+<li><code>:wall</code> 对所有窗口执行：w操作</li>
+<li><code>:wqall</code> 对所有窗口执行：wq操作</li>
+<li><code>ctrl-w h</code> 跳转到左边的窗口</li>
+<li><code>ctrl-w j</code> 跳转到下面的窗口</li>
+<li><code>ctrl-w k</code> 跳转到上面的窗口</li>
+<li><code>ctrl-w l</code> 跳转到右边的窗口</li>
+<li><code>ctrl-w t</code> 跳转到最顶上的窗口</li>
+<li><code>ctrl-w b</code> 跳转到最底下的窗口</li>
+</ul>
+<p><strong>命令行中vim指令的参数</strong></p>
+<ul>
+<li><code>-o[n]</code> 以水平分屏的方式打开多个文件</li>
+<li><code>-O[n]</code> 以垂直分屏的方式打开多个文件</li>
+</ul>
+<h3 id="多标签编辑">多标签编辑</h3>
+<ul>
+<li><code>:tabedit file</code> 在新标签中打开文件file</li>
+<li><code>:tab split file</code> 在新标签中打开文件file</li>
+<li><code>:tabp</code> 切换到前一个标签</li>
+<li><code>:tabn</code> 切换到后一个标签</li>
+<li><code>:tabc</code> 关闭当前标签</li>
+<li><code>:tabo</code> 关闭其他标签</li>
+<li><code>gt</code> 到下一个tab</li>
+<li><code>gT</code> 到上一个tab</li>
+</ul>
+<h3 id="buffer操作">buffer操作</h3>
+<ul>
+<li><code>-</code> 非活动的缓冲区</li>
+<li><code>=</code> 只读缓冲区</li>
+<li><code>a</code> 当前被激活缓冲区</li>
+<li><code>h</code> 隐藏的缓冲区</li>
+<li><code>%</code> 当前的缓冲区</li>
+<li><code>#</code> 交换缓冲区</li>
+<li><code>+</code> 已经更改的缓冲区</li>
+</ul>
+<h3 id="文件操作">文件操作</h3>
+<ul>
+<li><code>vim path/</code> 打开目录</li>
+<li><code>h j k l</code> 左，下，上，右</li>
+<li><code>-</code> 返回上一目录</li>
+<li><code>enter</code> 进入目录或者文件</li>
+<li><code>D</code> 删除目录或文件</li>
+<li><code>R</code> 重命名目录或文件</li>
+<li><code>ctrl+^</code> 回退上次操作</li>
+<li><code>:q</code> 退出vim</li>
+<li><code>c</code> 使当前打开的目录成为当前目录</li>
+<li><code>d</code> 创建目录</li>
+<li><code>%</code> 创建文件</li>
+<li><code>gb</code> 转到上一个标记的文件夹</li>
+<li><code>i</code> 改变目标文件列表方式时</li>
+<li><code>^i</code> 刷新当前打开的目录，更改排列样式</li>
+<li><code>mf</code> 标记文件</li>
+<li><code>mu</code> unmark all marked files</li>
+<li><code>mz</code> compress/decompress marked file</li>
+<li><code>gh</code> 显示/不显示隐藏文件</li>
+<li><code>^h</code> 标记隐藏文件列表</li>
+<li><code>a</code> 转换显示模式，显示所有文件-只显示不隐藏文件-只显示隐藏文件</li>
+<li><code>qf</code> 显示文件信息</li>
+<li><code>qb</code> 列出被标记的文件历史</li>
+<li><code>gi</code> 显示文件信息</li>
+<li><code>md</code> 将标记的文件使用 <code>diff</code> 模式</li>
+<li><code>me</code> 编辑标记的文件，只显示一个，其余放入 <code>buffer</code> 中</li>
+<li><code>mm</code> 移动标记的文件到标记的文件目标路径中</li>
+<li><code>mc</code> copy</li>
+<li><code>mt</code> 移动到的目录</li>
+</ul>
+<p><strong>复制移动文件</strong></p>
+<ol>
+<li><code>mt</code> 移动到的目录</li>
+<li><code>mf</code> 标记要移动的文件</li>
+<li><code>mc</code> 移动/复制</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/03/19/vim%E4%BD%BF%E7%94%A8/" title="vim使用">https://luo25177.github.io/2024/03/19/vim使用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/vim/" rel="tag"># vim</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/19/fish%E4%BD%BF%E7%94%A8/" rel="prev" title="fish使用">
+      <i class="fa fa-chevron-left"></i> fish使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/19/zsh%E4%BD%BF%E7%94%A8/" rel="next" title="zsh使用">
+      zsh使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8linux%E4%B8%AD%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">在linux中的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-%E4%B8%8A%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">linux 上的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">vim使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87"><span class="nav-number">4.1.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%8D%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">删除复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">模式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91"><span class="nav-number">4.4.</span> <span class="nav-text">编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.5.</span> <span class="nav-text">查找替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E6%96%87%E4%BB%B6"><span class="nav-number">4.6.</span> <span class="nav-text">退出文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91"><span class="nav-number">4.7.</span> <span class="nav-text">多文件编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A0%87%E7%AD%BE%E7%BC%96%E8%BE%91"><span class="nav-number">4.8.</span> <span class="nav-text">多标签编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buffer%E6%93%8D%E4%BD%9C"><span class="nav-number">4.9.</span> <span class="nav-text">buffer操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">4.10.</span> <span class="nav-text">文件操作</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

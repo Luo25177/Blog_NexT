@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="google—test使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GTest使用">
+<meta property="og:url" content="https://luo25177.github.io/2024/04/02/GTest%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="google—test使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/1712026397325.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/1711853331118.png">
+<meta property="article:published_time" content="2024-04-02T13:31:54.000Z">
+<meta property="article:modified_time" content="2024-04-10T00:27:05.532Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="Cpp">
+<meta property="article:tag" content="GTest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/1712026397325.png">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/04/02/GTest%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GTest使用 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/04/02/GTest%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GTest使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-02 21:31:54" itemprop="dateCreated datePublished" datetime="2024-04-02T21:31:54+08:00">2024-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-10 08:27:05" itemprop="dateModified" datetime="2024-04-10T08:27:05+08:00">2024-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">小工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">google—test使用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<p>在编写代码中有 <code>bug</code> 很常见，通过编写完备的<strong>单元测试</strong>，可以及时发现问题，并且在后续的代码改进中持续观测是否引入了新的 <code>bug</code> ，使用 <code>GTest</code> 是一个不错的选择</p>
+<p><code>GTest</code> 可以用作代码的检测，一般来说可以搭配 <code>CTest</code> 来进行测试</p>
+<h3 id="单元测试">单元测试</h3>
+<p>就是对程序中最小的单元进行测试，最小的可测试单元可以是一个函数，一个调用过程，一个类等</p>
+<p>对于 <code>C/C++</code> 来说，测试一般是一个函数，检测目标函数在所有可能的输入下，函数执行过程和输出是否符合预期</p>
+<p>在测试功能中，每一个单元都是一个可执行文件，实现了 <code>main</code> 函数，所以要在 <code>CMakeLists.txt</code> 中使用 <code>add_test</code> 命令来添加测试用例</p>
+<h3 id="测试用例">测试用例</h3>
+<p>指的是对一项特定的任务进行测试，体现着测试方案，方法，技术和策略等，包括测试目标，环境，输入数据，步骤，预期结果和测试脚本等</p>
+<p>对于上述单元测试，就是在不同输入下，目标函数的预期执行过程和输出，不同的情形可以有一个或者多个测试用例，编写测试用例<strong>尽量覆盖所有输入情况</strong>，特别是边界值，特殊值和异常</p>
+<h2 id="gtest介绍">GTest介绍</h2>
+<p>是 Google 开源的一个跨平台的 <code>C++</code> 单元测试框架（ <code>Google Test</code> ），提供了非常丰富的测试断言、判断宏，便于开发者编写测试用例。</p>
+<h2 id="gtest配置">GTest配置</h2>
+<p>下载地址 <a target="_blank" rel="noopener" href="https://github.com/google/googletest">google-test</a></p>
+<h3 id="安装-linux">安装——linux</h3>
+<p>在终端命令行中输入指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libgtest-dev</span><br></pre></td></tr></table></figure>
+<p>然后对应的源码会下载到 <code>/usr/src/</code> 文件夹</p>
+<p>进入 <code>/usr/src/</code> 文件夹之后，会看到 <code>gtest</code> 文件夹，进入其中并且执行下列指令（在该文件夹下的操作需要有 <code>root</code> 权限）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir build</span><br><span class="line">cd build</span><br><span class="line">sudo cmake ..</span><br><span class="line">sudo make</span><br></pre></td></tr></table></figure>
+<p>执行结束之后，会在 <code>build</code> 文件夹下看到 <code>lib</code> 文件夹，里面是编译好的静态库文件，进入其中执行以下指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp libgtest*.a /usr/local/lib</span><br></pre></td></tr></table></figure>
+<p>将静态库文件复制到 <code>lib</code> 目录下，之后就可以在项目中使用 <code>find_package</code> 来找到 <code>gtest</code> 并且使用 <code>target_link_libraries</code> 指令在项目中使用了</p>
+<h3 id="配置-windows">配置——windows</h3>
+<p>在 <code>windows</code> 上的配置，可以直接将 <code>GTest</code> 添加到项目中。例如在根目录下新建一个文件夹为 <code>third_party</code> ，下载 <code>realse</code> 版本，并且解压</p>
+<p>需要修改根目录 <code>CMakeLists.txt</code> 文件，使用指令 <code>add_subdirectory</code> 导入 <code>gtest</code> 到项目中，在开启单元测试时，添加 <code>gtest</code> 为子模块，并将对应的头文件路径添加进来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enable_testing()</span><br><span class="line">add_subdirectory(third_party/googletest-release-1.12.1)</span><br><span class="line">include_directories(third_party/googletest-release-1.12.1/googletest/include)</span><br></pre></td></tr></table></figure>
+<p>此时执行 <code>cmake -B build</code> 可以看到构建目录下多了一个 <code>build/third_party/googletest-release-1.12.1</code> ，在构建的目录编译 <code>cmake</code> 之后会在构建的目录下的 <code>lib</code> 文件夹中生成四个库文件</p>
+<ul>
+<li><code>libgtest.a</code> 提供单元测试相关的功能</li>
+<li><code>libgtest_main.a</code> 提供单元测试的主入口，只有链接该库，测试用例就会编译生成可执行文件</li>
+<li><code>libgmock.a</code> 主要提供数据库交互，网络连接等方面的模拟测试</li>
+<li><code>libgmock_main.a</code> 提供数据库交互，网络连接的主入口，只有链接该库，测试用例就会编译生成可执行文件</li>
+</ul>
+<h2 id="gtest语法">GTest语法</h2>
+<p><code>gtest</code> 中的断言分为两类</p>
+<h3 id="assert"><code>ASSERT_*</code></h3>
+<p>如果检测出失败就直接退出当前函数</p>
+<ul>
+<li>条件判断
+<ul>
+<li><code>ASSERT_TRUE(condition);</code>  判断条件是否为真</li>
+<li><code>ASSERT_FALSE(condition);</code>  判断条件是否为假</li>
+</ul>
+</li>
+<li>数值比较
+<ul>
+<li><code>ASSERT_EQ(val1, val2);</code> 判断是否相等</li>
+<li><code>ASSERT_NE(val1, val2);</code> 判断是否不相等</li>
+<li><code>ASSERT_LT(val1, val2);</code> 判断是否小于</li>
+<li><code>ASSERT_LE(val1, val2);</code> 判断是否小于等于</li>
+<li><code>ASSERT_GT(val1, val2);</code> 判断是否大于</li>
+<li><code>ASSERT_GE(val1, val2);</code> 判断是否大于等于</li>
+</ul>
+</li>
+<li>字符串比较
+<ul>
+<li><code>ASSERT_STREQ(str1,str2);</code> 判断字符串是否相等</li>
+<li><code>ASSERT_STRNE(str1,str2);</code> 判断字符串是否相等</li>
+<li><code>ASSERT_STRCASEEQ(str1,str2);</code> 判断字符串是否相等，忽视大小写</li>
+<li><code>ASSERT_STRCASENESTREQ(str1,str2);</code> 判断字符串是否不相等，忽视大小写</li>
+</ul>
+</li>
+</ul>
+<h3 id="expect"><code>EXPECT_*</code></h3>
+<p>如果检测失败就发出提示，但是继续执行</p>
+<ul>
+<li>条件判断
+<ul>
+<li><code>EXPECT_TRUE(condition);</code>  判断条件是否为真</li>
+<li><code>EXPECT_FALSE(condition);</code>  判断条件是否为假</li>
+</ul>
+</li>
+<li>数值比较
+<ul>
+<li><code>EXPECT_EQ(val1, val2);</code> 判断是否相等</li>
+<li><code>EXPECT_NE(val1, val2);</code> 判断是否不相等</li>
+<li><code>EXPECT_LT(val1, val2);</code> 判断是否小于</li>
+<li><code>EXPECT_LE(val1, val2);</code> 判断是否小于等于</li>
+<li><code>EXPECT_GT(val1, val2);</code> 判断是否大于</li>
+<li><code>EXPECT_GE(val1, val2);</code> 判断是否大于等于</li>
+</ul>
+</li>
+<li>字符串比较
+<ul>
+<li><code>EXPECT_STREQ(str1,str2);</code> 判断字符串是否相等</li>
+<li><code>EXPECT_STRNE(str1,str2);</code> 判断字符串是否相等</li>
+<li><code>EXPECT_STRCASEEQ(str1,str2);</code> 判断字符串是否相等，忽视大小写</li>
+<li><code>EXPECT_STRCASENESTREQ(str1,str2);</code> 判断字符串是否不相等，忽视大小写</li>
+</ul>
+</li>
+</ul>
+<h2 id="测试">测试</h2>
+<p>需要注意的是，在测试项目中需要链接 <code>libgtest</code> ，如果在测试的程序中没有写 <code>main</code> 函数，就需要链接 <code>libgtest_main</code></p>
+<h3 id="编写测试用例-cmakelists">编写测试用例 CMakeLists</h3>
+<p>在 <code>src</code> 文件夹下新建一个文件 <code>test.cpp</code> ，并且在其中写入</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> _a, <span class="type">int</span> _b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _a + _b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">TEST</span>(test_case_name, test_name) &#123;</span><br><span class="line">  <span class="type">int</span> res = <span class="built_in">add</span>(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(res, <span class="number">30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在根目录下的 <code>CMakeLists.txt</code> 文件中继续写入下列内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">set(GTEST_LIB gtest gtest_main)</span><br><span class="line"></span><br><span class="line">add_executable(test src/test.cpp)</span><br><span class="line">target_link_libraries(test gtest gtest_main)</span><br><span class="line">add_test(NAME test COMMAND test)</span><br><span class="line">set(CTEST_OUPUT_ON_FAILURE TRUE)</span><br><span class="line">set(GTEST_COLOR TRUE)</span><br></pre></td></tr></table></figure>
+<p>然后进行构建和编译，在根目录中输入如下指令完成构建和编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake -B build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>然后就可以进行测试， <code>ctest</code> 执行测试</p>
+<p><img src="/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/1712026397325.png" alt="1712026397325.png"></p>
+<h3 id="编写测试程序-g">编写测试程序 g++</h3>
+<p>直接新建源文件 <code>test.cpp</code> ，并且在其中写入</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> _a, <span class="type">int</span> _b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _a + _b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">TEST</span>(test_case_name, test_name) &#123;</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="built_in">add</span>(<span class="number">10</span>, <span class="number">20</span>), <span class="number">30</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="built_in">add</span>(<span class="number">12</span>, <span class="number">318</span>), <span class="number">330</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在终端执行下列指令，进行编译</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ test1.cpp -lgtest -lpthread -lgtest_main</span><br></pre></td></tr></table></figure>
+<p>然后运行生成的 <code>a.out</code> 文件，就可以看到测试结果了</p>
+<p><img src="/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/1711853331118.png" alt="1711853331118.png"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/04/02/GTest%E4%BD%BF%E7%94%A8/" title="GTest使用">https://luo25177.github.io/2024/04/02/GTest使用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/Cpp/" rel="tag"># Cpp</a>
+              <a href="/Blog_NexT/tags/GTest/" rel="tag"># GTest</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/02/CMakeLists%E7%BC%96%E5%86%99/" rel="prev" title="CMakeLists编写">
+      <i class="fa fa-chevron-left"></i> CMakeLists编写
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/08/html%E5%9F%BA%E7%A1%80/" rel="next" title="html基础">
+      html基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">测试用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gtest%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">GTest介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gtest%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">GTest配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-linux"><span class="nav-number">3.1.</span> <span class="nav-text">安装——linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-windows"><span class="nav-number">3.2.</span> <span class="nav-text">配置——windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gtest%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">GTest语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-number">4.1.</span> <span class="nav-text">ASSERT_*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expect"><span class="nav-number">4.2.</span> <span class="nav-text">EXPECT_*</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B-cmakelists"><span class="nav-number">5.1.</span> <span class="nav-text">编写测试用例 CMakeLists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F-g"><span class="nav-number">5.2.</span> <span class="nav-text">编写测试程序 g++</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

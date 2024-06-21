@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="es6的一些基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es基础">
+<meta property="og:url" content="https://luo25177.github.io/2024/04/11/es%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="es6的一些基础知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-11T03:37:54.000Z">
+<meta property="article:modified_time" content="2024-05-13T08:24:37.455Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="es6">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/04/11/es%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>es基础 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/04/11/es%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          es基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-11 11:37:54" itemprop="dateCreated datePublished" datetime="2024-04-11T11:37:54+08:00">2024-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-13 16:24:37" itemprop="dateModified" datetime="2024-05-13T16:24:37+08:00">2024-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">es6的一些基础知识</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
+<h2 id="简介">简介</h2>
+<p>es 与 js 的关系就是，前者是后者的规范，后者是前者的一种实现</p>
+<h2 id="环境配置">环境配置</h2>
+<h3 id="nodejs">nodejs</h3>
+<p>nodejs 的下载安装与一般的软件无异，从官网找到并且下载安装就好</p>
+<h3 id="npm">npm</h3>
+<p>需要使用镜像下载： <a target="_blank" rel="noopener" href="https://npmmirror.com/">镜像地址</a></p>
+<p>直接在终端执行下列命令就可完成安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://npmmirror.com/</span><br></pre></td></tr></table></figure>
+<h2 id="语法">语法</h2>
+<h3 id="let关键字">let关键字</h3>
+<p>特点</p>
+<ul>
+<li>声明的变量只在当前的代码块中有效</li>
+<li>不满足变量提升，也就是必须在声明之后使用变量，不然会报错</li>
+<li>不允许重复声明同一个变量</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  let a = 0;</span><br><span class="line">&#125;</span><br><span class="line">a = 1; // 报错</span><br></pre></td></tr></table></figure>
+<h3 id="const关键字">const关键字</h3>
+<p>特点</p>
+<ul>
+<li>声明之后变量不可改变</li>
+<li>声明时必须初始化</li>
+<li>不满足变量提升，也就是必须在声明之后使用变量，不然会报错</li>
+<li>只在当前的代码块中有效</li>
+<li>不允许重复声明同一个变量</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const a = 1;</span><br><span class="line">a = 2; // 报错</span><br></pre></td></tr></table></figure>
+<h3 id="变量解构赋值">变量解构赋值</h3>
+<p>解构可以用于对象，也可以很方便的将现有的对象的方法赋值到某个变量，对象的顺序没有要求，但是必须与属性同名才能得到正确的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;age, name&#125; = &#123;<span class="attr">name</span>:<span class="string">&quot;1&quot;</span>, <span class="attr">age</span>:<span class="number">10</span>&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name, age);</span><br></pre></td></tr></table></figure>
+<h3 id="字符串扩展">字符串扩展</h3>
+<ul>
+<li>在 es6 中增加了字符串对 <code>unicode</code> 字符码的支持，可以在代码中使用 <code>\uxxx</code> 来表示一个字符
+<ul>
+<li><code>unicode</code> 码即统一码，是计算机科学领域里的一项业界标准，包括字符集，编码方案等， <code>unicode</code> 是为了解决传统的字符编码方案的局限而产生的，为每种语言的每个字符都设定了统一并且唯一的二进制编码</li>
+</ul>
+</li>
+<li>利用 <code>for...of</code> 语句实现字符串的遍历</li>
+<li>模板字符串，是增强版的字符串，使用反引号 ` 标记，可以当作普通字符串使用，也可用来定义多行字符串，或者在字符串中嵌入变量</li>
+<li><code>include()</code> 表示字符串中是否包含参数字符串，返回布尔值，支持第二个参数，表示开始搜索的位置，默认为0</li>
+<li><code>srartsWith()</code> 返回布尔值，表示字符串是否以参数字符串开头，同上</li>
+<li><code>endsWith()</code> 返回布尔值，表示字符串是否以参数字符串结尾，同上</li>
+<li><code>repeat()</code> 返回一个由源字符串重复 <code>n</code> 次的字符串</li>
+<li><code>padStart()</code> 如果不够指定长度，在头部补全</li>
+<li><code>padEnd()</code> 如果不够指定长度，在尾部补全</li>
+<li><code>trimStart()</code> 消除字符串头部的空格，返回新字符串，不改变源字符串</li>
+<li><code>trimEnd()</code> 消除字符串头部的空格，同上</li>
+<li><code>at()</code> 返回指定位置的字符，支持负索引</li>
+</ul>
+<h3 id="数组扩展">数组扩展</h3>
+<ul>
+<li>扩展运算符，三个点，将一个数组转为用逗号分割的参数序列
+<ul>
+<li>将数组转为函数的参数，不需要再使用 <code>apply</code> 方法了</li>
+<li>作为合并数组的新写法</li>
+</ul>
+</li>
+<li><code>Array.from()</code> 用于将类数组转为真正的数组，常见类数组有三种
+<ul>
+<li>arguments</li>
+<li>元素集合</li>
+<li>类似数组的对象，但是书写要求较高，有严格的标准</li>
+</ul>
+</li>
+<li><code>Array.of()</code> 将一组数值转为数组</li>
+</ul>
+<h3 id="对象扩展">对象扩展</h3>
+<ul>
+<li>es6 允许再大括号内，直接写入变量和函数，作为对象的属性和方法，用于函数的返回值</li>
+<li>属性名表达式，允许字面量定义对象，用表达式作为对象的属性名，就是把标达式放在括号内</li>
+<li>对象的扩展运算符，三个点，相当于将对象展开</li>
+</ul>
+<h3 id="函数扩展">函数扩展</h3>
+<ul>
+<li>箭头函数，es6 允许使用箭头 <code>=&gt;</code> 定义函数
+<ul>
+<li>箭头函数如果不需要参数或者需要多个参数，就使用一个圆括号代表参数部分</li>
+<li>如果箭头函数的代码块部分多于一条语句，就使用大括号将它们括起来，使用 <code>return</code> 返回</li>
+<li>箭头函数的作用就是简化回调函数</li>
+<li>对于普通函数，内部的 <code>this</code> 指向函数运行时所在的对象，但是对于箭头函数，内部的 <code>this</code> 就是定义时上层作用域中的 <code>this</code> ，箭头函数没有自己的 <code>this</code> 只能调用上层的 <code>this</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="set">Set</h3>
+<ul>
+<li>es6 提供了新的数据结构 <code>Set</code> ，类似于数组，但是成员的数值是唯一的，没有重复的值</li>
+<li><code>Set</code> 本身是一个构造函数，用来生成 <code>Set</code> 数据结构</li>
+<li>通过 <code>add</code> 方法加入成员，而且 <code>Set</code> 不会添加重复的值</li>
+<li>可以接收一个数组作为参数</li>
+<li>可以用作数组去除重复项的方法</li>
+<li>字符串去除重复字符</li>
+<li>加入值时，数据类型不会发生转换，所以字符和数字是会分别的</li>
+<li><code>size</code> 返回实例的成员总数</li>
+<li><code>add()</code> 添加元素</li>
+<li><code>delete()</code> 删除某个值，返回一个布尔值，表示删除操作是否成功</li>
+<li><code>has()</code> 是否有某个元素</li>
+<li><code>clear()</code> 清除所有元素</li>
+</ul>
+<h3 id="promise">promise</h3>
+<p>是异步编程的一种解决办法， <code>Promise</code> 是一个对象，从它可以获取异步操作的消息</p>
+<p>有三种 <code>promise</code> 状态，除了异步操作的结果，任何其他操作都无法改变这个状态，只有从 <code>pending</code> 变为 <code>fulfilled</code> 和从 <code>pending</code> 变为 <code>rejected</code> 的状态改变。只要处于 <code>fulfilled</code> 和 <code>rejected</code> ，状态就不会再变了即 <code>resolved</code></p>
+<ul>
+<li><code>pending</code> 进行中</li>
+<li><code>fulfilled</code> 已成功</li>
+<li><code>rejected</code> 已失败</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>无法取消 <code>Promise</code> ，一旦新建它就会立即执行，无法中途取消</li>
+<li>如果不设置回调函数， <code>Promise</code> 内部抛出的错误，不会反应到外部</li>
+<li>当处于 <code>pending</code> 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）</li>
+</ul>
+<p><strong>then方法</strong></p>
+<ul>
+<li>接收两个函数作为参数，第一个参数是 <code>Promise</code> 执行成功时的回调，第二个参数是 <code>Promise</code> 执行失败时的回调，两个函数只会有一个被调用</li>
+<li>当事件队列的当前运行完成之前，回调函数永不会被调用，</li>
+<li><code>then</code> 方法可以返回值作为下一个链式反应的值</li>
+<li>当忘记返回值时，对应链条被打破，导致之后的链式反应与当前链式反应同时进行</li>
+<li>大多数浏览器中不能终止的 <code>Promise</code> 链里的 <code>rejection</code> ，建议后面都跟上 <code>.catch(error =&gt; console.log(error));</code></li>
+</ul>
+<h3 id="async函数">Async函数</h3>
+<p>使得异步操作更方便，可以把异步操作变为同步操作，但是需要使用 <code>await</code> 关键字来等待异步操作完成，以此来实现同步</p>
+<h3 id="类的使用">类的使用</h3>
+<p><code>js</code> 中，生成实例对象的传统方法是通过构造函数来实现，在 <code>es6</code> 中引入了 <code>class</code> ，通过这个关键字可以定义类</p>
+<ul>
+<li>实例化需要使用 <code>new</code> 来实现</li>
+<li>类不存在提升，也就是只能在声明之后使用</li>
+</ul>
+<p><strong>实例的属性</strong></p>
+<p>是指类的对象实例可以调用的属性，一般就是在构造函数中所声明并且定义的属性</p>
+<p><strong>静态方法</strong></p>
+<p>所有在类中定义的方法都会被实例继承，但是对于 <code>static</code> 方法不会被实例继承，但是可以直接调用，而实例中却没有此方法，如果静态方法中包含 <code>this</code> 那这个就是指这个类，而不是实例</p>
+<p><strong>静态属性</strong></p>
+<p>就是 <code>class</code> 本身的属性，也就是 <code>Class.propname</code> ，这个可以在类之外定义，但是不会被实例继承</p>
+<h3 id="module语法">module语法</h3>
+<p><code>js</code> 没有将一个大的程序拆分成一些相互有依赖关系的小文件，再用简单的方式拼接起来，但是在 <code>es6</code> 中引入了 <code>module</code> 方法来实现此功能</p>
+<p>先通过 <code>export</code> 指令显示指定来自外部的代码，再通过 <code>import</code> 命令输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export var hello = &quot;hello&quot;;</span><br><span class="line">import&#123;hello&#125; form &quot;./hello.js&quot;;</span><br></pre></td></tr></table></figure>
+<p>测试需要采用 <code>Nodejs</code> 的方式测试 <code>module</code> 语法</p>
+<h3 id="generator函数">Generator函数</h3>
+<p><code>Generator</code> 函数有两个区分于普通函数的部分</p>
+<ul>
+<li>在 <code>function</code> 之后，函数名之前有个 <code>*</code></li>
+<li>函数内部有 <code>yield</code> 表达式，用 <code>yield</code> 来定义函数内部的状态</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function *func() &#123;</span><br><span class="line">  console.log(&quot;one&quot;);</span><br><span class="line">  yield &#x27;1&#x27;;</span><br><span class="line">  console.log(&quot;two&quot;);</span><br><span class="line">  return &#x27;2&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>执行机制</strong></p>
+<p>调用 <code>Generator</code> 函数和调用普通函数一样，在函数名后加上 <code>()</code> 即可，但是该函数不会像普通函数一样立即执行，而是返回一个指向内部状态的指针，所以要调用遍历器对象 <code>iterator</code> 的 <code>next</code> 方法，指针就会从函数头部或者上一次停下来的地方开始执行，类似于 <code>python</code> 中的生成器函数，每调用一次都会执行到下一个 <code>yield</code> 或者 <code>return</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func.next(); // &#x27;one&#x27; value=&#x27;1&#x27;</span><br><span class="line">func.next(); // &#x27;two&#x27; value=&#x27;2&#x27;</span><br><span class="line">func.next(); // value=undefined</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，如果获取 <code>yield</code> 的值，那每一步 <code>yield</code> 之后，执行下一次这个参数会变成 <code>undefined</code> ，但是如果使用 <code>next</code> 传参的话，这个数据就会被附上值，总之有点复杂，可以直接看运行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function *func() &#123;</span><br><span class="line">  console.log(&quot;one&quot;);</span><br><span class="line">  var x = yield &#x27;1&#x27;;</span><br><span class="line">  console.log(&quot;x = &quot; + x);</span><br><span class="line">  console.log(&quot;two&quot;);</span><br><span class="line">  return &#x27;2&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">var f = func();</span><br><span class="line">console.log(f.next()); </span><br><span class="line">console.log(f.next());// x = undefined</span><br><span class="line">console.log(f.next());</span><br><span class="line"></span><br><span class="line">var f1 = func();</span><br><span class="line">console.log(f1.next(10)); </span><br><span class="line">console.log(f1.next(20)); // x = 20</span><br></pre></td></tr></table></figure>
+<p>除了使用 <code>next</code> 遍历该函数，还可以使用 <code>for...of</code> 来实现遍历</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var f3 = func();</span><br><span class="line">for (var item of f3) &#123;</span><br><span class="line">  item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>return方法</strong></p>
+<p>返回给定值，并且结束遍历 <code>Generator</code> 函数</p>
+<p>提供参数时返回该参数，不提供参数时，返回 <code>undefined</code></p>
+<p><strong>错误处理</strong></p>
+<p>对于下列 <code>Generator</code> 函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var func2 = function* () &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    yield;</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    console.log(&#x27;catch inner&#x27;, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var f2 = func2();</span><br><span class="line">f2.next;</span><br><span class="line">try &#123;</span><br><span class="line">  f2.throw(&#x27;a&#x27;);</span><br><span class="line">  f2.throw(&#x27;b&#x27;);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&#x27;catch outside&#x27;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遍历器对象会抛出两个错误，第一个被 <code>Generator</code> 函数内部捕获，另一个因为函数体内部的 <code>catch</code> 函数已经执行过了，不会再捕获这个错误，所以这个错误就抛出 <code>Generator</code> 函数体，被函数体外的 <code>catch</code> 捕获</p>
+<p><strong>yield*表达式</strong></p>
+<p><code>yield*</code> 表达式表示 <code>yield</code> 返回一个遍历器对象，用于在 <code>Generator</code> 函数内部，调用另一个 <code>Generator</code> 函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function* callee() &#123;</span><br><span class="line">  console.log(&#x27;callee: &#x27; + (yield));</span><br><span class="line">&#125;</span><br><span class="line">function* caller() &#123;</span><br><span class="line">  while (true) &#123;</span><br><span class="line">    yield* callee();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="reflext与proxy">Reflext与Proxy</h3>
+<ul>
+<li><code>Proxy</code> 可以对目标对象的读取、函数调用等操作进行拦截，然后进行操作处理。它不直接操作对象，而是像代理模式，通过对象的代理对象进行操作，在进行这些操作时，可以添加一些需要的额外操作。</li>
+<li><code>Reflect</code> 可以用于获取目标对象的行为，它与 <code>Object</code> 类似，但是更易读，为操作对象提供了一种更优雅的方式。它的方法与 <code>Proxy</code> 是对应的</li>
+<li><code>Reflect</code> 对象的方法与 <code>Proxy</code> 对象的方法是一一对应的。所以 <code>Proxy</code> 对象的方法可以通过调用 <code>Reflect</code> 对象的方法获取默认行为，然后进行额外操作</li>
+</ul>
+<h3 id="proxy">Proxy</h3>
+<p>一个 <code>Proxy</code> 对象由两个部分组成： <code>target</code> 和 <code>handler</code> 。在通过 <code>Proxy</code> 构造函数生成实例对象时，需要提供这两个参数。 <code>target</code> 即目标对象， <code>handler</code> 是一个对象，声明了代理 <code>target</code> 的指定行为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">let target = &#123;</span><br><span class="line">  name: &#x27;Tom&#x27;,</span><br><span class="line">  age: 24</span><br><span class="line">&#125;</span><br><span class="line">let handler = &#123;</span><br><span class="line">  get: function(target, key) &#123;</span><br><span class="line">    console.log(&#x27;getting &#x27;+key);</span><br><span class="line">    return target[key]; // 不是target.key</span><br><span class="line">  &#125;,</span><br><span class="line">  set: function(target, key, value) &#123;</span><br><span class="line">    console.log(&#x27;setting &#x27;+key);</span><br><span class="line">    target[key] = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let proxy = new Proxy(target, handler)</span><br><span class="line">proxy.name</span><br><span class="line">proxy.age = 25 </span><br><span class="line">proxy.sex = &quot;man&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>target</code> 可以为空对象</li>
+<li><code>handler</code> 对象也可以为空，相当于不设置拦截操作，直接访问目标对象</li>
+<li>通过构造函数新建实例时其实是对目标对象进行了浅拷贝，因此目标对象与代理对象会互相影响</li>
+</ul>
+<p><strong>实例方法</strong></p>
+<ul>
+<li><code>get(target, propKey, receiver)</code> 用于 <code>target</code> 对象上的 <code>propKey</code> 的读取操作，而且 <code>get</code> 方法可以继承</li>
+<li><code>set(target, propKey, value, receiver)</code> 用于拦截 <code>target</code> 对象上的 <code>propKey</code> 的赋值操作，如果目标对象自身的某个属性不可写且不可配置，那 <code>set</code> 方法将不起作用，第四个参数 <code>receiver</code> 表示原始操作行为所在对象，一般是 <code>Proxy</code> 实例本身，严格模式下， <code>set</code> 代理如果没有返回 <code>true</code> ，就会报错</li>
+<li><code>apply(target, ctx, args)</code> 用于拦截函数的调用， <code>call</code> 和 <code>reply</code> 操作，而 <code>target</code> 表示目标对象， <code>ctx</code> 表示目标对象上下文， <code>args</code> 表示目标对象的参数数组</li>
+<li><code>has(target, propKey)</code> 用于拦截 <code>HasProperty</code> 操作，即在判断 <code>target</code> 对象是否存在 <code>propKey</code> 属性时，会被这个方法拦截。此方法不判断一个属性是对象自身的属性，还是继承的属性，此方法不拦截 <code>for...in</code> 循环</li>
+<li><code>construct(target, args)</code> 此方法用于拦截 <code>new</code> 指令，返回值必须为对象</li>
+<li><code>deleteProperty(target, propKey)</code> 用于拦截 <code>delete</code> 操作，如果这个方法抛出错误或者返回 <code>false</code> ， <code>propKey</code> 属性就无法被 <code>delete</code> 命令删除</li>
+<li><code>defineProperty(target, propKey, propDesc)</code> 用于拦截 <code>Object.definePro</code> 若目标对象不可扩展，增加目标对象上不存在的属性会报错；若属性不可写或不可配置，则不能改变这些属性</li>
+<li><code>getOwnPropertyDescriptor(target, propKey)</code> 用于拦截 <code>Object.getOwnPropertyD()</code> 返回值为属性描述对象或者 <code>undefined</code></li>
+<li><code>getPrototypeOf(target)</code> 主要用于拦截获取对象原型的操作，返回值必须是对象或者 <code>null</code> ，否则报错。另外，如果目标对象不可扩展（non-extensible）， <code>getPrototypeOf</code> 方法必须返回目标对象的原型对象，主要包括
+<ul>
+<li><code>Object.prototype._proto_</code></li>
+<li><code>Object.prototype.isPrototypeOf()</code></li>
+<li><code>Object.getPrototypeOf()</code></li>
+<li><code>Reflect.getPrototypeOf()</code></li>
+<li><code>instanceof</code></li>
+</ul>
+</li>
+<li><code>isExtensible(target)</code> 用于拦截 <code>Object.isExtensible</code> 操作，该方法只能返回布尔值，否则返回值会被自动转为布尔值，它的返回值必须与目标对象的isExtensible属性保持一致，否则会抛出错误</li>
+<li><code>ownKeys(target)</code> 用于拦截对象自身属性的读取操作，方法返回的数组成员，只能是字符串或 Symbol 值，否则会报错。若目标对象中含有不可配置的属性，则必须将这些属性在结果中返回，否则就会报错。若目标对象不可扩展，则必须全部返回且只能返回目标对象包含的所有属性，不能包含不存在的属性，否则也会报错。主要包括
+<ul>
+<li><code>Object.getOwnPropertyNames()</code></li>
+<li><code>Object.getOwnPropertySymbols()</code></li>
+<li><code>Object.keys()</code></li>
+<li><code>or...in</code></li>
+</ul>
+</li>
+<li><code>preventExtensions(target)</code> 拦截 <code>Object.preventExtensions</code> 操作。该方法必须返回一个布尔值，否则会自动转为布尔值</li>
+<li><code>setPrototypeOf()</code> 主要用来拦截 <code>Object.setPrototypeOf</code> 方法。返回值必须为布尔值，否则会被自动转为布尔值。若目标对象不可扩展， <code>setPrototypeOf</code> 方法不得改变目标对象的原型</li>
+<li><code>Proxy.revocable()</code> 用于返回一个可取消的 <code>Proxy</code> 实例</li>
+</ul>
+<h3 id="reflect">Reflect</h3>
+<p>es6 中将 <code>Object</code> 的一些明显属于语言内部的方法移植到了 <code>Reflect</code> 对象上（当前某些方法会同时存在于 <code>Object</code> 和 <code>Reflect</code> 对象上），未来的新方法会只部署在 <code>Reflect</code> 对象上。 <code>Reflect</code> 对象对某些方法的返回结果进行了修改，使其更合理。 <code>Reflect</code> 对象使用函数的方式实现了 <code>Object</code> 的命令式操作</p>
+<p><strong>静态方法</strong></p>
+<ul>
+<li><code>Reflect.get(target, name, receiver)</code> 查找并返回 <code>target</code> 对象的 <code>name</code> 属性</li>
+<li><code>Reflect.set(target, name, value, receiver)</code> 将 <code>target</code> 的 <code>name</code> 属性设置为 <code>value</code> 。返回值为布尔值， <code>true</code> 表示修改成功，<code>false</code> 表示失败。当 <code>target</code> 为不存在的对象时，会报错</li>
+<li><code>Reflect.has(obj, name)</code> 是 <code>name in obj</code> 指令的函数化，用于查找 <code>name</code> 属性在 <code>obj</code> 对象中是否存在。返回值为布尔值。如果 <code>obj</code> 不是对象则会报错 <code>TypeError</code></li>
+<li><code>Reflect.deleteProperty(obj, property)</code> 是 <code>delete obj[property]</code> 的函数化，用于删除 <code>obj</code> 对象的 <code>property</code> 属性，返回值为布尔值。如果 <code>obj</code> 不是对象则会报错 <code>TypeError</code></li>
+<li><code>Reflect.construct(obj, args)</code> 等同于 <code>new target(...args)</code></li>
+<li><code>Reflect.getPrototypeOf(obj)</code> 用于读取 <code>obj</code> 的 <code>_proto_</code> 属性。在 <code>obj</code> 不是对象时不会像 <code>Object</code> 一样把 <code>obj</code> 转为对象，而是会报错</li>
+<li><code>Reflect.setPrototypeOf(obj, newProto)</code> 用于设置目标对象的 <code>prototype</code></li>
+<li><code>Reflect.apply(func, thisArg, args)</code> 等同于 <code>Function.prototype.apply.call(func, thisArg, args)</code> 。 <code>func</code> 表示目标函数， <code>thisArg</code> 表示目标函数绑定的 <code>this</code> 对象， <code>args</code> 表示目标函数调用时传入的参数列表，可以是数组或类似数组的对象。若目标函数无法调用，会抛出 <code>TypeError</code></li>
+<li><code>Reflect.defineProperty(target, propertyKey, attributes)</code> 用于为目标对象定义属性。如果 <code>target</code> 不是对象，会抛出错误。</li>
+<li><code>Reflect.getOwnPropertyDescriptor(target, propertyKey)</code> 用于得到 <code>target</code> 对象的 <code>propertyKey</code> 属性的描述对象。在 <code>target</code> 不是对象时，会抛出错误表示参数非法，不会将非对象转换为对象</li>
+<li><code>Reflect.isExtensible(target)</code> 用于判断 <code>target</code> 对象是否可扩展。返回值为布尔值。如果 <code>target</code> 参数不是对象，会抛出错误</li>
+<li><code>Reflect.preventExtensions(target)</code> 用于让 <code>target</code> 对象变为不可扩展。如果 <code>target</code> 参数不是对象，会抛出错误</li>
+<li><code>Reflect.ownKeys(target)</code> 用于返回 <code>target</code> 对象的所有属性，等同于 <code>Object.getOwnPropertyNames</code> 与 <code>Object.getOwnPropertySymbols</code> 之和</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/04/11/es%E5%9F%BA%E7%A1%80/" title="es基础">https://luo25177.github.io/2024/04/11/es基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/es6/" rel="tag"># es6</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/11/js%E5%9F%BA%E7%A1%80/" rel="prev" title="js基础">
+      <i class="fa fa-chevron-left"></i> js基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/16/verilog%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" rel="next" title="verilog基础语法">
+      verilog基础语法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs"><span class="nav-number">2.1.</span> <span class="nav-text">nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">2.2.</span> <span class="nav-text">npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.1.</span> <span class="nav-text">let关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.2.</span> <span class="nav-text">const关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">3.3.</span> <span class="nav-text">变量解构赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95"><span class="nav-number">3.4.</span> <span class="nav-text">字符串扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%89%A9%E5%B1%95"><span class="nav-number">3.5.</span> <span class="nav-text">数组扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%89%A9%E5%B1%95"><span class="nav-number">3.6.</span> <span class="nav-text">对象扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%89%A9%E5%B1%95"><span class="nav-number">3.7.</span> <span class="nav-text">函数扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">3.8.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#promise"><span class="nav-number">3.9.</span> <span class="nav-text">promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async%E5%87%BD%E6%95%B0"><span class="nav-number">3.10.</span> <span class="nav-text">Async函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.11.</span> <span class="nav-text">类的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module%E8%AF%AD%E6%B3%95"><span class="nav-number">3.12.</span> <span class="nav-text">module语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator%E5%87%BD%E6%95%B0"><span class="nav-number">3.13.</span> <span class="nav-text">Generator函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflext%E4%B8%8Eproxy"><span class="nav-number">3.14.</span> <span class="nav-text">Reflext与Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy"><span class="nav-number">3.15.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflect"><span class="nav-number">3.16.</span> <span class="nav-text">Reflect</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

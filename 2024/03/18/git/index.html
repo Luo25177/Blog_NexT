@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="git的一些使用方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git">
+<meta property="og:url" content="https://luo25177.github.io/2024/03/18/git/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="git的一些使用方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/03/18/git/IMG_20240320_093427.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/03/18/git/1710899281606.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/03/18/git/1710899471693.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/03/18/git/image.png">
+<meta property="article:published_time" content="2024-03-18T08:02:26.000Z">
+<meta property="article:modified_time" content="2024-06-17T16:38:16.464Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2024/03/18/git/IMG_20240320_093427.png">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/03/18/git/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>git | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/03/18/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-18 16:02:26" itemprop="dateCreated datePublished" datetime="2024-03-18T16:02:26+08:00">2024-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-18 00:38:16" itemprop="dateModified" datetime="2024-06-18T00:38:16+08:00">2024-06-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">小工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">git的一些使用方法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<p>git 是一个十分强大的远程项目管理的系统，对于开发者来说十分重要，它的版本管理功能也十分强大，而且存储空间也有 1GB，还算挺大的。</p>
+<p>本人曾在一次事故中磁盘损坏导致丢失了自己做的项目，熬夜半年多完成的心血，很心痛。。。</p>
+<p>所以在这里告诫大家， <strong>一定要做好备份</strong></p>
+<h3 id="ssh与github">SSH与github</h3>
+<p>SSH（安全外壳协议，Secure Shell 的缩写）是建立在应用层基础上的安全协议。SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议，利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。简单来说，SSH就是保障你的账户安全，将你的数据加密压缩，不仅防止其他人截获你的数据，还能加快传输速度。</p>
+<p>一般来说，安装 git bash 之后实际上是自带 SSH 的，所以可以检验一下，在终端输入指令 <code>ssh</code> 会显示出 <code>usage</code> 的内容，那就是装好了，有问题的话，可以自行百度一下。</p>
+<p>没问题了就可以输入指令 <code>ssh-keygen -t rsa</code> ，使用 RSA 算法生成密钥，然后，如下</p>
+<p><img src="/Blog_NexT/2024/03/18/git/IMG_20240320_093427.png" alt="IMG_20240320_093427.png"></p>
+<p>其中 红色圈里面是输入保存的地址，蓝色圈里输入的是 passphrase，可以不输入，直接回车就行。最终去你保存的地址找到它</p>
+<p>接下来我们要做的事情就是把公钥 id.pub  的内容添加到 GitHub。复制公钥 id.pub 文件里的内容，你可以通过目录找到 id.pub 文件的位置，打开复制里面的内容。（文件名是与上述操作中文件名称有关，我的设置的路径是 E:\id，所以相应的文件名就是 id）</p>
+<p>之后进入github的主页，进入设置（settings），然后找到 SSH and GPG keys，点击 New SSH key，创建一个新的 SSH</p>
+<p><img src="/Blog_NexT/2024/03/18/git/1710899281606.png" alt="1710899281606.png"></p>
+<p>将在文件 id.pub 中复制的内容，粘贴到图下的 key 中，然后点击 Add SSH key，就好了</p>
+<p><img src="/Blog_NexT/2024/03/18/git/1710899471693.png" alt="1710899471693.png"></p>
+<p>之后，在终端中输入 <code>ssh -T [git@github.com](mailto:git@github.com)</code> 进行检验，第一次会有一个询问，只要回答 <code>yes</code> 就可以了，出现提示 <code>successfully authenticated</code> 就表示绑定成功。</p>
+<h2 id="git-命令">git 命令</h2>
+<p><img src="/Blog_NexT/2024/03/18/git/image.png" alt="image"></p>
+<h3 id="head">HEAD</h3>
+<p>指的就是 <code>.git/HEAD</code> 文件，存储着当前工作空间所处的某次 <code>commit</code></p>
+<p><code>HEAD</code> 是当前分支引用的指针，它总是指向某次 commit，默认是上一次的 commit。 这表示 <code>HEAD</code> 将是下一次提交的父结点。 通常，可以把 <code>HEAD</code> 看做你的上一次提交的快照。当然 <code>HEAD</code> 的指向是可以改变的，比如你提交了 commit，切换了仓库，分支，或者回滚了版本，切换了 tag 等</p>
+<h3 id="环境">环境</h3>
+<ul>
+<li><code>git config --global item val</code> 设置全局参数，其中 <code>item</code> 就是需要设置的项， <code>val</code> 就是设置的值</li>
+<li><code>git config --list</code> 查看环境参数列表，包括全局参数列表</li>
+<li><code>git config --global --list</code> 查看全局参数列表</li>
+<li><code>git config item</code> 查看对应 <code>item</code> 的值</li>
+</ul>
+<h3 id="初始化">初始化</h3>
+<ul>
+<li><code>git init</code> 初始化仓库</li>
+</ul>
+<h3 id="状态">状态</h3>
+<ul>
+<li><code>git status</code> 查看工作区和暂存区的状态</li>
+<li><code>git status -s</code> 输出更加简洁</li>
+</ul>
+<h3 id="下载仓库">下载仓库</h3>
+<ul>
+<li><code>git clone [-b branch_name] https/ssh</code> 下载代码，可以指定该仓库的分支，默认为主分支</li>
+<li><code>git pull</code> 从远程仓库更新到本地仓库</li>
+<li><code>git fetch</code> 从远程仓库获取最新修改，用户在检查了以后决定是否合并到工作本机分支中</li>
+</ul>
+<h3 id="提交">提交</h3>
+<ul>
+<li><code>git add [file1] [file2] ...</code> 将对应文件添加到暂存区</li>
+<li><code>git add [dir]</code> 将对应目录添加到暂存区</li>
+<li><code>git add .</code> 将当前目录下所有文件添加到暂存区，实际上就是目录 <code>.</code></li>
+<li><code>git commit -m &quot;message&quot;</code> 将暂存区的文件提交到本地仓库中，需要注意的是，一定要写 <code>message</code> ，不然提交会失败</li>
+<li><code>git commit -a</code> 不需要执行 <code>git add</code> 指令，直接将所有更改提交到本地仓库</li>
+<li><code>git commit -am &quot;message&quot;</code> 不需要执行 <code>git add</code> 指令，直接将所有更改提交到本地仓库</li>
+<li><code>git push</code> 推送，将本地仓库推送到远程仓库，会进行对比操作，默认会推送到当前的分支</li>
+<li><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code> 将本地的分支版本上传到远程仓库并且合并，将本地分支推送到对应主机的远程分支处</li>
+<li><code>git push --force</code> 当本地版本与远程版本有差异，但又需要强制推送，可以使用 <code>--force</code> 参数</li>
+</ul>
+<h3 id="分支操作">分支操作</h3>
+<ul>
+<li><code>git branch</code> 查看本地分支</li>
+<li><code>git branch -v</code> 查看本地分支和上次提交的信息</li>
+<li><code>git branch -vv</code> 查看本地分支和上次提交的信息以及本地和远程分支的关系</li>
+<li><code>git branch -vv -a</code> 查看本地分支和上次提交的信息以及本地和远程分支的关系和远程分支</li>
+<li><code>git branch -r</code> 查看远程分支</li>
+<li><code>git branch -a</code> 查看所有分支</li>
+<li><code>git branch branch_name</code> 创建本地分支</li>
+<li><code>git checkout -b branch_name</code> 创建本地分支并且切换到该分支</li>
+<li><code>git branch -d branch_name</code> 删除本地分支</li>
+<li><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code> 创建远程分支</li>
+<li><code>git push &lt;主机名&gt; --delete &lt;分支名&gt;</code> 删除远程分支</li>
+<li><code>git push &lt;主机名&gt; -d &lt;分支名&gt;</code> 删除远程分支</li>
+<li><code>git push &lt;主机名&gt;:&lt;分支名&gt;</code> 删除远程分支</li>
+<li><code>git merge &lt;branch&gt;</code> 合并指定分支到当前分支中</li>
+<li><code>git rebase &lt;base&gt; &lt;topic&gt;</code> 将主题分支 <code>topic</code> 变基到目标分支 <code>base</code> 上</li>
+<li><code>git switch &lt;branch&gt;</code> 用于更清晰地切换分支。与 <code>git checkout</code> 类似，但提供了更清晰的语义和错误检查</li>
+<li><code>git switch -c/--create &lt;new_branch&gt;</code> 用于创建一个新分支 <code>new_branch</code> 并且立即切换到新创建的分支</li>
+<li><code>git switch -</code> 快速切换回前一个分支，无需记住分支名称</li>
+<li><code>git switch &lt;option&gt; &lt;commit_hash&gt;</code> 将工作目录切换到指定提交 <code>commit_hash</code> 的状态，处于分离 <code>HEAD</code> 的状态
+<ul>
+<li><code>-d/--detach</code> 选项可以使切换到某个提交的操作更明确，即使存在同名分支也不会切换到分支上</li>
+<li><code>-c</code> 选项创建新分支并立即切换到该分支</li>
+<li><code>-f/--force</code> 选项可以强制执行切换操作，即使存在未提交的更改</li>
+</ul>
+</li>
+</ul>
+<h3 id="远程操作">远程操作</h3>
+<ul>
+<li><code>git remote</code> 列出当前仓库中已经配置的远程仓库</li>
+<li><code>git remote -v</code> 列出当前仓库配置的远程仓库，并且显示出其 url</li>
+<li><code>git remote add &lt;remote_name&gt; &lt;remote_url&gt;</code> 添加一个新的远程仓库，指定一个远程仓库的名称和 url，并将其添加到当前仓库中</li>
+<li><code>git remote rename &lt;old_name&gt; &lt;new_name&gt;</code> 将已经配置的远程仓库重命名</li>
+<li><code>git remote remove/rm &lt;remote_name&gt;</code> 从当前仓库中删除指定的远程仓库</li>
+<li><code>git remote set-url &lt;remote_name&gt; &lt;new_url&gt;</code> 修改指定远程仓库的 url</li>
+<li><code>git remote show &lt;remote_name&gt;</code> 显示指定的远程仓库的详细信息，包括 url 和跟踪分支</li>
+</ul>
+<h3 id="恢复版本操作">恢复版本操作</h3>
+<ul>
+<li><code>git reset [--soft | --mixed | --hard] [HEAD]</code> 用于回退版本，可以指定回退某一次提交的版本，回退之后，最新版本就被删除了
+<ul>
+<li><code>HEAD</code> 当前版本</li>
+<li><code>HEAD^</code> 上个版本</li>
+<li><code>HEAD^^</code> 上上个版本</li>
+<li><code>HEAD...</code> 以此类推</li>
+<li><code>HEAD~0</code> 当前版本</li>
+<li><code>HEAD~1</code> 上个版本</li>
+<li><code>HEAD~2</code> 上上个版本</li>
+<li><code>HEAD...</code> 以此类推</li>
+<li><code>--soft</code> 用于回退到某个版本</li>
+<li><code>--hard</code> 参数撤销工作区中所有未提交的修改内容，将暂存区与工作区都回到上一次版本，并删除之前的所有信息提交</li>
+<li><code>--mixed</code> 为默认，可以不用带该参数，用于重置暂存区的文件与上一次的提交(commit)保持一致，工作区文件内容保持不变</li>
+</ul>
+</li>
+<li><code>git revert &lt;commit_id&gt;</code> 用于撤消版本，将指定的 <code>commit_id</code> 的提交的内容从当前分支上撤除</li>
+<li><code>git revert HEAD</code> 撤销对应的版本
+<ul>
+<li><code>HEAD</code> 撤销前一次 <code>commit</code></li>
+<li><code>HEAD^</code> 撤销前前一次 <code>commit</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>区别</strong></p>
+<ol>
+<li><code>git revert</code> 是用一次新的 <code>commit</code> 来回滚之前的 <code>commit</code> ， <code>git reset</code> 是直接删除指定的 <code>commit</code></li>
+<li>在回滚这一操作上看，效果差不多。但是在日后继续 <code>merge</code> 以前的老版本时有区别。因为 <code>git revert</code> 是用一次逆向的 <code>commit</code> 抵消之前的提交，因此日后合并老的 <code>branch</code> 时，导致这部分改变不会再次出现，但是 <code>git reset</code> 是之间把某些 <code>commit</code> 在某个 <code>branch</code> 上删除，因而和老的 <code>branch</code> 再次 <code>merge</code> 时，这些被回滚的 <code>commit</code> 应该还会被引入</li>
+<li><code>git reset</code> 是把HEAD向后移动了一下，而 <code>git revert</code> 是 <code>HEAD</code> 继续前进，只是新的 <code>commit</code> 的内容和要 <code>revert</code> 的内容正好相反，能够抵消要被 <code>revert</code> 的内容</li>
+</ol>
+<h3 id="追溯文件修改记录">追溯文件修改记录</h3>
+<ul>
+<li><code>git blame filename</code> 追溯一个指定文件的历史修改记录，能显示任何文件中每一行最后一次修改的提交记录</li>
+<li><code>git blame -L n1,n2 filename</code> 使用 <code>-L</code> 参数来指定追溯文件的行数范围</li>
+<li><code>git show [options] &lt;object&gt;</code> 用于显示各种类型的对象，对于提交，它显示日志消息和文本差异，对于标签，它显示标签消息和引用对象</li>
+<li><code>git show commit_id</code> 用于查看某次提交的详情，使用 <code>git log</code> 指令查看提交日志，可以看到对应的 <code>commit_id</code></li>
+<li><code>git show tag</code> 显示对应标签的详情，使用 <code>git tag</code> 来获得对应的 <code>tag</code></li>
+<li><code>git show commit_id filename</code> 查看某次提交中某个文件的详情</li>
+<li><code>git diff [file]</code> 比较文件在暂存区和工作区的差异</li>
+<li><code>git diff --cached/--staged [file]</code> 显示暂存区和上一次提交的差异</li>
+<li><code>git diff [first-branch]...[second-branch]</code> 显示两次提交之间的差异</li>
+</ul>
+<h3 id="stash-操作">stash 操作</h3>
+<ul>
+<li><code>git stash</code> 会把所有未提交的修改（包括暂存的和非暂存的）都保存起来，用于后续恢复当前工作目录，stash 是本地的，不会通过 <code>git push</code> 命令上传</li>
+<li><code>git stash pop</code> 命令恢复之前缓存的工作目录，将缓存堆栈中的第一个 stash 删除，并将对应修改应用到当前的工作目录下</li>
+<li><code>git stash apply</code> 将缓存堆栈中的 stash 多次应用到工作目录中，但并不删除 stash 拷贝</li>
+<li><code>git stash list</code> 查看现有的 stash</li>
+<li><code>git stash drop [stash_name]</code> 移除对应的 stash</li>
+<li><code>git stash clear</code> 删除所有缓存的 stash</li>
+<li><code>git stash show [stash_name]</code> 查看指定的 stash 的 diff</li>
+<li><code>git stash show [stash_name] -p/--patch</code> 查看指定的 stash 的全部 diff</li>
+<li><code>git stash branch branch_name</code> 从存储的工作中创建一个分支</li>
+<li><code>git stash -u</code> 可以缓存 untracked 文件</li>
+<li><code>git stash -a</code> 可以缓存当前目录下的所有修改</li>
+</ul>
+<p><strong>注意</strong></p>
+<p>默认情况下，git stash会缓存下列文件：</p>
+<ol>
+<li>添加到暂存区的修改（staged changes）</li>
+<li>git 跟踪的但并未添加到暂存区的修改（unstaged changes）</li>
+</ol>
+<p>但不会缓存一下文件：</p>
+<ol>
+<li>在工作目录中新的文件（untracked files）</li>
+<li>被忽略的文件（ignored files）</li>
+</ol>
+<p>但是可以使用</p>
+<h3 id="其它一些操作">其它一些操作</h3>
+<ul>
+<li><code>git remove/rm --cached xxx</code> 从远程版本库中删除文件，但是不删除本地系统和工作目录中的文件</li>
+<li><code>git mv</code> 令用于移动或重命名一个文件、目录、软连接，使用与 Linux 中的 <code>mv</code> 指令类似</li>
+<li><code>git clean options &lt;path&gt;</code> 从工作目录中/指定路径下删除所有没有 <code>tracked</code> ，没有被管理的文件
+<ul>
+<li><code>-n</code> 显示将要被删除的文件</li>
+<li><code>-f</code> 强制运行</li>
+<li><code>-d</code> 删除未被添加到 git 路径中的文件（将 .gitignore 文件标记的文件全部删除）</li>
+<li><code>-x</code> 删除没有被 track 的文件</li>
+</ul>
+</li>
+<li><code>git log [&lt;options&gt;] [&lt;since&gt;..&lt;until&gt;] [[--] &lt;path&gt;...]</code> 主要用于查看 git 版本演变历史（也就是提交历史），同时根据追加的参数和选项不同，也会有不同的展示效果，太过于复杂了，可以看看 <a target="_blank" rel="noopener" href="https://blog.csdn.net/hlsxjh/article/details/135532818">git log</a></li>
+</ul>
+<h2 id="gitignore">gitignore</h2>
+<h3 id="作用">作用</h3>
+<p><code>.gitignore</code> 文件位于工作区的根目录中，用来指定忽略的文件，从而实现忽略一些不重要的文件，从而减少整个项目占用的空间（毕竟 <code>github</code> 仓库最大 1GB）</p>
+<h3 id="工作原理">工作原理</h3>
+<p>在任何当前工作的 git 仓库中，每个文件都被做上了标记：</p>
+<ul>
+<li>追踪的（tracked）- 这些是 git 所知道的所有文件或目录。这些是新添加（用 git add 添加）和提交（用 git commit 提交）到主仓库的文件和目录</li>
+<li>未被追踪的（untracked） - 这些是在工作目录中创建的，但还没有被暂存（或用 git add 命令添加）的任何新文件或目录</li>
+<li>被忽略的（ignored） - 这些是 git 知道的要全部排除、忽略或在 git 仓库中不需要注意的所有文件或目录。本质上，这是一种告诉 git 哪些未被追踪的文件应该保持不被追踪并且永远不会被提交的方法</li>
+</ul>
+<p>所有被忽略的文件都会被保存在 <code>.gitignore</code> 文件中，它是一个纯文本文件，包含了项目中所有指定的文件和文件夹的列表，这些文件和文件夹是 git 忽略的</p>
+<h3 id="创建">创建</h3>
+<p>直接在工作区的根目录中创建文件即可</p>
+<h3 id="书写">书写</h3>
+<ul>
+<li><code>filename</code> 直接忽略工作空间内所有名为 <code>filename</code> 的文件/文件夹</li>
+<li><code>dir/filename</code> 忽略 <code>dir</code> 目录下的名为 <code>filename</code> 的文件/文件夹。这个 <code>dir</code> 一般为相对路径，相对于 <code>.gitignore</code> 的路径</li>
+<li><code>dir/</code> 忽略 <code>dir</code> 目录下的所有文件/文件夹</li>
+<li>正则表达式，所有符合正则表达式的匹配都会被忽略
+<ul>
+<li><code>xx*</code> 以 <code>xx</code> 开头的文件/文件夹</li>
+<li><code>xx.*</code> 所有带有后缀的文件/文件夹</li>
+<li><code>*.xx</code> 所有以 <code>.xx</code> 文件扩展名结尾的文件</li>
+</ul>
+</li>
+<li><code>!filename</code> 当这个文件名匹配到其它的忽略项时，可以使用该语句来取消忽略</li>
+</ul>
+<h3 id="注意事项">注意事项</h3>
+<p><code>.gitignore</code> 只能忽略没有提交或者上传的文件，当已经提交/上传了的话，只是不会再更新对应的文件了，已经提交/上传的依旧会保存，这个需要注意</p>
+<h2 id="一些其它注意事项">一些其它注意事项</h2>
+<h3 id="创建一个新仓库">创建一个新仓库</h3>
+<ol>
+<li>
+<p><strong>方法1</strong><br>
+直接在本地创建，然后发布到远程端，比较方便</p>
+</li>
+<li>
+<p><strong>方法2</strong><br>
+在远程端创建好，然后在本地端与之绑定</p>
+</li>
+<li>
+<p><strong>方法3</strong><br>
+在远程端创建好，然后直接下载到本地端使用</p>
+</li>
+</ol>
+<h3 id="遇到的一些奇怪的问题">遇到的一些奇怪的问题</h3>
+<ol>
+<li><code>can’t push refs to remote</code> 重新建立一个分支之后就可以向那个分支提交，之后有需要可以合并分支，但是好像有其它方法，忘记了。。。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/03/18/git/" title="git">https://luo25177.github.io/2024/03/18/git/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/18/%E5%8F%8C%E8%BD%AE%E8%B6%B3%E5%BC%8F%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6%E5%99%A8%E8%AE%BE%E8%AE%A1/" rel="prev" title="双轮足式机器人控制器设计">
+      <i class="fa fa-chevron-left"></i> 双轮足式机器人控制器设计
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/18/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/" rel="next" title="代码整洁之道">
+      代码整洁之道 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh%E4%B8%8Egithub"><span class="nav-number">1.1.</span> <span class="nav-text">SSH与github</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">git 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-number">2.1.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">2.2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.3.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81"><span class="nav-number">2.4.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E4%BB%93%E5%BA%93"><span class="nav-number">2.5.</span> <span class="nav-text">下载仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4"><span class="nav-number">2.6.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">2.7.</span> <span class="nav-text">分支操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">2.8.</span> <span class="nav-text">远程操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E7%89%88%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.9.</span> <span class="nav-text">恢复版本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%BD%E6%BA%AF%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">2.10.</span> <span class="nav-text">追溯文件修改记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stash-%E6%93%8D%E4%BD%9C"><span class="nav-number">2.11.</span> <span class="nav-text">stash 操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C"><span class="nav-number">2.12.</span> <span class="nav-text">其它一些操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitignore"><span class="nav-number">3.</span> <span class="nav-text">gitignore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">3.3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%A6%E5%86%99"><span class="nav-number">3.4.</span> <span class="nav-text">书写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.5.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B6%E5%AE%83%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">一些其它注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E4%BB%93%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">创建一个新仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A5%87%E6%80%AA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.2.</span> <span class="nav-text">遇到的一些奇怪的问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

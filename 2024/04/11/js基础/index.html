@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="js基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js基础">
+<meta property="og:url" content="https://luo25177.github.io/2024/04/11/js%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="js基础知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-11T03:37:06.000Z">
+<meta property="article:modified_time" content="2024-05-13T08:24:37.455Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/04/11/js%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>js基础 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/04/11/js%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          js基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-11 11:37:06" itemprop="dateCreated datePublished" datetime="2024-04-11T11:37:06+08:00">2024-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-13 16:24:37" itemprop="dateModified" datetime="2024-05-13T16:24:37+08:00">2024-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">js基础知识</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
+<h2 id="前言">前言</h2>
+<p><code>JavaScript</code> 是一种轻量级的脚本语言，所谓脚本语言就是指它不具备开发操作系统的能力，而只是用来编写控制其他大型应用程序的脚本。 <code>JavaScript</code> 是一种嵌入式语言，本身提供的核心语法不算很多，可用于 <code>html</code> 和 <code>web</code> ，更可广泛应用于服务器，PC等设备</p>
+<p>类似于 C 语言，一行一行的执行，每一行就是一条语句</p>
+<h3 id="优点">优点</h3>
+<ul>
+<li>操控浏览器的能力</li>
+<li>广泛的使用领域</li>
+<li>易学</li>
+</ul>
+<h3 id="与ecmascript-的关系">与ECMAScript 的关系</h3>
+<p><code>ECMAScript</code> 和 <code>JavaScript</code> 的关系，前者式后者的规格。后者是前者的一种实现</p>
+<h2 id="将js引入到html文件中">将js引入到html文件中</h2>
+<h3 id="嵌入到文件中">嵌入到文件中</h3>
+<p>需要在 <code>&lt;body&gt;</code> 标签之内嵌入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> num = <span class="number">10</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(num);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="引入独立js文件">引入独立js文件</h3>
+<p>要在 <code>script</code> 标签内定义 <code>type</code> 和 <code>src</code> 属性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./语法.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>type</code> 表示引入文件类型</li>
+<li><code>src</code> 文件的路径</li>
+</ul>
+<h3 id="引入网络来源文件">引入网络来源文件</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://...&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其中的 <code>src</code> 就是引入的 js 文件的网址，不需要指定 <code>type</code> 类型</p>
+<h2 id="语法">语法</h2>
+<h3 id="标识符">标识符</h3>
+<p>标识符指的是用来识别各种值的合法名称，最常见的标识符就是变量名，标识符是由字母，dollar符号，下划线和数字组成，不能以数字开头，中文是合法的标识符，可做变量名，不推荐</p>
+<h3 id="保留关键字">保留关键字</h3>
+<p>在 js 中的保留关键字不能用作标识符</p>
+<h3 id="变量">变量</h3>
+<p>可以被赋值的标识符，类似于 C 语言</p>
+<h3 id="注释">注释</h3>
+<p>js 中代码的注释不会被引擎解释，有两种写法</p>
+<ul>
+<li>行注释 <code>//</code></li>
+<li>块注释 <code>/*...*/</code></li>
+<li>嵌入在 <code>html</code> 中的注释 <code>&lt;!--...--&gt;</code></li>
+</ul>
+<h3 id="输出">输出</h3>
+<p>有多种输出方式</p>
+<ul>
+<li><code>alert(content)</code> 弹窗输出</li>
+<li><code>document.write(content)</code> 文件写入</li>
+<li><code>console.log(content)</code> 终端输出</li>
+</ul>
+<h3 id="数据类型">数据类型</h3>
+<ul>
+<li>原始数据类型
+<ul>
+<li>数值</li>
+<li>字符串</li>
+<li>布尔值</li>
+</ul>
+</li>
+<li>特殊值
+<ul>
+<li>undefined</li>
+<li>null</li>
+</ul>
+</li>
+<li>合成类型
+<ul>
+<li>对象</li>
+</ul>
+</li>
+<li>新增类型
+<ul>
+<li>Symbol</li>
+<li>BigInt</li>
+</ul>
+</li>
+</ul>
+<h3 id="运算符">运算符</h3>
+<ul>
+<li>typeof运算符 可以检测数据类型，对于数据类型中， <code>null</code> 和 <code>undefined</code> 都可以表示没有，将一个变量做这两种赋值是没有区别的</li>
+<li><code>+</code></li>
+<li><code>-</code></li>
+<li><code>*</code></li>
+<li><code>/</code></li>
+<li><code>%</code></li>
+<li><code>++</code></li>
+<li><code>--</code></li>
+<li><code>=</code></li>
+<li><code>+=</code></li>
+<li><code>-=</code></li>
+<li><code>*=</code></li>
+<li><code>/=</code></li>
+<li><code>%=</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;</code></li>
+<li><code>&lt;=</code></li>
+<li><code>&gt;=</code></li>
+<li><code>==</code></li>
+<li><code>===</code> 严格相等</li>
+<li><code>!=</code></li>
+<li><code>!==</code> 严格不相等</li>
+<li><code>!</code></li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+</ul>
+<h3 id="条件语句">条件语句</h3>
+<ul>
+<li><code>if</code></li>
+<li><code>if...else if...else</code></li>
+<li><code>switch...case...default</code></li>
+</ul>
+<h3 id="三目运算符">三目运算符</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(condition) ? a : b;</span><br></pre></td></tr></table></figure>
+<h3 id="循环语句">循环语句</h3>
+<ul>
+<li><code>for</code></li>
+<li><code>while()</code></li>
+</ul>
+<p>跳出循环的语句 <code>break</code> 中断循环， <code>continue</code> 终止此次循环，开启下次循环</p>
+<h3 id="字符串">字符串</h3>
+<p>由零个或多个放在双引号或者单引号之中的字符，单引号字符串内部可以使用双引号，双引号字符串内部可以使用单引号。对于双引号内部使用双引号和单引号内部使用单引号，必须使用转义 <code>\'</code> 和 <code>\&quot;</code></p>
+<p><strong>常用方法</strong></p>
+<ul>
+<li><code>length</code> 属性，返回字符串的长度</li>
+<li><code>charAt()</code> 返回指定位置的字符</li>
+<li><code>concat()</code> 用于连接两个字符串，返回一个新的字符串，不改变原字符串，可以接收多个字符串，如果参数不是字符串会将其转为字符串然后连接</li>
+<li><code>substring()</code> 截取字符串，两个参数，第一个表示开始位置，第二个表示结束位置，不包括结束位置，默认是到末尾，会自动调换两和位置的顺序，保证小的在前，会把负数转为 0</li>
+<li><code>substr()</code> 截取字符串，两个参数，第一个表示开始位置（从0开始），第二个表示截取长度，到结束为止。第一个参数为 0 意味着倒着计算字符的为止，第二个参数小于等于 0 返回空字符串</li>
+<li><code>indexOf()</code> 用于确定一个字符串在另一个字符串中第一次出现的为止，返回结果是匹配开始的为止，如果返回 <code>-1</code> 表示没有匹配项，还可以接受第二个参数，表示从该位置向后匹配</li>
+<li><code>trim()</code> 去除字符串两端的空格，返回新的字符串，不改变源字符串，去除的不仅仅是空格，还有换行，回车和制表符</li>
+<li><code>split()</code> 按照某个字符来分割，就是以某个字符作为分割符，从字符串中找到该字符时将该字符作为分割符把字符串分割，如果分割字符为空，则返回源字符的每一个字符</li>
+</ul>
+<h3 id="数组">数组</h3>
+<p>是按照次序排列的一组值，每个值位置都有编号，整个数组用方括号表示，位置排列从 0 开始，这个数组是一个通用的数组，任何数据都可以被放入数组中</p>
+<ul>
+<li><code>length</code> 属性，返回数组的长度</li>
+<li>遍历，可以使用 <code>for</code> 循环，或者是 <code>while</code> 循环，使用 <code>for(... in ...)</code> 进行循环</li>
+<li><code>Array.isArray()</code> 返回一个布尔值，表示参数是否为数组，可以弥补 <code>typeof</code> 运算符的不足，这个方法不是数组的内部元素</li>
+<li><code>push()</code> 用于在数组的末端添加一个或多个元素，并且返回添加新元素后的数组长度，该方法会改变原数组</li>
+<li><code>pop()</code> 用于删除数组的最后一个元素，并且返回该元素</li>
+<li><code>shift()</code> 用于删除数组的第一个元素，并且返回该元素，会改变原数组</li>
+<li><code>unshift()</code> 用于向元素第一个位置添加元素，并且返回该数组的长度，会改变原数组，可以接收多个参数，这些参数都会添加到目标数组头部</li>
+<li><code>join()</code> 指定参数作为分割符，将所有数组成员连接成为一个字符串，默认为逗号，对于数组中的数组，就使用逗号进行分割，如果数组成员时 <code>undefined</code> 或者 <code>null</code> 或者空位，会被转为空字符串</li>
+<li><code>concat()</code> 用于多个数组的合并，将新数组的成员添加到原数组候补，并且返回一个新数组，原数组不变，也支持其它类型的值</li>
+<li><code>reverse()</code> 用于颠倒原数组，返回改变后的数组，但是会改变原数组</li>
+<li><code>indexOf()</code> 返回给定元素在数组中第一次出现的位置，如果没有出现则返回 <code>-1</code> ，可接受第二个参数，表示开始查找的位置</li>
+</ul>
+<h3 id="函数">函数</h3>
+<p>是一块能反复调用的代码块，使用 <code>function</code> 命令声明代码区块，就是一个函数 <code>function</code> 命令后面就是函数名，函数名之后是一对圆括号，里面是传入函数的参数，函数体放在打括号内，类似于C语言，但在小括号内的参数不需要添加参数类型</p>
+<p>函数声明时，只需要将函数名和形参声明即可.</p>
+<h3 id="对象">对象</h3>
+<p>对象就是键值对，是一种无序的符合数据集合，声明类似于 <code>python</code> 中的字典</p>
+<p>对象的每一个键名又称为属性，它的键值可以是任何数据类型</p>
+<p>如果一个属性的值为函数，通常把这个属性称为方法，可以像调用函数一样调用</p>
+<p>如果属性值还是一个对象，就形成了链式引用</p>
+<h3 id="math对象">math对象</h3>
+<p>是 JS 的原生对象，提供各种数学功能</p>
+<ul>
+<li><code>Math.abs()</code> 返回绝对值</li>
+<li><code>Math.max()</code> 返回最大值</li>
+<li><code>Math.min()</code> 返回最小值</li>
+<li><code>Math.floor()</code> 返回小于参数值的最大整数</li>
+<li><code>Math.ceil()</code> 返回大于参数值的最小整数</li>
+<li><code>Math.random()</code> 返回 0 到 1 之间的一个伪随机，可能等于 0，但一定小于 1</li>
+</ul>
+<h3 id="date对象">Date对象</h3>
+<p><code>date</code> 是 <code>JavaScript</code> 原生的时间库，以1970年1月1日0点作为时间的零点，可以表示的时间范围是前后各一亿天</p>
+<ul>
+<li><code>Date.now()</code> 返回当前时间距离时间零点的毫秒数</li>
+<li>时间戳，就是距离时间零点的秒数</li>
+<li><code>Date.getTime()</code> 返回实例距离时间零点毫秒数</li>
+<li><code>Date.getDate()</code> 返回实例对象对应每个月的几号</li>
+<li><code>Date.getDay()</code> 返回实例星期几，周日为</li>
+<li><code>Date.getYear()</code> 返回距离1900的年数</li>
+<li><code>Date.getFullYear()</code> 返回四位的年份</li>
+<li><code>Date.getMonth()</code> 返回月份</li>
+<li><code>Date.getHours()</code> 返回小时</li>
+<li><code>Date.getMilliseconds()</code> 返回毫秒</li>
+<li><code>Date.getMinutes()</code> 返回分钟</li>
+<li><code>Date.getSeconds()</code> 返回秒</li>
+</ul>
+<h3 id="js错误">js错误</h3>
+<ul>
+<li>使用 <code>try</code> 语句测试代码块的错误</li>
+<li>使用 <code>catch</code> 语句处理错误</li>
+<li>使用 <code>throw</code> 创建自定义错误，相当于是抛出错误</li>
+<li>使用 <code>finally</code> 语句在最后，无论上述是否触发错误，都会执行的语句</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">  <span class="keyword">throw</span>(e);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="let声明">let声明</h3>
+<p><code>let</code> 声明的变量旨在当前代码块内有效</p>
+<h3 id="const声明">const声明</h3>
+<p><code>const</code> 声明的变量一旦声明，常量的值就不能改变</p>
+<h3 id="变量提升">变量提升</h3>
+<p>就是有时候会在变量声明之前使用，这时候不会报错，而变量的值为 <code>undefined</code></p>
+<h2 id="dom">dom</h2>
+<p>dom是 <code>JavaScript</code> 操作网页的接口，是文档对象模型。作用是将网页转为一个 <code>JavaScript</code> 对象，从而使用脚本进行各种操作，比如对元素的增删改等</p>
+<p>浏览器会根据 dom 模型，将结构化文档 <code>html</code> 解析成一系列的节点，再由这些节点组成一个树状结构 <code>dom tree</code> 。所有的节点和最终的树状结构都有对外的接口。</p>
+<p>dom 就是一个接口规范，可以用各种语言实现，但是 dom 是 <code>JavaScript</code> 最常见的任务</p>
+<h3 id="节点">节点</h3>
+<p>dom 的最小组成单位为节点，文档的树形结构是不同的节点组成的，每个节点相当于是文档树的一片叶子，类型有 7 种，如下</p>
+<ul>
+<li><code>Document</code> 文档树的顶层节点</li>
+<li><code>DocumentType</code> doctype标签</li>
+<li><code>Element</code> 网页各种 html 标签</li>
+<li><code>Attribute</code> 网页元素的属性</li>
+<li><code>Text</code> 标签之间或标签包含的文本</li>
+<li><code>Comment</code> 注释</li>
+<li><code>DocumentFragment</code> 文档的片段</li>
+</ul>
+<h3 id="节点树">节点树</h3>
+<p>一个文档的所有节点，按照所在的层级，可以抽象成一种树状结构。浏览器原生提供 <code>document</code> 节点，代表整个文档。除了根节点，其他节点都有如下三种层级关系</p>
+<ul>
+<li>父节点关系：直接的上级节点</li>
+<li>子节点关系：直接的下级节点</li>
+<li>同级节点关系：拥有同一个父节点的节点</li>
+</ul>
+<h3 id="node-nodetype">Node.nodeType</h3>
+<table>
+<thead>
+<tr>
+<th>Node类型</th>
+<th>Named Constant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ELEMENT_NODE</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ATTRIBUTE_NODE</td>
+</tr>
+<tr>
+<td>3</td>
+<td>TEXT_NODE</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CDATA_SECTION_NODE</td>
+</tr>
+<tr>
+<td>5</td>
+<td>ENTITY_REFERENCE_NODE</td>
+</tr>
+<tr>
+<td>6</td>
+<td>ENTITY_NODE</td>
+</tr>
+<tr>
+<td>7</td>
+<td>PROCESSING_INSTRUCTION_NODE</td>
+</tr>
+<tr>
+<td>8</td>
+<td>COMMENT_NODE</td>
+</tr>
+<tr>
+<td>9</td>
+<td>DOCUMENT_NODE</td>
+</tr>
+<tr>
+<td>10</td>
+<td>DOCUMENT_TYPE_NODE</td>
+</tr>
+<tr>
+<td>11</td>
+<td>DOCUMENT_FRAGMENT_NODE</td>
+</tr>
+<tr>
+<td>12</td>
+<td>NOTATION_NODE</td>
+</tr>
+</tbody>
+</table>
+<p>不同节点的 <code>nodeType</code> 属性值和对应的常量如下</p>
+<ul>
+<li><code>Document</code> 9</li>
+<li><code>DocumentType</code> 1</li>
+<li><code>Element</code> 2</li>
+<li><code>Attribute</code> 3</li>
+<li><code>DocumentFragment</code> 11</li>
+</ul>
+<h3 id="document-获取元素">document 获取元素</h3>
+<ul>
+<li><code>getElementsByTagName()</code> 通过搜索 html 标签名返回符合条件的元素，返回值是一个类似数组对象的，如果没有匹配的元素，返回空集</li>
+<li><code>getElementsByClassName()</code> 通过类名搜索，返回包含该类名的元素，元素的变化也会实时返回在结果中，参数可以是多个，通过空格分隔</li>
+<li><code>getElementsByName()</code> 用于选择拥有 <code>name</code> 属性的 html 元素，返回一个类似数组的对象</li>
+<li><code>getElementById()</code> 匹配指定 id 属性的元素节点，如果没有发现节点，返回 null</li>
+<li><code>querySelector()</code> 接受一个 <code>css</code> 选择器作为参数返回匹配该选择器的元素节点，如果有多个返回第一个</li>
+<li><code>querySelectorAll()</code> 接受一个 <code>css</code> 选择器作为参数返回匹配该选择器的元素节点，返回一个数组</li>
+</ul>
+<h3 id="document-创建元素">document 创建元素</h3>
+<ul>
+<li><code>createElement()</code> 生成元素节点，并且返回该节点，参数是元素类型</li>
+<li><code>createNextNode()</code> 用于生成文本节点，并且返回该节点，参数是文本节点的内容</li>
+<li><code>createAttribute()</code> 生成一个新的属性节点，并且返回该节点</li>
+</ul>
+<h3 id="element-对象属性">element 对象属性</h3>
+<p><code>element</code> 对象对应于网页的 <code>html</code> 元素，每一个 <code>html</code> 元素都会被转化为一个 <code>element</code> 节点对象</p>
+<ul>
+<li><code>id</code> 属性返回指定元素的 <code>id</code> 属性，该属性可读写</li>
+<li><code>className</code> 用于读写该元素节点的 <code>class</code> 属性，值是一个字符串，中间用空格隔开</li>
+<li><code>classList</code> 有如下方法
+<ul>
+<li><code>add()</code> 增加一个 <code>class</code></li>
+<li><code>remove()</code> 移除一个 <code>class</code></li>
+<li><code>contain()</code> 检查当前元素是否包含某个 <code>class</code></li>
+<li><code>toggle()</code> 将某个 <code>class</code> 移入或移除当前元素</li>
+</ul>
+</li>
+<li><code>innerHTML</code> 返回一个字符串，等于该元素包含的所有 <code>html</code> 代码，该属性可读写，用来设置节点的内容，能改写所有元素节点的内容，包括 <code>&lt;html&gt;</code> 和 <code>&lt;body&gt;</code> 元素</li>
+<li><code>innerText</code> 与上述类似，不同的是该方法会直接渲染为字符串</li>
+</ul>
+<h3 id="element-获取元素位置">element 获取元素位置</h3>
+<ul>
+<li><code>clientHeight</code> 获取元素高度，包括 <code>padding</code> 但是不包括 <code>border</code> 和 <code>margin</code> ，只对块级元素生效，如果有水平滚动条，需要减去水平滚动条的高度</li>
+<li><code>clientWidth</code> 获取元宽度，同上</li>
+<li><code>scrollHeight</code> 元素总高度，同上，但是包括溢出的不可见的内容</li>
+<li><code>scrollWidth</code> 元素总宽度，同上</li>
+<li><code>scrollLeft</code> 元素水平滚动条向右滚动的像素效果</li>
+<li><code>scrollTop</code> 元素水平滚动条向下滚动的像素效果</li>
+<li><code>offsetHeight</code> 元素的 CSS 垂直高度，包括元素本身的高度， <code>padding</code> 和 <code>border</code></li>
+<li><code>offsetWidth</code> 元素的 CSS 垂直高度，同上</li>
+<li><code>offsetLeft</code> 元素到定位父级左边界的间距</li>
+<li><code>offsetTop</code> 元素到定位父级上边界的间距</li>
+</ul>
+<h3 id="css-操作">CSS 操作</h3>
+<p>操作 <code>CSS</code> 样式最简单的办法就是，对 <code>html</code> 元素的 <code>style</code> 属性进行操作，有三种操作方式</p>
+<ul>
+<li>使用 <code>setAttribute</code> 设置属性 <code>style</code> 的参数</li>
+<li>使用元素节点的 <code>style</code> 属性进行设置</li>
+<li>使用元素节点的 <code>style</code> 属性设置该属性的 <code>cssText</code> 进行设置样式</li>
+</ul>
+<h3 id="事件处理程序">事件处理程序</h3>
+<ul>
+<li><code>html</code> 事件处理，类似于按钮点击特效果</li>
+<li><code>dom</code> 0级事件处理，其中 <code>html</code> 和 <code>js</code> 是分离的，但是无法添加多个事件</li>
+<li><code>dom</code> 2级事件处理，其中 <code>html</code> 和 <code>js</code> 是分离的，可以添加多个事件</li>
+</ul>
+<h3 id="鼠标事件">鼠标事件</h3>
+<p>鼠标事件指的是与鼠标相关的事件，具体</p>
+<ul>
+<li><code>click</code> 按下鼠标触发</li>
+<li><code>dblclick</code> 在同一个元素上双击鼠标触发</li>
+<li><code>mousedown</code> 按下鼠标时触发</li>
+<li><code>mouseup</code> 释放鼠标时触发</li>
+<li><code>mousemove</code> 鼠标在节点内部移动时触发，鼠标持续移动，该事件会持续触发</li>
+<li><code>mouseseenter</code> 当鼠标进入一个节点时触发，进入子结点不会触发</li>
+<li><code>mouseleave</code> 当鼠标离开一个节点时触发，离开父结点不会触发这个事件</li>
+<li><code>mouseover</code> 鼠标进入一个节点时触发，进入子结点会再次触发</li>
+<li><code>mouseout</code> 鼠标离开一个节点时触发，离开父结点也会触发</li>
+<li><code>wheel</code> 滚动鼠标滚轮时触发</li>
+</ul>
+<h3 id="事件对象">事件对象</h3>
+<p>一个事件发生以后，会产生一个事件对象，作为参数传给监听函数</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>Event.Target</code> 返回事件当前所在的节点</li>
+<li><code>Event.type</code> 返回一个字符串，表示事件类型，事件类型是在生成事件时产生，该属性只读</li>
+</ul>
+<p><strong>方法</strong></p>
+<ul>
+<li><code>Event.preventDefault()</code> 取消浏览器对当前事件的默认行为</li>
+<li><code>Event.stopPropagation()</code> 阻止事件在 <code>dom</code> 中继续传播，防止再次触发在别的节点上的监听函数，但是不包括在当前节点上的其它事件的监听函数，例如对于父子元素都有点击事件，当点击子元素时，父元素也会触发点击事件，这个方法能阻止子元素点击事件的扩散，以至于不会触发父元素的点击事件</li>
+</ul>
+<h3 id="键盘事件">键盘事件</h3>
+<p>用户击打键盘触发主要有三个事件</p>
+<ul>
+<li><code>keydown</code> 按下键盘时触发</li>
+<li><code>keypress</code> 按下有值的键时触发，也就是按下 <code>ctrl</code> ， <code>alt</code> 等无值的键不会触发，对于有值的键，先触发 <code>keydown</code> 再触发 <code>keypress</code></li>
+<li><code>keyup</code> 松开键盘时触发的事件</li>
+</ul>
+<p><strong>event对象</strong></p>
+<p><code>keyCode</code> 表示你所按下的按键的代码</p>
+<h3 id="表单事件">表单事件</h3>
+<p>是使用表单元素以及输入框元素可以监听的一系列事件</p>
+<ul>
+<li><code>input</code> 当 <code>&lt;input&gt;</code> ， <code>&lt;select&gt;</code> 和 <code>&lt;textarea&gt;</code> 的值发生变化时触发，对于复选框 <code>&lt;input type=checkbox&gt;</code> 或单选框 <code>&lt;input type=radio&gt;</code> ，当用户改变选项时，也会触发这个事件，每按下一次按键就会触发一次</li>
+<li><code>select</code> 当 <code>&lt;select&gt;</code> 事件在 <code>&lt;input&gt;</code> 和 <code>&lt;textarea&gt;</code> 中选中文本时触发</li>
+<li><code>Change</code> 当 <code>&lt;input&gt;</code> ， <code>&lt;select&gt;</code> 和 <code>&lt;textarea&gt;</code> 的值发生变化时触发，但是只有当全部修改完之后才会触发</li>
+<li><code>reset</code> 这是发生在表单对像上的，当表单重置时触发</li>
+<li><code>submit</code> 这是发生在表单对象上的，当表单数据向服务器提交时触发，发生对象是 <code>&lt;form&gt;</code> 元素，而不是 <code>&lt;button&gt;</code> 元素</li>
+</ul>
+<h3 id="事件代理">事件代理</h3>
+<p>由于事件会在冒泡阶段传递给父结点，因此可以把子结点的监听函数定义在父结点，由父结点的监听函数统一处理多个子元素的事件，这种方法就是代理</p>
+<h3 id="定时器settimeout">定时器setTimeout</h3>
+<p><code>js</code> 中提供定时执行代码的功能，叫做定时器，主要由 <code>setTimeout</code> 和 <code>setInterval</code> 两个函数完成，它们向任务队列中添加定时任务</p>
+<ul>
+<li><code>setTimeout</code> 用来指定某个函数或者某段代码，在多少毫秒之后运行，返回一个整数，表示定时器的编号，以后可以取消定时器，接收两个参数，第一个参数是将要推迟执行的函数名或者一段代码，第二个参数是推迟执行的毫秒数，只执行一次。还有就是如果回调函数是对象的方法，那么该函数使得方法内部 <code>this</code> 关键字指向全局环境，而不是定义时所在的那个对象</li>
+<li><code>setInterval</code> 这个函数与上述定时器的函数几乎一致，唯一不同之处在于这个函数的定时器是循环执行无数次</li>
+<li><code>clearTimeout(id)</code> 取消定时器，参数就是上述的定时器编号</li>
+</ul>
+<h3 id="防抖">防抖</h3>
+<p>防抖严格来说应该属于性能优化事件，对于高频的信息，处理不当会导致浏览器卡死，例如一个滚动条监听的例子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">width</span>:<span class="number">500px</span>;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">height</span>:<span class="number">500px</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">showTop</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> scrollTop = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;滚动条位置：&quot;</span> + scrollTop);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">onscroll</span> = showTop;</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一次滚动能产生好多条消息，执行频率太高了，会导致网页卡顿，有一种解决方式就是在第一次触发时，不立即执行函数，而是给一个期望值的定时器去执行，然后如果在这个期望值内没有发生触发滚动条件，那就执行函数，如果在这段时间内再次触发事件，那之前的计时取消，从新开始计时，从而保证短时间内多次触发只执行一次函数</p>
+<h3 id="节流">节流</h3>
+<p>节流也属于是性能优化的功能，对于上述的防抖，就会导致在规定的时间段内，不断触发滚动事件，只要不停止触发，理论上就永远不会输出当前距离顶部的位置</p>
+<p>节流就是在某次触发之后，函数执行一次之后，在短时间内不会再次触发，过了一段事件之后才生效</p>
+<p>对于防抖的常用场景</p>
+<ul>
+<li>搜索框 <code>input</code> 要支持实时搜索可以使用节流方案，或者实现输入间隔大于某个值之后就当作输入完成，然后开始搜索</li>
+<li>页面 <code>resize</code> 事件，用于需要做页面适配的时候，根据最终呈现的情况进行 <code>dom</code> 渲染就可以了，一般会使用防抖，因为只需要判断最后一次的变化情况就可</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/04/11/js%E5%9F%BA%E7%A1%80/" title="js基础">https://luo25177.github.io/2024/04/11/js基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/" rel="prev" title="vue基础">
+      <i class="fa fa-chevron-left"></i> vue基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/11/es%E5%9F%BA%E7%A1%80/" rel="next" title="es基础">
+      es基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8Eecmascript-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">与ECMAScript 的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86js%E5%BC%95%E5%85%A5%E5%88%B0html%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="nav-number">2.</span> <span class="nav-text">将js引入到html文件中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5%E5%88%B0%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="nav-number">2.1.</span> <span class="nav-text">嵌入到文件中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E7%8B%AC%E7%AB%8Bjs%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">引入独立js文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E7%BD%91%E7%BB%9C%E6%9D%A5%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">引入网络来源文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">3.1.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E7%95%99%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.2.</span> <span class="nav-text">保留关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">3.4.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">3.5.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.6.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.7.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.8.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.9.</span> <span class="nav-text">三目运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.10.</span> <span class="nav-text">循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.11.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">3.12.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">3.13.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.14.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#math%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.15.</span> <span class="nav-text">math对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.16.</span> <span class="nav-text">Date对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js%E9%94%99%E8%AF%AF"><span class="nav-number">3.17.</span> <span class="nav-text">js错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E5%A3%B0%E6%98%8E"><span class="nav-number">3.18.</span> <span class="nav-text">let声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const%E5%A3%B0%E6%98%8E"><span class="nav-number">3.19.</span> <span class="nav-text">const声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-number">3.20.</span> <span class="nav-text">变量提升</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dom"><span class="nav-number">4.</span> <span class="nav-text">dom</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E6%A0%91"><span class="nav-number">4.2.</span> <span class="nav-text">节点树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node-nodetype"><span class="nav-number">4.3.</span> <span class="nav-text">Node.nodeType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0"><span class="nav-number">4.4.</span> <span class="nav-text">document 获取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0"><span class="nav-number">4.5.</span> <span class="nav-text">document 创建元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#element-%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">4.6.</span> <span class="nav-text">element 对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#element-%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.7.</span> <span class="nav-text">element 获取元素位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css-%E6%93%8D%E4%BD%9C"><span class="nav-number">4.8.</span> <span class="nav-text">CSS 操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.9.</span> <span class="nav-text">事件处理程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BC%A0%E6%A0%87%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.10.</span> <span class="nav-text">鼠标事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.11.</span> <span class="nav-text">事件对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.12.</span> <span class="nav-text">键盘事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.13.</span> <span class="nav-text">表单事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86"><span class="nav-number">4.14.</span> <span class="nav-text">事件代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8settimeout"><span class="nav-number">4.15.</span> <span class="nav-text">定时器setTimeout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%8A%96"><span class="nav-number">4.16.</span> <span class="nav-text">防抖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E6%B5%81"><span class="nav-number">4.17.</span> <span class="nav-text">节流</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

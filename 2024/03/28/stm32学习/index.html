@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="stm32芯片的一些知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stm32学习">
+<meta property="og:url" content="https://luo25177.github.io/2024/03/28/stm32%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="stm32芯片的一些知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-28T02:02:05.000Z">
+<meta property="article:modified_time" content="2024-04-10T00:26:04.826Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="stm32f4">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/03/28/stm32%E5%AD%A6%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>stm32学习 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/03/28/stm32%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          stm32学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-28 10:02:05" itemprop="dateCreated datePublished" datetime="2024-03-28T10:02:05+08:00">2024-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-10 08:26:04" itemprop="dateModified" datetime="2024-04-10T08:26:04+08:00">2024-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">单片机</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">stm32芯片的一些知识</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="stm32f4内部的flash">stm32f4内部的flash</h2>
+<p>stm32芯片内部有一个flash存储器，主要用于存储编译之后烧录进来的代码，由于flash存储器的内容在掉电之后不会丢失，芯片重新上电复位之后内核可以从内部flash中加载代码并运行。</p>
+<p>除了使用外部的工具（如下载器）读写内部FLASH外，STM32F4芯片在运行的时候，也能对自身的内部FLASH进行读写，因此，若内部FLASH存储了应用程序后还有剩余空间，我们可以把它像外部SPI-FLASH那样利用起来，存储一些程序运行时产生的需要掉电保存的数据。</p>
+<p>由于访问内部FLASH比外部SPI-FLASH的速度快的多，所以在紧急状态下常常会使用内部FLASH存储关键记录；为了防止应用程序被抄袭，有的应用会禁止读写内部FLASH中的内容，或者在第一次运行时计算机机密信息并记录到某些区域，然后删除自身的部分加密代码，这些都涉及到内部FLASH的操作。</p>
+<p>芯片内部存储的分区</p>
+<h3 id="主存储器">主存储器</h3>
+<ul>
+<li>
+<p>介绍芯片时提到的flash的内存的大小都是指主存储器的大小，用于存放代码和数据常量（例如const类型的数据）。</p>
+</li>
+<li>
+<p>主存储器分为<strong>256</strong>页，每页大小<strong>2KB</strong>，一共512KB。这个分页就是FLASH的存储扇区，与其他的FLASH一样，写入数据前要先按照页就是扇区进行擦除。</p>
+</li>
+<li>
+<p>stm32f4的主存储器分为4个 16KB 扇区、1个 64KB 扇区和 7个 128KB 扇区</p>
+</li>
+<li>
+<p>stm32的型号：STM32F4ZG</p>
+<ul>
+<li>
+<p>G代表FLASH的大小</p>
+<p>4表示16KB；       6表示32KB；      8表示64KB；      B表示128KB</p>
+<p>C表示256KB；    E表示512KB；    F表示768KB；    <strong>G表示1024KB</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>闪存存储器接口寄存器</p>
+<ul>
+<li>用于控制闪存读写，是整个闪存模块的控制机构</li>
+<li>在执行闪存写操作时，任何对闪存的读操作都是锁住总线，在写操作完成后，读操作才能正确进行；<strong>也就是说在进行写或者擦除操作时，不能进行数据或者代码的读取操作</strong>。</li>
+</ul>
+</li>
+<li>
+<p>内部FLASH写入过程</p>
+<ol>
+<li>解锁<br>
+由于内部FLASH空间主要存储的是应用程序。是非常关键的数据，为了防止误操作修改了这些内容，芯片复位后默认会给 FLASH 上锁，这个时候不再允许设置 FLASH 的控制寄存器，同时也不能修改 FLASH 中的内容。</li>
+</ol>
+<p>所以对 FLASH 写入程序之前，需要先对其进行解锁操作。</p>
+<ul>
+<li>往 FLASH 密钥寄存器 FLASH_KEYR 中写入 KEY1=0x45670123</li>
+<li>再往 FLASH 密钥寄存器 FLASH_KEYR 中写入 KEY2=0xCDEF89AB</li>
+</ul>
+<ol start="2">
+<li>擦除扇区</li>
+</ol>
+<p>在写入新的数据前，需要先擦除存储区域，STM32提供了<strong>扇区擦除指令</strong>和 <strong>整个FLASH擦除——批量擦除</strong>的指令，批量擦除指令仅针对主存储区。</p>
+<p><strong>扇区擦除的过程</strong></p>
+<ul>
+<li>检查FLASH_SR状态寄存器的 “忙碌寄存器BSY” ，以确认当前未执行任何FLASH操作</li>
+<li>在FLASH_CR寄存器中，将 “激活页擦除寄存器位PER” 置1</li>
+<li>用FLASH_AR寄存器选择要擦除的页<br>
+将FLASH_CR控制寄存器中的 “开始擦除寄存器位STRT” 置1，开始擦除</li>
+<li>等待BSY位被清零，表示擦除完成</li>
+</ul>
+<ol start="3">
+<li>写入数据</li>
+</ol>
+<p>擦除完毕后即可写入数据，写入数据的过程并不是仅仅使用指针指向地址赋值，赋值前还需要配置一系列的寄存器</p>
+<ul>
+<li>检查FLASH_SR状态寄存器中的BSY位，以确认当前未执行任何其他的内部FLASH操作</li>
+<li>将FLASH_CR控制寄存器中 “激活编程寄存器位PG” 置1</li>
+<li>向指定的FLASH存储器地址执行数据写入操作，每次只能以16位的方式写入</li>
+<li>等待BSY位被清零时，表示写入成功</li>
+</ul>
+<ol start="4">
+<li>查看工程的空间分布</li>
+</ol>
+<p>由于内部FLASH本身存储有程序数据，若不是有意删除某段程序代码，一般不应该修改程序空间的内容，所以在使用内部FLASH存储其他数据前需要了解哪一些空间已经写入了程序代码，存储了程序代码的扇区都不应做任何的修改。通过查询应用程序编译时产生的 “*.map” 后缀文件，可以了解程序存储到了哪些区域。</p>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>系统存储器</strong></p>
+<p>系统存储器是STM32开发板出厂之前就已经使用的一块区域，用户是无法访问系统存储区的，主要是做串口下载程序的支持，以及USB、CAN等ISP烧录功能。（系统存储器主要是用来存放STM32F4的bootloader代码，此代码是出厂的时候就固化在STM32F4里面的，专门来给主存储器下载代码的）</p>
+</li>
+<li>
+<p><strong>OTP区域</strong></p>
+<p><strong>一次性可编程区域</strong>，共528字节，被分成两部分，前面512个字节（32字节为1块，分成16块），可以用来存储一些用户数据（一次性的，写完一次，永远不可以擦除）后面16个字节，用于锁定对应块。</p>
+</li>
+<li>
+<p><strong>选项字节区域</strong></p>
+<p>选项字节区域是用来配置FLASH的读写保护、待机/停机、软件/硬件看门狗功能。可以通过修改FLASH的选项控制<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AF%84%E5%AD%98%E5%99%A8&amp;spm=1001.2101.3001.7020">寄存器</a>进行修改。</p>
+</li>
+</ol>
+<h2 id="鼎新图蓝牙使用">鼎新图蓝牙使用</h2>
+<ol>
+<li>波特率，置低波特率为9600，置高为115200，其他波特率值只能用AT设置</li>
+<li>密码，置低密码方式1=8888，置高默认密码0000</li>
+<li>主从模式，置低为从设备，置高为主设备</li>
+<li>距离class级别切换，置低class1设备，置高为class2设备</li>
+<li>拨码有效，置低pio按键无效，置高有效</li>
+<li>清零，置高保持5秒再置低</li>
+</ol>
+<ul>
+<li>数据模式置高5秒再复位-启动清零=模块做清楚地址码并重新搜索工作。</li>
+<li>AT模式置高5秒再复位-启动清零+恢复=模块做彻底清零并恢复到出厂设置，并重新启动。</li>
+</ul>
+<ol start="7">
+<li>主机切换连接至从机2，至低-时为当前从机，至高+为切换至另一个</li>
+<li>AT/数据模式切换，置低数据模式，AT无效，置高AT状态，红灯亮起</li>
+</ol>
+<p>绿灯常亮为成功配对，若要清零，把5或8，和6一起置高，等五秒再置低<br>
+<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=2013.1.0.0.295235c1bQOm52&amp;id=35050036589&amp;qq-pf-to=pcqq.c2c">淘宝网站</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/03/28/stm32%E5%AD%A6%E4%B9%A0/" title="stm32学习">https://luo25177.github.io/2024/03/28/stm32学习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/stm32f4/" rel="tag"># stm32f4</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/26/%E8%BD%AE%E5%BC%8F%E5%BA%95%E7%9B%98%E8%A7%A3%E7%AE%97/" rel="prev" title="轮式底盘解算">
+      <i class="fa fa-chevron-left"></i> 轮式底盘解算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/03/29/imu%E6%BB%A4%E6%B3%A2/" rel="next" title="IMU滤波">
+      IMU滤波 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32f4%E5%86%85%E9%83%A8%E7%9A%84flash"><span class="nav-number">1.</span> <span class="nav-text">stm32f4内部的flash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">主存储器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BC%8E%E6%96%B0%E5%9B%BE%E8%93%9D%E7%89%99%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">鼎新图蓝牙使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

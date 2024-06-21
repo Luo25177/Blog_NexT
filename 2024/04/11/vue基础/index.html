@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/Luo25177/BlogPic@master/ButterFlyPic/202405070827499.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="vue3的一些基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue基础">
+<meta property="og:url" content="https://luo25177.github.io/2024/04/11/vue%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="无风之地">
+<meta property="og:description" content="vue3的一些基础知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/config.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/component_tree.png">
+<meta property="article:published_time" content="2024-04-11T03:36:31.000Z">
+<meta property="article:modified_time" content="2024-05-13T08:24:37.452Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="vue3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/config.png">
+
+<link rel="canonical" href="https://luo25177.github.io/2024/04/11/vue%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vue基础 | 无风之地</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">无风之地</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2024/04/11/vue%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风之地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-11 11:36:31" itemprop="dateCreated datePublished" datetime="2024-04-11T11:36:31+08:00">2024-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-13 16:24:37" itemprop="dateModified" datetime="2024-05-13T16:24:37+08:00">2024-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">vue3的一些基础知识</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
+<h2 id="简介">简介</h2>
+<p>vue 是前端优秀框架，是一套用于构建用户界面的渐进式框架</p>
+<h3 id="特点">特点</h3>
+<ul>
+<li>简单</li>
+<li>易学</li>
+<li>…</li>
+</ul>
+<h2 id="安装使用">安装使用</h2>
+<h3 id="使用命令行安装">使用命令行安装</h3>
+<p><code>vue cli</code> 是一个基于 <code>vue.js</code> 进行快速开发的完整系统</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
+<p>测试，在终端输入以下指令测试是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br></pre></td></tr></table></figure>
+<h3 id="一些功能">一些功能</h3>
+<p>使用下列指令打开一个 gui 界面来引导项目创建等一系列操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+<h3 id="创建项目">创建项目</h3>
+<p>在终端使用下列指令创建一个项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create projectname</span><br></pre></td></tr></table></figure>
+<p>输入之后需要使用上下按键来选择默认项目模板</p>
+<p>可以选择手动选择，然后按照如下选择</p>
+<p><img src="/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/config.png" alt="config"></p>
+<h3 id="文件目录说明">文件目录说明</h3>
+<table>
+<thead>
+<tr>
+<th>目录/文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>build</td>
+<td>项目构建(webpack)相关代码</td>
+</tr>
+<tr>
+<td>config</td>
+<td>配置目录，包括端口号等。初学可以使用默认的。</td>
+</tr>
+<tr>
+<td>node_modules</td>
+<td>npm 加载的项目依赖模块</td>
+</tr>
+<tr>
+<td>src</td>
+<td>这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：</td>
+</tr>
+<tr>
+<td>assets</td>
+<td>放置一些图片，如 logo 等，还可以放全局使用的 css 文件</td>
+</tr>
+<tr>
+<td>components</td>
+<td>目录里面放了一个组件文件，可以不用。</td>
+</tr>
+<tr>
+<td>App.vue</td>
+<td>项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。</td>
+</tr>
+<tr>
+<td>main.js</td>
+<td>项目的核心文件。</td>
+</tr>
+<tr>
+<td>index.css</td>
+<td>样式文件。</td>
+</tr>
+<tr>
+<td>static</td>
+<td>静态资源目录，如图片、字体等。</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公共资源目录。</td>
+</tr>
+<tr>
+<td>test</td>
+<td>初始测试目录，可删除</td>
+</tr>
+<tr>
+<td>.xxxx文件</td>
+<td>这些是一些配置文件，包括语法配置，git配置等。</td>
+</tr>
+<tr>
+<td>index.html</td>
+<td>首页入口文件，你可以添加一些 meta 信息或统计代码啥的。</td>
+</tr>
+<tr>
+<td>package.json</td>
+<td>项目配置文件。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://README.md">README.md</a></td>
+<td>项目的说明文档，markdown 格式</td>
+</tr>
+<tr>
+<td>dist</td>
+<td>使用 npm run build 命令打包后会生成该目录。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基础语法">基础语法</h2>
+<h3 id="文本">文本</h3>
+<p>数据绑定常见的形式就是使用 <code>Mustache</code> 双大括号的语法文本插值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span&gt;Message: &#123;&#123;msg&#125;&#125;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+<p>一般配合 <code>js</code> 中的 <code>data()</code> 设置数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">msg</span>: <span class="string">&quot;msg&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="原始html">原始HTML</h3>
+<p>双大括号会将数据解释为普通文本，而非 <code>html</code> 代码，为了输出 <code>html</code> 就需要使用 <code>v-html</code> 指令</p>
+<h3 id="attribute属性">attribute属性</h3>
+<p><code>Mustache</code> 语法不能再 <code>html</code> 属性中使用，但是可以使用 <code>v-bind</code> 指令。 <code>class</code> 与 <code>style</code> 是 <code>html</code> 元素的属性，用于设置元素的样式，我们可以用 <code>v-bind</code> 来设置样式属性。有两种写法，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:id=&quot;dynamicId&quot;&gt;v-bind:&lt;/div&gt;</span><br><span class="line">&lt;div :id=&quot;dynamicId&quot;&gt;v-bind:&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>内联样式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;div :style=&quot;&#123; color: activeColor, fontSize: fontSize + &#x27;px&#x27; &#125;&quot;&gt;1&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;!--其中 activeColor:&quot;red&quot;, fontSize: 20--&gt;</span><br></pre></td></tr></table></figure>
+<p>上述会被渲染为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">&quot;&#123; color: red, fontSize: 20px&#125;&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>内联样式还可指定多重值，提供一个包含多个值的数组，常用于提供多个带前缀的值，这样写只会渲染数组中最后一个被浏览器支持的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :style=&quot;&#123; display: [&#x27;-webkit-box&#x27;, &#x27;-ms-flexbox&#x27;, &#x27;flex&#x27;] &#125;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>组件上使用class属性</strong></p>
+<p>当你在带有单个根元素的自定义组件上使用 class 属性时，这些 class 将被添加到该元素中。此元素上的现有 class 将不会被覆盖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;newComponentName class=&quot;classC classD&quot;&gt;&lt;/newComponentName&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">var app = Vue.createApp(&#123;&#125;)</span><br><span class="line">app.component(&#x27;newComponentName&#x27;, &#123;</span><br><span class="line">  template: &#x27;&lt;h1 class=&quot;classA classB&quot;&gt;这是一个新组件标题&lt;/h1&gt;&#x27;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>最终渲染结果为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;classA classB classC classD&quot;</span>&gt;</span>这是一个新组件标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于带数据绑定的 <code>class</code> 也可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;newComponentName :class=&quot;&#123; active: isActive &#125;&quot;&gt;&lt;/newComponentName&gt;</span><br></pre></td></tr></table></figure>
+<p>当 <code>isActive</code> 为 <code>true</code> 时，最终渲染效果为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;classA classB active&quot;</span>&gt;</span>这是一个新组件标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果新的组件有多个根元素，需要定义哪些部分将接收这个类。可以使用 <code>$attrs</code> 组件属性执行此操作，可以用于传递组件属性和事件。下列的操作实际上就是继承原来的类属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;newComponentName class=&quot;classA&quot;&gt;&lt;/newComponentName&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">const app = Vue.createApp(&#123;&#125;)</span><br><span class="line">app.component(&#x27;newComponentName&#x27;, &#123;</span><br><span class="line">  template: `</span><br><span class="line">    &lt;p :class=&quot;$attrs.class&quot;&gt;这是一个段落&lt;/p&gt;</span><br><span class="line">    &lt;span&gt;这是一个子组件&lt;/span&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;)</span><br><span class="line">app.mount(&#x27;#app&#x27;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>最终渲染结果为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">:class</span>=<span class="string">&quot;classA&quot;</span>&gt;</span>这是一个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>这是一个子组件<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用js表达式">使用Js表达式</h3>
+<p><code>vue.js</code> 提供了完全的 js 表达式支持，使用双括号来表示使其被解析为 js 表达式。但是，双括号中只能包含单个表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 有效</span><br><span class="line">&#123;&#123;number + 1&#125;&#125;</span><br><span class="line">&#123;&#123;ok? &#x27;y&#x27; : &#x27;n&#x27;&#125;&#125;</span><br><span class="line"></span><br><span class="line">// 无效</span><br><span class="line">&#123;&#123;var a = 1&#125;&#125; //语句</span><br><span class="line">&#123;&#123;if(ok) &#123;return msg;&#125;&#125;&#125; // 流程控制语句也不会生效</span><br></pre></td></tr></table></figure>
+<h3 id="条件渲染">条件渲染</h3>
+<ul>
+<li><code>v-if</code> 用于条件性的渲染一块内容，这块内容只会在指令的表达式返回 <code>true</code> 时渲染
+<ul>
+<li>真正的条件渲染，会保证在切换过程中，条件块内的事件监听器和子组件适当的被销毁和重建</li>
+<li>也是惰性的，如果在初始渲染时条件为假，那什么也不做，直到变为真才会做渲染</li>
+</ul>
+</li>
+<li><code>v-else</code> 用于作为 <code>v-if</code> 的 <code>else</code> 块</li>
+<li><code>v-show</code> 用于条件性展示元素的另一个选项
+<ul>
+<li>不管初始条件是什么都会渲染元素，并且只是简单的基于 <code>css</code> 进行切换</li>
+<li>一般来说 <code>v-if</code> 有更高的切换开销，而 <code>v-show</code> 有更高的初始渲染开销，所以如果需要非常频繁的切换则使用 <code>v-show</code> ，如果在运行中很少改变就使用 <code>v-if</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="列表渲染">列表渲染</h3>
+<ul>
+<li><code>v-for</code> 把一个数组映射为一组元素，基于一个数组来渲染一个列表，指令需要使用 <code>item in items</code> 语法来实现</li>
+<li>当 <code>vue</code> 正在更新使用 <code>v-for</code> 渲染的元素列表时，它默认使用“就地更新”的策略，如果数据项的顺序被改变，vue 将不会移动 dom 元素来匹配数据项的顺序，而是就地更新每个元素，并且保证它们在每个索引位置正确渲染。为了给 vue 一个提示，以便它能够跟踪每个节点，从而重新排列现有元素，需要为每一项提供一个唯一的 <code>key</code> attribute</li>
+</ul>
+<h3 id="事件处理">事件处理</h3>
+<ul>
+<li>监听事件，可以使用 <code>v-on</code> 指令（可缩写为 <code>@</code> 符号）来监听 dom 事件，并且在触发事件时执行一些 <code>js</code> 指令</li>
+<li>事件处理方法，很多事件处理逻辑会比较复杂，所以可以写为一个调用的方法名称</li>
+<li>内联处理器中的方法，也可以称作事件传递函数</li>
+</ul>
+<h3 id="表单输入绑定">表单输入绑定</h3>
+<ul>
+<li><code>v-model</code> 指令在表单 <code>&lt;input&gt;</code> ， <code>&lt;textarea&gt;</code> 以及 <code>&lt;select&gt;</code> 元素上创建双向数据绑定，它会根据空间类型自动选取正确的方法来更新元素。本质上不过是语法糖，负责监听用户输入事件来更新数据，并且完成一些特殊处理</li>
+<li><code>.lazy</code> 修饰符， <code>v-model</code> 事件在每次 <code>input</code> 事件触发之后就进行数据同步，可以添加该修饰符，从而转为 <code>change</code> 事件之后进行同步</li>
+<li><code>.trim</code> 修饰符，可以自动过滤用户输入的首尾空白字符</li>
+</ul>
+<h3 id="组件基础">组件基础</h3>
+<ul>
+<li>单文件组件，单文件组件是一种特殊的文件格式，允许将 <code>vue</code> 组件中的模板，逻辑与样式封装在单个文件中</li>
+<li>加载组件步骤
+<ul>
+<li>引入组件 <code>import mycomponent from './components/mycomponent.vue'; './components/mycomponent'</code></li>
+<li>挂载组件 <code>components: &#123;mycomponent&#125;</code></li>
+<li>显示组件 <code>&lt;mycomponent/&gt;</code></li>
+</ul>
+</li>
+<li>组件组织，通常一个应用会以一棵嵌套的组件树的形式来组织<br>
+<img src="/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/component_tree.png" alt="conponent_tree"></li>
+</ul>
+<h3 id="props组件交互">props组件交互</h3>
+<p>组件与组件之间是需要存在交互的，否则完全没关系，组件的意义就很小了，而 <code>props</code> 是可以在组件上注册的一些自定义 <code>attribute</code> ，传递的方向就是父组件传递到子组件</p>
+<p><code>props</code> 传递的参数是没有类型限制的，但是传入数据为数组或者对象类型时，默认值时需要返回工厂模式，也就是定义一个返回一个空数组的函数</p>
+<p><strong>使用方法</strong></p>
+<ol>
+<li>在调用组件的文件中声明需要传递的变量，写法与组件文件中一致</li>
+</ol>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&quot;一个标题&quot;</span>,</span><br><span class="line">    age : <span class="number">10</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要在加载组件时传入参数</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;props_test :title=&quot;title&quot; :age=&quot;age&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在组件中需要使用 <code>props</code> 声明变量</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;props_test&quot;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    title: &#123;</span><br><span class="line">      type:String,</span><br><span class="line">      default:&quot;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    age: &#123;</span><br><span class="line">      type: Number,</span><br><span class="line">      default:0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义事件组件交互">自定义事件组件交互</h3>
+<p>自定义事件可以在组件中反向传递数据， <code>prop</code> 可以将数据从父组件传递到子数组，对于反向操作，可以使用自定义事件实现</p>
+<ul>
+<li>使用 <code>this.$emit()</code> 函数，其中第一个参数是字符串，理论上是随便的，但是需要与弗组件中对应，第二个参数就是传递的数据</li>
+</ul>
+<p><strong>使用</strong></p>
+<ol>
+<li>首先在子组件中做定义一个按钮或者触发这个事件的元素</li>
+</ol>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;sendHandle&quot;</span>&gt;</span>sendData<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>并且定义函数 <code>sendHandle</code></p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">sendHandle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.$emit(<span class="string">&quot;onEvent&quot;</span>, <span class="string">&quot;data&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在父组件中加载该组件时，需要做如下的定义</li>
+</ol>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">props_test</span> @<span class="attr">onEvent</span>=<span class="string">&quot;getDataHandle&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>需要注意，这里的 <code>onEvent</code> 与第一步中的 <code>$emit()</code> 的第一个参数是对应的，需要一致。然后自定义收到消息的回调函数，这里的 <code>data</code> 就是上述 <code>$emit()</code> 函数的第二个参数</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">getDataHandle</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="组件的生命周期">组件的生命周期</h3>
+<p>每个组件在被创建时都要经过一系列初始化的过程，例如设置数据监听，编译模板，实例挂载到 dom 上等，这个过程会运行一些叫做生命周期钩子的函数，给了用户在不同阶段添加代码的功能</p>
+<p>可以直接定义下面的函数，来实现在不同的阶段添加用户代码的功能</p>
+<ul>
+<li>创建时 <code>beforeCreate</code> <code>created</code></li>
+<li>渲染时 <code>beforeMount</code> <code>mounted</code></li>
+<li>更新时 <code>beforeUpdate</code> <code>updated</code></li>
+<li>卸载时 <code>beforeUnmount</code> <code>unmounted</code></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2024/04/11/vue%E5%9F%BA%E7%A1%80/" title="vue基础">https://luo25177.github.io/2024/04/11/vue基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/vue3/" rel="tag"># vue3</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/08/css%E5%9F%BA%E7%A1%80/" rel="prev" title="css基础">
+      <i class="fa fa-chevron-left"></i> css基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/04/11/js%E5%9F%BA%E7%A1%80/" rel="next" title="js基础">
+      js基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">安装使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">使用命令行安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%8A%9F%E8%83%BD"><span class="nav-number">2.2.</span> <span class="nav-text">一些功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.3.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E"><span class="nav-number">2.4.</span> <span class="nav-text">文件目录说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8Bhtml"><span class="nav-number">3.2.</span> <span class="nav-text">原始HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute%E5%B1%9E%E6%80%A7"><span class="nav-number">3.3.</span> <span class="nav-text">attribute属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8js%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">使用Js表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="nav-number">3.5.</span> <span class="nav-text">条件渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93"><span class="nav-number">3.6.</span> <span class="nav-text">列表渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.7.</span> <span class="nav-text">事件处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5%E7%BB%91%E5%AE%9A"><span class="nav-number">3.8.</span> <span class="nav-text">表单输入绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80"><span class="nav-number">3.9.</span> <span class="nav-text">组件基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92"><span class="nav-number">3.10.</span> <span class="nav-text">props组件交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92"><span class="nav-number">3.11.</span> <span class="nav-text">自定义事件组件交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.12.</span> <span class="nav-text">组件的生命周期</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:52</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>
