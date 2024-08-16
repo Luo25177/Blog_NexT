@@ -1242,7 +1242,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #5c5cff;
+  background: #8ea814;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2786,12 +2786,6 @@ body {
 }
 body {
   font-family: 'MeriendaOne', 'kalam', 'ceym', 'sanjiquwei';
-}
-* {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
 .notification {
   position: fixed;
