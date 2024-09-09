@@ -30,7 +30,7 @@
 <meta property="og:description" content="我愿称之为神中之神，心目中的最强文本编辑器">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T16:43:47.000Z">
-<meta property="article:modified_time" content="2024-04-10T00:21:56.418Z">
+<meta property="article:modified_time" content="2024-09-07T06:01:01.843Z">
 <meta property="article:author" content="落">
 <meta property="article:tag" content="vim">
 <meta name="twitter:card" content="summary">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-10 08:21:56" itemprop="dateModified" datetime="2024-04-10T08:21:56+08:00">2024-04-10</time>
+                <time title="修改时间：2024-09-07 14:01:01" itemprop="dateModified" datetime="2024-09-07T14:01:01+08:00">2024-09-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,14 +249,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.3k</span>
+              <span>9.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>9 分钟</span>
             </span>
             <div class="post-description">我愿称之为神中之神，心目中的最强文本编辑器</div>
 
@@ -303,6 +303,7 @@
 <li><code>;</code> 重复上一个f命令，而不用重复的输入fx</li>
 <li><code>*</code> 查找光标所在处的单词，向下查找</li>
 <li><code>#</code> 查找光标所在处的单词，向上查找</li>
+<li><code>g_</code> 移动到本行最后一个不是 blank 字符的位置</li>
 </ul>
 <h3 id="删除复制">删除复制</h3>
 <ul>
@@ -310,6 +311,8 @@
 <li><code>dw</code> 删除一个字符</li>
 <li><code>diw</code> 删除一个单词</li>
 <li><code>dg_</code> 或 <code>D</code> 从当前位置删除到行末</li>
+<li><code>dta</code> 删除当前行位置之后的所有内容直到遇到字符 <code>a</code></li>
+<li><code>dTa</code> 删除当前行位置之前的所有内容直到遇到字符 <code>a</code></li>
 <li><code>x</code> 删除当前字符</li>
 <li><code>X</code> 删除前一个字符</li>
 <li><code>yy</code> 复制一行，会复制换行符</li>
@@ -342,6 +345,7 @@
 <li><code>S</code> 删除光标所在行并进入编辑模式</li>
 <li><code>xp</code> 交换当前字符和下一个字符</li>
 <li><code>u</code> 撤销</li>
+<li><code>&lt;C-r&gt;</code> 返回撤销</li>
 <li><code>r</code> 替换为输入的字符</li>
 <li><code>R</code> 连续替换</li>
 <li><code>ctrl+r</code> 重做</li>
@@ -353,7 +357,9 @@
 <li><code>&gt;&gt;</code> 将当前行右移一个tab</li>
 <li><code>&lt;&lt;</code> 将当前行左移一个tab</li>
 <li><code>==</code> 自动缩进当前行</li>
-<li><code>gg=G</code></li>
+<li><code>gg=G</code> 文件缩进</li>
+<li><code>&lt;C-n&gt;</code> 插入模式自动补齐</li>
+<li><code>&lt;C-p&gt;</code> 插入模式自动补齐</li>
 </ul>
 <h3 id="查找替换">查找替换</h3>
 <ul>
@@ -365,6 +371,40 @@
 <li><code>N</code> 上一个匹配(同上)</li>
 <li><code>:%s/old/new/g</code> 搜索整个文件，将所有的old替换为new</li>
 <li><code>:%s/old/new/gc</code> 搜索整个文件，将所有的old替换为new，每次都要你确认是否替换</li>
+<li><code>fa</code> 查找当前行中下一个为 <code>a</code> 的字符，并且跳到该位置</li>
+<li><code>nfa</code> 查找当前行中下 <code>n</code> 个为 <code>a</code> 的字符，并且跳到该位置</li>
+<li><code>ta</code> 查找当前行中上一个为 <code>a</code> 的字符，并且跳到该位置</li>
+<li><code>nta</code> 查找当前行中上 <code>n</code> 个为 <code>a</code> 的字符，并且跳到该位置</li>
+</ul>
+<h3 id="区域选择">区域选择</h3>
+<ul>
+<li><code>&lt;action&gt;a&lt;object&gt;</code> 区域选择</li>
+<li><code>&lt;action&gt;i&lt;object&gt;</code> 区域选择
+<ul>
+<li><code>action</code> 可以是任何命令
+<ul>
+<li><code>d</code> 删除</li>
+<li><code>v</code> 选中</li>
+<li><code>y</code> 复制</li>
+</ul>
+</li>
+<li><code>object</code> 可以是很多，下面是一部分
+<ul>
+<li><code>w</code> 一个单词</li>
+<li><code>W</code> 一个以空格为分隔的单词</li>
+<li><code>s</code> 一个句子</li>
+<li><code>p</code> 一个段落</li>
+<li><code>&quot;</code> 引号中内容</li>
+<li><code>(</code> 括号中内容</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>viw</code> 选中当前单词</li>
+<li><code>vi&quot;</code> 选中当前在 <code>&quot;</code> 中的内容，不包括 <code>&quot;</code></li>
+<li><code>va&quot;</code> 选中当前在 <code>&quot;</code> 中的内容，包括 <code>&quot;</code></li>
+<li><code>vni(</code> 选中当前在 <code>n</code> 级括号中的内容，不包括括号</li>
+<li><code>vna(</code> 选中当前在 <code>n</code> 级括号中的内容，包括括号</li>
 </ul>
 <h3 id="退出文件">退出文件</h3>
 <ul>
@@ -374,8 +414,9 @@
 <li><code>:x</code> 保存修改并退出</li>
 <li><code>:q</code> 退出，如果对缓冲区进行过修改，则会提示</li>
 <li><code>:q!</code> 强制退出，放弃修改</li>
+<li><code>ZZ</code> 保存退出</li>
 </ul>
-<h3 id="多文件编辑">多文件编辑</h3>
+<h3 id="多文件编辑-多窗口操作">多文件编辑（多窗口操作）</h3>
 <ul>
 <li><code>vim file1..</code> 同时打开多个文件</li>
 <li><code>:args</code> 显示当前编辑文件</li>
@@ -389,6 +430,7 @@
 <li><code>:last</code> 定位尾文件</li>
 <li><code>ctrl+^</code> 快速在最近打开的两个文件间切换</li>
 <li><code>:split</code> 或者 <code>:sp</code> 把当前文件水平分割</li>
+<li><code>:vsplit</code> 或者 <code>:vsp</code> 把当前文件垂直分割</li>
 <li><code>:split file</code> 把当前窗口水平分割，并且打开文件file</li>
 <li><code>:vsplit[vsp] file</code> 把当前窗口垂直分割，并且打开文件file</li>
 <li><code>:new file</code> 同 <code>split file</code></li>
@@ -406,11 +448,23 @@
 <li><code>ctrl-w l</code> 跳转到右边的窗口</li>
 <li><code>ctrl-w t</code> 跳转到最顶上的窗口</li>
 <li><code>ctrl-w b</code> 跳转到最底下的窗口</li>
+<li><code>ctrl-w +</code> 扩大窗口</li>
+<li><code>ctrl-w -</code> 缩小窗口</li>
+<li><code>ctrl-w H</code> 将窗口移动到最左边</li>
+<li><code>ctrl-w J</code> 将窗口移动到最下边</li>
+<li><code>ctrl-w K</code> 将窗口移动到最上边</li>
+<li><code>ctrl-w L</code> 将窗口移动到最右边</li>
+<li><code>&#123;height&#125;CTRL-W _</code> 将窗口设置成指定高度</li>
+<li><code>:saveas &lt;path/to/file&gt;</code> 另存为 <code>&lt;path/to/file&gt;</code></li>
+<li><code>:bn</code> 下一个文件</li>
+<li><code>:bp</code> 上一个文件</li>
+<li><code>:all</code> 为参数列表中每一个文件打开一个窗户口</li>
+<li><code>:vertical all</code> 以垂直分割的方法打开窗口</li>
 </ul>
 <p><strong>命令行中vim指令的参数</strong></p>
 <ul>
-<li><code>-o[n]</code> 以水平分屏的方式打开多个文件</li>
-<li><code>-O[n]</code> 以垂直分屏的方式打开多个文件</li>
+<li><code>vim -o &lt;file1 file2 ...&gt;</code> 以水平分屏的方式打开多个文件</li>
+<li><code>vim -O &lt;file1 file2 ...&gt;</code> 以垂直分屏的方式打开多个文件</li>
 </ul>
 <h3 id="多标签编辑">多标签编辑</h3>
 <ul>
@@ -470,6 +524,27 @@
 <li><code>mf</code> 标记要移动的文件</li>
 <li><code>mc</code> 移动/复制</li>
 </ol>
+<h3 id="宏录制">宏录制</h3>
+<ul>
+<li><code>qa</code> 把操作记录在寄存器 <code>a</code> 中</li>
+<li><code>@a</code> 从寄存器 <code>a</code> 中读取记录，并且 replay</li>
+<li><code>@@</code> 取出最新的录制记录，并且 replay</li>
+<li><code>n@@</code> 取出最新的录制记录，并且执行 <code>n</code> 次 replay</li>
+</ul>
+<h3 id="文件差异对比">文件差异对比</h3>
+<ul>
+<li><code>vimdiff file1 file2 [file3 [file4]]</code> 文件对比，会以垂直分割的方式打开文件</li>
+<li><code>vim -d file1 file2 [file3 [file4]]</code> 文件对比，会以垂直分割的方式打开文件
+<ul>
+<li>折叠的行用 <code>+ +--n lines: /* a</code> 表示+ ±-123 lines: /* a</li>
+<li>被删除的行用 <code>---</code> 表示</li>
+<li>不同的的行会用高亮显示</li>
+</ul>
+</li>
+<li><code>:diffsplit file</code> 打开文件 <code>file</code> 并且进行差异对比</li>
+<li><code>:diffupdate</code> 把文本从一个窗口移到另一个，并以此来消除差异</li>
+<li><code>:dp</code> 即 <code>:diff put</code> 将把文字从左边拷到右边，从而消除两边的差异</li>
+</ul>
 
     </div>
 
@@ -570,7 +645,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8linux%E4%B8%AD%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">在linux中的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-%E4%B8%8A%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">linux 上的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">vim使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87"><span class="nav-number">4.1.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%8D%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">删除复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">模式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91"><span class="nav-number">4.4.</span> <span class="nav-text">编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.5.</span> <span class="nav-text">查找替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E6%96%87%E4%BB%B6"><span class="nav-number">4.6.</span> <span class="nav-text">退出文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91"><span class="nav-number">4.7.</span> <span class="nav-text">多文件编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A0%87%E7%AD%BE%E7%BC%96%E8%BE%91"><span class="nav-number">4.8.</span> <span class="nav-text">多标签编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buffer%E6%93%8D%E4%BD%9C"><span class="nav-number">4.9.</span> <span class="nav-text">buffer操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">4.10.</span> <span class="nav-text">文件操作</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8linux%E4%B8%AD%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">在linux中的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-%E4%B8%8A%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">linux 上的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">vim使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87"><span class="nav-number">4.1.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%8D%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">删除复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">模式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91"><span class="nav-number">4.4.</span> <span class="nav-text">编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.5.</span> <span class="nav-text">查找替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9F%9F%E9%80%89%E6%8B%A9"><span class="nav-number">4.6.</span> <span class="nav-text">区域选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E6%96%87%E4%BB%B6"><span class="nav-number">4.7.</span> <span class="nav-text">退出文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91-%E5%A4%9A%E7%AA%97%E5%8F%A3%E6%93%8D%E4%BD%9C"><span class="nav-number">4.8.</span> <span class="nav-text">多文件编辑（多窗口操作）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A0%87%E7%AD%BE%E7%BC%96%E8%BE%91"><span class="nav-number">4.9.</span> <span class="nav-text">多标签编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buffer%E6%93%8D%E4%BD%9C"><span class="nav-number">4.10.</span> <span class="nav-text">buffer操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">4.11.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E5%BD%95%E5%88%B6"><span class="nav-number">4.12.</span> <span class="nav-text">宏录制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%B7%AE%E5%BC%82%E5%AF%B9%E6%AF%94"><span class="nav-number">4.13.</span> <span class="nav-text">文件差异对比</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -648,7 +723,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:49</span>
+    <span title="站点阅读时长">18:50</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
