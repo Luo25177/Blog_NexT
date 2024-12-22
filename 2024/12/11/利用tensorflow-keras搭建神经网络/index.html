@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/12/11/%E5%88%A9%E7%94%A8tensorflow-keras%E6%90%AD%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/0ccc4f39833a66df8fd8aa6dac8d43e9.png">
 <meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/12/11/%E5%88%A9%E7%94%A8tensorflow-keras%E6%90%AD%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/1733758719466.png">
 <meta property="article:published_time" content="2024-12-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-10T16:03:51.914Z">
+<meta property="article:modified_time" content="2024-12-22T15:34:41.495Z">
 <meta property="article:author" content="落">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="神经网络">
@@ -229,10 +229,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-12-11 00:00:00 / 修改时间：00:03:51" itemprop="dateCreated datePublished" datetime="2024-12-11T00:00:00+08:00">2024-12-11</time>
+              <time title="创建时间：2024-12-11 00:00:00" itemprop="dateCreated datePublished" datetime="2024-12-11T00:00:00+08:00">2024-12-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-12-22 23:34:41" itemprop="dateModified" datetime="2024-12-22T23:34:41+08:00">2024-12-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -249,14 +255,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>22k</span>
+              <span>25k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>20 分钟</span>
+              <span>23 分钟</span>
             </span>
             <div class="post-description">利用 tensorflow.keras 搭建神经网络训练模型</div>
 
@@ -451,7 +457,7 @@
 </ul>
 </li>
 <li>
-<p>交叉熵误差（用于分类问题</p>
+<p>交叉熵误差（用于分类问题）</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mo>−</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false">{</mo><msub><mi>y</mi><mi>i</mi></msub><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">L=-\sum^n_{i=1}\{y_i\log(\hat{y}_i)+(1-y_i)\log(1-\hat{y}_i)\}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mopen">{</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">}</span></span></span></span></span></p>
 </li>
@@ -490,6 +496,67 @@
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">forward_prop</span>(<span class="params">a_in, w, b, sigma</span>):</span><br><span class="line">  uints = w.shape[<span class="number">1</span>]</span><br><span class="line">  a_out = np.zeros(uints)</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(uints):</span><br><span class="line">    w_tmp = w[:, j]</span><br><span class="line">    z = np.dot(w, a_in) + b[j]</span><br><span class="line">    a_out[j] = sigma(z)</span><br><span class="line">  <span class="keyword">return</span> a_out</span><br></pre></td></tr></table></figure>
+<h3 id="激活函数的选择">激活函数的选择</h3>
+<ul>
+<li>隐藏层中
+<ul>
+<li>优先考虑 ReLU 修正线性单元激活函数
+<ul>
+<li>计算效率高，收敛快，不存在梯度消失问题</li>
+<li>ReLU 在输入小于 0 时输出为 0，导致某些神经元的权重无法更新</li>
+<li>也可以选择 Leaky ReLU，PReLU 等变体来避免上述问题</li>
+</ul>
+</li>
+<li>考虑使用 Tanh 函数
+<ul>
+<li>输出值在 -1 和 1 之间，以 0 为中心，使得优化过程更加容易</li>
+<li>也存在梯度消失问题，并且计算量较大</li>
+</ul>
+</li>
+<li>谨慎使用 Sigmoid 函数
+<ul>
+<li>输出值在 0 和 1 之间，不是以 0 为中心</li>
+<li>会导致优化过程变得困难，存在梯度消失问题</li>
+<li>在隐藏层中不推荐使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输出层中
+<ul>
+<li>对于二分类问题
+<ul>
+<li>通常使用 Sigmoid 函数，该函数将输出映射到 0 和 1 之间，表示属于某个类别的概率</li>
+</ul>
+</li>
+<li>多分类问题
+<ul>
+<li>通常使用 Softmax 函数，该函数可以将输出映射到多个类别的概率分布上，计算每个类别的概率值，并且保证所有概率的总和为 1</li>
+</ul>
+</li>
+<li>回归问题
+<ul>
+<li>通常使用线性激活函数 identity 函数，该函数直接将输入映射到输出，不进行非线性变换</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>其他因素
+<ul>
+<li>复杂度：选择激活函数时，需要考虑其计算复杂度</li>
+<li>性能：通过实验和验证来选择最合适特定任务的激活函数，可以使用交叉验证等方式来评估不同的激活函数对模型性能的影响</li>
+<li>需求：根据任务需求来选择合适的激活函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="引入激活函数的原因">引入激活函数的原因</h3>
+<ul>
+<li>引入非线性：激活函数引入非线性能解决非线性问题</li>
+<li>增强表达能力：激活函数使得神经网络能够学习和表示更复杂的函数关系，通过堆叠多层非线性激活函数可以逼近任意复杂的函数</li>
+<li>缓解梯度消失与梯度爆炸问题：适当的激活函数可以帮助缓解梯度消失和梯度爆炸的问题</li>
+<li>正则化效果：有些激活函数有正则化的效果，可以减少过拟合</li>
+<li>特征选择和稀疏性：激活函数可以使得神经网络具有稀疏性，有助于特征选择，使得神经网络更加关注重要的输入特征</li>
+</ul>
 <h2 id="函数介绍">函数介绍</h2>
 <h3 id="sequential">Sequential</h3>
 <p><code>keras.models.Sequential</code> 顺序模型是多个网络层的线性堆叠，可以通过网络层实例的列表将参数传递给 <code>Sequential</code> 构造器，来创建一个对应的模型</p>
@@ -1076,6 +1143,113 @@ h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span
 <li><code>on_train_begin</code> 在模型训练前调用</li>
 <li><code>on_train_end</code> 在模型训练结束之后调用</li>
 </ul>
+<h3 id="utils">Utils</h3>
+<p><code>Utils</code> 是 <code>Keras</code> 里的一个工具包</p>
+<ul>
+<li><code>keras.utils.CustomObjectScope()</code> 提供更改为 <code>_GLOBAL_CUSTOM_OBJECTS</code> 无法转义的范围，即自定义对象作用域。提供定制类的作用域，在该作用域内全局定制类能够被更改，但在作用域结束后将回到初始状态。 以 <code>with</code> 声明开头的代码将能够通过名字访问定制类的实例，在with的作用范围，这些定制类的变动将一直持续，在 <code>with</code> 作用域结束后，全局定制类的实例将回归其在 <code>with</code> 作用域前的状态。</li>
+<li><code>keras.utils.HDF5Matrix(datapath, dataset, start = 0, end = None, normalizer = None)</code> 使用 HDF5 数据集代替 <code>numpy。array</code> 的方法。提供了 <code>start</code> 和 <code>end</code> 来数据集切片，还可以提供正则化函数，该函数会在每片数据检索时自动调用
+<ul>
+<li><code>datapath</code> HDF5 的文件路径</li>
+<li><code>dataset</code> 字符串， <code>datapath</code> 中的 HDF5 数据集名称。所以数据集的全路径为 <code>datapath + dataset</code></li>
+<li><code>start</code> 所需的指定数据集的切片开始的位置</li>
+<li><code>end</code> 所需的指定数据集的切片结束的位置</li>
+<li><code>normalizer</code> 早检索数据时调用的函数，可以将数据集标准化</li>
+</ul>
+</li>
+<li><code>keras.utils.Sequence()</code> 序列，用于拟合数据序列的基对象</li>
+<li><code>keras.utils.to_categorical(y, num_classes = None, dtype = 'float32')</code> 将类别向量转化为二进制类矩阵
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}0&amp;1&amp;2\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.20001em;vertical-align:-0.35001em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8500000000000001em;"><span style="top:-3.01em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35000000000000003em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8500000000000001em;"><span style="top:-3.01em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35000000000000003em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8500000000000001em;"><span style="top:-3.01em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35000000000000003em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span></span></span></span> 转化为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;1\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span></li>
+<li><code>y</code> 需要转换成矩阵的类矢量</li>
+<li><code>num_classes</code> 总类别数</li>
+<li><code>dtype</code> 输入所期望转化成的数据类型</li>
+</ul>
+</li>
+<li><code>keras.utils.normalize(x, axis = -1, order = 2)</code> 便准化 <code>numpy.array</code>
+<ul>
+<li><code>x</code> 需要标准化的 <code>numpy.array</code></li>
+<li><code>axis</code> 需要标准化的轴</li>
+<li><code>order</code> 规范化的方式
+<ul>
+<li>1 就是 L1 归一化</li>
+<li>2 就是 L2 归一化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>keras.utils.get_file(fname, origin, untar=False, md5_hash=None, file_hash=None, cache_subdir='datasets', hash_algorithm='auto', extract=False, archive_format='auto', cache_dir=None)</code> 如果文件 <code>fname</code> 不存在缓存中时，从 <code>origin</code> 处下载文件。默认情况下 <code>origin</code> 处的文件将会被下载到缓存子目录下
+<ul>
+<li><code>fnam</code> 文件名，如果设置了绝对路径，那么文件将会被下载到对应的位置</li>
+<li><code>origin</code> 文件原始的 url</li>
+<li><code>untar</code> 是否需要解压文件</li>
+<li><code>md5_hash</code> 用于校验 md5 的哈希值</li>
+<li><code>file_hash</code> 下载后的文件的期望哈希字符串，支持 <code>sha256</code> 和 <code>md5</code> 两个哈希算法</li>
+<li><code>cache_subdir</code> 在 <code>keras</code> 缓存目录下的保存文件的子目录。如果给定了绝对路径，则文件将会被保存在对应的路径下</li>
+<li><code>hash_algorithm</code> 选择哈希算法来校验文件，可以选择的参数如下
+<ul>
+<li><code>'md5'</code></li>
+<li><code>'sha256'</code></li>
+<li><code>'auto'</code> 将自动检测所使用的哈希算法</li>
+</ul>
+</li>
+<li><code>extract</code> 是否要尝试解压该文件</li>
+<li><code>archive_format</code> 尝试提取文件的存档格式
+<ul>
+<li><code>'auto'</code> 默认为 <code>['tar'. 'zip']</code></li>
+<li><code>'tar'</code> 包含 <code>tar</code> <code>tar.gz</code> <code>tar.bz</code> 文件类型</li>
+<li><code>'zip'</code></li>
+<li><code>None</code></li>
+</ul>
+</li>
+<li><code>cache_dir</code> 存储缓存文件的位置，默认使用 keras 目录</li>
+</ul>
+</li>
+<li><code>keras.utils.print_summary(model, line_length=None, positions=None, print_fn=None)</code> 打印模型的概况
+<ul>
+<li><code>model</code> <code>keras</code> 的模型实例</li>
+<li><code>line_length</code> 打印的每行的总长度，主要是为了适应不同大小的终端长度</li>
+<li><code>positions</code> 每行中日志元素的相对或绝对位置，默认为 <code>[.33, .55, .67, 1.]</code></li>
+<li><code>print_fn</code> 需要使用的打印函数，可以设置为自定义函数，默认为 <code>pintf</code></li>
+</ul>
+</li>
+<li><code>keras.utils.plot_model(model, to_file='model.png', show_shapes=False, show_layer_names=True, rankdir='TB', expand_nested=False, dpi=96)</code> 将 keras 的模型转为 <code>dot</code> 格式并且保存到文件中
+<ul>
+<li><code>model</code> 模型实例</li>
+<li><code>to_file</code> 绘制图像的文件名</li>
+<li><code>show_shape</code> 是否显示尺寸信息</li>
+<li><code>show_layer_names</code> 是否显示层的名字</li>
+<li><code>rankdir</code> 传递给 <code>pyDot</code> 的 <code>rankdir</code> 参数，一个指定绘图格式的字符串
+<ul>
+<li><code>'TB'</code> 创建一个垂直绘图</li>
+<li><code>'LR'</code> 创建一个水平绘图</li>
+</ul>
+</li>
+<li><code>expand_nested</code> 是否扩展嵌套模型为聚类</li>
+<li><code>dpi</code> 点 DPI</li>
+<li>但是需要注意的是，这个函数的使用需要安装 <code>pydot</code> 和 <code>graphviz</code>
+<ul>
+<li><code>pip install pydot</code></li>
+<li><code>graphviz</code> 需要在 <a target="_blank" rel="noopener" href="https://graphviz.gitlab.io/download/">官网</a> 上下载并且安装，并且需要将安装路径下的 <code>bin</code> 文件夹添加到环境变量中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>keras.utils.multi_gpu_model(model, gpus=None, cpu_merge=True, cpu_relocation=False)</code> 将模型复制到多个 GPU 上，该功能实现了单机多 GPU 数据并行
+<ul>
+<li>运行原理
+<ul>
+<li>将模型输入分成多个子批次</li>
+<li>在每个子批次上应用模型副本，每个模型的副本都在 GPU 上运行</li>
+<li>在 CPU 上将结果连接成一个大批量</li>
+</ul>
+</li>
+<li><code>model</code> 模型实例，为了避免 OOM 错误，该模型可建立在 CPU 上</li>
+<li><code>gpus</code> 不小于 2 的整数或者整数列表，表示用于创建模型副本的 GPU 数量</li>
+<li><code>cpu_merge</code> 是否强制合并 CPU 范围内的模型权重</li>
+<li><code>cpu_relocation</code> 是否在 CPU 的范围内创建模型的权重</li>
+</ul>
+</li>
+</ul>
 <h3 id="保存加载模型">保存加载模型</h3>
 <ul>
 <li><code>model.save(&quot;number_identify.keras&quot;)</code> 保存模型</li>
@@ -1088,6 +1262,10 @@ h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">mnist = tf.keras.datasets.mnist</span><br><span class="line"></span><br><span class="line">(x_train, y_train), (x_test, y_test) = mnist.load_data()</span><br><span class="line"></span><br><span class="line">x_train = tf.keras.utils.normalize(x_train, axis = <span class="number">1</span>)</span><br><span class="line">x_test = tf.keras.utils.normalize(x_test, axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">x_temp = np.array(x_train)</span><br><span class="line"><span class="built_in">print</span>(x_temp.shape[<span class="number">0</span>:])</span><br><span class="line"></span><br><span class="line">y_temp = np.array(y_train)</span><br><span class="line"><span class="built_in">print</span>(y_temp.shape[<span class="number">0</span>:])</span><br><span class="line"></span><br><span class="line">model = tf.keras.models.Sequential()</span><br><span class="line"></span><br><span class="line">model.add(tf.keras.layers.Flatten())</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">128</span>, activation = tf.keras.activations.relu))</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">128</span>, activation = tf.keras.activations.relu))</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">10</span>, activation = tf.keras.activations.softmax))</span><br><span class="line"></span><br><span class="line">model.<span class="built_in">compile</span>(optimizer = <span class="string">&quot;adam&quot;</span>,</span><br><span class="line">              loss = <span class="string">&quot;sparse_categorical_crossentropy&quot;</span>,</span><br><span class="line">              metrics = [<span class="string">&quot;accuracy&quot;</span>])</span><br><span class="line"></span><br><span class="line">model.fit(x_train, y_train, epochs = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">model.evaluate(x_test, y_test)</span><br><span class="line"></span><br><span class="line">model.save(<span class="string">&quot;number_identify.keras&quot;</span>)</span><br><span class="line"></span><br><span class="line">new_model = tf.keras.models.load_model(<span class="string">&#x27;number_identify.keras&#x27;</span>)</span><br><span class="line"></span><br><span class="line">new_model.evaluate(x_test, y_test)</span><br></pre></td></tr></table></figure>
 <p>这里使用 keras 官方文档中的例子来做测试。测试结果如下，测试的精确度达到了 0.9685</p>
 <p><img src="/Blog_NexT/2024/12/11/%E5%88%A9%E7%94%A8tensorflow-keras%E6%90%AD%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/1733758719466.png" alt="1733758719466.png"></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://keras-zh.readthedocs.io/">Keras: 基于 Python 的深度学习库</a></li>
+</ul>
 
     </div>
 
@@ -1188,7 +1366,7 @@ h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">神经元模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.2.</span> <span class="nav-text">单层神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.3.</span> <span class="nav-text">两层神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.4.</span> <span class="nav-text">多层神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%AC%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">原理及公式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">函数介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sequential"><span class="nav-number">3.1.</span> <span class="nav-text">Sequential</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dense"><span class="nav-number">3.2.</span> <span class="nav-text">Dense</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#activation"><span class="nav-number">3.3.</span> <span class="nav-text">activation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compile"><span class="nav-number">3.4.</span> <span class="nav-text">compile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optimizer"><span class="nav-number">3.5.</span> <span class="nav-text">optimizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss"><span class="nav-number">3.6.</span> <span class="nav-text">Loss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keras-losses-huber-loss-y-true-y-pred-delta-1-0-%E7%BB%BC%E5%90%88%E4%BA%86%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%92%8C%E5%B9%B3%E5%9D%87%E7%BB%9D%E5%AF%B9%E8%AF%AF%E5%B7%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E7%82%B9-%E6%B6%88%E9%99%A4%E4%BA%86%E4%B8%A4%E8%80%85%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">keras.losses.huber_loss(y_true, y_pred, delta &#x3D; 1.0) 综合了均方误差损失函数和平均绝对误差损失函数的优点，消除了两者的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fit"><span class="nav-number">4.1.</span> <span class="nav-text">fit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#evaluate"><span class="nav-number">4.2.</span> <span class="nav-text">evaluate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callback"><span class="nav-number">4.3.</span> <span class="nav-text">callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.4.</span> <span class="nav-text">保存加载模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B-%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">5.1.</span> <span class="nav-text">多分类问题实例——手写数字识别</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">神经元模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.2.</span> <span class="nav-text">单层神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.3.</span> <span class="nav-text">两层神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.4.</span> <span class="nav-text">多层神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%AC%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">原理及公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">2.6.</span> <span class="nav-text">激活函数的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.7.</span> <span class="nav-text">引入激活函数的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">函数介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sequential"><span class="nav-number">3.1.</span> <span class="nav-text">Sequential</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dense"><span class="nav-number">3.2.</span> <span class="nav-text">Dense</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#activation"><span class="nav-number">3.3.</span> <span class="nav-text">activation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compile"><span class="nav-number">3.4.</span> <span class="nav-text">compile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optimizer"><span class="nav-number">3.5.</span> <span class="nav-text">optimizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss"><span class="nav-number">3.6.</span> <span class="nav-text">Loss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keras-losses-huber-loss-y-true-y-pred-delta-1-0-%E7%BB%BC%E5%90%88%E4%BA%86%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%92%8C%E5%B9%B3%E5%9D%87%E7%BB%9D%E5%AF%B9%E8%AF%AF%E5%B7%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E7%82%B9-%E6%B6%88%E9%99%A4%E4%BA%86%E4%B8%A4%E8%80%85%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">keras.losses.huber_loss(y_true, y_pred, delta &#x3D; 1.0) 综合了均方误差损失函数和平均绝对误差损失函数的优点，消除了两者的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fit"><span class="nav-number">4.1.</span> <span class="nav-text">fit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#evaluate"><span class="nav-number">4.2.</span> <span class="nav-text">evaluate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callback"><span class="nav-number">4.3.</span> <span class="nav-text">callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#utils"><span class="nav-number">4.4.</span> <span class="nav-text">Utils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.5.</span> <span class="nav-text">保存加载模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B-%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">5.1.</span> <span class="nav-text">多分类问题实例——手写数字识别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1266,7 +1444,7 @@ h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:27</span>
+    <span title="站点阅读时长">19:30</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
