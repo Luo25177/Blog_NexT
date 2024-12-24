@@ -287,124 +287,84 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="startup"><strong>startup</strong></h3>
-<p>默认的startup函数是由 linker(连接器) 自己选择的</p>
-<h3 id="1-内存初始化">1. <strong>内存初始化</strong></h3>
-<p><img src="https://img-blog.csdnimg.cn/20190919233800651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190919233800651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
+        <h3 id="startup"><a href="#startup" class="headerlink" title="startup"></a><strong>startup</strong></h3><p>默认的startup函数是由 linker(连接器) 自己选择的</p>
+<h3 id="1-内存初始化"><a href="#1-内存初始化" class="headerlink" title="1. 内存初始化"></a>1. <strong>内存初始化</strong></h3><p><img src="https://img-blog.csdnimg.cn/20190919233800651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190919233800651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
 <p>内存块：</p>
 <ul>
 <li>从哪里来</li>
 <li>大小多少</li>
-<li>回收到哪<br>
-SBH(Small Block Heap)：应付CRT本身以及main进去之后的所有内存（size=1024=1k）。</li>
+<li>回收到哪<br>SBH(Small Block Heap)：应付CRT本身以及main进去之后的所有内存（size=1024=1k）。</li>
 </ul>
 <p>如果客户要的区块大小要小于sbh_threshold（size=1016，加上图中的上下的00000131(各占4个字节)，1016+8=1024，即1K），将从sbh内部去申请内存。反之，使用HeapAlloc(win提供的API函数)，让操作系统提供服务。</p>
-<p>因此，内存小于等于1K的，VC6认为它足够小，它将使用SBH去服务它。反之，若大于1K，将有操作系统那些&quot;池塘&quot;（HeapAlloc等函数）来提供。（内存块从哪里来）</p>
+<p>因此，内存小于等于1K的，VC6认为它足够小，它将使用SBH去服务它。反之，若大于1K，将有操作系统那些”池塘”（HeapAlloc等函数）来提供。（内存块从哪里来）</p>
 <p><em>HeapAlloc</em>:HeapAlloc是Windows提供的API，在进程初始化的时候，系统会在进程的地址空间中创建1M大小的堆，称为默认堆（Default Heap），该大小为默认值，可以通过/HEAP连接器开关进行修改。用户也可以通过HeapCreate创建额外的堆，堆的使用可以更有效的进行内存管理，避免线程同步的开销以及快速的释放内存等</p>
 <p>我们可以向操作系统要求 A 一大块内存，B 一大块内存，C 一大块内存，我们可以根据不同的用途从不同的内存块获取</p>
-<p><em>SBH初始化</em>:<br>
-给我一块区域，大小4096(初始值，可以弹性增长),取名为 crtheap<br>
-heap_init 在初始化的时候申请了 <a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190909005831841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">16 个header</a>，每个header的<a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190909010216461.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">内部情况</a></p>
-<h3 id="2-io-初始化-包括-printf-cout-等等">2. <strong>io 初始化，包括 printf，cout 等等</strong></h3>
-<h3 id="1-内存分配">1. <strong><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190920224423330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">内存分配</a></strong></h3>
-<p>线膨胀大小决定要多大的内存，然后去那内存，拿完后函数返回，设置区块串接<br>
-<strong>malloc_crt</strong>:</p>
+<p><em>SBH初始化</em>:<br>给我一块区域，大小4096(初始值，可以弹性增长),取名为 crtheap<br>heap_init 在初始化的时候申请了 <a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190909005831841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">16 个header</a>，每个header的<a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190909010216461.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">内部情况</a></p>
+<h3 id="2-io-初始化，包括-printf，cout-等等"><a href="#2-io-初始化，包括-printf，cout-等等" class="headerlink" title="2. io 初始化，包括 printf，cout 等等"></a>2. <strong>io 初始化，包括 printf，cout 等等</strong></h3><h3 id="1-内存分配"><a href="#1-内存分配" class="headerlink" title="1. 内存分配"></a>1. <strong><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190920224423330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">内存分配</a></strong></h3><p>线膨胀大小决定要多大的内存，然后去那内存，拿完后函数返回，设置区块串接<br><strong>malloc_crt</strong>:</p>
 <ul>
 <li>调试模式 使用一般的 malloc 分配内存</li>
 <li>非调试模式 malloc——dbg 分配内存并且登记一些信息</li>
 </ul>
-<p>_ioinit() 需要分配内存<br>
-会对第一步所申请到的内存进行一系列的包装</p>
+<p>_ioinit() 需要分配内存<br>会对第一步所申请到的内存进行一系列的包装</p>
 <p>对于vc10，不在执行一些函数，图中展示了 heap_alloc_base 的源码</p>
 <p><img src="https://img-blog.csdnimg.cn/20190920224423330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190920224423330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void __cdecl _ioinit(void)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    // 只有这一段与内存有关，是用来分配内存的</span><br><span class="line">    // IOINFO_ARRAY_ELTS 32</span><br><span class="line">    // sizeof(ioinfo) 8</span><br><span class="line">    if((pio = _malloc_crt(IOINFO_ARRAY_ELTS * sizeof(ioinfo))) == NULL)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>在调试模式下，要加上上下文等关键信息，加完的长度要登记在cookie之中(图中的 00000131，在之前的 130 的基础上需要加一个 bit 位来登记状态)，最后还要进行字节对齐</p>
 <p>0x100(内存块的大小) + 0x24(36) + 0x8 = 0x12c -&gt; 0x130</p>
-<p><strong><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190920231934961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">heap_alloc_dbg</a></strong><br>
-heap中，需要分配内存的地方可能是 CRT 本省，也可能是应用程序，在要完内存之后，如果小于 1k，区块就膨胀，之后回去SBH挖取一小块内存，然后区块将被串接起来，就像图中的<a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190920232724770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">Debug Heap</a>链表</p>
+<p><strong><a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190920231934961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">heap_alloc_dbg</a></strong><br>heap中，需要分配内存的地方可能是 CRT 本省，也可能是应用程序，在要完内存之后，如果小于 1k，区块就膨胀，之后回去SBH挖取一小块内存，然后区块将被串接起来，就像图中的<a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20190920232724770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70">Debug Heap</a>链表</p>
 <p><strong>heap_alloc_bae</strong></p>
-<p>: 内存检查，如果小于1k就从SBH中拿取，大于将从操作系统中拿取<br>
-这里的 __sbh_threshold 为 1K</p>
+<p>: 内存检查，如果小于1k就从SBH中拿取，大于将从操作系统中拿取<br>这里的 __sbh_threshold 为 1K</p>
 <p><img src="https://www.notion.soC++%E7%94%9F%E5%89%8D%E6%AD%BB%E5%90%8E4.png" alt="https://www.notion.soC++%E7%94%9F%E5%89%8D%E6%AD%BB%E5%90%8E4.png"></p>
-<h3 id="2-从sbh拿内存-ioinit">2. 从SBH拿内存(ioinit)</h3>
-<p><img src="https://img-blog.csdnimg.cn/20190922224306504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190922224306504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
-<p>在32位的电脑上没有64位的变量，bitvGroup被分为了Hi和Lo两部分，BITVEC是unsigned int型，为32位。所以共有[32]组，每组64bits，64位的电脑上可以直接使用一个64位的变量解决<br>
-在管理内存的时候，我们是先挖出一大块，然后有需要的时候就切一块，当回收的时候就归还内存，对于使用单个元素大小一样的内存块，管理内存尽量把它们连接到一起(要么就是物理虚拟地址连接，要么就是链表)，这种设计准备了 64 条链表，用于管理 64 种不同类型的变量，归还的时候，对于有着相同大小的元素的区块，就把它链接到对应的链表上</p>
+<h3 id="2-从SBH拿内存-ioinit"><a href="#2-从SBH拿内存-ioinit" class="headerlink" title="2. 从SBH拿内存(ioinit)"></a>2. 从SBH拿内存(ioinit)</h3><p><img src="https://img-blog.csdnimg.cn/20190922224306504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190922224306504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
+<p>在32位的电脑上没有64位的变量，bitvGroup被分为了Hi和Lo两部分，BITVEC是unsigned int型，为32位。所以共有[32]组，每组64bits，64位的电脑上可以直接使用一个64位的变量解决<br>在管理内存的时候，我们是先挖出一大块，然后有需要的时候就切一块，当回收的时候就归还内存，对于使用单个元素大小一样的内存块，管理内存尽量把它们连接到一起(要么就是物理虚拟地址连接，要么就是链表)，这种设计准备了 64 条链表，用于管理 64 种不同类型的变量，归还的时候，对于有着相同大小的元素的区块，就把它链接到对应的链表上</p>
 <p><img src="https://img-blog.csdnimg.cn/2019092223443098.png" alt="https://img-blog.csdnimg.cn/2019092223443098.png"></p>
 <p><img src="https://img-blog.csdnimg.cn/20190923001046222.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190923001046222.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
 <p>每次都能申请 1MB大小的内存，分为 32个group，每次使用的时候先使用 1/32，也就是 32k，再把32k切成 8 块，每块就是 4k</p>
 <p><img src="https://img-blog.csdnimg.cn/20190923001823850.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20190923001823850.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
-<p>当切出130bytes出去立马就变成了131bytes了，因为它的这个设计需要1个bytes表示它的状态是给出去了还是在SBH手中<br>
-0xffffffff表示为-1（上下个占8个byte），用来防止链表合并,0xffffffff表示为-1（上下个占8个byte），用来防止链表合并。4096-8*2=4088。前面讲过希望设计大小是16的倍数，最靠近16边界的是4080，因此8bytes保留。<br>
-总结:</p>
+<p>当切出130bytes出去立马就变成了131bytes了，因为它的这个设计需要1个bytes表示它的状态是给出去了还是在SBH手中<br>0xffffffff表示为-1（上下个占8个byte），用来防止链表合并,0xffffffff表示为-1（上下个占8个byte），用来防止链表合并。4096-8*2=4088。前面讲过希望设计大小是16的倍数，最靠近16边界的是4080，因此8bytes保留。<br>总结:</p>
 <ol>
 <li>首先，我们有16个header，每一个header管理的事情是1M里面的32K切成8块，这8块是由64条链表来管理。</li>
 <li>一开始是最后一条链表负责把page8链接起来（130=304/16=19，从0开始排列，19-1=18。理论应该是#18 List进行供应，但因为现在这些链表都是空的，只有最后一个链表是有挂载page，所以第18号链表是空的，最后发现最后一个链表的page起着作用，所以在page中把130bytes切出去了）</li>
 <li>在page中把130bytes切割出来。130bytest、是所有程序都会面临，_ioinit()需要的内存大小就是130bytes，于是剩下ec0bytes 。这就是首次内存分配。</li>
 <li>接下来对page1继续切割（只有当page1 内存切割完成后，才会去切割page2的内存），当切割至第15次，开始释放</li>
 </ol>
-<p>链表的各自任务是以16在变化的，所以由#35 链表进行回收。#35 链表的指针将指向240bytes的地址。<br>
-当第16次分配内存时，将分配b0大小,操作系统将从之前释放的240bytes中的空间重新切割,240-b0=190，剩下的190将重新分配给#24 List维护管理。所以，内存切割分配是个动态的过程，不断调整所属的链表。</p>
+<p>链表的各自任务是以16在变化的，所以由#35 链表进行回收。#35 链表的指针将指向240bytes的地址。<br>当第16次分配内存时，将分配b0大小,操作系统将从之前释放的240bytes中的空间重新切割,240-b0=190，剩下的190将重新分配给#24 List维护管理。所以，内存切割分配是个动态的过程，不断调整所属的链表。</p>
 <p>各个元素大小相同的空区块将会合并，合并后的区块也会被串起来，然后合成一整个大链表，每个链表的头尾都有 0xffffffff 作为分隔符，保证它们不合并</p>
 <pre><code>![https://img-blog.csdnimg.cn/20190928182049605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70](https://img-blog.csdnimg.cn/20190928182049605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
 
 ![https://img-blog.csdnimg.cn/20190928190203119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70](https://img-blog.csdnimg.cn/20190928190203119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70)
-</code></pre>
-<h3 id="3-获得命令行参数">3. <strong>获得命令行参数</strong></h3>
-<h3 id="4-获得环境变量">4. <strong>获得环境变量</strong></h3>
-<p>一共会分配 240H来储存，这里面有 10 条指针，每一条指针都指着一个 指向环境变量的字符串，实际上10条指针所指向的字符串的长度之和不到240H，但经过一系列的膨胀等操作，最后就变成 240H</p>
+</code></pre><h3 id="3-获得命令行参数"><a href="#3-获得命令行参数" class="headerlink" title="3. 获得命令行参数"></a>3. <strong>获得命令行参数</strong></h3><h3 id="4-获得环境变量"><a href="#4-获得环境变量" class="headerlink" title="4. 获得环境变量"></a>4. <strong>获得环境变量</strong></h3><p>一共会分配 240H来储存，这里面有 10 条指针，每一条指针都指着一个 指向环境变量的字符串，实际上10条指针所指向的字符串的长度之和不到240H，但经过一系列的膨胀等操作，最后就变成 240H</p>
 <p>在VC环境中，我们发现main()函数共有三个参数，其中包含一个独特的参数_environ。当然，不同的平台main的参数是不同的，我们需要注意的是calling convention。</p>
 <p><img src="https://img-blog.csdnimg.cn/20191002144623755.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20191002144623755.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
-<p>_environ：pointer to pointer tabale，table中的每个entry都是指向环境变量的字符串的指针，一共有10个指针<br>
-我们可以查找到 _environ的首地址，，并且根据其指向的是指向字符串的指针，而字符串总是由‘\0’结束，四个字节为一个指针，因此，共有十个指针，需要注意的是其所指向的字符串的长度。</p>
+<p>_environ：pointer to pointer tabale，table中的每个entry都是指向环境变量的字符串的指针，一共有10个指针<br>我们可以查找到 _environ的首地址，，并且根据其指向的是指向字符串的指针，而字符串总是由‘\0’结束，四个字节为一个指针，因此，共有十个指针，需要注意的是其所指向的字符串的长度。</p>
 <p><img src="https://img-blog.csdnimg.cn/20191002145330241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20191002145330241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
 <p>可以验证之前在程序最开始所分配的内存大小 240 H，每一块内存都需要加上 cookie 然后再补充到 16 的整数倍，但是还没有到达240H，只有230H，在经过一系列膨胀等操作，最后变成240H</p>
 <p><img src="https://img-blog.csdnimg.cn/20191002153456407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20191002153456407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
 <p>这里分配的 240h 的内存再之后设置完 envp 就会被释放掉，其实就是把 操作系统中的环境变量都给获取拷贝过来，之后就释放掉了</p>
-<h3 id="5-设置argv">5. <strong>设置argv</strong></h3>
-<p>argv 格式(假设 argv 为 n) : 连续的 n 个字符，最终用 /0 结束，n个指针分别指向 n 个字符串，这个其实就是执行的 c程序 所生成的 .exe 文件的绝对地址，在进行膨胀</p>
+<h3 id="5-设置argv"><a href="#5-设置argv" class="headerlink" title="5. 设置argv"></a>5. <strong>设置argv</strong></h3><p>argv 格式(假设 argv 为 n) : 连续的 n 个字符，最终用 /0 结束，n个指针分别指向 n 个字符串，这个其实就是执行的 c程序 所生成的 .exe 文件的绝对地址，在进行膨胀</p>
 <p><img src="https://img-blog.csdnimg.cn/20191002153456407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20191002153456407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
 <p>例如: 这个地址有55个字节，那么字符串长度就是 56，那么这一块字符串所占的长度就是 4+4+56 = 64，在经过一系列膨胀，最后变成大小为 100h 的内存 =&gt; 0x64h</p>
-<h3 id="6-设置envp-就是当前程序运行环境的参数">6. <strong>设置envp，就是当前程序运行环境的参数</strong></h3>
-<p>这个操作指令引发了 11 次环境分配，每一块都要分成如上图所示的链表，把内存链接起来，所占用的内存大小就是 11*4+36(膨胀) =&gt; 80<br>
-这个环境分配的顺序就如上图所示，首先分配最下面的</p>
-<h3 id="7-c-初始化">7. <strong>c 初始化</strong></h3>
-<h3 id="8-进入-main-函数">8. <strong>进入 main 函数</strong></h3>
-<p>mainret = main(__argc,__argv,_environ) 在不同的平台，参数数量不同</p>
-<h3 id="9-exit-0-退出程序">9. <strong>exit(0) 退出程序</strong></h3>
-<h3 id="自定-startup-code"><strong>自定 Startup code</strong></h3>
-<p>一个例子:</p>
+<h3 id="6-设置envp，就是当前程序运行环境的参数"><a href="#6-设置envp，就是当前程序运行环境的参数" class="headerlink" title="6. 设置envp，就是当前程序运行环境的参数"></a>6. <strong>设置envp，就是当前程序运行环境的参数</strong></h3><p>这个操作指令引发了 11 次环境分配，每一块都要分成如上图所示的链表，把内存链接起来，所占用的内存大小就是 11*4+36(膨胀) =&gt; 80<br>这个环境分配的顺序就如上图所示，首先分配最下面的</p>
+<h3 id="7-c-初始化"><a href="#7-c-初始化" class="headerlink" title="7. c 初始化"></a>7. <strong>c 初始化</strong></h3><h3 id="8-进入-main-函数"><a href="#8-进入-main-函数" class="headerlink" title="8. 进入 main 函数"></a>8. <strong>进入 main 函数</strong></h3><p>mainret = main(<strong>argc,</strong>argv,_environ) 在不同的平台，参数数量不同</p>
+<h3 id="9-exit-0-退出程序"><a href="#9-exit-0-退出程序" class="headerlink" title="9. exit(0) 退出程序"></a>9. <strong>exit(0) 退出程序</strong></h3><h3 id="自定-Startup-code"><a href="#自定-Startup-code" class="headerlink" title="自定 Startup code"></a><strong>自定 Startup code</strong></h3><p>一个例子:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">int MyStartup(void)</span><br><span class="line">&#123;</span><br><span class="line">    int a = 10;</span><br><span class="line">    HANDLE crtHeap = HeapCreate(HEAP_NO_SERIALIZE,0x010,4000*1024);</span><br><span class="line">    int*p = (int*)HEAPAlloc(crtHeap,HEAP_ZERO_MEMORY,0x010);</span><br><span class="line">    int i,j;</span><br><span class="line">    for(i = 0;i&lt;100;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        for(j = 0;j&lt;100;j++,p++)</span><br><span class="line">        &#123;</span><br><span class="line">            *p = i*100+(j+1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    MessageBoxA(NULL,p,&quot;abcd&quot;,MB_OK);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>但是需要设置，令程序在开始的时候执行的是我们自定义的 MyStartup<br>
-而且，main 函数需要使用启动代码调用</p>
-<h3 id="windows-heap-manager">windows heap manager</h3>
-<p>在c程序运行的时候，会创建一个 heap，这个heap大小小于 4MB，在首地址偏移 178(16进制) 位的位置上，有 128 个free list，自由的双向链表，每个链表就是一对指针，所以所占的内存大小就是 128 * 8 就是 0x400，这一块内存是连续的，这些链表的指针所存储的地址信息都是颠倒过来的，每条链表的两根指针都是指向的同一位置<br>
-这些链表只有第一根链表是指向的一个区块，其他的指针都是指向的自己所在的链表，没有指向任何自由区块<br>
-在windows里的自由区块有cookie，但是windows里的cookie是一种上下融合的，即表示上一块的大小也表示下一块的大小，虽然跟 C++ 程序里的内存分配的自由区块的分布方式不同，但是作用都是相同的<br>
-但是首个区块的 cookie 中并没有前一个区块的信息，存储的内容应该另有意义<br>
-Header 用以记录本区块和前一个区块的大小，长度大小的单位是 单元，每个单元的大小就是 8bytes，这样的用意就是: 长度为 n+1 的区块回收的时候，就会挂载到 free[n], 就是第 n 条链表，因为每条 free list 的&quot;责任间隔&quot;就是 8</p>
-<p>例如: 在程序中如果声明了需要 1024 个字节的内存，那么就会从第一个自由区块中分配 1024 个字节的大小，就是80个单元，但是实际上是分配了 83 个单元<br>
-80(1024) + cookie(1) + tail for debug(2) = 83个，剩下的内存就是 原来的 - 83 个单元，剩下的区块依旧挂载在第 0 块自由区块，剩下的内存会生成一个cookie，这个cookie里存储的就是上一个内存块的大小(0x83)以及自己的内存块的大小</p>
-<h3 id="ioinit-fopen">_ioinit() &amp; fopen()</h3>
-<p>建议阅读下图右侧的备注</p>
+<p>但是需要设置，令程序在开始的时候执行的是我们自定义的 MyStartup<br>而且，main 函数需要使用启动代码调用</p>
+<h3 id="windows-heap-manager"><a href="#windows-heap-manager" class="headerlink" title="windows heap manager"></a>windows heap manager</h3><p>在c程序运行的时候，会创建一个 heap，这个heap大小小于 4MB，在首地址偏移 178(16进制) 位的位置上，有 128 个free list，自由的双向链表，每个链表就是一对指针，所以所占的内存大小就是 128 * 8 就是 0x400，这一块内存是连续的，这些链表的指针所存储的地址信息都是颠倒过来的，每条链表的两根指针都是指向的同一位置<br>这些链表只有第一根链表是指向的一个区块，其他的指针都是指向的自己所在的链表，没有指向任何自由区块<br>在windows里的自由区块有cookie，但是windows里的cookie是一种上下融合的，即表示上一块的大小也表示下一块的大小，虽然跟 C++ 程序里的内存分配的自由区块的分布方式不同，但是作用都是相同的<br>但是首个区块的 cookie 中并没有前一个区块的信息，存储的内容应该另有意义<br>Header 用以记录本区块和前一个区块的大小，长度大小的单位是 单元，每个单元的大小就是 8bytes，这样的用意就是: 长度为 n+1 的区块回收的时候，就会挂载到 free[n], 就是第 n 条链表，因为每条 free list 的”责任间隔”就是 8</p>
+<p>例如: 在程序中如果声明了需要 1024 个字节的内存，那么就会从第一个自由区块中分配 1024 个字节的大小，就是80个单元，但是实际上是分配了 83 个单元<br>80(1024) + cookie(1) + tail for debug(2) = 83个，剩下的内存就是 原来的 - 83 个单元，剩下的区块依旧挂载在第 0 块自由区块，剩下的内存会生成一个cookie，这个cookie里存储的就是上一个内存块的大小(0x83)以及自己的内存块的大小</p>
+<h3 id="ioinit-amp-fopen"><a href="#ioinit-amp-fopen" class="headerlink" title="_ioinit() &amp; fopen()"></a>_ioinit() &amp; fopen()</h3><p>建议阅读下图右侧的备注</p>
 <p><img src="/Blog_NexT/2024/03/19/C-%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%89%8D%E6%AD%BB%E5%90%8E/20191014235423852.png" alt="Untitled"></p>
 <p><img src="https://img-blog.csdnimg.cn/20191015000206330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70" alt="https://img-blog.csdnimg.cn/20191015000206330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDUzOTEyNQ==,size_16,color_FFFFFF,t_70"></p>
-<p>在一开始的时候就获得了一个静态的数组，这个数组里最多可以获得 64 根指针，就是静态指针，这个是由于一维索引有 6 位，也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>6</mn></msup><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">2^6=64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span> ，二维索引有 5 位，也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">2^5=32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span></span></span></span> ，所以程序最多可以打开 2048 个file</p>
+<p>在一开始的时候就获得了一个静态的数组，这个数组里最多可以获得 64 根指针，就是静态指针，这个是由于一维索引有 6 位，也就是 $2^6=64$ ，二维索引有 5 位，也就是 $2^5=32$ ，所以程序最多可以打开 2048 个file</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">    long osfhnd; // os file handle</span><br><span class="line">    char osfile; // os file</span><br><span class="line">    char pipech;</span><br><span class="line">&#125;ioinfo;</span><br><span class="line"></span><br><span class="line">struct _iobuf</span><br><span class="line">&#123;</span><br><span class="line">    char* _ptr;</span><br><span class="line">    int _cnt;</span><br><span class="line">    char* _base;</span><br><span class="line">    int _flag;</span><br><span class="line">    int _file;</span><br><span class="line">    int _charbuf;</span><br><span class="line">    int _bufsiz;</span><br><span class="line">    char* _tmpfname;</span><br><span class="line">&#125;;</span><br><span class="line">typedef struct _iobuf FILE;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p><code>ioinfo</code>：其对应到C/C++程序对应的 <code>fopen</code> 得到的变量（ <code>FILE fp=fopen(&quot;xxx.dat&quot;，“wb”)</code> 中的FILE 变量）</p>
-<p>Linux 对应于 <strong>FILE</strong> 的是 <code>File Desriptor(**fd**)</code>，Windows 对应的则是 <code>file handle</code></p>
+<li><p><code>ioinfo</code>：其对应到C/C++程序对应的 <code>fopen</code> 得到的变量（ <code>FILE fp=fopen(&quot;xxx.dat&quot;，“wb”)</code> 中的FILE 变量）</p>
+<p>  Linux 对应于 <strong>FILE</strong> 的是 <code>File Desriptor(**fd**)</code>，Windows 对应的则是 <code>file handle</code> </p>
 </li>
-<li>
-<p>每个进程至少有三个 file handle（stdin，stdout，stderr），接下来的动作就是把继承下来的这三个或更多的 file handle 抄录到 struct ioinfo。所以，一个进程最多可以开出 64*32=2048个FILE，其中包括从父进程继承下来的部分。</p>
+<li><p>每个进程至少有三个 file handle（stdin，stdout，stderr），接下来的动作就是把继承下来的这三个或更多的 file handle 抄录到 struct ioinfo。所以，一个进程最多可以开出 64*32=2048个FILE，其中包括从父进程继承下来的部分。</p>
 </li>
-<li>
-<p>操作系统通过函数 <code>GetStartInfo()</code> 函数获得 <code>inherited opened file headles</code> 把继承而来的这三个或更多的 <code>file handle</code> 拷贝到 <code>struct ioinfo</code></p>
-</li>
+<li>操作系统通过函数 <code>GetStartInfo()</code> 函数获得 <code>inherited opened file headles</code> 把继承而来的这三个或更多的 <code>file handle</code> 拷贝到 <code>struct ioinfo</code></li>
 </ul>
-<h3 id="kernel-mode-and-user-mode">Kernel Mode and User Mode</h3>
-<p><img src="/Blog_NexT/2024/03/19/C-%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%89%8D%E6%AD%BB%E5%90%8E/20191020105029701.png" alt="20191020105029701.png"></p>
+<h3 id="Kernel-Mode-and-User-Mode"><a href="#Kernel-Mode-and-User-Mode" class="headerlink" title="Kernel Mode and User Mode"></a>Kernel Mode and User Mode</h3><p><img src="/Blog_NexT/2024/03/19/C-%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%89%8D%E6%AD%BB%E5%90%8E/20191020105029701.png" alt="20191020105029701.png"></p>
 <p>lpReserved2 将指向 inherited handles info 。字节0~3表示一个N值，代表了继承了几个file handle（原则上一般至少有stdin、stdout、stderr 三个file handle）。  N value for OSfile 则是 ioinfo 结构体中的 char os file，N OS handle values 则是ioinfo结构体中的 long osfhnd。</p>
 <p>借由调用GetstartupInfo函数，取得lpReserved2指针，指向inherited handles info，取出N，OSfile，osfhnd，copy填入到ioinfo的结构体中。借由这种方式去登记/记载 父进程继承而来的file handle。</p>
 <p><img src="/Blog_NexT/2024/03/19/C-%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%94%9F%E5%89%8D%E6%AD%BB%E5%90%8E/20191020113111545.png" alt="20191020113111545.png"></p>
@@ -511,7 +471,7 @@ Header 用以记录本区块和前一个区块的大小，长度大小的单位�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#startup"><span class="nav-number">1.</span> <span class="nav-text">startup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">1. 内存初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-io-%E5%88%9D%E5%A7%8B%E5%8C%96-%E5%8C%85%E6%8B%AC-printf-cout-%E7%AD%89%E7%AD%89"><span class="nav-number">3.</span> <span class="nav-text">2. io 初始化，包括 printf，cout 等等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">4.</span> <span class="nav-text">1. 内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%8Esbh%E6%8B%BF%E5%86%85%E5%AD%98-ioinit"><span class="nav-number">5.</span> <span class="nav-text">2. 从SBH拿内存(ioinit)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%8E%B7%E5%BE%97%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">3. 获得命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%8E%B7%E5%BE%97%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.</span> <span class="nav-text">4. 获得环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AE%BE%E7%BD%AEargv"><span class="nav-number">8.</span> <span class="nav-text">5. 设置argv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%AE%BE%E7%BD%AEenvp-%E5%B0%B1%E6%98%AF%E5%BD%93%E5%89%8D%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">6. 设置envp，就是当前程序运行环境的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-c-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">7. c 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%BF%9B%E5%85%A5-main-%E5%87%BD%E6%95%B0"><span class="nav-number">11.</span> <span class="nav-text">8. 进入 main 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-exit-0-%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F"><span class="nav-number">12.</span> <span class="nav-text">9. exit(0) 退出程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A-startup-code"><span class="nav-number">13.</span> <span class="nav-text">自定 Startup code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-heap-manager"><span class="nav-number">14.</span> <span class="nav-text">windows heap manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ioinit-fopen"><span class="nav-number">15.</span> <span class="nav-text">_ioinit() &amp; fopen()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-mode-and-user-mode"><span class="nav-number">16.</span> <span class="nav-text">Kernel Mode and User Mode</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#startup"><span class="nav-number">1.</span> <span class="nav-text">startup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">1. 内存初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-io-%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E5%8C%85%E6%8B%AC-printf%EF%BC%8Ccout-%E7%AD%89%E7%AD%89"><span class="nav-number">3.</span> <span class="nav-text">2. io 初始化，包括 printf，cout 等等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">4.</span> <span class="nav-text">1. 内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%8ESBH%E6%8B%BF%E5%86%85%E5%AD%98-ioinit"><span class="nav-number">5.</span> <span class="nav-text">2. 从SBH拿内存(ioinit)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%8E%B7%E5%BE%97%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">3. 获得命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%8E%B7%E5%BE%97%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.</span> <span class="nav-text">4. 获得环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AE%BE%E7%BD%AEargv"><span class="nav-number">8.</span> <span class="nav-text">5. 设置argv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%AE%BE%E7%BD%AEenvp%EF%BC%8C%E5%B0%B1%E6%98%AF%E5%BD%93%E5%89%8D%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">6. 设置envp，就是当前程序运行环境的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-c-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">7. c 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%BF%9B%E5%85%A5-main-%E5%87%BD%E6%95%B0"><span class="nav-number">11.</span> <span class="nav-text">8. 进入 main 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-exit-0-%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F"><span class="nav-number">12.</span> <span class="nav-text">9. exit(0) 退出程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A-Startup-code"><span class="nav-number">13.</span> <span class="nav-text">自定 Startup code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-heap-manager"><span class="nav-number">14.</span> <span class="nav-text">windows heap manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ioinit-amp-fopen"><span class="nav-number">15.</span> <span class="nav-text">_ioinit() &amp; fopen()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Mode-and-User-Mode"><span class="nav-number">16.</span> <span class="nav-text">Kernel Mode and User Mode</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -584,12 +544,12 @@ Header 用以记录本区块和前一个区块的大小，长度大小的单位�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:30</span>
+    <span title="站点阅读时长">15:55</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

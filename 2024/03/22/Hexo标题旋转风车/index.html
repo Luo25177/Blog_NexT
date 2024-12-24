@@ -270,11 +270,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<p>这个特效是看到了别人的博客之后学到的，很不错，可以看看原文 <a target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%B0%8F%E6%A0%87%E9%A2%98%E6%97%8B%E8%BD%AC%E9%A3%8E%E8%BD%A6%E8%AE%BE%E7%BD%AE/">Hexo小标题旋转风车设置</a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这个特效是看到了别人的博客之后学到的，很不错，可以看看原文 <a target="_blank" rel="noopener" href="https://cnhuazhu.top/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%B0%8F%E6%A0%87%E9%A2%98%E6%97%8B%E8%BD%AC%E9%A3%8E%E8%BD%A6%E8%AE%BE%E7%BD%AE/">Hexo小标题旋转风车设置</a></p>
 <p>为了以后自己换电脑的话方便找，所以做一些记录</p>
-<h3 id="设置旋转风车">设置旋转风车</h3>
-<p>打开主题配置文件，查找 <code>beautify</code> 并且修改为如下代码</p>
+<h3 id="设置旋转风车"><a href="#设置旋转风车" class="headerlink" title="设置旋转风车"></a>设置旋转风车</h3><p>打开主题配置文件，查找 <code>beautify</code> 并且修改为如下代码</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">beautify:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">title-prefix-icon:</span> <span class="string">&#x27;\f863&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>并且在 <code>inject</code> 的 <code>head</code> 处引入文件</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;&lt;style&gt;#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before &#123; -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; &#125;&lt;/style&gt;&quot;</span></span><br></pre></td></tr></table></figure>
@@ -452,12 +450,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:30</span>
+    <span title="站点阅读时长">15:55</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

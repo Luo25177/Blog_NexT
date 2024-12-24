@@ -271,12 +271,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言">前言</h2>
-<p>CMake是一个跨平台的构建系统，能自动生成各种平台和编译器的构建文件，相对于直接编写 <code>makefile</code> 文件，编写 <code>CMakeLists</code> 文件不需要考虑太多的文件之间的依赖关系，它可以自动帮你管理复杂项目的构建过程，检测依赖关系，生成目标文件，编译静态库和动态库等，减少手动管理的负担</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CMake是一个跨平台的构建系统，能自动生成各种平台和编译器的构建文件，相对于直接编写 <code>makefile</code> 文件，编写 <code>CMakeLists</code> 文件不需要考虑太多的文件之间的依赖关系，它可以自动帮你管理复杂项目的构建过程，检测依赖关系，生成目标文件，编译静态库和动态库等，减少手动管理的负担</p>
 <p>可以看看这个知乎专题 <a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1369781372333240320">CMake实践应用专题 - 知乎 (zhihu.com)</a> ，下面的内容几乎都是从这里整理的</p>
-<h2 id="cmake一般使用流程">CMake<strong>一般使用流程</strong></h2>
-<h3 id="生成构建系统">生成构建系统</h3>
-<p>通过 <code>cmake</code> 指令生成构建系统，可以在命令行中输入 <code>cmake --help</code> 来看到 <code>cmake</code> 指令支持的详细参数，常用参数如下</p>
+<h2 id="CMake一般使用流程"><a href="#CMake一般使用流程" class="headerlink" title="CMake一般使用流程"></a>CMake<strong>一般使用流程</strong></h2><h3 id="生成构建系统"><a href="#生成构建系统" class="headerlink" title="生成构建系统"></a>生成构建系统</h3><p>通过 <code>cmake</code> 指令生成构建系统，可以在命令行中输入 <code>cmake --help</code> 来看到 <code>cmake</code> 指令支持的详细参数，常用参数如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -299,11 +297,12 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>例如，使用当前目录为源文件目录，其中包含 <code>CMakeLists.txt</code> 文件，使用 <code>build</code> 目录作为构建目录，设定变量 <code>CMAKE_BUILD_TYPE</code> 为 <code>Debug</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug</span><br></pre></td></tr></table></figure>
-<h3 id="执行构建">执行构建</h3>
-<p>使用 <code>cmake --build [&lt;dir&gt; | --preset &lt;preset&gt;]</code> 进行构建</p>
+<h3 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h3><p>使用 <code>cmake --build [&lt;dir&gt; | --preset &lt;preset&gt;]</code> 进行构建</p>
 <p>这里指定的目录就是生成构建系统时的指定的构建目录，常用的一些参数</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -322,14 +321,11 @@
 </tr>
 </tbody>
 </table>
-<h3 id="执行测试-安装或打包">执行测试，安装或打包</h3>
-<p>安装打包的内容可以看后面</p>
+</div>
+<h3 id="执行测试，安装或打包"><a href="#执行测试，安装或打包" class="headerlink" title="执行测试，安装或打包"></a>执行测试，安装或打包</h3><p>安装打包的内容可以看后面</p>
 <p>测试主要是使用的 <code>gtest</code> 库，所以可以看看我的 <code>gtest</code> 使用的文章</p>
-<h2 id="cmake基础语法">CMake基础语法</h2>
-<h3 id="注释">注释</h3>
-<p>使用 <code>#</code> 开头的行是注释行，会被忽略，块注释为 <code>#[[ ... ]]</code></p>
-<h3 id="普通变量">普通变量</h3>
-<p>使用 <code>set</code> 指令来<strong>定义变量</strong></p>
+<h2 id="CMake基础语法"><a href="#CMake基础语法" class="headerlink" title="CMake基础语法"></a>CMake基础语法</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>使用 <code>#</code> 开头的行是注释行，会被忽略，块注释为 <code>#[[ ... ]]</code></p>
+<h3 id="普通变量"><a href="#普通变量" class="headerlink" title="普通变量"></a>普通变量</h3><p>使用 <code>set</code> 指令来<strong>定义变量</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(VALUE_NAME value)</span><br></pre></td></tr></table></figure>
 <p>使用 <code>$</code> 来读取变量</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;VALUE_NAME&#125;</span><br></pre></td></tr></table></figure>
@@ -337,20 +333,17 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset(VALUE_NAME)</span><br></pre></td></tr></table></figure>
 <ol>
 <li>如果要设置的变量值包含空格，需要使用双引号把整个或者 <code>\</code> 转义</li>
-<li>如果设置多个值或者字符串值的中间有 <code>;</code> ，则保存成 <code>list</code></li>
+<li>如果设置多个值或者字符串值的中间有 <code>;</code> ，则保存成 <code>list</code> </li>
 <li>变量可以被 <code>list</code> 命令操作，单个值的变量相当于只有一个元素的列表</li>
 <li>在<code>if()</code>条件判断中可以简化为只用变量名</li>
 </ol>
-<h3 id="cache变量">Cache变量</h3>
-<p>作用是为了提供用户配置选项，若未指定则使用默认值，使用如下方法设置</p>
+<h3 id="Cache变量"><a href="#Cache变量" class="headerlink" title="Cache变量"></a>Cache变量</h3><p>作用是为了提供用户配置选项，若未指定则使用默认值，使用如下方法设置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(&lt;variable&gt; &lt;value&gt;... CACHE &lt;type&gt; &lt;docstring&gt; [FORCE])</span><br></pre></td></tr></table></figure>
 <p>使用 <code>$CACHE</code> 引用变量， <code>CACHE</code> 变量会被保存在构建目录下的 <code>CMakeCache.txt</code> 中，缓存之后是不变的的，除非重新配置</p>
-<h3 id="环境变量">环境变量</h3>
-<p>修改当前处理进程的环境变量，设置格式如下</p>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>修改当前处理进程的环境变量，设置格式如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(ENV&#123;&lt;variable&gt;&#125; [&lt;value&gt;])</span><br></pre></td></tr></table></figure>
 <p>可以使用 <code>$ENV</code> 来引用环境变量</p>
-<h3 id="条件语句">条件语句</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if(CONDITION1)</span><br><span class="line">	...</span><br><span class="line">elseif(CONDITION2)</span><br><span class="line">	...</span><br><span class="line">else()</span><br><span class="line">	...</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
+<h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if(CONDITION1)</span><br><span class="line">	...</span><br><span class="line">elseif(CONDITION2)</span><br><span class="line">	...</span><br><span class="line">else()</span><br><span class="line">	...</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
 <p>用于比较的语法</p>
 <ol>
 <li>字符串： <code>STREQUAL</code> ， <code>STRLESS</code> ， <code>STRGREATER</code></li>
@@ -360,16 +353,12 @@
 <li>多个条件语句组合： <code>(cond1) AND (cond2 OR (cond3))</code></li>
 <li>常量： <code>ON</code> ， <code>YES</code> ， <code>TRUE</code> ， <code>Y</code> 和非 0 值被视为 <code>True</code> ，对于 <code>0</code> ， <code>OFF</code> ， <code>NO</code> ， <code>FALSE</code> ， <code>N</code> ， <code>IGNORE</code> ，空字符串， <code>NOTFOUND</code> ，以及以 <code>-NOTFOUND</code> 结尾的字符串都被视为 <code>False</code></li>
 </ol>
-<h3 id="循环语句">循环语句</h3>
-<p>类似于 <code>python</code> 中的循环语句的定义</p>
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><p>类似于 <code>python</code> 中的循环语句的定义</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foreach(item IN LISTS items)</span><br><span class="line">	...</span><br><span class="line">endforeach()</span><br></pre></td></tr></table></figure>
-<h3 id="函数">函数</h3>
-<p>可以自定义自己的函数</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>可以自定义自己的函数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function(FUNCTION_NAME arg1 arg2)</span><br><span class="line">	...</span><br><span class="line">endfunction()</span><br></pre></td></tr></table></figure>
-<h3 id="宏">宏</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">macro(MACRO_NAME arg1 arg2)</span><br><span class="line">	...</span><br><span class="line">endmacro()</span><br></pre></td></tr></table></figure>
-<h3 id="消息打印">消息打印</h3>
-<p>利用 <code>message</code> 指令来把信息打印出来，如下</p>
+<h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">macro(MACRO_NAME arg1 arg2)</span><br><span class="line">	...</span><br><span class="line">endmacro()</span><br></pre></td></tr></table></figure>
+<h3 id="消息打印"><a href="#消息打印" class="headerlink" title="消息打印"></a>消息打印</h3><p>利用 <code>message</code> 指令来把信息打印出来，如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">message([&lt;mode&gt;] &quot;message text&quot; ... )</span><br></pre></td></tr></table></figure>
 <p>其中 <code>mode</code> 的选值如下</p>
 <ol>
@@ -380,24 +369,20 @@
 <li><code>SEND_ERROR</code> ： <code>cmake</code> 错误，会继续执行，但是跳过生成构建系统</li>
 <li><code>FATAL_ERROR</code> ： <code>cmake</code> 致命错误，会终止进程</li>
 </ol>
-<h3 id="列表操作">列表操作</h3>
-<p>设置多个值或者字符串值的中间有 <code>;</code> ，则保存成 <code>list</code> ， <code>list</code> 存在于 <code>cmake</code> 中，有很多子命令</p>
+<h3 id="列表操作"><a href="#列表操作" class="headerlink" title="列表操作"></a>列表操作</h3><p>设置多个值或者字符串值的中间有 <code>;</code> ，则保存成 <code>list</code> ， <code>list</code> 存在于 <code>cmake</code> 中，有很多子命令</p>
 <ol>
 <li><code>APPEND</code> 向列表中添加元素</li>
 <li><code>LENGTH</code> 获取列表中元素的个数</li>
 <li><code>JOIN</code> 将列表元素用指定的分隔符连接起来</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">set(LIST A B)</span><br><span class="line">set(LIST A;B)</span><br><span class="line">set(LIST &quot;A;B&quot;)</span><br><span class="line">list(APPEND LIST &quot;C&quot;)</span><br><span class="line">list(LENGTH LIST LIST_LEN)</span><br><span class="line">list(JOIN LIST &quot;,&quot; LIST_SPLIT)</span><br></pre></td></tr></table></figure>
-<h3 id="文件操作">文件操作</h3>
-<p><code>cmake</code> 的 <code>file</code> 命令支持的操作比较多，可以读写，创建或复制文件和目录，计算文件hash，下载文件，压缩文件等，例如</p>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><p><code>cmake</code> 的 <code>file</code> 命令支持的操作比较多，可以读写，创建或复制文件和目录，计算文件hash，下载文件，压缩文件等，例如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file(GLOB_RECURSE ALLSRC src/*.c)</span><br></pre></td></tr></table></figure>
 <p>其中 <code>GLOB_RECURSE</code> 表示执行递归查找，查找目录下的所有符合指定的正则表达式的文件</p>
-<h3 id="执行系统命令">执行系统命令</h3>
-<p>使用 <code>execute_process</code> 指令可以执行一条或者顺序执行多条系统命令</p>
+<h3 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h3><p>使用 <code>execute_process</code> 指令可以执行一条或者顺序执行多条系统命令</p>
 <p><code>execute_process(COMMAND bash &quot;-c&quot; &quot;git rev-parse --short HEAD&quot; OUTPUT_VARIABLE COMMIT_ID)</code></p>
 <p>上述是获取当前仓库最新提交的 <code>commit</code> 的 <code>commit id</code></p>
-<h3 id="设置项目和版本">设置项目和版本</h3>
-<p>如果需要在项目中<strong>标明版本号、Git的hash号、编译时间</strong>等信息，可以利用 <code>configure_file</code> 来实现</p>
+<h3 id="设置项目和版本"><a href="#设置项目和版本" class="headerlink" title="设置项目和版本"></a>设置项目和版本</h3><p>如果需要在项目中<strong>标明版本号、Git的hash号、编译时间</strong>等信息，可以利用 <code>configure_file</code> 来实现</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">configure_file(&lt;input&gt; &lt;output&gt;</span><br><span class="line">               [COPYONLY] [ESCAPE_QUOTES] [@ONLY]</span><br><span class="line">               [NEWLINE_STYLE [UNIX|DOS|WIN32|LF|CRLF] ])</span><br></pre></td></tr></table></figure>
 <p>其中</p>
 <ul>
@@ -408,63 +393,52 @@
 <li><code>@ONLY</code> 限制变量替换，让其只替换被 <code>@VAR@</code> 引用的变量（那么 <code>$&#123;VAR&#125;</code> 格式的变量将不会被替换）。这在配置<code>$&#123;VAR&#125;</code>语法的脚本时是非常有用的</li>
 <li><code>NEWLINE_STYLE</code> 指定输出文件中的新行格式。 <code>UNIX</code> 和 <code>LF</code> 的新行是 <code>\n</code>， <code>DOS</code> 和 <code>WIN32</code> 和 <code>CRLF</code> 的新行格式是 <code>\r\n</code>。这个选项在指定了 <code>COPYONLY</code> 选项时不能使用(无效)</li>
 </ul>
-<p>在 <code>cmake</code> 教程中对它的解释是将一个文件复制到另一个位置并且修改其内容，这里的修改并非是随意修改，而是**将input文件复制到output文件，并在输入文件内容中的变量，替换引用为@VAR@或${VAR}的变量值。每个变量引用将替换为该变量的当前值，如果未定义该变量，则为空字符串，**如下</p>
+<p>在 <code>cmake</code> 教程中对它的解释是将一个文件复制到另一个位置并且修改其内容，这里的修改并非是随意修改，而是<strong>将input文件复制到output文件，并在输入文件内容中的变量，替换引用为@VAR@或${VAR}的变量值。每个变量引用将替换为该变量的当前值，如果未定义该变量，则为空字符串，</strong>如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">set(BUILD_Version 1)</span><br><span class="line"></span><br><span class="line">// input file</span><br><span class="line">#define BUILD_Version @BUILD_Version@</span><br><span class="line"></span><br><span class="line">// output file</span><br><span class="line">#define BUILD_Version 1</span><br></pre></td></tr></table></figure>
 <p>在 <code>CMakeLists.txt</code> 文件中使用 <code>project</code> 指令可以指定版本号</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">project(ProjectName VERSION 1.0.0 LANGUAGES C CXX)</span><br></pre></td></tr></table></figure>
 <p>其中第一个参数为项目名称，并且可以通过 <code>VERSION</code> 指定版本号，格式为 <code>major.minor.patch.tweak</code> 并且 <code>cmake</code> 会将对应的值分别赋给以下变量，如果没有将会是空字符串</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PROJECT_VERSION, &lt;PROJECT-NAME&gt;_VERSION</span><br><span class="line">PROJECT_VERSION_MAJOR, &lt;PROJECT-NAME&gt;_VERSION_MAJOR</span><br><span class="line">PROJECT_VERSION_MINOR, &lt;PROJECT-NAME&gt;_VERSION_MINOR</span><br><span class="line">PROJECT_VERSION_PATCH, &lt;PROJECT-NAME&gt;_VERSION_PATCH</span><br><span class="line">PROJECT_VERSION_TWEAK, &lt;PROJECT-NAME&gt;_VERSION_TWEAK</span><br></pre></td></tr></table></figure>
 <p>利用上述的 <code>configure_file</code> 命令可以配置自动生成版本头文件，将头文件版本号定义成对应的宏，或者定义为接口，便于了解当前版本</p>
-<h3 id="指定编程语言版本">指定编程语言版本</h3>
-<p>可以使得在不同的机器上都能够有统一的编译，可以指定语言版本</p>
+<h3 id="指定编程语言版本"><a href="#指定编程语言版本" class="headerlink" title="指定编程语言版本"></a>指定编程语言版本</h3><p>可以使得在不同的机器上都能够有统一的编译，可以指定语言版本</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set(CMAKE_C_STANDARD 99)</span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br></pre></td></tr></table></figure>
 <p><code>CMAKE_</code> ， <code>_CMAKE</code> 或者是下划线开头后面加上任意 <code>cmake</code> 命令的变量名都是 <code>cmake</code> 保留的，都是 <code>cmake</code> 的内置变量，可以通过修改这些变量的值来配置 <code>cmake</code> 的构建</p>
-<h3 id="配置编译选项">配置编译选项</h3>
-<p>通过指令 <code>add_compile_options</code> 指令可以为所有编译器配置编译选项，同时对多个编译器有效</p>
+<h3 id="配置编译选项"><a href="#配置编译选项" class="headerlink" title="配置编译选项"></a>配置编译选项</h3><p>通过指令 <code>add_compile_options</code> 指令可以为所有编译器配置编译选项，同时对多个编译器有效</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_compile_options(-g -Wall -Werror)</span><br></pre></td></tr></table></figure>
 <p>通过设置变量 <code>CMAKE_C_FLAGS</code> 可以配置 C 编译器的编译选项</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(CMAKE_C_FLAGS &quot;$&#123;CMAKE_C_FLAGS&#125; -pipe -std=c99&quot;)</span><br></pre></td></tr></table></figure>
 <p>而设置变量 <code>CMAKE_CXX_FLAGS</code> 可以配置 C++ 编译器的选项</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(CMAKE_CXX_FLAGS &quot;$&#123;CMAKE_CXX_FLAGS&#125; -pipe -std=c++11&quot;)</span><br></pre></td></tr></table></figure>
-<h3 id="配置编译类型">配置编译类型</h3>
-<p>通过设置变量 <code>CMAKE_BUILD_TYPE</code> 来配置编译类型，可以设置为 <code>Debug</code> ， <code>Release</code> ， <code>RelWithDebInfo</code> ， <code>MinSizeRel</code> 等</p>
+<h3 id="配置编译类型"><a href="#配置编译类型" class="headerlink" title="配置编译类型"></a>配置编译类型</h3><p>通过设置变量 <code>CMAKE_BUILD_TYPE</code> 来配置编译类型，可以设置为 <code>Debug</code> ， <code>Release</code> ， <code>RelWithDebInfo</code> ， <code>MinSizeRel</code> 等</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set(CMAKE_BUILD_TYPE Debug)</span><br></pre></td></tr></table></figure>
 <p>也可以在执行 <code>cmake</code> 命令的时候通过参数 <code>-D</code> 来指定， <code>cmake</code> 会检查是否有对应编译类型的编译选项，如果有就将它的内容追加到其中</p>
 <p>对于不同的编译类型可以设置不同的编译选项，比如对于 <code>Debug</code> 类型，开启调试信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set(CMAKE_C_FLAGS_DEBUG &quot;$&#123;CMAKE_C_FLAGS_DEBUG&#125; -g&quot;)</span><br><span class="line">set(CMAKE_CXX_FLAGS_DEBUG &quot;$&#123;CMAKE_CXX_FLAGS_DEBUG&#125; -g&quot;)</span><br></pre></td></tr></table></figure>
-<h3 id="添加全局宏定义">添加全局宏定义</h3>
-<p>通过命令 <code>add_definitions</code> 可以添加全局的宏定义，在源代码中就可以通过判断不同的宏定义来实现相应的代码逻辑，例如</p>
+<h3 id="添加全局宏定义"><a href="#添加全局宏定义" class="headerlink" title="添加全局宏定义"></a>添加全局宏定义</h3><p>通过命令 <code>add_definitions</code> 可以添加全局的宏定义，在源代码中就可以通过判断不同的宏定义来实现相应的代码逻辑，例如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_definitions(-DDEBUG -DREAL_COOL_ENGINEER)</span><br></pre></td></tr></table></figure>
-<h3 id="添加include目录">添加include目录</h3>
-<p>通过命令 <code>include_directories</code> 来设置头文件的搜索目录</p>
+<h3 id="添加include目录"><a href="#添加include目录" class="headerlink" title="添加include目录"></a>添加include目录</h3><p>通过命令 <code>include_directories</code> 来设置头文件的搜索目录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include_directories(.) # 表示所有的头文件</span><br><span class="line">include_directories(inc/)</span><br></pre></td></tr></table></figure>
-<h3 id="编译目标文件">编译目标文件</h3>
-<p>一般来说，编译目标的类型一般有静态库，动态库和可执行文件，编写 <code>CMakeLists.txt</code> 主要包括两步</p>
+<h3 id="编译目标文件"><a href="#编译目标文件" class="headerlink" title="编译目标文件"></a>编译目标文件</h3><p>一般来说，编译目标的类型一般有静态库，动态库和可执行文件，编写 <code>CMakeLists.txt</code> 主要包括两步</p>
 <ul>
 <li>编译：确定编译目标所需要的源文件</li>
 <li>链接：确定链接的时候需要依赖的额外的库</li>
 </ul>
-<h3 id="编译生成库文件">编译生成库文件</h3>
-<p>将项目目录路径下的源文件编译为静态库，需要获取编译此静态库需要的文件列表，可以使用<code>set</code>命令，或者<code>file</code>命令来进行设置</p>
+<h3 id="编译生成库文件"><a href="#编译生成库文件" class="headerlink" title="编译生成库文件"></a>编译生成库文件</h3><p>将项目目录路径下的源文件编译为静态库，需要获取编译此静态库需要的文件列表，可以使用<code>set</code>命令，或者<code>file</code>命令来进行设置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file(GLOB_RECURSE FUNCTION_LIB_SRC /function/*.c)</span><br><span class="line"># set(FUNCTION_LIB_SRC /function/*.c)</span><br><span class="line">add_library(function_lib STATIC $&#123;FUNCTION_LIB_SRC &#125;)</span><br></pre></td></tr></table></figure>
 <p>其中使用 <code>add_library</code> 指令编译名为 <code>function_lib</code> 的静态库，第二个参数表示库的类型， <code>STATIC</code> 表示静态链接库， <code>SHARED</code> 表示动态链接库</p>
-<h3 id="编译可执行文件">编译可执行文件</h3>
-<p>通过 <code>add_executable</code> 命令来向构建系统中添加一个可执行构建目标，指定编译需要的源文件。但是对于可执行文件来说，有时候还会依赖其它的库则需要使用 <code>target_link_libraries</code> 命令来声明构建此可执行文件需要链接的库</p>
+<h3 id="编译可执行文件"><a href="#编译可执行文件" class="headerlink" title="编译可执行文件"></a>编译可执行文件</h3><p>通过 <code>add_executable</code> 命令来向构建系统中添加一个可执行构建目标，指定编译需要的源文件。但是对于可执行文件来说，有时候还会依赖其它的库则需要使用 <code>target_link_libraries</code> 命令来声明构建此可执行文件需要链接的库</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_executable(demo main.c)</span><br><span class="line">target_link_libraries(demo function_lib)</span><br></pre></td></tr></table></figure>
-<h2 id="cmake模块化构建">CMake模块化构建</h2>
-<p><code>CMakeLists.txt</code> 是定义一个目录的构建系统，所谓的模块化构建是分别为每一个子模块目录编写一个 <code>CMakeLists.txt</code> 文件，并且在其上层目录中导入子目录构建系统生成对应的目标，以便在上层目录中使用</p>
+<h2 id="CMake模块化构建"><a href="#CMake模块化构建" class="headerlink" title="CMake模块化构建"></a>CMake模块化构建</h2><p><code>CMakeLists.txt</code> 是定义一个目录的构建系统，所谓的模块化构建是分别为每一个子模块目录编写一个 <code>CMakeLists.txt</code> 文件，并且在其上层目录中导入子目录构建系统生成对应的目标，以便在上层目录中使用</p>
 <p>这里使用的是一个 <code>cmake</code> 模板的开源项目 <a target="_blank" rel="noopener" href="https://gitee.com/RealCoolEngineer/cmake-template">cmake-template-gitee</a></p>
 <p>在这个项目中，将 <code>math</code> 目录视为子模块，为其单独定义构建系统，而整个项目的编译依赖于 <code>math</code> 模块的编译结果来生成其它目标文件</p>
-<h3 id="定义子目录的构建系统">定义子目录的构建系统</h3>
-<p>在需要构建的子目录下创建一个 <code>CMakeLists.txt</code> 文件，在其中写入的内容只需要<strong>编译构建库文件</strong>，以及针对对外提供的接口的功能进行测试就行</p>
+<h3 id="定义子目录的构建系统"><a href="#定义子目录的构建系统" class="headerlink" title="定义子目录的构建系统"></a>定义子目录的构建系统</h3><p>在需要构建的子目录下创建一个 <code>CMakeLists.txt</code> 文件，在其中写入的内容只需要<strong>编译构建库文件</strong>，以及针对对外提供的接口的功能进行测试就行</p>
 <p>对于子目录，也有自己的 <code>project</code> 指令，同时可以指定自己的版本号</p>
 <p><code>aux_source_directory</code> 可以搜索指定目录（第一个参数）下的所有源文件，将源文件的列表保存到指定的变量（第二个参数）</p>
 <p>在 <code>src/math</code> 目录下新建  <code>CMakeLists.txt</code> 文件，写入内容，将其编译为一个静态链接库</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">project(CMakeTemplateMath VERSION 0.0.1 LANGUAGES C CXX)</span><br><span class="line"></span><br><span class="line">aux_source_directory(. MATH_SRC)</span><br><span class="line">message(&quot;MATH_SRC: $&#123;MATH_SRC&#125;&quot;)</span><br><span class="line"></span><br><span class="line">add_library(math STATIC $&#123;MATH_SRC&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="包含子目录">包含子目录</h3>
-<p>使用 <code>add_subdirectory</code> 命令可以包含一个子目录的构建系统，如下</p>
+<h3 id="包含子目录"><a href="#包含子目录" class="headerlink" title="包含子目录"></a>包含子目录</h3><p>使用 <code>add_subdirectory</code> 命令可以包含一个子目录的构建系统，如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_subdirectory(dir [binary_dir] [EXCLUDE_FROM_ALL])</span><br></pre></td></tr></table></figure>
-<p>其中</p>
+<p>其中 </p>
 <ol>
 <li><code>dir</code> 就是需要包含的目标目录，该目录下必须存在一个 <code>CMakeLists.txt</code> 文件，一般相对于当前的 <code>CMakeLists.txt</code> 的目录路径，也可以是绝对路径</li>
 <li><code>binary_dir</code> 是可选的参数，用于指定子构建系统输出文件的路径，相对于当前的 <code>binary_tree</code> ，也可以是绝对路径。如果 <code>dir</code> 是当前目录的子目录，那 <code>binary_dir</code> 是不做任何相对路径展开的 <code>dir</code> ，但是如果 <code>dir</code> 不是当前的子目录，必须指定 <code>binary_dir</code> ， 从而 <code>cmake</code> 才能确定文件的生成目录</li>
@@ -473,33 +447,26 @@
 <p>可以在根目录下的 <code>CMakeLists.txt</code> 写入命令来链接编译的静态库</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_subdirectory(src/c/math)</span><br><span class="line">add_executable(demo src/c/main.c)</span><br><span class="line">target_link_libraries(demo math)</span><br></pre></td></tr></table></figure>
 <p>而且此时构建和编译的命令没有任何改变，依旧是在终端中输入 <code>cmake</code> 指令</p>
-<h2 id="导入目标文件">导入目标文件</h2>
-<p>上述中所用的 <code>add_subdirectory</code> 方法实际上就是通过源文件来构建项目所依赖的目标文件，但是在 <code>cmake</code> 中也可以通过命令导入已经编译好的目标文件</p>
-<h3 id="导入库文件">导入库文件</h3>
-<p>使用 <code>add_library</code> 指令可以通过指定 <code>IMPORTED</code> 选项表明是一个导入的库文件，通过 <code>set_property</code> 设置属性来指明路径</p>
+<h2 id="导入目标文件"><a href="#导入目标文件" class="headerlink" title="导入目标文件"></a>导入目标文件</h2><p>上述中所用的 <code>add_subdirectory</code> 方法实际上就是通过源文件来构建项目所依赖的目标文件，但是在 <code>cmake</code> 中也可以通过命令导入已经编译好的目标文件</p>
+<h3 id="导入库文件"><a href="#导入库文件" class="headerlink" title="导入库文件"></a>导入库文件</h3><p>使用 <code>add_library</code> 指令可以通过指定 <code>IMPORTED</code> 选项表明是一个导入的库文件，通过 <code>set_property</code> 设置属性来指明路径</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_library(math STATIC IMPORTED)</span><br><span class="line">set_property(TARGET math PROPERTY </span><br><span class="line">						IMPORTED_LOCATION &quot;./lib/libmath.a&quot;)</span><br></pre></td></tr></table></figure>
 <p>也可以使用 <code>find_library</code> 命令来查找，比如在 <code>lib</code> 目录下查找 <code>math</code> 的 <code>Realse</code> 版本和 <code>Debug</code> 版本</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find_library(LIB_MATH_DEBUG mathd HINTS &quot;./lib&quot;)</span><br><span class="line">find_library(LIB_MATH_RELEASE math HINTS &quot;./lib&quot;)</span><br></pre></td></tr></table></figure>
 <p>可以通过指令 <code>set_target_properties</code> 来设置不同的编译选项，例如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set_target_properties(math PROPERTIES</span><br><span class="line">  IMPORTED_LOCATION &quot;$&#123;LIB_MATH_RELEASE&#125;&quot;</span><br><span class="line">  IMPORTED_LOCATION_DEBUG &quot;$&#123;LIB_MATH_DEBUG&#125;&quot;</span><br><span class="line">  IMPORTED_CONFIGURATIONS &quot;RELEASE;DEBUG&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>导入之后，就可以将该库链接到其它目标上，但是导入该库的目标不能被 <code>install</code></p>
-<h3 id="导入可执行文件">导入可执行文件</h3>
-<p>在 <code>add_executable</code> 通过指定 <code>IMPORTED</code> 来指定可执行文件是外部导入的</p>
+<p>导入之后，就可以将该库链接到其它目标上，但是导入该库的目标不能被 <code>install</code> </p>
+<h3 id="导入可执行文件"><a href="#导入可执行文件" class="headerlink" title="导入可执行文件"></a>导入可执行文件</h3><p>在 <code>add_executable</code> 通过指定 <code>IMPORTED</code> 来指定可执行文件是外部导入的 </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_executable(demo IMPORTED)</span><br><span class="line">set_property(TARGET demo PROPERTY</span><br><span class="line">             IMPORTED_LOCATION &quot;./bin/demo&quot;)</span><br></pre></td></tr></table></figure>
-<h2 id="库依赖">库依赖</h2>
-<p>主要是对于 <code>target_link_libraries</code> 命令的几个关键字，就是目标文件依赖项的使用范围，对于两个动态链接库 <code>[a.so](http://a.so)</code> 和 <code>b.so</code></p>
+<h2 id="库依赖"><a href="#库依赖" class="headerlink" title="库依赖"></a>库依赖</h2><p>主要是对于 <code>target_link_libraries</code> 命令的几个关键字，就是目标文件依赖项的使用范围，对于两个动态链接库 <code>[a.so](http://a.so)</code> 和 <code>b.so</code></p>
 <ul>
 <li><code>PRIVATE</code> 就是 <code>a</code> 使用了 <code>b</code> ，但是并不对外暴漏 <code>b</code> 的接口</li>
 <li><code>INTERFACE</code> 就是 <code>a</code> 未使用 <code>b</code> ，但是对外暴漏 <code>b</code> 的接口</li>
 <li><code>PUBLIC</code> 就是 <code>a</code> 使用了 <code>b</code> 并且对外暴漏 <code>b</code> 的接口</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target_link_libraries(a PRIVATE/INTERFACE/PUBLIC b)</span><br><span class="line">target_include_directories(a PRIVATE/INTERFACE/PUBLIC b)</span><br></pre></td></tr></table></figure>
-<h2 id="安装">安装</h2>
-<h3 id="install指令"><strong>install指令</strong></h3>
-<p>安装时使用 <code>install</code> 指令，用于指定一个项目的安装规则，命令格式如下</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="install指令"><a href="#install指令" class="headerlink" title="install指令"></a><strong>install指令</strong></h3><p>安装时使用 <code>install</code> 指令，用于指定一个项目的安装规则，命令格式如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">install</span>(TARGETS &lt;target&gt;... [...])</span><br><span class="line"><span class="built_in">install</span>(&#123;FILES | PROGRAMS&#125; &lt;file&gt;... [...])</span><br><span class="line"><span class="built_in">install</span>(DIRECTORY &lt;dir&gt;... [...])</span><br><span class="line"><span class="built_in">install</span>(SCRIPT &lt;file&gt; [...])</span><br><span class="line"><span class="built_in">install</span>(CODE &lt;code&gt; [...])</span><br><span class="line"><span class="built_in">install</span>(EXPORT &lt;<span class="keyword">export</span>-name&gt; [...])</span><br></pre></td></tr></table></figure>
-<p>可以看出 <code>install</code> 命令可以安装的目标类型为：构建目标、文件、程序、目录等，对应的关键字后面跟上对应要安装的目标，安装不同目标时有一些通用的关键字<br>
-<strong>DESTINATION</strong></p>
+<p>可以看出 <code>install</code> 命令可以安装的目标类型为：构建目标、文件、程序、目录等，对应的关键字后面跟上对应要安装的目标，安装不同目标时有一些通用的关键字<br><strong>DESTINATION</strong></p>
 <p>就是安装对象的目标安装路径，可以是绝对路径，也可以是相对路径</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">install(TARGETS function_lib</span><br><span class="line">        RUNTIME DESTINATION bin</span><br><span class="line">        LIBRARY DESTINATION lib</span><br><span class="line">        ARCHIVE DESTINATION lib)</span><br></pre></td></tr></table></figure>
 <p>其中</p>
@@ -517,12 +484,12 @@
 <p><strong>PERMISSIONS</strong></p>
 <p>设置安装目标权限，接受的是一个权限关键字列表，例如</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">install</span>(TARGETS target</span><br><span class="line">        RUNTIME PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE)</span><br></pre></td></tr></table></figure>
-<h3 id="安装构建目标"><strong>安装构建目标</strong></h3>
-<p>安装一个构建好的目标，命令格式为</p>
+<h3 id="安装构建目标"><a href="#安装构建目标" class="headerlink" title="安装构建目标"></a><strong>安装构建目标</strong></h3><p>安装一个构建好的目标，命令格式为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">install(TARGETS function_lib</span><br><span class="line">        RUNTIME DESTINATION bin</span><br><span class="line">        LIBRARY DESTINATION lib</span><br><span class="line">        ARCHIVE DESTINATION lib)</span><br></pre></td></tr></table></figure>
 <p>完整的命令格式为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">install(TARGETS targets... [EXPORT &lt;export-name&gt;]</span><br><span class="line">        [[ARCHIVE|LIBRARY|RUNTIME|OBJECTS|FRAMEWORK|PRIVATE_HEADER|PUBLIC_HEADER|RESOURCE]</span><br><span class="line">         [DESTINATION &lt;dir&gt;]</span><br><span class="line">         [PERMISSIONS permissions...]</span><br><span class="line">         [CONFIGURATIONS [Debug|Release|...]]</span><br><span class="line">         [COMPONENT &lt;component&gt;]</span><br><span class="line">         [NAMELINK_COMPONENT &lt;component&gt;]</span><br><span class="line">         [OPTIONAL] [EXCLUDE_FROM_ALL]</span><br><span class="line">         [NAMELINK_ONLY|NAMELINK_SKIP]</span><br><span class="line">        ] [...]</span><br><span class="line">        [INCLUDES DESTINATION [&lt;dir&gt; ...]]</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
 <p>其中参数中的<code>TARGET</code>可以是很多种目标文件，最常见的是通过 <code>ADD_EXECUTABLE</code> 或者 <code>ADD_LIBRARY</code> 定义的目标文件，即可执行二进制，动态库，静态库</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -565,13 +532,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="安装目录"><strong>安装目录</strong></h3>
-<p>安装一个目录，一般用于将头文件安装到目标路径，实际中，一般将需要安装的头文件放在一个特定的目录下，然后直接安装整个目录，如下</p>
+</div>
+<h3 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a><strong>安装目录</strong></h3><p>安装一个目录，一般用于将头文件安装到目标路径，实际中，一般将需要安装的头文件放在一个特定的目录下，然后直接安装整个目录，如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">install(DIRECTORY &quot;$&#123;PROJECT_SOURCE_DIR&#125;/include/&quot;</span><br><span class="line">	      DESTINATION &quot;$&#123;CMAKE_INSTALL_INCLUDEDIR&#125;&quot;)</span><br></pre></td></tr></table></figure>
 <p>更加完整的命令格式为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">install(DIRECTORY dirs...</span><br><span class="line">        TYPE &lt;type&gt; | DESTINATION &lt;dir&gt;</span><br><span class="line">        [FILES_MATCHING]</span><br><span class="line">        [[PATTERN &lt;pattern&gt; | REGEX &lt;regex&gt;]</span><br><span class="line">         [EXCLUDE] [PERMISSIONS permissions...]])</span><br></pre></td></tr></table></figure>
 <p><strong>TYPE/DESTINATION</strong></p>
 <p>安装目录必须指定安装的目录类型 <code>TYPE</code> 或者安装的目标路径 <code>DESTINATION</code> ，但是不可以同时指定， <code>TYPE</code> 用于指定安装的目录中的文件类型，并且 <code>cmake</code> 会自动按照类型分配安装位置，不同类型对应的安装路径如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -648,6 +616,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>也可以选择使用 <code>DESTINATION</code> 显式指定安装目录</p>
 <p><strong>FILES_MATCHING</strong></p>
 <p>安装目录的时候默认会安装所有的文件，如果使用 <code>FILES_MATCHING</code> 关键字（在第一个 <code>PATTERN</code> 或者 <code>REGEX</code> 之前），则表示必须要满足对应的模式或者正则的文件才能被安装</p>
@@ -659,39 +628,34 @@
 <li><code>REGEX</code> 通过正则表达式匹配之后才会安装</li>
 </ul>
 <p>在这两个表达式后面还可以加上 <code>EXCLUDE</code> 表示反选，或者使用 <code>PERMISSIONS</code> 指定匹配的目标文件的权限</p>
-<h3 id="安装文件">安装文件</h3>
-<p>与安装目录类似，命令格式为</p>
+<h3 id="安装文件"><a href="#安装文件" class="headerlink" title="安装文件"></a>安装文件</h3><p>与安装目录类似，命令格式为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">install(&lt;FILES|PROGRAMS&gt; files...</span><br><span class="line">        TYPE &lt;type&gt; | DESTINATION &lt;dir&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>FILE</code> 指的是文件的默认权限是一般文件</li>
 <li><code>PROGRAMS</code> 指的是文件为可执行文件，默认有可执行权限</li>
 </ul>
-<h3 id="自定义安装脚本">自定义安装脚本</h3>
-<p>使用 <code>install</code> 命令可以在安装的时候执行自定义脚本，格式为</p>
+<h3 id="自定义安装脚本"><a href="#自定义安装脚本" class="headerlink" title="自定义安装脚本"></a>自定义安装脚本</h3><p>使用 <code>install</code> 命令可以在安装的时候执行自定义脚本，格式为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">install([[SCRIPT &lt;file&gt;] [CODE &lt;code&gt;]]</span><br><span class="line">        [COMPONENT &lt;component&gt;] [EXCLUDE_FROM_ALL] [...])</span><br></pre></td></tr></table></figure>
 <p>其中</p>
 <ul>
 <li><code>SCRIPT</code> 指定安装时需要执行的脚本</li>
 <li><code>CODE</code> 指定的是 <code>cmake</code> 的指令，也就是在安装期间执行的 <code>cmake</code> 指令</li>
 </ul>
-<h3 id="执行安装">执行安装</h3>
-<p>在构建编译完成之后，执行命令安装</p>
+<h3 id="执行安装"><a href="#执行安装" class="headerlink" title="执行安装"></a>执行安装</h3><p>在构建编译完成之后，执行命令安装</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --build . --target install</span><br></pre></td></tr></table></figure>
 <p>针对 <code>make</code> 工具，安装的指令为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
 <p>在 <code>cmake-3.15</code> 之后，可以使用如下指令安装</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --install . --prefix &quot;../output&quot;</span><br></pre></td></tr></table></figure>
 <p>其中 <code>--install</code> 指定构建目录， <code>--prefix</code> 指定安装路径，指定之后会覆盖安装路径变量 <code>CMAKE_INSTALL_PREFIX</code></p>
-<h2 id="打包">打包</h2>
-<h3 id="cpack">CPack</h3>
-<p>使用打包功能，需要先使用命令 <code>include(CPack)</code> 启用相关的功能，构建之后会在构建目录下生成两个 <code>cpack</code> 配置文件，<code>CPackConfig.cmake</code>和<code>CPackSourceConfig.cmake</code> ，分别对应着 <code>package</code> 和 <code>package_source</code></p>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><h3 id="CPack"><a href="#CPack" class="headerlink" title="CPack"></a>CPack</h3><p>使用打包功能，需要先使用命令 <code>include(CPack)</code> 启用相关的功能，构建之后会在构建目录下生成两个 <code>cpack</code> 配置文件，<code>CPackConfig.cmake</code>和<code>CPackSourceConfig.cmake</code> ，分别对应着 <code>package</code> 和 <code>package_source</code></p>
 <p>在执行构建编译之后使用 <code>cpack</code> 命令行工具进行打包安装。可以使用 <code>-G</code> 参数指定生成器，常用的为 <code>ZIP</code> ， <code>TGZ</code> ， <code>7Z</code> 等，也可以同时指定多种类型，利用 <code>CMake</code> 语法中的列表，在构建目录下使用如下指令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cpack -G ZIP --config CPackConfig.cmake</span><br><span class="line">cpack -G ZIP --config CPackSourceConfig.cmake</span><br></pre></td></tr></table></figure>
 <p>对于 <code>cmake</code> 指令，可以在构建目录下使用如下指令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmake --build . --target package</span><br><span class="line">cmake --build . --target package_source</span><br></pre></td></tr></table></figure>
 <p>对于 <code>make</code> 工具，也可以使用命令 <code>make package</code> 或者 <code>make package_source</code> 进行打包安装</p>
-<h3 id="内置变量">内置变量</h3>
-<p>打包的内容就是 <code>install</code> 指令安装的内容，还需要设置一些变量</p>
+<h3 id="内置变量"><a href="#内置变量" class="headerlink" title="内置变量"></a>内置变量</h3><p>打包的内容就是 <code>install</code> 指令安装的内容，还需要设置一些变量</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -718,7 +682,7 @@
 </tr>
 <tr>
 <td>CPACK_SET_DESTDIR</td>
-<td>如果没有 CPACK_SET_DESTDIR，CPack 使用 CPACK_PACKAGING_INSTALL_PREFIX 作为前缀，而设置 CPACK_SET_DESTDIR 后，CPack 将使用 CMAKE_INSTALL_PREFIX 作为前缀。</td>
+<td>如果没有 CPACK_SET_DESTDIR，CPack 使用 CPACK_PACKAGING_INSTALL_PREFIX 作为前缀，而设置 CPACK_SET_DESTDIR 后，CPack 将使用 CMAKE_INSTALL_PREFIX 作为前缀。</td>
 </tr>
 <tr>
 <td>CPACK_OUTPUT_CONFIG_FILE</td>
@@ -730,22 +694,17 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p><code>cpack</code> 有一些参数是可以覆盖 <code>CMakeLists.txt</code> 中所设置的参数的，所以一般来说以上变量的设置在 <code>include(CPack)</code> 之前</p>
-<h2 id="编译过程">编译过程</h2>
-<p>实际上 <code>cmake</code> 的编译过程中的命令与 <code>gcc</code> 的编译过程是有关联的</p>
-<h3 id="预处理">预处理</h3>
-<p>可以使用下列指令定义一个宏定义</p>
+<h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>实际上 <code>cmake</code> 的编译过程中的命令与 <code>gcc</code> 的编译过程是有关联的</p>
+<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>可以使用下列指令定义一个宏定义</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_definitions(-Dname)</span><br></pre></td></tr></table></figure>
-<h3 id="编译">编译</h3>
-<p>使用如下指令给编译过程添加编译选项</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>使用如下指令给编译过程添加编译选项</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_compile_options(-O0 -g ...)</span><br></pre></td></tr></table></figure>
 <p>需要注意的是，因为CMake的构建目标必须是库或者可执行文件，并没有命令仅生成 <code>.o</code> 文件。如果使用生成器表达式的话，对于多个编译选项，需要使用双引号把生成器表达式括起来，且在选项之间使用分号隔开</p>
-<h3 id="链接">链接</h3>
-<p>使用如下指令来进行指定编译过程中的链接参数</p>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>使用如下指令来进行指定编译过程中的链接参数</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_link_options(-pthread ...)</span><br></pre></td></tr></table></figure>
-<h2 id="合并静态库">合并静态库</h2>
-<h3 id="基于cmake">基于cmake</h3>
-<p><code>**add_custom_command</code>**</p>
+<h2 id="合并静态库"><a href="#合并静态库" class="headerlink" title="合并静态库"></a>合并静态库</h2><h3 id="基于cmake"><a href="#基于cmake" class="headerlink" title="基于cmake"></a>基于cmake</h3><p><code>**add_custom_command</code>** </p>
 <p>向目标添加规则，并通过执行命令生成输出。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">add_custom_command(OUTPUT output1 [output2 ...]</span><br><span class="line">                   COMMAND command1 [ARGS] [args1...]</span><br><span class="line">                   [COMMAND command2 [ARGS] [args2...] ...]</span><br><span class="line">                   [MAIN_DEPENDENCY depend]</span><br><span class="line">                   [DEPENDS [depends...]]</span><br><span class="line">                   [BYPRODUCTS [files...]]</span><br><span class="line">                   [IMPLICIT_DEPENDS &lt;lang1&gt; depend1</span><br><span class="line">                                    [&lt;lang2&gt; depend2] ...]</span><br><span class="line">                   [WORKING_DIRECTORY dir]</span><br><span class="line">                   [COMMENT comment]</span><br><span class="line">                   [DEPFILE depfile]</span><br><span class="line">                   [JOB_POOL job_pool]</span><br><span class="line">                   [VERBATIM] [APPEND] [USES_TERMINAL]</span><br><span class="line">                   [COMMAND_EXPAND_LISTS])</span><br></pre></td></tr></table></figure>
 <p>其中</p>
@@ -780,36 +739,32 @@
 </ul>
 <p><strong>具体流程</strong></p>
 <ol>
-<li>
-<p>合并静态库</p>
-<p>利用 <code>add_custom_command</code> 配合 <code>add_custom_target</code> 命令，将 <code>liba.a</code> 和 <code>libb.a</code> 合并为 <code>libmerge.a</code></p>
-<p>对于 macos 系统中，在根目录下的 <code>CMakeLists.txt</code> 文件中写入</p>
+<li><p>合并静态库</p>
+<p> 利用 <code>add_custom_command</code> 配合 <code>add_custom_target</code> 命令，将 <code>liba.a</code> 和 <code>libb.a</code> 合并为 <code>libmerge.a</code></p>
+<p> 对于 macos 系统中，在根目录下的 <code>CMakeLists.txt</code> 文件中写入</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_custom_command(OUTPUT libmerge.a</span><br><span class="line">									COMMAND libtool -static -o libmerge.a $&lt;TARGET_FILE:math&gt; $&lt;TARGET_FILE:nn&gt;</span><br><span class="line">									DEPENDS a b)</span><br></pre></td></tr></table></figure>
-<p>对于其它系统中，在根目录下的 <code>CMakeLists.txt</code> 文件中写入</p>
+<p> 对于其它系统中，在根目录下的 <code>CMakeLists.txt</code> 文件中写入</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_custom_command(OUTPUT libmerge.a</span><br><span class="line">							    COMMAND ar crsT libmerge.a $&lt;TARGET_FILE:math&gt; $&lt;TARGET_FILE:nn&gt;</span><br><span class="line">							    DEPENDS a b)</span><br></pre></td></tr></table></figure>
-<p>还需要在后面添加一句，且必须得有</p>
+<p> 还需要在后面添加一句，且必须得有</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_custom_target(_merge ALL DEPENDS libmerge.a)</span><br></pre></td></tr></table></figure>
-<p>在合并静态库时，需要知道每个静态库的路径，在 <code>cmake</code> 中，目标静态库 <code>a</code> 的路径可以通过生成器表达式 <code>$&lt;TARGET_FILE:a&gt;</code> 获取</p>
-<p>如果使用 <code>find_library</code>  查找到的静态库，这时候就 <code>DEPENDS</code> 不需要加入 c ，如下</p>
+<p> 在合并静态库时，需要知道每个静态库的路径，在 <code>cmake</code> 中，目标静态库 <code>a</code> 的路径可以通过生成器表达式 <code>$&lt;TARGET_FILE:a&gt;</code> 获取</p>
+<p> 如果使用 <code>find_library</code>  查找到的静态库，这时候就 <code>DEPENDS</code> 不需要加入 c ，如下</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find_library(LIB_C c HINTS $&#123;SEARCH_PATH&#125;)</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>导入合并的静态库</p>
-<p>把静态库导入，并且链接到可执行程序使用</p>
+<li><p>导入合并的静态库</p>
+<p> 把静态库导入，并且链接到可执行程序使用</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">add_library(merge STATIC IMPORTED GLOBAL)</span><br><span class="line">set_target_properties(merge PROPERTIES</span><br><span class="line">    IMPORTED_LOCATION $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/libmerge.a</span><br><span class="line">)</span><br><span class="line">add_executable(main src/c/main.c)</span><br><span class="line">target_link_libraries(main PRIVATE merge)</span><br></pre></td></tr></table></figure>
-<p>由于 <code>libmerge</code> 是由 <code>add_custom_command</code> 指定的输出，所以会标记为自动生成的文件 <code>GENERATED</code></p>
-<p>链接项目中依赖于导入的静态库文件 <code>merge</code> ，而对于 <code>merge</code> 被指定了 <code>IMPORTED_LOCATION</code> ，也就是被指定为自动生成的，所以 cmake 就会等待 <code>libmerge.a</code> 生成之后再进行链接</p>
+<p> 由于 <code>libmerge</code> 是由 <code>add_custom_command</code> 指定的输出，所以会标记为自动生成的文件 <code>GENERATED</code></p>
+<p> 链接项目中依赖于导入的静态库文件 <code>merge</code> ，而对于 <code>merge</code> 被指定了 <code>IMPORTED_LOCATION</code> ，也就是被指定为自动生成的，所以 cmake 就会等待 <code>libmerge.a</code> 生成之后再进行链接</p>
 </li>
 </ol>
-<h3 id="其它方法">其它方法</h3>
-<ol>
-<li>
-<p>方法1</p>
-<p>先使用 <code>ar</code> 把静态库 <code>liba</code> 和 <code>libb</code> 拆解为多个 <code>.o</code> 文件</p>
+<h3 id="其它方法"><a href="#其它方法" class="headerlink" title="其它方法"></a>其它方法</h3><ol>
+<li><p>方法1</p>
+<p> 先使用 <code>ar</code> 把静态库 <code>liba</code> 和 <code>libb</code> 拆解为多个 <code>.o</code> 文件</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ar x liba.a</span><br><span class="line">ar x libb.a</span><br></pre></td></tr></table></figure>
-<p>再把所有的 <code>.o</code> 文件打包为一个静态库</p>
+<p> 再把所有的 <code>.o</code> 文件打包为一个静态库</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar crs libmerge.a *.o</span><br></pre></td></tr></table></figure>
-<p>其中</p>
+<p> 其中</p>
 <ul>
 <li><code>x</code> 拆解静态库文件为其包含的内容</li>
 <li><code>c</code> 封装 <code>.o</code> 文件为静态库文件</li>
@@ -817,34 +772,29 @@
 <li><code>s</code> 相当于对结果执行一次 <code>ranlib</code> 为静态库的内容添加索引，以此提高访问效率</li>
 </ul>
 </li>
-<li>
-<p>方法2</p>
-<p>上述方法1中一个更简洁的表达</p>
+<li><p>方法2</p>
+<p> 上述方法1中一个更简洁的表达</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar crsT libmerge.a liba.a libb.a</span><br></pre></td></tr></table></figure>
-<p>其中</p>
+<p> 其中</p>
 <ul>
 <li><code>T</code> 表示将后续所有静态库中的 <code>.o</code> 文件打包到第一个参数指定的静态库文件中。如果不加该参数，得到的将会是后面几个 <code>.a</code> 文件的集合</li>
 <li>可以使用 <code>ar -t</code> 查看打包的内容</li>
 </ul>
 </li>
-<li>
-<p>方法3</p>
-<p>使用 MRI 脚本，首先写一个 MRI 脚本， <code>merge.mri</code> ，写入如下内容</p>
+<li><p>方法3</p>
+<p> 使用 MRI 脚本，首先写一个 MRI 脚本， <code>merge.mri</code> ，写入如下内容</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create libmerge.a</span><br><span class="line">addlib liba.a </span><br><span class="line">addlib libb.a</span><br><span class="line">save</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>然后使用命令</p>
+<p> 然后使用命令</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar -M &lt; merge.mri</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>方法</p>
-<p>使用 <code>libtool</code> 命令</p>
+<li><p>方法</p>
+<p> 使用 <code>libtool</code> 命令</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libtool -static -o libmerge.a liba.a libb.a</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>上述方法中，方法1，4适用于macos，方法1，2，3均适用于linux</p>
-<h2 id="生成器表达式">生成器表达式</h2>
-<p>就是再 <code>cmake</code> 生成构建系统时根据不同配置动态生成特定的内容，着就依赖于不同的条件。生成器表达式的格式为 <code>$&lt;...&gt;</code> ，可以嵌套，可以在很多构建目标的属性设置和特定的 <code>cmake</code> 指令中，并且在生成构建系统时表达式被展开，所以不能通过解析配置 <code>CMakeLists.txt</code> 阶段的 <code>message</code> 指令打印</p>
-<h3 id="布尔生成器表达式">布尔生成器表达式</h3>
-<p><strong>逻辑运算符</strong></p>
+<h2 id="生成器表达式"><a href="#生成器表达式" class="headerlink" title="生成器表达式"></a>生成器表达式</h2><p>就是再 <code>cmake</code> 生成构建系统时根据不同配置动态生成特定的内容，着就依赖于不同的条件。生成器表达式的格式为 <code>$&lt;...&gt;</code> ，可以嵌套，可以在很多构建目标的属性设置和特定的 <code>cmake</code> 指令中，并且在生成构建系统时表达式被展开，所以不能通过解析配置 <code>CMakeLists.txt</code> 阶段的 <code>message</code> 指令打印</p>
+<h3 id="布尔生成器表达式"><a href="#布尔生成器表达式" class="headerlink" title="布尔生成器表达式"></a>布尔生成器表达式</h3><p><strong>逻辑运算符</strong></p>
 <ol>
 <li><code>$&lt;BOOL:string&gt;</code> 如果字符串为空，0。不区分大小写的 <code>FALSE</code> ， <code>OFF</code> ， <code>N</code> ， <code>NO</code> ， <code>IGNORE</code> ， <code>NOTFOUND</code> 。或者区分大小写以 <code>-NOTFOUND</code> 结尾的字符串，则为 0，否则为 1</li>
 <li><code>$&lt;AND:condition&gt;</code> 逻辑与， <code>condition</code> 是以逗号分割的条件列表</li>
@@ -864,8 +814,7 @@
 <li><code>$&lt;PLATFORM_ID:platform_ids&gt;</code> 判断cmake定义的平台ID是否包含在 <code>platform_ids</code> 列表中</li>
 <li><code>$&lt;COMPILE_LANGUAGE:languages&gt;</code> 判断编译语言是否包含在 <code>languages</code> 列表中</li>
 </ol>
-<h3 id="字符串值生成器表达式">字符串值生成器表达式</h3>
-<p>使用生成表达式的目的是生成特殊的字符串</p>
+<h3 id="字符串值生成器表达式"><a href="#字符串值生成器表达式" class="headerlink" title="字符串值生成器表达式"></a>字符串值生成器表达式</h3><p>使用生成表达式的目的是生成特殊的字符串</p>
 <p><strong>条件表达式</strong></p>
 <p>主要是两种格式</p>
 <ol>
@@ -897,18 +846,15 @@
 <li><code>$&lt;TARGET_FILE_NAME:tgt&gt;</code> 获取编译目标的文件名</li>
 <li><code>$&lt;TARGET_FILE_BASE_NAME:tgt&gt;</code> 获取编译目标的基础名字，也就是文件名去除前缀和扩展名</li>
 </ol>
-<h3 id="调试信息">调试信息</h3>
-<ol>
-<li>
-<p>通过输出到文件的方式，在 <code>cmake</code> 执行完之后检查是否符合预期</p>
+<h3 id="调试信息"><a href="#调试信息" class="headerlink" title="调试信息"></a>调试信息</h3><ol>
+<li><p>通过输出到文件的方式，在 <code>cmake</code> 执行完之后检查是否符合预期</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file(GENERATE OUTPUT &quot;./ouput.txt&quot; CONTENT &quot;$&lt;$&lt;CONFIG:Debug&gt;:-g;-O0&gt;,$&lt;PLATFORM_ID&gt;\n&quot;)</span><br></pre></td></tr></table></figure>
-<p>执行完 <code>cmake</code> 之后在文件中得到生成器表达式的内容</p>
+<p> 执行完 <code>cmake</code> 之后在文件中得到生成器表达式的内容</p>
 </li>
-<li>
-<p>添加一个自定义目标</p>
+<li><p>添加一个自定义目标</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_custom_target(gentest COMMAND $&#123;CMAKE_COMMAND&#125; -E echo &quot;\&quot;$&lt;$&lt;CONFIG:Debug&gt;:-g;-O0&gt;,$&lt;PLATFORM_ID&gt;\&quot;&quot;)</span><br></pre></td></tr></table></figure>
-<p>这里需要将双引号转义，以便确保生成器表达式展开之后为字符串</p>
-<p>在执行 <code>cmake</code> 之后，可以使用 <code>make gentest</code> 命令输出到生成器表达式的内容</p>
+<p> 这里需要将双引号转义，以便确保生成器表达式展开之后为字符串</p>
+<p> 在执行 <code>cmake</code> 之后，可以使用 <code>make gentest</code> 命令输出到生成器表达式的内容</p>
 </li>
 </ol>
 
@@ -1013,7 +959,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmake%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">CMake一般使用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.</span> <span class="nav-text">生成构建系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%9E%84%E5%BB%BA"><span class="nav-number">2.2.</span> <span class="nav-text">执行构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95-%E5%AE%89%E8%A3%85%E6%88%96%E6%89%93%E5%8C%85"><span class="nav-number">2.3.</span> <span class="nav-text">执行测试，安装或打包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmake%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">CMake基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">3.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%8F%98%E9%87%8F"><span class="nav-number">3.2.</span> <span class="nav-text">普通变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">Cache变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.4.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.5.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.6.</span> <span class="nav-text">循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">3.7.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F"><span class="nav-number">3.8.</span> <span class="nav-text">宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%89%93%E5%8D%B0"><span class="nav-number">3.9.</span> <span class="nav-text">消息打印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">3.10.</span> <span class="nav-text">列表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">3.11.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">3.12.</span> <span class="nav-text">执行系统命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%92%8C%E7%89%88%E6%9C%AC"><span class="nav-number">3.13.</span> <span class="nav-text">设置项目和版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC"><span class="nav-number">3.14.</span> <span class="nav-text">指定编程语言版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9"><span class="nav-number">3.15.</span> <span class="nav-text">配置编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%96%E8%AF%91%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.16.</span> <span class="nav-text">配置编译类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">3.17.</span> <span class="nav-text">添加全局宏定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0include%E7%9B%AE%E5%BD%95"><span class="nav-number">3.18.</span> <span class="nav-text">添加include目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">3.19.</span> <span class="nav-text">编译目标文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%90%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">3.20.</span> <span class="nav-text">编译生成库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">3.21.</span> <span class="nav-text">编译可执行文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmake%E6%A8%A1%E5%9D%97%E5%8C%96%E6%9E%84%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">CMake模块化构建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%AD%90%E7%9B%AE%E5%BD%95%E7%9A%84%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.1.</span> <span class="nav-text">定义子目录的构建系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E5%AD%90%E7%9B%AE%E5%BD%95"><span class="nav-number">4.2.</span> <span class="nav-text">包含子目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">导入目标文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">导入库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">导入可执行文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%93%E4%BE%9D%E8%B5%96"><span class="nav-number">6.</span> <span class="nav-text">库依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install%E6%8C%87%E4%BB%A4"><span class="nav-number">7.1.</span> <span class="nav-text">install指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E7%9B%AE%E6%A0%87"><span class="nav-number">7.2.</span> <span class="nav-text">安装构建目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">7.3.</span> <span class="nav-text">安装目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="nav-number">7.4.</span> <span class="nav-text">安装文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="nav-number">7.5.</span> <span class="nav-text">自定义安装脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="nav-number">7.6.</span> <span class="nav-text">执行安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85"><span class="nav-number">8.</span> <span class="nav-text">打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpack"><span class="nav-number">8.1.</span> <span class="nav-text">CPack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="nav-number">8.2.</span> <span class="nav-text">内置变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">编译过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">9.1.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">9.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">9.3.</span> <span class="nav-text">链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E9%9D%99%E6%80%81%E5%BA%93"><span class="nav-number">10.</span> <span class="nav-text">合并静态库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Ecmake"><span class="nav-number">10.1.</span> <span class="nav-text">基于cmake</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%96%B9%E6%B3%95"><span class="nav-number">10.2.</span> <span class="nav-text">其它方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">生成器表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">11.1.</span> <span class="nav-text">布尔生成器表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%80%BC%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">11.2.</span> <span class="nav-text">字符串值生成器表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF"><span class="nav-number">11.3.</span> <span class="nav-text">调试信息</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">CMake一般使用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.</span> <span class="nav-text">生成构建系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%9E%84%E5%BB%BA"><span class="nav-number">2.2.</span> <span class="nav-text">执行构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95%EF%BC%8C%E5%AE%89%E8%A3%85%E6%88%96%E6%89%93%E5%8C%85"><span class="nav-number">2.3.</span> <span class="nav-text">执行测试，安装或打包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">CMake基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">3.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%8F%98%E9%87%8F"><span class="nav-number">3.2.</span> <span class="nav-text">普通变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">Cache变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.4.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.5.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.6.</span> <span class="nav-text">循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">3.7.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F"><span class="nav-number">3.8.</span> <span class="nav-text">宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%89%93%E5%8D%B0"><span class="nav-number">3.9.</span> <span class="nav-text">消息打印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">3.10.</span> <span class="nav-text">列表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">3.11.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">3.12.</span> <span class="nav-text">执行系统命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%92%8C%E7%89%88%E6%9C%AC"><span class="nav-number">3.13.</span> <span class="nav-text">设置项目和版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC"><span class="nav-number">3.14.</span> <span class="nav-text">指定编程语言版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9"><span class="nav-number">3.15.</span> <span class="nav-text">配置编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%96%E8%AF%91%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.16.</span> <span class="nav-text">配置编译类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">3.17.</span> <span class="nav-text">添加全局宏定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0include%E7%9B%AE%E5%BD%95"><span class="nav-number">3.18.</span> <span class="nav-text">添加include目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">3.19.</span> <span class="nav-text">编译目标文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%90%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">3.20.</span> <span class="nav-text">编译生成库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">3.21.</span> <span class="nav-text">编译可执行文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake%E6%A8%A1%E5%9D%97%E5%8C%96%E6%9E%84%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">CMake模块化构建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%AD%90%E7%9B%AE%E5%BD%95%E7%9A%84%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.1.</span> <span class="nav-text">定义子目录的构建系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E5%AD%90%E7%9B%AE%E5%BD%95"><span class="nav-number">4.2.</span> <span class="nav-text">包含子目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">导入目标文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">导入库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">导入可执行文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%93%E4%BE%9D%E8%B5%96"><span class="nav-number">6.</span> <span class="nav-text">库依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install%E6%8C%87%E4%BB%A4"><span class="nav-number">7.1.</span> <span class="nav-text">install指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E7%9B%AE%E6%A0%87"><span class="nav-number">7.2.</span> <span class="nav-text">安装构建目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">7.3.</span> <span class="nav-text">安装目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="nav-number">7.4.</span> <span class="nav-text">安装文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="nav-number">7.5.</span> <span class="nav-text">自定义安装脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="nav-number">7.6.</span> <span class="nav-text">执行安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85"><span class="nav-number">8.</span> <span class="nav-text">打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPack"><span class="nav-number">8.1.</span> <span class="nav-text">CPack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="nav-number">8.2.</span> <span class="nav-text">内置变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">编译过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">9.1.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">9.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">9.3.</span> <span class="nav-text">链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E9%9D%99%E6%80%81%E5%BA%93"><span class="nav-number">10.</span> <span class="nav-text">合并静态库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Ecmake"><span class="nav-number">10.1.</span> <span class="nav-text">基于cmake</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%96%B9%E6%B3%95"><span class="nav-number">10.2.</span> <span class="nav-text">其它方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">生成器表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">11.1.</span> <span class="nav-text">布尔生成器表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%80%BC%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">11.2.</span> <span class="nav-text">字符串值生成器表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF"><span class="nav-number">11.3.</span> <span class="nav-text">调试信息</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1086,12 +1032,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:30</span>
+    <span title="站点阅读时长">15:55</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
