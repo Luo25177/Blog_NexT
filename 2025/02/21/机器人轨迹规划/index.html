@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog_NexT/images/logo4.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog_NexT/images/logo4.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="用于规划机器人运动的轨迹，保证机器人运行过程的平滑和稳定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器人轨迹规划">
+<meta property="og:url" content="https://luo25177.github.io/2025/02/21/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/index.html">
+<meta property="og:site_name" content="LuosBlog">
+<meta property="og:description" content="用于规划机器人运动的轨迹，保证机器人运行过程的平滑和稳定">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-20T16:19:43.000Z">
+<meta property="article:modified_time" content="2025-02-20T16:19:54.518Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="机器人">
+<meta property="article:tag" content="曲线规划">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2025/02/21/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>机器人轨迹规划 | LuosBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LuosBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2025/02/21/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuosBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器人轨迹规划
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-21 00:19:43 / 修改时间：00:19:54" itemprop="dateCreated datePublished" datetime="2025-02-21T00:19:43+08:00">2025-02-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/" itemprop="url" rel="index"><span itemprop="name">机器人</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">用于规划机器人运动的轨迹，保证机器人运行过程的平滑和稳定</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="三次多项式插值轨迹"><a href="#三次多项式插值轨迹" class="headerlink" title="三次多项式插值轨迹"></a>三次多项式插值轨迹</h3><p><strong>三次多项式</strong></p>
+<p>位置表达式</p>
+<script type="math/tex; mode=display">
+q(t)=k_0+k_1t+k_2t^2+k_3t^3</script><p>速度表达式</p>
+<script type="math/tex; mode=display">
+\dot{q}(t)=k_1+2k_2t+3k_3t^2</script><p>加速度表达式</p>
+<script type="math/tex; mode=display">
+\ddot{q}(t)=2k_2+6k_3t</script><p>其中 $k_0\sim k_3$ 是未知系数</p>
+<hr>
+<p><strong>计算</strong></p>
+<p>给定起始和结束的位置，速度和轨迹的时间，可以构造出如下几个方程</p>
+<script type="math/tex; mode=display">
+q(t_0)=q_0\\q(t_1)=q_1\\\dot{q}(t_0)=\dot{q}_0\\\dot{q}(t_1)=\dot{q}_1\\t_1-t_0=T</script><p>假设初始时间 $t_0$ 为 $0$ ，则上述方程写作矩阵格式为</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}1&0&0&0\\0&1&0&0\\1&T&T^2&T^3\\0&1&2T&3T^2\end{bmatrix}\begin{bmatrix}k_0\\k_1\\k_2\\k_3\end{bmatrix}=\begin{bmatrix}q_0\\\dot{q_0}\\q_1\\\dot{q_1}\end{bmatrix}</script><p>求解得到如下结果</p>
+<script type="math/tex; mode=display">
+\left\{\begin{aligned}&k_0=q_0\\&k_1=\dot{q}_0\\&k_2=\frac{-3q_0+3q_1-2T\dot{q}_0-T\dot{q}_1}{T^2}\\&k_3=\frac{2q_0-2q_1+T\dot{q}_0+T\dot{q}_1}{T^3}\end{aligned}\right.</script><p>最后可以得到任意时间的位置速度和加速度信息</p>
+<script type="math/tex; mode=display">
+q(t)=k_0+k_1t+k_2t^2+k_3t^3\\\dot{q}(t)=k_1+2k_2t+3k_3t^2\\\ddot{q}(t)=2k_2+6k_3t</script><hr>
+<p><strong>优点</strong></p>
+<ul>
+<li>轨迹平滑，速度和加速度连续</li>
+<li>计算简单，易于实现</li>
+</ul>
+<hr>
+<p><strong>缺点</strong></p>
+<ul>
+<li>只能保证起点和终点的速度和位置约束，无法直接控制加速度</li>
+<li>对于复杂轨迹，可能需要分段使用三次多项式</li>
+</ul>
+<hr>
+<h3 id="五次多项式插值轨迹"><a href="#五次多项式插值轨迹" class="headerlink" title="五次多项式插值轨迹"></a>五次多项式插值轨迹</h3><p><strong>五次多项式</strong></p>
+<p>位置表达式</p>
+<script type="math/tex; mode=display">
+q(t)=k_0+k_1t+k_2t^2+k_3t^3+k_4t^4+k_5t^5</script><p>速度表达式</p>
+<script type="math/tex; mode=display">
+\dot{q}(t)=k_1+2k_2t+3k_3t^2+4k_4t^3+5k_5t^4</script><p>加速度表达式</p>
+<script type="math/tex; mode=display">
+\ddot{q}(t)=2k_2+6k_3t+12k_4t^2+20k_5t^3</script><p>其中 $k_0\sim k_5$ 是未知系数</p>
+<hr>
+<p><strong>计算</strong></p>
+<p>给定起始和结束的位置，速度和加速度以及轨迹的时间 $T$ ，可以构造如下七个方程</p>
+<script type="math/tex; mode=display">
+q(t_0)=q_0\\q(t_1)=q_1\\\dot{q}(t_0)=\dot{q}_0\\\dot{q}(t_1)=\dot{q}_1\\\ddot{q}(t_0)=\ddot{q}_0\\\ddot{q}(t_1)=\ddot{q}_1\\t_1-t_0=T</script><p>假设初始时间 $t_0$ 为 $0$ ，则上述方程可以表示为</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}1&0&0&0&0&0\\0&1&0&0&0&0\\0&0&2&0&0&0\\1&T&T^2&T^3&T^4&T^5\\0&1&2T&3T^2&4T^3&5T^4\\0&0&2&6T&12T^2&20T^3\end{bmatrix}\begin{bmatrix}k_0\\k_1\\k_2\\k_3\\k_4\\k_5\end{bmatrix}=\begin{bmatrix}q_0\\\dot{q_0}\\\ddot{q_0}\\q_1\\\dot{q_1}\\\ddot{q_1}\end{bmatrix}</script><p>求解即可得到系数矩阵，如下</p>
+<script type="math/tex; mode=display">
+\left\{\begin{aligned}&k_0=q_0\\&k_1=\dot{q}_0\\&k_2=\frac{\ddot{q}_0}{2}\\&k_3=\frac{-20q_0+20q_1-12T\dot{q}_0-8T\dot{q}_1-3T^2\ddot{q}_0+T^2\ddot{q}_1}{2T^3}\\&k_4=\frac{30q_0-30q_1+16T\dot{q}_0+14T\dot{q}_1+3T^2\ddot{q}_0-2T^2\ddot{q}_1}{2T^4}\\&k_5=\frac{-12q_0+12q_1-6T\dot{q}_0-6T\dot{q}_1-T^2\ddot{q}_0+T^2\ddot{q}_1}{2T^5}\end{aligned}\right.</script><p>代入可以得到任意时刻的位置速度和加速度</p>
+<script type="math/tex; mode=display">
+q(t)=k_0+k_1t+k_2t^2+k_3t^3+k_4t^4+k_5t^5\\\dot{q}(t)=k_1+2k_2t+3k_3t^2+4k_4t^3+5k_5t^4\\\ddot{q}(t)=2k_2+6k_3t+12k_4t^2+20k_5t^3</script><hr>
+<p><strong>优点</strong></p>
+<ul>
+<li>轨迹平滑，位置、速度和加速度均连续</li>
+<li>可以精确控制起点和终点的加速度</li>
+<li>适用于高精度和高动态要求的场景</li>
+</ul>
+<hr>
+<p><strong>缺点</strong></p>
+<ul>
+<li>计算复杂度较高</li>
+<li>对于非常复杂的轨迹，可能需要分段使用五次多项式</li>
+</ul>
+<hr>
+<h3 id="梯形速度曲线轨迹"><a href="#梯形速度曲线轨迹" class="headerlink" title="梯形速度曲线轨迹"></a>梯形速度曲线轨迹</h3><p>梯形速度曲线轨迹规划是工业控制领域内应用最为广泛的速度控制策略之一，标准形式的梯形速度规划包含匀加速，匀速和匀减速三个阶段，在变速过程中，加速度始终是人为设定的固定值。</p>
+<ul>
+<li>匀加速：加速度是恒定的正值，速度随着时间线性增加</li>
+<li>匀速：加速度为 0，速度大小恒定</li>
+<li>匀减速：加速度是恒定的负值，速度随着时间线性减小</li>
+</ul>
+<hr>
+<p><strong>需要定义一些曲线轨迹的参数</strong></p>
+<ul>
+<li>初始位置 $q_0$ ，速度 $v_0$</li>
+<li>结束位置 $q_1$ ，速度 $v_1$</li>
+<li>最大加速度 $a_{a}$ ，最大减速度 $a_d$</li>
+<li>运行过程中期望最大速度 $v_{f}$</li>
+<li>运行过程中实际最大速度 $v_{max}$</li>
+<li>匀加速段时间 $T_a$ ，匀减速段时间 $T_d$</li>
+</ul>
+<hr>
+<p><strong>轨迹设计</strong></p>
+<ol>
+<li>首先根据需要运行的距离来计算运行过程中是否具有匀速段，需要计算当只有匀加速和匀减速段时，达到最大速度时运行的距离 $\frac{v_{f}^2-v_0^2}{2a_a}+\frac{v_{1}^2-v_{f}^2}{2a_d}$ ，如果这个距离不大于期望距离 $\vert q_1-q_0\vert$ ，那就没有匀速段，否则就存在匀速段</li>
+<li>对于有匀速段的，计算各个段的位移和时间，注意此时实际最大速度达到了期望最大速度<ul>
+<li>加速段： $T_a=\frac{v_{f}-v_0}{a_a},x_a=\frac{v_{f}^2-v_0^2}{2a_a}$</li>
+<li>匀速段： $T_v=\frac{\vert q_1-q_0\vert-(\frac{v_{f}^2-v_0^2}{2a_a}+\frac{v_{1}^2-v_{f}^2}{2a_d})}{v_{f}},x_v=\vert q_1-q_0\vert-(\frac{v_{f}^2-v_0^2}{2a_a}+\frac{v_{1}^2-v_{f}^2}{2a_d})$</li>
+<li>减速段： $T_d=\frac{v_1-v_{f}}{a_d},x_d=\frac{v_{1}^2-v_{f}^2}{2a_d}$</li>
+</ul>
+</li>
+<li>对于没有匀速段的，各个段的位移和时间，此时最大速度并未达到期望最大速度 $v_{max}=\frac{\sqrt{-(a_a-a_d)(a_dv_0^2-a_av_1^2+2a_aa_d\vert q_1-q_0\vert)}}{a_a-a_d}$<ul>
+<li>加速段： $T_a=\frac{v_{max}-v_0}{a_a},x_a=v_0T_a+\frac{1}{2}a_aT_a^2$</li>
+<li>减速段： $T_d=\frac{v_1-v_{max}}{a_d},x_d=\vert q_1-q_0\vert-x_a$</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>结果</strong></p>
+<ul>
+<li><p>有匀速段</p>
+<script type="math/tex; mode=display">
+  \left\{\begin{aligned}&t\in[0,T_a]\left\{\begin{aligned}&q(t)=q_0+v_0t+\frac{1}{2}a_at^2\\&\dot{q}(t)=a_at\\&\ddot{q}(t)=a_a\end{aligned}\right.\\&t\in[T_a,T_a+T_v]\left\{\begin{aligned}&q(t)=\frac{v_{f}^2-v_0^2}{2a_a}+v_f(t-T_a)\\&\dot{q}(t)=v_f\\&\ddot{q}(t)=0\end{aligned}\right.\\&t\in[T_a+T_v,T_a+T_v+T_d]\left\{\begin{aligned}&q(t)=\frac{v_{f}^2-v_0^2}{2a_a}+v_f(t-T_a)+\frac{1}{2}a_d(t-T_a-T_v)^2\\&\dot{q}(t)=v_f+a_d(t-T_a-T_v)\\&\ddot{q}(t)=a_d\end{aligned}\right.\end{aligned}\right.</script></li>
+<li><p>无匀速段</p>
+<script type="math/tex; mode=display">
+  \left\{\begin{aligned}&t\in[0,T_a]\left\{\begin{aligned}&q(t)=q_0+v_0t+\frac{1}{2}a_at^2\\&\dot{q}(t)=a_at\\&\ddot{q}(t)=a_a\end{aligned}\right.\\&t\in[T_a,T_a+T_d]\left\{\begin{aligned}&q(t)=v_0T_a+\frac{1}{2}a_aT_a^2+v_{max}(t-T_a)+\frac{1}{2}a_d(t-T_a)^2\\&\dot{q}(t)=v_{max}+a_d(t-T_a)\\&\ddot{q}(t)=a_d\end{aligned}\right.\end{aligned}\right.</script></li>
+</ul>
+<hr>
+<p><strong>优点</strong></p>
+<ul>
+<li>计算简单，易于实现</li>
+<li>运动过程平滑，适合大多数工业应用</li>
+<li>可以通过调整加速度和最大速度来优化运动性能</li>
+</ul>
+<hr>
+<p><strong>缺点</strong></p>
+<ul>
+<li>加速度突变可能导致机械振动</li>
+<li>对于高动态要求的场景，可能需要更复杂的轨迹规划方法（如S形速度曲线）</li>
+</ul>
+<hr>
+<h3 id="双-S-形速度曲线轨迹"><a href="#双-S-形速度曲线轨迹" class="headerlink" title="双 S 形速度曲线轨迹"></a>双 S 形速度曲线轨迹</h3><p>双S形速度曲线轨迹，也被称为七段式轨迹或铃型规划（Bell），是一种由七段加加速度恒定的轨迹组成的平滑速度曲线。与梯形速度曲线相比，双S形速度曲线轨迹更加平滑，因为它将梯形轨迹的加速和减速段进一步细分为三段，从而避免了加速度的不连续变化</p>
+<p>双 S 形速度曲线轨迹分为七个部分</p>
+<ol>
+<li>加速段初期：加速度从 0 线性增加到最大加速度 $a_a$ ，加加速度保持恒定 $J$ ，时间为 $T_1$</li>
+<li>加速段中期：加速度保持在最大加速度 $a_a$ ，时间为 $T_2$</li>
+<li>加速段末期：加速度从最大加速度线性减小到 0，加加速度保持恒定 $-J$ ，时间为 $T_3$</li>
+<li>匀速段：速度保持不变 $v_m$ ，加速度保持为 0，加加速度保持为 0，时间为 $T_4$</li>
+<li>减速段初期：加速度从 0 线性减小到最大减速度 $a_d$ ，加加速度保持恒定 $-J$ ，时间为 $T_5$</li>
+<li>减速段中期：加速度保持在最大减速度 $a_d$ ，时间为 $T_6$</li>
+<li>减速段末期：加速度从最大减速度线性增加到 0，加加速度保持恒定 $J$ ，时间为 $T_7$</li>
+</ol>
+<hr>
+<p><strong>曲线轨迹设计</strong></p>
+<ol>
+<li>判断是否有加速段中期：当只有加速段初期和末期时计算得到的最大速度 $v=\frac{a_a^2}{J}$ <ul>
+<li>如果 $v&lt;v_m$ 则有加速段中期<ul>
+<li>加速段初期时间 $T_1=\frac{a_a}{J}$ ，距离为 $x_1=\frac{a_a^3}{6J^2}$</li>
+<li>加速段中期时间 $T_2=\frac{v_m-v}{a_a}$ ，距离为 $x_2=\frac{v_m^2}{2a_a} - \frac{a_a^4 - \frac{Jv_ma_a^2}{2}}{J^2a_a}$</li>
+<li>加速段末期时间 $T_3=\frac{a_a}{J}$ ，距离为 $x_3=\frac{3J^2v_m^2 + 12Ja_a^2v_m - a_a^4}{6J^2a_a}$</li>
+<li>则整个加速段的路程为 $x_a=\frac{2J^2v_m^2+5Ja_a^2v_m-2a_a^4}{2J^2a_a}$</li>
+</ul>
+</li>
+<li>如果 $v\geq v_m$ 则无加速段中期，在中间达到最大加速度为 $a_m=\sqrt{Jv_m}$<ul>
+<li>加速段初期时间 $T_1=\frac{a_m}{J}$ ，距离为 $x_1=\frac{a_m^3}{6J^2}$</li>
+<li>加速段末期时间 $T_2=\frac{a_m}{J}$ ，距离为 $x_2=\frac{7a_m^3}{3J^2}$</li>
+<li>则整个加速段的路程为 $x_a=\frac{5a_m^3}{2J^2}$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>判断是否有减速段中期，与加速段一致</li>
+<li>判断是否有匀速段：计算加速段和减速段走过的距离 $x=2x_a$<ul>
+<li>如果期望距离 $x_f\leq x$ 那么就没有匀速段<ul>
+<li>此时匀加速段和匀减速段的距离之和为总路程 $x_a+x_d=x_f$</li>
+<li>根据上述的曲线轨迹设计就可以得到匀加速段最终的速度</li>
+</ul>
+</li>
+<li>如果期望距离 $x_f&gt;x$ 那么就有匀速段<ul>
+<li>匀速段距离为 $x_m=x_f-x$</li>
+<li>匀速段时间为 $T_m=\frac{x_m}{v_m}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>结果</strong></p>
+<p>对于完整流程的双 S 形曲线轨迹，公式如下</p>
+<script type="math/tex; mode=display">
+\left\{\begin{aligned}&0\leq t<t_1\left\{\begin{aligned}&j(t)=J\\&a(t)=a_0+Jt\\&v(t)=v_0+a_0t+\frac{Jt^2}{2}\\&x(t)=x_0+v_0t+\frac{a_0t^2}{2}+\frac{Jt^3}{6}\\&v_1=\frac{JT_1^2}{2}\\&x_1=\frac{JT_1^3}{6}\end{aligned}\right.\\&t_1\leq t<t_2\left\{\begin{aligned}&j(t)=0\\&a(t)=a_a\\&v(t)=v_1+a_a(t-t_1)\\&x(t)=x_1+v_1(t-t_1)+\frac{a_a(t-t_1)^2}{2}\\&v_2=v_1+a_aT_2\\&x_2=x_1+v_1T_2+\frac{a_aT_2^2}{2}\end{aligned}\right.\\&t_2\leq t<t_3\left\{\begin{aligned}&j(t)=-J\\&a(t)=a_a-J(t-t_2)\\&v(t)=v_2+a_a(t-t_2)-\frac{J(t-t_2)^2}{2}\\&x(t)=x_2+v_2(t-t_2)+\frac{a_a(t-t_2)^2}{2}-\frac{J(t-t_2)^3}{6}\\&v_3=v_2+a_aT_3-\frac{JT_3^2}{2}\\&x_3=x_2+v_2T_3+\frac{a_aT_3^2}{2}-\frac{JT_3^3}{6}\end{aligned}\right.\\&t_3\leq t<t_4\left\{\begin{aligned}&j(t)=0\\&a(t)=0\\&v(t)=v_3\\&x(t)=x_3+v_3(t-t_3)\\&v_4=v_3\\&x_4=x_3+v_3T_4\end{aligned}\right.\\&t_4\leq t<t_5\left\{\begin{aligned}&j(t)=-J\\&a(t)=-J(t-t_4)\\&v(t)=v_4-\frac{J(t - t_4)^2}{2}\\&x(t)=x_4+v_4(t-t_4)-\frac{J(t-t_4)^3}{6}\\&v_5=v_4-\frac{JT_5^2}{2}\\&x_5=x_4+v_4T_5-\frac{JT_5^3}{6}\end{aligned}\right.\\&t_5\leq t<t_6\left\{\begin{aligned}&j(t)=0\\&a(t)=a_d\\&v(t)=v_5+a_d(t-t_5)\\&x(t)=x_5+v_5(t-t_5)+\frac{a_d(t-t_5)^2}{2}\\&v_6=v_5+a_dT_6\\&x_6=x_5+v_5T_6+\frac{a_dT_6^2}{2}\end{aligned}\right.\\&t_6\leq t<t_7\left\{\begin{aligned}&j(t)=J\\&a(t)=a_d+J(t-t_6)\\&v(t)=v_6+a_d(t-t_6)+\frac{J(t - t_6)^2}{2}\\&x(t)=x_6+v_6(t-t_6)+\frac{a_d(t-t_6)^2}{2}+\frac{J(t-t_6)^3}{6}\\&v_7=v_6+a_dT_7+\frac{JT_7^2}{2}\\&x_7=x_6+v_6T_7+\frac{a_dT_7^2}{2}+\frac{JT_7^3}{6}\end{aligned}\right.\end{aligned}\right.</script><p>需要注意的是，我们一般在使用过程中会将初始速度和加速度，最终速度和加速度设置为 0</p>
+<hr>
+<p><strong>优点</strong></p>
+<ul>
+<li>平滑性：减少机械冲击，延长设备寿命</li>
+<li>精确性：提高运动控制的精度</li>
+<li>适应性：适用于多种复杂运动场景</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2025/02/21/%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/" title="机器人轨迹规划">https://luo25177.github.io/2025/02/21/机器人轨迹规划/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" rel="tag"># 机器人</a>
+              <a href="/Blog_NexT/tags/%E6%9B%B2%E7%BA%BF%E8%A7%84%E5%88%92/" rel="tag"># 曲线规划</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2024/12/11/%E5%88%A9%E7%94%A8tensorflow-keras%E6%90%AD%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="prev" title="利用tensorflow.keras搭建神经网络">
+      <i class="fa fa-chevron-left"></i> 利用tensorflow.keras搭建神经网络
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E8%BD%A8%E8%BF%B9"><span class="nav-number">1.</span> <span class="nav-text">三次多项式插值轨迹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E6%AC%A1%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E8%BD%A8%E8%BF%B9"><span class="nav-number">2.</span> <span class="nav-text">五次多项式插值轨迹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BD%A2%E9%80%9F%E5%BA%A6%E6%9B%B2%E7%BA%BF%E8%BD%A8%E8%BF%B9"><span class="nav-number">3.</span> <span class="nav-text">梯形速度曲线轨迹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C-S-%E5%BD%A2%E9%80%9F%E5%BA%A6%E6%9B%B2%E7%BA%BF%E8%BD%A8%E8%BF%B9"><span class="nav-number">4.</span> <span class="nav-text">双 S 形速度曲线轨迹</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:01</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>
