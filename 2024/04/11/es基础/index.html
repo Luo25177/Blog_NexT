@@ -270,19 +270,26 @@
 
       
         <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>es 与 js 的关系就是，前者是后者的规范，后者是前者的一种实现</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h3><p>nodejs 的下载安装与一般的软件无异，从官网找到并且下载安装就好</p>
-<h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><p>需要使用镜像下载： <a target="_blank" rel="noopener" href="https://npmmirror.com/">镜像地址</a></p>
+<h2 id="简介">简介</h2>
+<p>es 与 js 的关系就是，前者是后者的规范，后者是前者的一种实现</p>
+<h2 id="环境配置">环境配置</h2>
+<h3 id="nodejs">nodejs</h3>
+<p>nodejs 的下载安装与一般的软件无异，从官网找到并且下载安装就好</p>
+<h3 id="npm">npm</h3>
+<p>需要使用镜像下载： <a target="_blank" rel="noopener" href="https://npmmirror.com/">镜像地址</a></p>
 <p>直接在终端执行下列命令就可完成安装</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://npmmirror.com/</span><br></pre></td></tr></table></figure>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="let关键字"><a href="#let关键字" class="headerlink" title="let关键字"></a>let关键字</h3><p>特点</p>
+<h2 id="语法">语法</h2>
+<h3 id="let关键字">let关键字</h3>
+<p>特点</p>
 <ul>
 <li>声明的变量只在当前的代码块中有效</li>
 <li>不满足变量提升，也就是必须在声明之后使用变量，不然会报错</li>
 <li>不允许重复声明同一个变量</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  let a = 0;</span><br><span class="line">&#125;</span><br><span class="line">a = 1; // 报错</span><br></pre></td></tr></table></figure>
-<h3 id="const关键字"><a href="#const关键字" class="headerlink" title="const关键字"></a>const关键字</h3><p>特点</p>
+<h3 id="const关键字">const关键字</h3>
+<p>特点</p>
 <ul>
 <li>声明之后变量不可改变</li>
 <li>声明时必须初始化</li>
@@ -291,10 +298,13 @@
 <li>不允许重复声明同一个变量</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const a = 1;</span><br><span class="line">a = 2; // 报错</span><br></pre></td></tr></table></figure>
-<h3 id="变量解构赋值"><a href="#变量解构赋值" class="headerlink" title="变量解构赋值"></a>变量解构赋值</h3><p>解构可以用于对象，也可以很方便的将现有的对象的方法赋值到某个变量，对象的顺序没有要求，但是必须与属性同名才能得到正确的值</p>
+<h3 id="变量解构赋值">变量解构赋值</h3>
+<p>解构可以用于对象，也可以很方便的将现有的对象的方法赋值到某个变量，对象的顺序没有要求，但是必须与属性同名才能得到正确的值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;age, name&#125; = &#123;<span class="attr">name</span>:<span class="string">&quot;1&quot;</span>, <span class="attr">age</span>:<span class="number">10</span>&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name, age);</span><br></pre></td></tr></table></figure>
-<h3 id="字符串扩展"><a href="#字符串扩展" class="headerlink" title="字符串扩展"></a>字符串扩展</h3><ul>
-<li>在 es6 中增加了字符串对 <code>unicode</code> 字符码的支持，可以在代码中使用 <code>\uxxx</code> 来表示一个字符<ul>
+<h3 id="字符串扩展">字符串扩展</h3>
+<ul>
+<li>在 es6 中增加了字符串对 <code>unicode</code> 字符码的支持，可以在代码中使用 <code>\uxxx</code> 来表示一个字符
+<ul>
 <li><code>unicode</code> 码即统一码，是计算机科学领域里的一项业界标准，包括字符集，编码方案等， <code>unicode</code> 是为了解决传统的字符编码方案的局限而产生的，为每种语言的每个字符都设定了统一并且唯一的二进制编码</li>
 </ul>
 </li>
@@ -310,13 +320,16 @@
 <li><code>trimEnd()</code> 消除字符串头部的空格，同上</li>
 <li><code>at()</code> 返回指定位置的字符，支持负索引</li>
 </ul>
-<h3 id="数组扩展"><a href="#数组扩展" class="headerlink" title="数组扩展"></a>数组扩展</h3><ul>
-<li>扩展运算符，三个点，将一个数组转为用逗号分割的参数序列<ul>
+<h3 id="数组扩展">数组扩展</h3>
+<ul>
+<li>扩展运算符，三个点，将一个数组转为用逗号分割的参数序列
+<ul>
 <li>将数组转为函数的参数，不需要再使用 <code>apply</code> 方法了</li>
 <li>作为合并数组的新写法</li>
 </ul>
 </li>
-<li><code>Array.from()</code> 用于将类数组转为真正的数组，常见类数组有三种<ul>
+<li><code>Array.from()</code> 用于将类数组转为真正的数组，常见类数组有三种
+<ul>
 <li>arguments</li>
 <li>元素集合</li>
 <li>类似数组的对象，但是书写要求较高，有严格的标准</li>
@@ -324,13 +337,16 @@
 </li>
 <li><code>Array.of()</code> 将一组数值转为数组</li>
 </ul>
-<h3 id="对象扩展"><a href="#对象扩展" class="headerlink" title="对象扩展"></a>对象扩展</h3><ul>
+<h3 id="对象扩展">对象扩展</h3>
+<ul>
 <li>es6 允许再大括号内，直接写入变量和函数，作为对象的属性和方法，用于函数的返回值</li>
 <li>属性名表达式，允许字面量定义对象，用表达式作为对象的属性名，就是把标达式放在括号内</li>
 <li>对象的扩展运算符，三个点，相当于将对象展开</li>
 </ul>
-<h3 id="函数扩展"><a href="#函数扩展" class="headerlink" title="函数扩展"></a>函数扩展</h3><ul>
-<li>箭头函数，es6 允许使用箭头 <code>=&gt;</code> 定义函数<ul>
+<h3 id="函数扩展">函数扩展</h3>
+<ul>
+<li>箭头函数，es6 允许使用箭头 <code>=&gt;</code> 定义函数
+<ul>
 <li>箭头函数如果不需要参数或者需要多个参数，就使用一个圆括号代表参数部分</li>
 <li>如果箭头函数的代码块部分多于一条语句，就使用大括号将它们括起来，使用 <code>return</code> 返回</li>
 <li>箭头函数的作用就是简化回调函数</li>
@@ -338,7 +354,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><ul>
+<h3 id="set">Set</h3>
+<ul>
 <li>es6 提供了新的数据结构 <code>Set</code> ，类似于数组，但是成员的数值是唯一的，没有重复的值</li>
 <li><code>Set</code> 本身是一个构造函数，用来生成 <code>Set</code> 数据结构</li>
 <li>通过 <code>add</code> 方法加入成员，而且 <code>Set</code> 不会添加重复的值</li>
@@ -352,7 +369,8 @@
 <li><code>has()</code> 是否有某个元素</li>
 <li><code>clear()</code> 清除所有元素</li>
 </ul>
-<h3 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h3><p>是异步编程的一种解决办法， <code>Promise</code> 是一个对象，从它可以获取异步操作的消息</p>
+<h3 id="promise">promise</h3>
+<p>是异步编程的一种解决办法， <code>Promise</code> 是一个对象，从它可以获取异步操作的消息</p>
 <p>有三种 <code>promise</code> 状态，除了异步操作的结果，任何其他操作都无法改变这个状态，只有从 <code>pending</code> 变为 <code>fulfilled</code> 和从 <code>pending</code> 变为 <code>rejected</code> 的状态改变。只要处于 <code>fulfilled</code> 和 <code>rejected</code> ，状态就不会再变了即 <code>resolved</code></p>
 <ul>
 <li><code>pending</code> 进行中</li>
@@ -373,8 +391,10 @@
 <li>当忘记返回值时，对应链条被打破，导致之后的链式反应与当前链式反应同时进行</li>
 <li>大多数浏览器中不能终止的 <code>Promise</code> 链里的 <code>rejection</code> ，建议后面都跟上 <code>.catch(error =&gt; console.log(error));</code></li>
 </ul>
-<h3 id="Async函数"><a href="#Async函数" class="headerlink" title="Async函数"></a>Async函数</h3><p>使得异步操作更方便，可以把异步操作变为同步操作，但是需要使用 <code>await</code> 关键字来等待异步操作完成，以此来实现同步</p>
-<h3 id="类的使用"><a href="#类的使用" class="headerlink" title="类的使用"></a>类的使用</h3><p><code>js</code> 中，生成实例对象的传统方法是通过构造函数来实现，在 <code>es6</code> 中引入了 <code>class</code> ，通过这个关键字可以定义类</p>
+<h3 id="async函数">Async函数</h3>
+<p>使得异步操作更方便，可以把异步操作变为同步操作，但是需要使用 <code>await</code> 关键字来等待异步操作完成，以此来实现同步</p>
+<h3 id="类的使用">类的使用</h3>
+<p><code>js</code> 中，生成实例对象的传统方法是通过构造函数来实现，在 <code>es6</code> 中引入了 <code>class</code> ，通过这个关键字可以定义类</p>
 <ul>
 <li>实例化需要使用 <code>new</code> 来实现</li>
 <li>类不存在提升，也就是只能在声明之后使用</li>
@@ -385,11 +405,13 @@
 <p>所有在类中定义的方法都会被实例继承，但是对于 <code>static</code> 方法不会被实例继承，但是可以直接调用，而实例中却没有此方法，如果静态方法中包含 <code>this</code> 那这个就是指这个类，而不是实例</p>
 <p><strong>静态属性</strong></p>
 <p>就是 <code>class</code> 本身的属性，也就是 <code>Class.propname</code> ，这个可以在类之外定义，但是不会被实例继承</p>
-<h3 id="module语法"><a href="#module语法" class="headerlink" title="module语法"></a>module语法</h3><p><code>js</code> 没有将一个大的程序拆分成一些相互有依赖关系的小文件，再用简单的方式拼接起来，但是在 <code>es6</code> 中引入了 <code>module</code> 方法来实现此功能</p>
+<h3 id="module语法">module语法</h3>
+<p><code>js</code> 没有将一个大的程序拆分成一些相互有依赖关系的小文件，再用简单的方式拼接起来，但是在 <code>es6</code> 中引入了 <code>module</code> 方法来实现此功能</p>
 <p>先通过 <code>export</code> 指令显示指定来自外部的代码，再通过 <code>import</code> 命令输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export var hello = &quot;hello&quot;;</span><br><span class="line">import&#123;hello&#125; form &quot;./hello.js&quot;;</span><br></pre></td></tr></table></figure>
 <p>测试需要采用 <code>Nodejs</code> 的方式测试 <code>module</code> 语法</p>
-<h3 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h3><p><code>Generator</code> 函数有两个区分于普通函数的部分</p>
+<h3 id="generator函数">Generator函数</h3>
+<p><code>Generator</code> 函数有两个区分于普通函数的部分</p>
 <ul>
 <li>在 <code>function</code> 之后，函数名之前有个 <code>*</code></li>
 <li>函数内部有 <code>yield</code> 表达式，用 <code>yield</code> 来定义函数内部的状态</li>
@@ -412,12 +434,14 @@
 <p><strong>yield*表达式</strong></p>
 <p><code>yield*</code> 表达式表示 <code>yield</code> 返回一个遍历器对象，用于在 <code>Generator</code> 函数内部，调用另一个 <code>Generator</code> 函数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function* callee() &#123;</span><br><span class="line">  console.log(&#x27;callee: &#x27; + (yield));</span><br><span class="line">&#125;</span><br><span class="line">function* caller() &#123;</span><br><span class="line">  while (true) &#123;</span><br><span class="line">    yield* callee();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Reflext与Proxy"><a href="#Reflext与Proxy" class="headerlink" title="Reflext与Proxy"></a>Reflext与Proxy</h3><ul>
-<li><code>Proxy</code> 可以对目标对象的读取、函数调用等操作进行拦截，然后进行操作处理。它不直接操作对象，而是像代理模式，通过对象的代理对象进行操作，在进行这些操作时，可以添加一些需要的额外操作。 </li>
+<h3 id="reflext与proxy">Reflext与Proxy</h3>
+<ul>
+<li><code>Proxy</code> 可以对目标对象的读取、函数调用等操作进行拦截，然后进行操作处理。它不直接操作对象，而是像代理模式，通过对象的代理对象进行操作，在进行这些操作时，可以添加一些需要的额外操作。</li>
 <li><code>Reflect</code> 可以用于获取目标对象的行为，它与 <code>Object</code> 类似，但是更易读，为操作对象提供了一种更优雅的方式。它的方法与 <code>Proxy</code> 是对应的</li>
 <li><code>Reflect</code> 对象的方法与 <code>Proxy</code> 对象的方法是一一对应的。所以 <code>Proxy</code> 对象的方法可以通过调用 <code>Reflect</code> 对象的方法获取默认行为，然后进行额外操作</li>
 </ul>
-<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><p>一个 <code>Proxy</code> 对象由两个部分组成： <code>target</code> 和 <code>handler</code> 。在通过 <code>Proxy</code> 构造函数生成实例对象时，需要提供这两个参数。 <code>target</code> 即目标对象， <code>handler</code> 是一个对象，声明了代理 <code>target</code> 的指定行为</p>
+<h3 id="proxy">Proxy</h3>
+<p>一个 <code>Proxy</code> 对象由两个部分组成： <code>target</code> 和 <code>handler</code> 。在通过 <code>Proxy</code> 构造函数生成实例对象时，需要提供这两个参数。 <code>target</code> 即目标对象， <code>handler</code> 是一个对象，声明了代理 <code>target</code> 的指定行为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">let target = &#123;</span><br><span class="line">  name: &#x27;Tom&#x27;,</span><br><span class="line">  age: 24</span><br><span class="line">&#125;</span><br><span class="line">let handler = &#123;</span><br><span class="line">  get: function(target, key) &#123;</span><br><span class="line">    console.log(&#x27;getting &#x27;+key);</span><br><span class="line">    return target[key]; // 不是target.key</span><br><span class="line">  &#125;,</span><br><span class="line">  set: function(target, key, value) &#123;</span><br><span class="line">    console.log(&#x27;setting &#x27;+key);</span><br><span class="line">    target[key] = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let proxy = new Proxy(target, handler)</span><br><span class="line">proxy.name</span><br><span class="line">proxy.age = 25 </span><br><span class="line">proxy.sex = &quot;man&quot;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>target</code> 可以为空对象</li>
@@ -434,7 +458,8 @@
 <li><code>deleteProperty(target, propKey)</code> 用于拦截 <code>delete</code> 操作，如果这个方法抛出错误或者返回 <code>false</code> ， <code>propKey</code> 属性就无法被 <code>delete</code> 命令删除</li>
 <li><code>defineProperty(target, propKey, propDesc)</code> 用于拦截 <code>Object.definePro</code> 若目标对象不可扩展，增加目标对象上不存在的属性会报错；若属性不可写或不可配置，则不能改变这些属性</li>
 <li><code>getOwnPropertyDescriptor(target, propKey)</code> 用于拦截 <code>Object.getOwnPropertyD()</code> 返回值为属性描述对象或者 <code>undefined</code></li>
-<li><code>getPrototypeOf(target)</code> 主要用于拦截获取对象原型的操作，返回值必须是对象或者 <code>null</code> ，否则报错。另外，如果目标对象不可扩展（non-extensible）， <code>getPrototypeOf</code> 方法必须返回目标对象的原型对象，主要包括<ul>
+<li><code>getPrototypeOf(target)</code> 主要用于拦截获取对象原型的操作，返回值必须是对象或者 <code>null</code> ，否则报错。另外，如果目标对象不可扩展（non-extensible）， <code>getPrototypeOf</code> 方法必须返回目标对象的原型对象，主要包括
+<ul>
 <li><code>Object.prototype._proto_</code></li>
 <li><code>Object.prototype.isPrototypeOf()</code></li>
 <li><code>Object.getPrototypeOf()</code></li>
@@ -443,7 +468,8 @@
 </ul>
 </li>
 <li><code>isExtensible(target)</code> 用于拦截 <code>Object.isExtensible</code> 操作，该方法只能返回布尔值，否则返回值会被自动转为布尔值，它的返回值必须与目标对象的isExtensible属性保持一致，否则会抛出错误</li>
-<li><code>ownKeys(target)</code> 用于拦截对象自身属性的读取操作，方法返回的数组成员，只能是字符串或 Symbol 值，否则会报错。若目标对象中含有不可配置的属性，则必须将这些属性在结果中返回，否则就会报错。若目标对象不可扩展，则必须全部返回且只能返回目标对象包含的所有属性，不能包含不存在的属性，否则也会报错。主要包括<ul>
+<li><code>ownKeys(target)</code> 用于拦截对象自身属性的读取操作，方法返回的数组成员，只能是字符串或 Symbol 值，否则会报错。若目标对象中含有不可配置的属性，则必须将这些属性在结果中返回，否则就会报错。若目标对象不可扩展，则必须全部返回且只能返回目标对象包含的所有属性，不能包含不存在的属性，否则也会报错。主要包括
+<ul>
 <li><code>Object.getOwnPropertyNames()</code></li>
 <li><code>Object.getOwnPropertySymbols()</code></li>
 <li><code>Object.keys()</code></li>
@@ -454,7 +480,8 @@
 <li><code>setPrototypeOf()</code> 主要用来拦截 <code>Object.setPrototypeOf</code> 方法。返回值必须为布尔值，否则会被自动转为布尔值。若目标对象不可扩展， <code>setPrototypeOf</code> 方法不得改变目标对象的原型</li>
 <li><code>Proxy.revocable()</code> 用于返回一个可取消的 <code>Proxy</code> 实例</li>
 </ul>
-<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><p>es6 中将 <code>Object</code> 的一些明显属于语言内部的方法移植到了 <code>Reflect</code> 对象上（当前某些方法会同时存在于 <code>Object</code> 和 <code>Reflect</code> 对象上），未来的新方法会只部署在 <code>Reflect</code> 对象上。 <code>Reflect</code> 对象对某些方法的返回结果进行了修改，使其更合理。 <code>Reflect</code> 对象使用函数的方式实现了 <code>Object</code> 的命令式操作</p>
+<h3 id="reflect">Reflect</h3>
+<p>es6 中将 <code>Object</code> 的一些明显属于语言内部的方法移植到了 <code>Reflect</code> 对象上（当前某些方法会同时存在于 <code>Object</code> 和 <code>Reflect</code> 对象上），未来的新方法会只部署在 <code>Reflect</code> 对象上。 <code>Reflect</code> 对象对某些方法的返回结果进行了修改，使其更合理。 <code>Reflect</code> 对象使用函数的方式实现了 <code>Object</code> 的命令式操作</p>
 <p><strong>静态方法</strong></p>
 <ul>
 <li><code>Reflect.get(target, name, receiver)</code> 查找并返回 <code>target</code> 对象的 <code>name</code> 属性</li>
@@ -571,7 +598,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs"><span class="nav-number">2.1.</span> <span class="nav-text">nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">2.2.</span> <span class="nav-text">npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.1.</span> <span class="nav-text">let关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.2.</span> <span class="nav-text">const关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">3.3.</span> <span class="nav-text">变量解构赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95"><span class="nav-number">3.4.</span> <span class="nav-text">字符串扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%89%A9%E5%B1%95"><span class="nav-number">3.5.</span> <span class="nav-text">数组扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%89%A9%E5%B1%95"><span class="nav-number">3.6.</span> <span class="nav-text">对象扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%89%A9%E5%B1%95"><span class="nav-number">3.7.</span> <span class="nav-text">函数扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-number">3.8.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#promise"><span class="nav-number">3.9.</span> <span class="nav-text">promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Async%E5%87%BD%E6%95%B0"><span class="nav-number">3.10.</span> <span class="nav-text">Async函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.11.</span> <span class="nav-text">类的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module%E8%AF%AD%E6%B3%95"><span class="nav-number">3.12.</span> <span class="nav-text">module语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator%E5%87%BD%E6%95%B0"><span class="nav-number">3.13.</span> <span class="nav-text">Generator函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflext%E4%B8%8EProxy"><span class="nav-number">3.14.</span> <span class="nav-text">Reflext与Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy"><span class="nav-number">3.15.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflect"><span class="nav-number">3.16.</span> <span class="nav-text">Reflect</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs"><span class="nav-number">2.1.</span> <span class="nav-text">nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">2.2.</span> <span class="nav-text">npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.1.</span> <span class="nav-text">let关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.2.</span> <span class="nav-text">const关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">3.3.</span> <span class="nav-text">变量解构赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95"><span class="nav-number">3.4.</span> <span class="nav-text">字符串扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%89%A9%E5%B1%95"><span class="nav-number">3.5.</span> <span class="nav-text">数组扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%89%A9%E5%B1%95"><span class="nav-number">3.6.</span> <span class="nav-text">对象扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%89%A9%E5%B1%95"><span class="nav-number">3.7.</span> <span class="nav-text">函数扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">3.8.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#promise"><span class="nav-number">3.9.</span> <span class="nav-text">promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async%E5%87%BD%E6%95%B0"><span class="nav-number">3.10.</span> <span class="nav-text">Async函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.11.</span> <span class="nav-text">类的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module%E8%AF%AD%E6%B3%95"><span class="nav-number">3.12.</span> <span class="nav-text">module语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator%E5%87%BD%E6%95%B0"><span class="nav-number">3.13.</span> <span class="nav-text">Generator函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflext%E4%B8%8Eproxy"><span class="nav-number">3.14.</span> <span class="nav-text">Reflext与Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy"><span class="nav-number">3.15.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflect"><span class="nav-number">3.16.</span> <span class="nav-text">Reflect</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -644,12 +671,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.1m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:01</span>
+    <span title="站点阅读时长">19:43</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
