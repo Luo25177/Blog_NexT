@@ -272,33 +272,25 @@
 
       
         <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
-<h2 id="前言">前言</h2>
-<p>CSS 是层叠样式表，又叫级联样式表，后缀名为 <code>.css</code> ，用于是 <code>html</code> 中元素样式的定义</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CSS 是层叠样式表，又叫级联样式表，后缀名为 <code>.css</code> ，用于是 <code>html</code> 中元素样式的定义</p>
 <p>CSS 的主要作用是为了让网页具有美观一致的页面</p>
-<h2 id="导入到html">导入到html</h2>
-<h3 id="内联样式">内联样式</h3>
-<p>要使用内联样式，需要在相关标签内使用 <code>style</code> 属性，其中的 <code>style</code> 属性可以包含任何 CSS 属性</p>
+<h2 id="导入到html"><a href="#导入到html" class="headerlink" title="导入到html"></a>导入到html</h2><h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>要使用内联样式，需要在相关标签内使用 <code>style</code> 属性，其中的 <code>style</code> 属性可以包含任何 CSS 属性</p>
 <p>但是缺乏整体性和规划性，不利于维护，维护成本高</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;background-color: green; color:red&quot;</span>&gt;</span>段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="内部样式">内部样式</h3>
-<p>当单个文档需要特殊样式时，就应该使用内部样式表，可以使用 <code>&lt;style&gt;</code> 标签在文档头部定义内部样式表</p>
+<h3 id="内部样式"><a href="#内部样式" class="headerlink" title="内部样式"></a>内部样式</h3><p>当单个文档需要特殊样式时，就应该使用内部样式表，可以使用 <code>&lt;style&gt;</code> 标签在文档头部定义内部样式表</p>
 <p>这使得单个页面内的 CSS 代码具有统一性和维护性，便于维护，但是在多个页面之间容易混乱</p>
-<h3 id="外部样式">外部样式</h3>
-<p>实际上是引入外部 <code>css</code> 文件作为不同网页的统一样式，可以实现通过改变一个文件来改变整体的样式，需要注意的是， <code>link</code> 标签在文档的头部才能引入，可以链接到样式表</p>
+<h3 id="外部样式"><a href="#外部样式" class="headerlink" title="外部样式"></a>外部样式</h3><p>实际上是引入外部 <code>css</code> 文件作为不同网页的统一样式，可以实现通过改变一个文件来改变整体的样式，需要注意的是， <code>link</code> 标签在文档的头部才能引入，可以链接到样式表</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;xxx.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="语法">语法</h2>
-<p>CSS 语法由两个主要部分构成，选择器以及一条或多条声明臭傻逼</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>CSS 语法由两个主要部分构成，选择器以及一条或多条声明臭傻逼</p>
 <ul>
 <li>选择器：通常是需要改变样式的 <code>html</code> 元素</li>
-<li>每条声明由一个属性和一个值组成
-<ul>
+<li>每条声明由一个属性和一个值组成<ul>
 <li>属性：是希望设置的样式属性</li>
 <li>值：就是属性的值，属性和值被冒号分开</li>
 </ul>
 </li>
 </ul>
-<h3 id="选择器">选择器</h3>
-<p><strong>全局选择器</strong></p>
+<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p><strong>全局选择器</strong></p>
 <p>可以与任何元素匹配，优先级最低，一般做样式初始化</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>:<span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>元素选择器</strong></p>
@@ -327,10 +319,8 @@
 <li>内联样式选择器：1000</li>
 </ul>
 <p>优先级从高到低：内联样式选择器 &gt; id选择器 &gt; class选择器 &gt; 元素选择器</p>
-<h3 id="字体属性">字体属性</h3>
-<ul>
-<li><code>color</code> 字体颜色，有多种书写样式
-<ul>
+<h3 id="字体属性"><a href="#字体属性" class="headerlink" title="字体属性"></a>字体属性</h3><ul>
+<li><code>color</code> 字体颜色，有多种书写样式<ul>
 <li>颜色名 <code>red</code></li>
 <li>16进制表示 <code>#ff0000</code></li>
 <li>rgb 表示rgb值 <code>rgb()</code> ，其中每个参数的取值范围是 <code>0~255</code></li>
@@ -338,45 +328,39 @@
 </ul>
 </li>
 <li><code>font-size</code> 字体大小</li>
-<li><code>font-weight</code> 字体宽度，设置文本的粗细
-<ul>
+<li><code>font-weight</code> 字体宽度，设置文本的粗细<ul>
 <li><code>bold</code> 定义粗体</li>
 <li><code>bolder</code> 定义更粗的字体</li>
 <li><code>lighter</code> 定义更细的字体</li>
 <li><code>100~900</code> 定义由细到粗的字体 <code>400</code> 为默认， <code>700</code> 等同 <code>bold</code></li>
 </ul>
 </li>
-<li><code>font-style</code> 指定字体样式
-<ul>
+<li><code>font-style</code> 指定字体样式<ul>
 <li><code>normal</code> 默认值</li>
 <li><code>italic</code> 斜体字</li>
 </ul>
 </li>
 <li><code>font-family</code> 指定一个元素的字体，多个字体之间通过逗号隔开，如果每个字体名称包含空格，必须加上引号</li>
 </ul>
-<h3 id="背景属性">背景属性</h3>
-<ul>
+<h3 id="背景属性"><a href="#背景属性" class="headerlink" title="背景属性"></a>背景属性</h3><ul>
 <li><code>background-color</code> 设置背景颜色，</li>
 <li><code>background-image</code> 设置背景图片，元素的背景是元素的总大小，包括填充和边界，默认情况下的 <code>background-image</code> 属性放在元素的左上角，如果图像不够大的话会在垂直方向和水平方向平铺图像，如果图像太大，超过元素大小，就显示图像左上角的部分</li>
 <li><code>background-position</code> 设置背景图片显示位置</li>
-<li><code>background-repeat</code> 设置背景图片如何填充
-<ul>
+<li><code>background-repeat</code> 设置背景图片如何填充<ul>
 <li><code>repeat</code> 平铺</li>
 <li><code>repeat-x</code> x 轴平铺</li>
 <li><code>repeat-y</code> y 轴平铺</li>
 <li><code>no-repeat</code> 不平铺</li>
 </ul>
 </li>
-<li><code>background-size</code> 设置背景图片大小属性
-<ul>
+<li><code>background-size</code> 设置背景图片大小属性<ul>
 <li><code>length</code> 设置背景图片的宽度和高度，第一个宽度，第二个高度，若只设置一个，另一个为 auto</li>
 <li><code>percentage</code> 计算相对位置区域的百分比，第一个宽度，第二个高度，只设置一个另一个为 auto</li>
 <li><code>cover</code> 保持图片纵横比并将图片缩放成完全覆盖背景区域的最小大小</li>
 <li><code>contain</code> 保持图片横纵比并将图片缩放为合适背景定位区域的最大大小</li>
 </ul>
 </li>
-<li><code>background-position</code> 设置背景图片的起始位置，默认为 <code>0%0%</code>
-<ul>
+<li><code>background-position</code> 设置背景图片的起始位置，默认为 <code>0%0%</code><ul>
 <li><code>left</code> 左</li>
 <li><code>center</code> 中</li>
 <li><code>right</code> 右</li>
@@ -387,24 +371,20 @@
 </ul>
 </li>
 </ul>
-<h3 id="文本属性">文本属性</h3>
-<ul>
-<li><code>text-align</code> 指定元素文本的对齐方式
-<ul>
+<h3 id="文本属性"><a href="#文本属性" class="headerlink" title="文本属性"></a>文本属性</h3><ul>
+<li><code>text-align</code> 指定元素文本的对齐方式<ul>
 <li><code>left</code> 文本居左排列，为默认值</li>
 <li><code>right</code> 文本居右</li>
 <li><code>center</code> 文本居中</li>
 </ul>
 </li>
-<li><code>text-decoration</code> 规定添加到文本的修饰，下划线，上划线，删除线等
-<ul>
+<li><code>text-decoration</code> 规定添加到文本的修饰，下划线，上划线，删除线等<ul>
 <li><code>underline</code> 下划线</li>
 <li><code>overline</code> 上划线</li>
 <li><code>line-through</code> 删除线</li>
 </ul>
 </li>
-<li><code>text-transform</code> 控制文本的大小写
-<ul>
+<li><code>text-transform</code> 控制文本的大小写<ul>
 <li><code>captialize</code> 每个单词开头大写</li>
 <li><code>uppercase</code> 全部大写</li>
 <li><code>lowercase</code> 全部小写</li>
@@ -412,8 +392,7 @@
 </li>
 <li><code>text-indent</code> 定义文本块中首行文本缩进的多少</li>
 </ul>
-<h3 id="表格属性">表格属性</h3>
-<ul>
+<h3 id="表格属性"><a href="#表格属性" class="headerlink" title="表格属性"></a>表格属性</h3><ul>
 <li><code>border</code> 表格边框，有三个参数 线宽+线形+颜色</li>
 <li><code>border-collapse</code> 定义表格边框是否被折叠成一个单一的边框或者隔开</li>
 <li><code>width</code> 表格的宽度</li>
@@ -423,16 +402,14 @@
 <li><code>background-color</code> 背景颜色</li>
 <li><code>color</code> 文本颜色</li>
 </ul>
-<h3 id="关系选择器">关系选择器</h3>
-<p><strong>分类</strong></p>
+<h3 id="关系选择器"><a href="#关系选择器" class="headerlink" title="关系选择器"></a>关系选择器</h3><p><strong>分类</strong></p>
 <ul>
 <li>后代选择器：选择被元素E包含的所有F元素中间空格隔开 <code>E F&#123;&#125;</code></li>
 <li>子代选择器：选择作为 E 元素的直接子元素 F ，中间用 <code>&gt;</code> 符号， <code>E&gt;F&#123;&#125;</code></li>
 <li>相邻兄弟选择器：选择紧跟在 E 元素之后的 F 元素，用加号表示，选择相邻的第一个兄弟元素，只能向下选择 <code>E+F&#123;&#125;</code></li>
 <li>通用兄弟选择器：选择在元素 E 之后的所有 F 元素，作用于多个元素，用 <code>~</code> 隔开 <code>E~F&#123;&#125;</code></li>
 </ul>
-<h3 id="盒子模型">盒子模型</h3>
-<p>所有的 <code>html</code> 元素可以看作是个盒子，在 <code>css</code> 中， <code>box model</code> 这一术语是在设计和布置时使用， <code>css</code> 盒模型本质上是一个盒子，封装周围的 <code>html</code> 元素，包括</p>
+<h3 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h3><p>所有的 <code>html</code> 元素可以看作是个盒子，在 <code>css</code> 中， <code>box model</code> 这一术语是在设计和布置时使用， <code>css</code> 盒模型本质上是一个盒子，封装周围的 <code>html</code> 元素，包括</p>
 <ul>
 <li><code>margin</code> 外边距，清除边框外的区域，外边距是透明的，距离窗体左上角的距离，第一个参数是上下，第二个是左右，默认上下与左右一致</li>
 <li><code>border</code> 边框，围绕在内边距和内容外的边框，与表格的边框一致</li>
@@ -440,41 +417,35 @@
 <li><code>content</code> 实际内容，盒子的内容，显示文本和图像</li>
 </ul>
 <p><img src="/Blog_NexT/2024/04/08/css%E5%9F%BA%E7%A1%80/1712402139588.png" alt="box model"></p>
-<h3 id="弹性盒子">弹性盒子</h3>
-<p>是 CSS3 的一种新的布局方式，是一种当前页面需要适应不同的屏幕大小以及设备类型时，需要保证元素有恰当的布局方式，引入弹性盒布局模型的目的是提供一种更加有效的方式来对一个容器中的子元素进行排列，对齐和分配空白空间</p>
+<h3 id="弹性盒子"><a href="#弹性盒子" class="headerlink" title="弹性盒子"></a>弹性盒子</h3><p>是 CSS3 的一种新的布局方式，是一种当前页面需要适应不同的屏幕大小以及设备类型时，需要保证元素有恰当的布局方式，引入弹性盒布局模型的目的是提供一种更加有效的方式来对一个容器中的子元素进行排列，对齐和分配空白空间</p>
 <p>由弹性容器和弹性子元素组成，弹性容器通过设置 <code>display</code> 属性值为 <code>flex</code> 将其定义为弹性容器，弹性容器内包含了一个或多个弹性子元素，弹性容器之外以及弹性元素之内都是正常渲染的，弹性容器只是定义了弹性子元素如何在弹性容器内布局</p>
 <p><strong>container属性</strong></p>
 <ul>
 <li><code>display</code> 为 <code>flex</code> 开启弹性盒，子元素默认水平排列</li>
-<li><code>flex-direction</code> 指定了弹性子元素在父容器中的位置
-<ul>
+<li><code>flex-direction</code> 指定了弹性子元素在父容器中的位置<ul>
 <li><code>row</code> 横向从左到右排列，左对齐，默认</li>
 <li><code>row-reverse</code> 横向从右到左排列，右对齐</li>
 <li><code>column</code> 纵向排列</li>
 <li><code>column-reverse</code> 纵向从后往前排列</li>
 </ul>
 </li>
-<li><code>justify-content</code> 内容对齐属性应用在弹性容器上，把弹性项沿着弹性容器的主轴对齐
-<ul>
+<li><code>justify-content</code> 内容对齐属性应用在弹性容器上，把弹性项沿着弹性容器的主轴对齐<ul>
 <li><code>flex-start</code> 弹性项目向行头紧挨着填充，默认值，第一个弹性项的 <code>main-start</code> 外边距边线被放置在该行的 <code>main-start</code> 边线，而后续弹性项依次水平排列</li>
 <li><code>flex-end</code> 弹性项目向行尾紧挨着填充，第一个弹性项的 <code>main-end</code> 外边距边线被放置在该行的 <code>main-end</code> 的外边距边线上，后续弹性项依次水平摆放</li>
 <li><code>center</code> 弹性项目居中紧挨着填充，若剩余自由空间是负的，会在两侧溢出</li>
 </ul>
 </li>
-<li><code>align-items</code> 设置或检索弹性盒子元素在侧轴方向上的对齐
-<ul>
+<li><code>align-items</code> 设置或检索弹性盒子元素在侧轴方向上的对齐<ul>
 <li><code>flex-start</code> 弹性盒子元素的侧轴起始位置的边界紧靠该行侧轴的起始边界</li>
 <li><code>flex-end</code> 弹性盒子元素的侧轴结束位置的边界紧靠该行侧轴的结束边界</li>
 <li><code>center</code> 弹性盒子元素在该行的侧轴上居中放置，溢出也是两个方向</li>
 </ul>
 </li>
 </ul>
-<h3 id="子元素属性">子元素属性</h3>
-<ul>
+<h3 id="子元素属性"><a href="#子元素属性" class="headerlink" title="子元素属性"></a>子元素属性</h3><ul>
 <li><code>flex-grow</code> 根据弹性盒子所设置的扩展因子作为比率来分配剩余空间，默认为 0，也就是不会扩大，如果只有一个元素设置，那就按照扩展因子转化的百分比对其分配空间</li>
 </ul>
-<h3 id="文档流">文档流</h3>
-<p>文档流是文档中可显示对象在排列时所占用的空间，例如块元素时从上到下放置，内联元素从左到右放置，标准流中限制太多导致很多方法实现不了</p>
+<h3 id="文档流"><a href="#文档流" class="headerlink" title="文档流"></a>文档流</h3><p>文档流是文档中可显示对象在排列时所占用的空间，例如块元素时从上到下放置，内联元素从左到右放置，标准流中限制太多导致很多方法实现不了</p>
 <p><strong>高矮不齐，底边对齐</strong></p>
 <p>对于文本元素与图片元素的对齐，使用段落标签无法对齐，只能使用 <code>&lt;span&gt;</code> 标签</p>
 <p><strong>空白折叠现象</strong></p>
@@ -488,8 +459,7 @@
 <li>绝对定位</li>
 <li>固定定位</li>
 </ul>
-<h3 id="浮动">浮动</h3>
-<p>增加一个浮层来定位， <code>float</code> 属性定义元素在那个方向浮动，任何元素都可以浮动</p>
+<h3 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h3><p>增加一个浮层来定位， <code>float</code> 属性定义元素在那个方向浮动，任何元素都可以浮动</p>
 <ul>
 <li><code>left</code> 元素向左浮动</li>
 <li><code>right</code> 元素向右浮动</li>
@@ -502,8 +472,7 @@
 <li>当所有元素浮动时，会变成水平摆放，向左或者向右</li>
 <li>当容器元素不足以横向摆放内容时，会在下一行摆放</li>
 </ul>
-<h3 id="清除浮动">清除浮动</h3>
-<p><strong>缺点</strong></p>
+<h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><p><strong>缺点</strong></p>
 <ul>
 <li>浮动元素造成父元素高度塌陷</li>
 <li>后续元素也会受到影响</li>
@@ -515,8 +484,8 @@
 <li><code>overflow</code> 清除浮动，在父级标签中加 <code>overflow:hidden</code> ，但是父级标签不能设置高度，针对父级塌陷</li>
 <li>伪对象方式：如果有父级塌陷并且同级元素也受到了影响，可以使用为对象，也就是为父级添加标签伪类，设置空的内容，并且使用 <code>clear:both</code> 。并且这种情况下，父布局不能设置高度</li>
 </ul>
-<h3 id="定位">定位</h3>
-<p><code>position</code> 属性制定了元素的定位类型，一般来说如果出现了压盖的现象，那就是脱离了文档流</p>
+<h3 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h3><p><code>position</code> 属性制定了元素的定位类型，一般来说如果出现了压盖的现象，那就是脱离了文档流</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -539,6 +508,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>其中绝对定位和固定定位会脱离文档流，设置完定位方式之后，可以使用以下四个方向来进行调整位置</p>
 <ul>
 <li><code>left</code></li>
@@ -555,18 +525,15 @@
 <p><strong>注意</strong></p>
 <p>设置定位之后，相对定位和绝对定位是相对于具有定位的父级元素进行位置调整，会逐层往上找，直到找到具有定位的父层元素，或者直到文章顶层</p>
 <p>可以使用语句 <code>margin: 0 auto</code> 实现左右居中</p>
-<h3 id="z-index">Z-index</h3>
-<p>设置元素的堆叠顺序，更高堆叠顺序的元素总是会处于更低的堆叠顺序的元素前面</p>
-<h3 id="圆角">圆角</h3>
-<p><code>border-radius</code> 圆角，给任何元素添加圆角，可以使用以下规则</p>
+<h3 id="Z-index"><a href="#Z-index" class="headerlink" title="Z-index"></a>Z-index</h3><p>设置元素的堆叠顺序，更高堆叠顺序的元素总是会处于更低的堆叠顺序的元素前面</p>
+<h3 id="圆角"><a href="#圆角" class="headerlink" title="圆角"></a>圆角</h3><p><code>border-radius</code> 圆角，给任何元素添加圆角，可以使用以下规则</p>
 <ul>
 <li>四个值：左上+右上+右下+左下</li>
 <li>三个值：左上+右上左下+右下</li>
 <li>两个值：左上右下+右上左下</li>
 <li>一个值：四个圆角相同</li>
 </ul>
-<h3 id="阴影">阴影</h3>
-<ul>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><ul>
 <li><code>box-shadow</code> 向框内添加一个或者多个阴影</li>
 <li><code>text-shadow</code> 给文字添加阴影</li>
 </ul>
@@ -578,15 +545,13 @@
 <li><code>blur</code> 阴影的模糊距离，给阴影添加一个模糊效果，可选</li>
 <li><code>color</code> 阴影的颜色，可选</li>
 </ul>
-<h3 id="动画">动画</h3>
-<p>动画是元素从一种样式逐渐变化到另一种样式的效果，可以改变任意多的样式和任意多的次数，用百分比来规定变化发生的时间，或用 <code>from</code> 和 <code>to</code> 表示，等同于 <code>0%</code> 和 <code>100%</code> 。用 <code>@keyframes</code> 规则来创建动画</p>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>动画是元素从一种样式逐渐变化到另一种样式的效果，可以改变任意多的样式和任意多的次数，用百分比来规定变化发生的时间，或用 <code>from</code> 和 <code>to</code> 表示，等同于 <code>0%</code> 和 <code>100%</code> 。用 <code>@keyframes</code> 规则来创建动画</p>
 <p>使用 <code>animation</code> 使用动画</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">animation</span>: name duration timing-function delay iteration-count direction</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>name</code> 动画名称</li>
 <li><code>duration</code> 持续时间</li>
-<li><code>timing-function</code> 设置动画速率
-<ul>
+<li><code>timing-function</code> 设置动画速率<ul>
 <li><code>ease</code> 逐渐变慢（默认）</li>
 <li><code>linear</code> 匀速</li>
 <li><code>ease-in</code> 加速</li>
@@ -596,16 +561,14 @@
 </li>
 <li><code>delay</code> 设置动画开始时间（延时执行）</li>
 <li><code>iteration-count</code> 循环次数， <code>infinite</code> 表示无限次</li>
-<li><code>direction</code> 播放的方向
-<ul>
+<li><code>direction</code> 播放的方向<ul>
 <li><code>normal</code> 表示向前播放</li>
 <li><code>alternate</code> 动画在第偶数次向前播放，奇数次向后播放</li>
 </ul>
 </li>
 <li><code>animation-play-state</code> 动画播放的状态， <code>running</code> 表示播放， <code>paused</code> 表示停止</li>
 </ul>
-<h3 id="媒体查询">媒体查询</h3>
-<p>主要使得页面根据设备的大小，自动识别加载不同的样式</p>
+<h3 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h3><p>主要使得页面根据设备的大小，自动识别加载不同的样式</p>
 <p><strong>设置meta标签</strong></p>
 <p>使用设备的宽度作为视图宽度并且禁止初始的缩放，在 <code>&lt;head&gt;</code> 标签内加入这个 <code>meta</code> 标签</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -615,8 +578,7 @@
 <li><code>maximum-scale</code> 允许用户缩放到的最大比例</li>
 <li><code>user-scalable</code> 用户是否可以手动缩放</li>
 </ul>
-<h3 id="精灵图">精灵图</h3>
-<p>CSS Sprite 就是 CSS 精灵图，是一种网页图片的应用处理方式，允许将一个页面所涉及到的所有零星图片都包含到一张大图上去</p>
+<h3 id="精灵图"><a href="#精灵图" class="headerlink" title="精灵图"></a>精灵图</h3><p>CSS Sprite 就是 CSS 精灵图，是一种网页图片的应用处理方式，允许将一个页面所涉及到的所有零星图片都包含到一张大图上去</p>
 <p><strong>优点</strong></p>
 <ul>
 <li>可以减少图片的字节</li>
@@ -627,8 +589,7 @@
 <li>通过 <code>background-image</code> 引入背景图片</li>
 <li>通过 <code>background-position</code> 将背景图片移到需要的地方</li>
 </ul>
-<h3 id="字体图标">字体图标</h3>
-<p>可以使用字体图标来代替图片，以此来解决图片占用资源的问题</p>
+<h3 id="字体图标"><a href="#字体图标" class="headerlink" title="字体图标"></a>字体图标</h3><p>可以使用字体图标来代替图片，以此来解决图片占用资源的问题</p>
 <p><strong>优点</strong></p>
 <ul>
 <li>轻量性：加载速度快，减少 <code>http</code> 请求</li>
@@ -637,8 +598,7 @@
 </ul>
 <p><strong>使用字体图标</strong></p>
 <p>从阿里字体图标库下载字体图标，然后将其中除了 <code>demo</code> 的文件之外都移入项目中的 <code>font</code> 文件中，然后在 <code>css</code> 中使用。但是需要注意的是，给这个图标类设置字体图标大小会发现这个属性被覆盖掉了，所以可以再给它一个类名，然后给那个类名设置大小就可以了</p>
-<h3 id="旋转缩放拉伸倾斜">旋转缩放拉伸倾斜</h3>
-<ul>
+<h3 id="旋转缩放拉伸倾斜"><a href="#旋转缩放拉伸倾斜" class="headerlink" title="旋转缩放拉伸倾斜"></a>旋转缩放拉伸倾斜</h3><ul>
 <li><code>translate()</code> 根据 x 轴和 y 轴给定的参数，从当前元素位置移动</li>
 <li><code>rotate()</code> 绕 Z 轴旋转，负值表示逆时针</li>
 <li><code>rotateX()</code> 绕 X 轴旋转</li>
@@ -648,8 +608,7 @@
 <li><code>matrix()</code> 方法有六个参数，包含 z 轴旋转，缩放，平移和倾斜</li>
 <li><code>transform-origin</code> 设置旋转元素的基点属性</li>
 </ul>
-<h3 id="过渡属性">过渡属性</h3>
-<p>相当于是一种简单的动画</p>
+<h3 id="过渡属性"><a href="#过渡属性" class="headerlink" title="过渡属性"></a>过渡属性</h3><p>相当于是一种简单的动画</p>
 <ul>
 <li><code>transition</code> 简写属性，用于在一个属性中设置四个过渡属性</li>
 <li><code>transition-property</code> 规定应用过渡的 CSS 属性的名称</li>
@@ -757,7 +716,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%88%B0html"><span class="nav-number">2.</span> <span class="nav-text">导入到html</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">内联样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">内部样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">外部样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E5%B1%9E%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">字体属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7"><span class="nav-number">3.3.</span> <span class="nav-text">背景属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">文本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E5%B1%9E%E6%80%A7"><span class="nav-number">3.5.</span> <span class="nav-text">表格属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.6.</span> <span class="nav-text">关系选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.7.</span> <span class="nav-text">盒子模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90"><span class="nav-number">3.8.</span> <span class="nav-text">弹性盒子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E5%B1%9E%E6%80%A7"><span class="nav-number">3.9.</span> <span class="nav-text">子元素属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%B5%81"><span class="nav-number">3.10.</span> <span class="nav-text">文档流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E5%8A%A8"><span class="nav-number">3.11.</span> <span class="nav-text">浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8"><span class="nav-number">3.12.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D"><span class="nav-number">3.13.</span> <span class="nav-text">定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#z-index"><span class="nav-number">3.14.</span> <span class="nav-text">Z-index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E8%A7%92"><span class="nav-number">3.15.</span> <span class="nav-text">圆角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B4%E5%BD%B1"><span class="nav-number">3.16.</span> <span class="nav-text">阴影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">3.17.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.18.</span> <span class="nav-text">媒体查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E7%81%B5%E5%9B%BE"><span class="nav-number">3.19.</span> <span class="nav-text">精灵图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87"><span class="nav-number">3.20.</span> <span class="nav-text">字体图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E7%BC%A9%E6%94%BE%E6%8B%89%E4%BC%B8%E5%80%BE%E6%96%9C"><span class="nav-number">3.21.</span> <span class="nav-text">旋转缩放拉伸倾斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%B8%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">3.22.</span> <span class="nav-text">过渡属性</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%88%B0html"><span class="nav-number">2.</span> <span class="nav-text">导入到html</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">内联样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">内部样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">外部样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E5%B1%9E%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">字体属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7"><span class="nav-number">3.3.</span> <span class="nav-text">背景属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">文本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E5%B1%9E%E6%80%A7"><span class="nav-number">3.5.</span> <span class="nav-text">表格属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.6.</span> <span class="nav-text">关系选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.7.</span> <span class="nav-text">盒子模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90"><span class="nav-number">3.8.</span> <span class="nav-text">弹性盒子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E5%B1%9E%E6%80%A7"><span class="nav-number">3.9.</span> <span class="nav-text">子元素属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%B5%81"><span class="nav-number">3.10.</span> <span class="nav-text">文档流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E5%8A%A8"><span class="nav-number">3.11.</span> <span class="nav-text">浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8"><span class="nav-number">3.12.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D"><span class="nav-number">3.13.</span> <span class="nav-text">定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Z-index"><span class="nav-number">3.14.</span> <span class="nav-text">Z-index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E8%A7%92"><span class="nav-number">3.15.</span> <span class="nav-text">圆角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B4%E5%BD%B1"><span class="nav-number">3.16.</span> <span class="nav-text">阴影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">3.17.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.18.</span> <span class="nav-text">媒体查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E7%81%B5%E5%9B%BE"><span class="nav-number">3.19.</span> <span class="nav-text">精灵图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87"><span class="nav-number">3.20.</span> <span class="nav-text">字体图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E7%BC%A9%E6%94%BE%E6%8B%89%E4%BC%B8%E5%80%BE%E6%96%9C"><span class="nav-number">3.21.</span> <span class="nav-text">旋转缩放拉伸倾斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%B8%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">3.22.</span> <span class="nav-text">过渡属性</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -830,12 +789,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:25</span>
+    <span title="站点阅读时长">17:42</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

@@ -33,8 +33,8 @@
 <meta property="article:published_time" content="2024-03-22T07:36:35.000Z">
 <meta property="article:modified_time" content="2024-09-22T09:08:45.759Z">
 <meta property="article:author" content="落">
-<meta property="article:tag" content="ButterFly">
 <meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="ButterFly">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2024/03/22/ButterFly%E8%A7%A3%E5%86%B3%E5%85%AC%E5%BC%8F%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/1.png">
 
@@ -272,20 +272,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="公式渲染">公式渲染</h2>
-<p>首先需要换一个渲染器，要先把安装的渲染器卸载，然后安装 <code>hexo-renderer-markdown-it-katex</code> ，在根目录打开终端输入指令</p>
+        <h2 id="公式渲染"><a href="#公式渲染" class="headerlink" title="公式渲染"></a>公式渲染</h2><p>首先需要换一个渲染器，要先把安装的渲染器卸载，然后安装 <code>hexo-renderer-markdown-it-katex</code> ，在根目录打开终端输入指令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save</span><br><span class="line">npm i hexo-renderer-markdown-it-katex --save</span><br></pre></td></tr></table></figure>
 <p>然后在站点配置文件添加下列内容</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>然后刷新预览就可以看到效果了</p>
-<h2 id="公式过长">公式过长</h2>
-<p>上述完成公式渲染之后，会出现公式过长超过页面的效果，查找了很多都没有处理这种问题的，偶然间看到有处理 <code>NexT</code> 主题中的公式过长的效果的，说是对于公示的渲染是有一个特定的标签的，然后就开始了我的探索</p>
-<h3 id="查找解决方向">查找解决方向</h3>
-<p>首先打开自己的博客，打开一篇带有公式渲染的博客，然后右键打开检查，然后找到公式块</p>
+<h2 id="公式过长"><a href="#公式过长" class="headerlink" title="公式过长"></a>公式过长</h2><p>上述完成公式渲染之后，会出现公式过长超过页面的效果，查找了很多都没有处理这种问题的，偶然间看到有处理 <code>NexT</code> 主题中的公式过长的效果的，说是对于公示的渲染是有一个特定的标签的，然后就开始了我的探索</p>
+<h3 id="查找解决方向"><a href="#查找解决方向" class="headerlink" title="查找解决方向"></a>查找解决方向</h3><p>首先打开自己的博客，打开一篇带有公式渲染的博客，然后右键打开检查，然后找到公式块</p>
 <p><img src="/Blog_NexT/2024/03/22/ButterFly%E8%A7%A3%E5%86%B3%E5%85%AC%E5%BC%8F%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/1.png" alt="1.png"></p>
 <p>然后就发现，当给 <code>katex-display</code> 添加图中属性之后，公式块中就出现了滑动条，并且公式也不再超出页面了，找到目标了</p>
-<h3 id="解决问题">解决问题</h3>
-<p>新建文件 <code>themes\butterfly\source\css\formuladisplay.css</code> 并且在文件中写入下列内容</p>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>新建文件 <code>themes\butterfly\source\css\formuladisplay.css</code> 并且在文件中写入下列内容</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.katex-display</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">overflow-x</span>: auto;</span><br><span class="line">  <span class="attribute">overflow-y</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后打开主题配置文件，在 <code>inject</code> 的 <code>head</code> 处添加对该文件的引用</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/formuladisplay.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
@@ -316,8 +312,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/Blog_NexT/tags/ButterFly/" rel="tag"># ButterFly</a>
               <a href="/Blog_NexT/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/Blog_NexT/tags/ButterFly/" rel="tag"># ButterFly</a>
           </div>
 
         
@@ -464,12 +460,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:25</span>
+    <span title="站点阅读时长">17:42</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

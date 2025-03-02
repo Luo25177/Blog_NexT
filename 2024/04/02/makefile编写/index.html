@@ -269,39 +269,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="功能">功能</h3>
-<p>makefile定义了一系列的规则来指定哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至于进行更复杂的功能操作，不同产商的make各不相同，也有不同的语法，但其本质都是在“文件依赖性”上做文章。Makefile执行之后所进行的操作是编译和链接，就是先将源文件编译为中间文件（object file），然后把大量的中间文件链接起来合成执行文件</p>
-<h3 id="规则">规则</h3>
-<ol>
+        <h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>makefile定义了一系列的规则来指定哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至于进行更复杂的功能操作，不同产商的make各不相同，也有不同的语法，但其本质都是在“文件依赖性”上做文章。Makefile执行之后所进行的操作是编译和链接，就是先将源文件编译为中间文件（object file），然后把大量的中间文件链接起来合成执行文件</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><ol>
 <li>如果这个工程没有编译过，那么我们的所有源文件都要编译并被链接（按需）</li>
 <li>如果这个工程某些源文件被修改，那只编译被修改的源文件，并链接目标程序</li>
 <li>如果这个工程的头文件被改变了，那么我们需要编译引用了这几个头文件的源文件，并链接目标程序</li>
 </ol>
-<h3 id="基本格式">基本格式</h3>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target ...: prerequisites ...</span><br><span class="line">	command</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<h3 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target ...: prerequisites ...</span><br><span class="line">	command</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>target</code> 目标文件，是命令执行后生成的目标，可以是 <code>Object File</code> ，也可以是执行问价，还可以是一个标签，类似于 <code>clean</code></li>
 <li><code>prerequisites</code> 依赖，也就是生成目标文件所需要的文件或者是目标</li>
 <li><code>command</code> <code>make</code> 需要执行的指令，可以是任意的 <code>shell</code> 指令</li>
 </ul>
-<h3 id="核心规则">核心规则</h3>
-<ul>
+<h3 id="核心规则"><a href="#核心规则" class="headerlink" title="核心规则"></a>核心规则</h3><ul>
 <li>target这一个或多个的目标文件依赖于prerequisites中的文件，其生成规则定义在command中</li>
 <li>如果prerequisites中如果有一个以上的文件比target文件要新的话，command所定义的命令就会被执行</li>
 </ul>
-<h3 id="清除">清除</h3>
-<p>使用 <code>make</code> 清除所有生成的目标文件</p>
+<h3 id="清除"><a href="#清除" class="headerlink" title="清除"></a>清除</h3><p>使用 <code>make</code> 清除所有生成的目标文件</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm target1 ...</span><br></pre></td></tr></table></figure>
-<h3 id="注释">注释</h3>
-<p><code>makefile</code> 文件中的注释格式为 <code>#</code></p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p><code>makefile</code> 文件中的注释格式为 <code>#</code> </p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target ...: prerequisites ... <span class="comment"># target1</span></span><br><span class="line">	command</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-<h3 id="使用">使用</h3>
-<p>在使用之前需要先安装 <code>make</code></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在使用之前需要先安装 <code>make</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install make</span><br></pre></td></tr></table></figure>
 <p>然后进入 <code>makefile</code> 文件就可以编辑了，但是需要注意，命名必须是 <code>makefile</code></p>
 <p>注意在命令前一定需要 <code>tab</code> 键</p>
-<h3 id="例子">例子</h3>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">main: hello.c complex.o</span></span><br><span class="line">	gcc hello.c complex.o -o main</span><br><span class="line">	</span><br><span class="line"><span class="section">complex.0: complex.c complex.h</span></span><br><span class="line">	gcc -c complex.c -0 complex.o</span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm main complex.o</span><br></pre></td></tr></table></figure>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">main: hello.c complex.o</span></span><br><span class="line">	gcc hello.c complex.o -o main</span><br><span class="line">	</span><br><span class="line"><span class="section">complex.0: complex.c complex.h</span></span><br><span class="line">	gcc -c complex.c -0 complex.o</span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm main complex.o</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -474,12 +466,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:25</span>
+    <span title="站点阅读时长">17:42</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
