@@ -266,36 +266,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>GPIO 是通用输入输出端口的简称，可以通过软件控制其输出和输入。stm32 芯片的 GPIO 引脚与外部设备相连来实现与外部的通信，控制以及信息的采集功能</p>
+        <h2 id="前言">前言</h2>
+<h3 id="简介">简介</h3>
+<p>GPIO 是通用输入输出端口的简称，可以通过软件控制其输出和输入。stm32 芯片的 GPIO 引脚与外部设备相连来实现与外部的通信，控制以及信息的采集功能</p>
 <p><img src="/Blog_NexT/2024/08/16/GPIO%E5%85%AB%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/d7127854dada4f249deba349491f9a81.png" alt="d7127854dada4f249deba349491f9a81.png"></p>
-<h3 id="上拉和下拉"><a href="#上拉和下拉" class="headerlink" title="上拉和下拉"></a>上拉和下拉</h3><p>当闭合上图中的 VDD 处的开/关时，此时设置为上拉通路导通，这时候如果不接入外设或者电路断开时，整条回路的电压时断路时的电压，也就相当于电阻不存在，这时候中间处的电平被拉高为 VDD 的电平，也就是处于高电平</p>
+<h3 id="上拉和下拉">上拉和下拉</h3>
+<p>当闭合上图中的 VDD 处的开/关时，此时设置为上拉通路导通，这时候如果不接入外设或者电路断开时，整条回路的电压时断路时的电压，也就相当于电阻不存在，这时候中间处的电平被拉高为 VDD 的电平，也就是处于高电平</p>
 <p>如果闭合 VSS 处的开关时，也就是打开下拉电阻，这时候没有外部输入的时候，中间点处电压为 VSS</p>
 <p>实际上在 stm32 内部的上拉实际上是一个弱上拉，也就是通过上拉电阻的电流很小，如果想要输出一个大电流，就需要外接上拉电阻了，其实就是增加导线的输出电流。而对于下拉电阻，是让 stm32 的 CPU 引脚输出低电平，结果由于后续电路影响输出的低电平达不到 GND。这时候接入下拉电阻是为了降低导线的输出电流。当上下拉电阻都不开启，此时是浮空模式，引脚的电压是不确定的，此模式下的管脚电压会时不时改变</p>
 <p>在 stm32 中上下拉以及浮空模式的配置是通过 <code>GPIOx_CRL</code> 和 <code>GPIOx_CRH</code> 寄存器控制的</p>
-<h3 id="上拉电阻和下拉电阻"><a href="#上拉电阻和下拉电阻" class="headerlink" title="上拉电阻和下拉电阻"></a>上拉电阻和下拉电阻</h3><p>从图中可知，上拉和下拉电阻都有一个开关，通过配置上下拉电阻开关，可以控制引脚的默认电平，一共有三种状态</p>
+<h3 id="上拉电阻和下拉电阻">上拉电阻和下拉电阻</h3>
+<p>从图中可知，上拉和下拉电阻都有一个开关，通过配置上下拉电阻开关，可以控制引脚的默认电平，一共有三种状态</p>
 <ul>
 <li>开启上拉时，引脚默认为高电平</li>
 <li>开启下拉时，引脚默认为低电平</li>
 <li>上拉和下拉不开启时，这种为浮空模式</li>
 </ul>
-<p>根据上下拉的电阻的阻值大小，可以分为强拉或者弱拉，拉电阻的阻值越小表示电平能力越强，为强拉，可以抵抗外界噪声的能力也越强，相应的功耗就越大。这里的电流可以使用 $\frac{V_{DD}}{R}$ 来计算出来</p>
+<p>根据上下拉的电阻的阻值大小，可以分为强拉或者弱拉，拉电阻的阻值越小表示电平能力越强，为强拉，可以抵抗外界噪声的能力也越强，相应的功耗就越大。这里的电流可以使用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>V</mi><mrow><mi>D</mi><mi>D</mi></mrow></msub><mi>R</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{V_{DD}}{R}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2336359999999997em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8886359999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.00773em;">R</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.410305em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567071428571427em;margin-left:-0.22222em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.14329285714285717em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 来计算出来</p>
 <p>上拉和下拉电阻电路的开关在实际应用中一般使用MOS管来代替开关来提到</p>
-<h2 id="输入工作模式"><a href="#输入工作模式" class="headerlink" title="输入工作模式"></a>输入工作模式</h2><h3 id="模拟输入"><a href="#模拟输入" class="headerlink" title="模拟输入"></a>模拟输入</h3><p>模拟输入是将 TTL 施密特触发器断开，从模拟输入端口输入</p>
+<h2 id="输入工作模式">输入工作模式</h2>
+<h3 id="模拟输入">模拟输入</h3>
+<p>模拟输入是将 TTL 施密特触发器断开，从模拟输入端口输入</p>
 <p>使用单片机时，有时候需要用 AD 采集到 IO 口上面的真实电压，这时候就需要用到模拟输入，为了让外部的电压真实读取到单片机的 AD 模块，既不能闭合上拉开关，也不能让信号经过施密特触发器</p>
 <p>可以让 AD 读取端口电压，还可以在低功耗模式下运行，实现省电的作用</p>
-<h3 id="上拉输入"><a href="#上拉输入" class="headerlink" title="上拉输入"></a>上拉输入</h3><p>当 VDD 所在的上拉电阻闭合，并且下拉电阻断开时，此时当前 IO 口为上拉输入模式。</p>
+<h3 id="上拉输入">上拉输入</h3>
+<p>当 VDD 所在的上拉电阻闭合，并且下拉电阻断开时，此时当前 IO 口为上拉输入模式。</p>
 <ul>
 <li>当没有信号输入时，此时电平就是 VDD 的电平，读取到的电平就是高电平</li>
 <li>当高电平信号输入时，此时 VDD 与 O 处几乎没有电势差，此时的 O 点电平仍旧是高电平，由于没有信号输入时也是高电平，所以没办法确定是否有输入</li>
 <li>当低电平输入时，此时 VDD 和 O 之间产生了电势差，但是由于上拉电阻存在，所以不会出现一个很大的电流。所以此时读到的就是低电平</li>
 </ul>
-<h3 id="下拉输入"><a href="#下拉输入" class="headerlink" title="下拉输入"></a>下拉输入</h3><p>当 VSS 所在的下拉电阻闭合，并且上拉电阻断开时，此时当前 IO 口为下拉输入</p>
+<h3 id="下拉输入">下拉输入</h3>
+<p>当 VSS 所在的下拉电阻闭合，并且上拉电阻断开时，此时当前 IO 口为下拉输入</p>
 <ul>
 <li>当没有信号输入时，电平就是 VSS 的电平，就是低电平</li>
 <li>当高电平信号输入时，此时 O 与 VSS 之间形成了电势差，此时 O 点处就是高电平</li>
 <li>当低电平信号输入时，此时 O 与 VSS 之间没有电势差，此时 O 点处就是低电平</li>
 </ul>
-<h3 id="浮空输入"><a href="#浮空输入" class="headerlink" title="浮空输入"></a>浮空输入</h3><p>VDD 和 VSS 所在的路径的两个开关同时断开，此时既没有上拉也没有下拉</p>
+<h3 id="浮空输入">浮空输入</h3>
+<p>VDD 和 VSS 所在的路径的两个开关同时断开，此时既没有上拉也没有下拉</p>
 <ul>
 <li>当 IO 口没有接入输入值时，电平会是一个不确定的值，也就是浮空状态。电平会处于一个跳变的状态</li>
 <li>只有当输入了一个高电平或者低电平才会确定下来</li>
@@ -304,7 +313,9 @@
 <p>这种输入模式的电平会完全取决于外部电路而与内部电路无关，可以用作对开关按键的读取</p>
 <p><strong>缺点</strong></p>
 <p>在没有外部电路接入时，IO 脚浮空会使得电平不稳定</p>
-<h2 id="输出工作模式"><a href="#输出工作模式" class="headerlink" title="输出工作模式"></a>输出工作模式</h2><h3 id="开漏输出"><a href="#开漏输出" class="headerlink" title="开漏输出"></a>开漏输出</h3><p>开漏输出最重要的就是 N-MOS 这一部分，可以把这个 MOS 管当作一个三极管。</p>
+<h2 id="输出工作模式">输出工作模式</h2>
+<h3 id="开漏输出">开漏输出</h3>
+<p>开漏输出最重要的就是 N-MOS 这一部分，可以把这个 MOS 管当作一个三极管。</p>
 <p><img src="/Blog_NexT/2024/08/16/GPIO%E5%85%AB%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/df57368d69a64cba878cf3ee0dc70dbd.png" alt="df57368d69a64cba878cf3ee0dc70dbd.png"></p>
 <p>当给左侧一个高电平时，O 和 GND 就会接通，O点的输出就是一种反向器的输出，也就是O点的电平会和左侧MOS的栅极（三极管的基极）相反。</p>
 <ul>
@@ -316,7 +327,8 @@
 <li>只能输出低电平，不能输出高电平，如果要输出高电平，需要外接上拉</li>
 <li>开漏输出具有线与功能，一个为低则总线全为低，多用于 I2C 和 SMBUS 总线</li>
 </ul>
-<h3 id="推挽输出"><a href="#推挽输出" class="headerlink" title="推挽输出"></a>推挽输出</h3><p>推挽输出就是可以需要利用两个不同的 MOS 管来实现输出</p>
+<h3 id="推挽输出">推挽输出</h3>
+<p>推挽输出就是可以需要利用两个不同的 MOS 管来实现输出</p>
 <p>P-MOS 和 N-MOS 是不同的控制方式，当给一个高电平时，P-MOS 导通，N-MOS 不导通，此时 IO 接口接通在 VDD，此时输出的是高电平。</p>
 <p>当给一个低电平时，N-MOS 导通，P-MOS 不导通，此时 IO 口接通在 VSS 电源上，此时输出低电平</p>
 <p><strong>优点</strong></p>
@@ -327,16 +339,21 @@
 <li>推挽结构收到两路互补的信号控制，开关管在一个导通的时候另外一个截止。开关效率高电流大，驱动能力强</li>
 <li>输出高电平时，电流输出到负载，叫做灌电流，也就是推。输出低电平时，负载电流流向芯片，叫做拉电流，也就是挽</li>
 </ul>
-<h3 id="复用开漏输出"><a href="#复用开漏输出" class="headerlink" title="复用开漏输出"></a>复用开漏输出</h3><p>复用开漏就是不希望使用单片机内部来输出，可以进行复用，将输出特性转移到其它外设上</p>
-<h3 id="复用推挽输出"><a href="#复用推挽输出" class="headerlink" title="复用推挽输出"></a>复用推挽输出</h3><p>复用推挽就是不希望使用单片机内部来输出，可以进行复用，将输出特性转移到其它外设上</p>
-<h2 id="GPIO-的速率"><a href="#GPIO-的速率" class="headerlink" title="GPIO 的速率"></a>GPIO 的速率</h2><h3 id="GPIO-的输出速率"><a href="#GPIO-的输出速率" class="headerlink" title="GPIO 的输出速率"></a>GPIO 的输出速率</h3><p>GPIO 的输出速度即 IO 口驱动电路的响应速度，不是输出信号的速度，输出信号的速度取决于软件程序</p>
+<h3 id="复用开漏输出">复用开漏输出</h3>
+<p>复用开漏就是不希望使用单片机内部来输出，可以进行复用，将输出特性转移到其它外设上</p>
+<h3 id="复用推挽输出">复用推挽输出</h3>
+<p>复用推挽就是不希望使用单片机内部来输出，可以进行复用，将输出特性转移到其它外设上</p>
+<h2 id="gpio-的速率">GPIO 的速率</h2>
+<h3 id="gpio-的输出速率">GPIO 的输出速率</h3>
+<p>GPIO 的输出速度即 IO 口驱动电路的响应速度，不是输出信号的速度，输出信号的速度取决于软件程序</p>
 <p>stm32 微控制器 IO 管脚内部有三个响应速度的驱动电路，可以根据需要选择，推荐 IO 引脚的输出速度是其输出信号的 5-10 倍</p>
 <ul>
 <li>2MHz 用于蜂鸣器，数码管，按键，串口等</li>
 <li>10MHz 用于 400Kbps 下的 I2C 复用功能的输出引脚</li>
 <li>50MHz 用于 9M/18Mbps 下 SPI 复用功能的输出引脚，FSMC 复用功能连接存储器的输出引脚</li>
 </ul>
-<h3 id="GPIO-的响应速率"><a href="#GPIO-的响应速率" class="headerlink" title="GPIO 的响应速率"></a>GPIO 的响应速率</h3><p>GPIO 响应速度就是当电平需要改变时，这个改变的时间需要多少，如果对这个要求十分严格，那就一定要使用高输出速率的 IO 口</p>
+<h3 id="gpio-的响应速率">GPIO 的响应速率</h3>
+<p>GPIO 响应速度就是当电平需要改变时，这个改变的时间需要多少，如果对这个要求十分严格，那就一定要使用高输出速率的 IO 口</p>
 
     </div>
 
@@ -437,7 +454,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E5%92%8C%E4%B8%8B%E6%8B%89"><span class="nav-number">1.2.</span> <span class="nav-text">上拉和下拉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB%E5%92%8C%E4%B8%8B%E6%8B%89%E7%94%B5%E9%98%BB"><span class="nav-number">1.3.</span> <span class="nav-text">上拉电阻和下拉电阻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">输入工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E8%BE%93%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">模拟输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E8%BE%93%E5%85%A5"><span class="nav-number">2.2.</span> <span class="nav-text">上拉输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E6%8B%89%E8%BE%93%E5%85%A5"><span class="nav-number">2.3.</span> <span class="nav-text">下拉输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%A9%BA%E8%BE%93%E5%85%A5"><span class="nav-number">2.4.</span> <span class="nav-text">浮空输入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">输出工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E6%BC%8F%E8%BE%93%E5%87%BA"><span class="nav-number">3.1.</span> <span class="nav-text">开漏输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%8C%BD%E8%BE%93%E5%87%BA"><span class="nav-number">3.2.</span> <span class="nav-text">推挽输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8%E5%BC%80%E6%BC%8F%E8%BE%93%E5%87%BA"><span class="nav-number">3.3.</span> <span class="nav-text">复用开漏输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8%E6%8E%A8%E6%8C%BD%E8%BE%93%E5%87%BA"><span class="nav-number">3.4.</span> <span class="nav-text">复用推挽输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPIO-%E7%9A%84%E9%80%9F%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text">GPIO 的速率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GPIO-%E7%9A%84%E8%BE%93%E5%87%BA%E9%80%9F%E7%8E%87"><span class="nav-number">4.1.</span> <span class="nav-text">GPIO 的输出速率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPIO-%E7%9A%84%E5%93%8D%E5%BA%94%E9%80%9F%E7%8E%87"><span class="nav-number">4.2.</span> <span class="nav-text">GPIO 的响应速率</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E5%92%8C%E4%B8%8B%E6%8B%89"><span class="nav-number">1.2.</span> <span class="nav-text">上拉和下拉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB%E5%92%8C%E4%B8%8B%E6%8B%89%E7%94%B5%E9%98%BB"><span class="nav-number">1.3.</span> <span class="nav-text">上拉电阻和下拉电阻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">输入工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E8%BE%93%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">模拟输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E8%BE%93%E5%85%A5"><span class="nav-number">2.2.</span> <span class="nav-text">上拉输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E6%8B%89%E8%BE%93%E5%85%A5"><span class="nav-number">2.3.</span> <span class="nav-text">下拉输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%A9%BA%E8%BE%93%E5%85%A5"><span class="nav-number">2.4.</span> <span class="nav-text">浮空输入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">输出工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E6%BC%8F%E8%BE%93%E5%87%BA"><span class="nav-number">3.1.</span> <span class="nav-text">开漏输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%8C%BD%E8%BE%93%E5%87%BA"><span class="nav-number">3.2.</span> <span class="nav-text">推挽输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8%E5%BC%80%E6%BC%8F%E8%BE%93%E5%87%BA"><span class="nav-number">3.3.</span> <span class="nav-text">复用开漏输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8%E6%8E%A8%E6%8C%BD%E8%BE%93%E5%87%BA"><span class="nav-number">3.4.</span> <span class="nav-text">复用推挽输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gpio-%E7%9A%84%E9%80%9F%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text">GPIO 的速率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gpio-%E7%9A%84%E8%BE%93%E5%87%BA%E9%80%9F%E7%8E%87"><span class="nav-number">4.1.</span> <span class="nav-text">GPIO 的输出速率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gpio-%E7%9A%84%E5%93%8D%E5%BA%94%E9%80%9F%E7%8E%87"><span class="nav-number">4.2.</span> <span class="nav-text">GPIO 的响应速率</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -510,12 +527,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17:42</span>
+    <span title="站点阅读时长">22:25</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

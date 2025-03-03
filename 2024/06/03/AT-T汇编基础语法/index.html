@@ -274,15 +274,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://flint.cs.yale.edu/cs421/papers/x86-asm/asm.html">x86 Assembly Guide</a></p>
-<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>编译汇编语言可以使用 GNU 编译器 <code>gcc</code> 和 汇编器 <code>as</code> 或者 <code>gas</code>。一个快速了解汇编语言的方式就是去看编译器输出的汇编程序。使用 <code>gcc -S a.c</code> 可以将 C 语言编译为汇编语言，就可以查看对应的汇编语言了。使用 <code>gcc a.s</code> 就可以把对应的的汇编语言编译为可执行文件了。使用 <code>gcc a.s -c</code> 或者 <code>as a.s</code> 可以将汇编语言编译为<strong>可重定位目标文件</strong></p>
+        <h2 id="前言">前言</h2>
+<h3 id="参考">参考</h3>
+<p><a target="_blank" rel="noopener" href="https://flint.cs.yale.edu/cs421/papers/x86-asm/asm.html">x86 Assembly Guide</a></p>
+<h3 id="编译">编译</h3>
+<p>编译汇编语言可以使用 GNU 编译器 <code>gcc</code> 和 汇编器 <code>as</code> 或者 <code>gas</code>。一个快速了解汇编语言的方式就是去看编译器输出的汇编程序。使用 <code>gcc -S a.c</code> 可以将 C 语言编译为汇编语言，就可以查看对应的汇编语言了。使用 <code>gcc a.s</code> 就可以把对应的的汇编语言编译为可执行文件了。使用 <code>gcc a.s -c</code> 或者 <code>as a.s</code> 可以将汇编语言编译为<strong>可重定位目标文件</strong></p>
 <p>例如在 C 语言中经典的 hello world 程序</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello, world&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>编译为汇编代码为</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"> .file <span class="string">&quot;a.c&quot;</span></span><br><span class="line"> .text</span><br><span class="line"> .section .rodata</span><br><span class="line">.LC0:</span><br><span class="line"> .<span class="built_in">string</span> <span class="string">&quot;hello, world&quot;</span></span><br><span class="line"> .text</span><br><span class="line"> .globl main</span><br><span class="line"> .type main, @function</span><br><span class="line">main:</span><br><span class="line">.LFB0:</span><br><span class="line"> .cfi_startproc</span><br><span class="line"> endbr64</span><br><span class="line"> pushq %rbp</span><br><span class="line"> .cfi_def_cfa_offset <span class="number">16</span></span><br><span class="line"> .cfi_offset <span class="number">6</span>, <span class="number">-16</span></span><br><span class="line"> movq %rsp, %rbp</span><br><span class="line"> .cfi_def_cfa_register <span class="number">6</span></span><br><span class="line"> leaq .LC0(%rip), %rdi</span><br><span class="line"> movl $<span class="number">0</span>, %eax</span><br><span class="line"> call <span class="built_in">printf</span>@PLT</span><br><span class="line"> movl $<span class="number">0</span>, %eax</span><br><span class="line"> popq %rbp</span><br><span class="line"> .cfi_def_cfa <span class="number">7</span>, <span class="number">8</span></span><br><span class="line"> ret</span><br><span class="line"> .cfi_endproc</span><br><span class="line">.LFE0:</span><br><span class="line"> .size main, .-main</span><br><span class="line"> .ident <span class="string">&quot;GCC: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0&quot;</span></span><br><span class="line"> .section .note.GNU-<span class="built_in">stack</span>,<span class="string">&quot;&quot;</span>,@progbits</span><br><span class="line"> .section .note.gnu.property,<span class="string">&quot;a&quot;</span></span><br><span class="line"> .align <span class="number">8</span></span><br><span class="line"> .<span class="type">long</span>  <span class="number">1f</span> - <span class="number">0f</span></span><br><span class="line"> .<span class="type">long</span>  <span class="number">4f</span> - <span class="number">1f</span></span><br><span class="line"> .<span class="type">long</span>  <span class="number">5</span></span><br><span class="line"><span class="number">0</span>:</span><br><span class="line"> .<span class="built_in">string</span>  <span class="string">&quot;GNU&quot;</span></span><br><span class="line"><span class="number">1</span>:</span><br><span class="line"> .align <span class="number">8</span></span><br><span class="line"> .<span class="type">long</span>  <span class="number">0xc0000002</span></span><br><span class="line"> .<span class="type">long</span>  <span class="number">3f</span> - <span class="number">2f</span></span><br><span class="line"><span class="number">2</span>:</span><br><span class="line"> .<span class="type">long</span>  <span class="number">0x3</span></span><br><span class="line"><span class="number">3</span>:</span><br><span class="line"> .align <span class="number">8</span></span><br><span class="line"><span class="number">4</span>:</span><br></pre></td></tr></table></figure>
 <p>注意汇编程序由三个不同的元素组成</p>
 <ul>
-<li><strong>指示</strong>：以点号开始，用来指示对编译器，连接器，调试器有用的结构信息，指示本身不是汇编指令<ul>
+<li><strong>指示</strong>：以点号开始，用来指示对编译器，连接器，调试器有用的结构信息，指示本身不是汇编指令
+<ul>
 <li><code>.byte</code> 可不带参数或者带多个表达式参数，表达式之间用逗号分隔，每个表达式参数都被汇编成一个字节</li>
 <li><code>.short</code> 这个表达式表示任意一节中的一个或多个表达式（同样用逗号分开），表达式占一个字（两个字节）</li>
 <li><code>ascii</code> 字符串，并且分配空间</li>
@@ -297,17 +301,20 @@
 <li><code>.fill repeat, size, value</code> 其中 <code>repeat</code> ， <code>size</code> 和 <code>value</code> 都必须是纯粹的表达式。本命令生成 <code>size</code> 个字节的 <code>repeat</code> 个副本。 <code>repeat</code> 可以是 0 或更大的值。 <code>size</code> 可以是0或更大的值, 但即使 <code>size</code> 大于 8，也被视作 8，以兼容其它的汇编器。各个副本中的内容取自一个 8 字节长的数。最高 4 个字节为零，最低的 4 个字节是 <code>value</code> ，它以 <code>as</code> 正在汇编的目标计算机的整数字节顺序排列。每个副本中的 <code>size</code> 个字节都取值于这个数最低的 <code>size</code> 个字节。这个动作只是为了兼容其他的汇编器。 <code>size</code> 参数和 <code>value</code> 参数是可选的。默认 <code>value</code> 为 0， <code>size</code> 为 1</li>
 </ul>
 </li>
-<li><strong>标签</strong>：以冒号结尾，用来把标签名和标签出现的位置关联起来。一般来说，以点号开始的标签都是编译器生成的临时局部标签，其它标签则是用户可见的函数和全局变量名称<ul>
+<li><strong>标签</strong>：以冒号结尾，用来把标签名和标签出现的位置关联起来。一般来说，以点号开始的标签都是编译器生成的临时局部标签，其它标签则是用户可见的函数和全局变量名称
+<ul>
 <li><code>.LC0:</code> 表示紧接着的字符串的名称是 <code>.LC0</code></li>
 <li><code>main:</code> 表示指令 <code>pushq %rbp</code> 是 <code>main</code> 函数的第一个指令</li>
 </ul>
 </li>
 <li><strong>指令</strong>：实际的汇编代码一般都会缩进，以便和指示以及标签区分开来</li>
 </ul>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><code>intel</code> 汇编与 <code>AT&amp;T</code> 汇编语法不一致，由于笔者的电脑编</p>
-<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>x86-64 将 x86 的 8 个 32 位通用寄存器扩展为 64 位，并且增加 8 个新的 64 位寄存器。调用寄存器操作数可以直接使用寄存器的名称即可，在 <code>AT&amp;T</code> 中需要在寄存器前加 <code>%</code> ，在 <code>intel</code> 语法中不需要</p>
+<h3 id="注意">注意</h3>
+<p><code>intel</code> 汇编与 <code>AT&amp;T</code> 汇编语法不一致，由于笔者的电脑编</p>
+<h2 id="寄存器">寄存器</h2>
+<p>x86-64 将 x86 的 8 个 32 位通用寄存器扩展为 64 位，并且增加 8 个新的 64 位寄存器。调用寄存器操作数可以直接使用寄存器的名称即可，在 <code>AT&amp;T</code> 中需要在寄存器前加 <code>%</code> ，在 <code>intel</code> 语法中不需要</p>
 <p><img src="/Blog_NexT/2024/06/03/AT-T%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/8600555f7fbc4f328a0072602c1f7fd7.png" alt="8600555f7fbc4f328a0072602c1f7fd7.png"></p>
-<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><div class="table-container">
+<h3 id="通用寄存器">通用寄存器</h3>
 <table>
 <thead>
 <tr>
@@ -404,15 +411,16 @@
 </tr>
 </tbody>
 </table>
-</div>
-<p>r9 做函数第6参数<br>r12 - r15 用作数据存储，遵循被调用者使用规则，随便用，调用子函数之前要备份它，以防他被修改<br>r10 r11 用作数据存储，遵循调用者使用规则，就是使用之前要先保存原值 |</p>
+<p>r9 做函数第6参数<br>
+r12 - r15 用作数据存储，遵循被调用者使用规则，随便用，调用子函数之前要备份它，以防他被修改<br>
+r10 r11 用作数据存储，遵循调用者使用规则，就是使用之前要先保存原值 |</p>
 <p>一般所说的十六个通用寄存器是因为早期版本的处理器每个寄存器都有其特殊用途，并不是所有指令都可以应用到每一个寄存器。随着设计的进展，新的指令和寻址模式被添加进来，使得很多寄存器变成了等同的。少数留下来的指令，特别是和字符串处理相关的，要求使用 <code>%rsi</code> 和 <code>%rdi</code> 。另外，两个寄存器被保留下来分别作为栈指针 ( <code>%rsp</code> ) 和基址指针 ( <code>%rbp</code> )。最后的 8 个寄存器是编号的并且没有特殊限制</p>
 <p>计算机体系结构从原来的 8 位，扩展为现在的 64 位，每个寄存器内部都有一些内部结构</p>
 <p><img src="/Blog_NexT/2024/06/03/AT-T%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/20171008192750274.png" alt="20171008192750274.png"></p>
 <p><img src="/Blog_NexT/2024/06/03/AT-T%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/20171008193142962.png" alt="20171008193142962.png"></p>
 <p>一般来说使用 64 位寄存器用来寻址和浮点数运算，而 32 位寄存器用来做整数计算</p>
-<h3 id="其它寄存器"><a href="#其它寄存器" class="headerlink" title="其它寄存器"></a>其它寄存器</h3><p>在 x86 中还包含其它非通用的寄存器</p>
-<div class="table-container">
+<h3 id="其它寄存器">其它寄存器</h3>
+<p>在 x86 中还包含其它非通用的寄存器</p>
 <table>
 <thead>
 <tr>
@@ -449,8 +457,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="x86-64-指令"><a href="#x86-64-指令" class="headerlink" title="x86-64 指令"></a>x86-64 指令</h2><p>x86指令通常的助记符形式为：目标地址，源地址。助记符是人类可读的机器指令表示，源地址和目标地址是指令的操作数。但是并非所有的指令都有两个操作数，有些指令甚至没有操作数</p>
+<h2 id="x86-64-指令">x86-64 指令</h2>
+<p>x86指令通常的助记符形式为：目标地址，源地址。助记符是人类可读的机器指令表示，源地址和目标地址是指令的操作数。但是并非所有的指令都有两个操作数，有些指令甚至没有操作数</p>
 <p><img src="/Blog_NexT/2024/06/03/AT-T%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/v2-d3a28b8439c00f3cbb3928f36e777fad_720w.png" alt="v2-d3a28b8439c00f3cbb3928f36e777fad_720w.png"></p>
 <p>x86指令由可选前缀（prefix）、操作码（opcode）及零个或多个操作数（operand）组成</p>
 <p>对于 x86 架构的机器指令语法格式主要有两种</p>
@@ -465,7 +473,7 @@
 <li><code>w</code> 代表 16 位</li>
 <li><code>b</code> 代表 8 位</li>
 </ul>
-<h3 id="AT-amp-T常用的指令"><a href="#AT-amp-T常用的指令" class="headerlink" title="AT&amp;T常用的指令"></a>AT&amp;T常用的指令</h3><div class="table-container">
+<h3 id="at-t常用的指令">AT&amp;T常用的指令</h3>
 <table>
 <thead>
 <tr>
@@ -612,7 +620,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>标签查找</strong></p>
 <p>对于用到标签的，如果代码中有多个同名标签，需要查找某一个标签，就在调用指令使用这个标签时在标签名之后添加后缀 <code>f</code> 或者 <code>b</code></p>
 <ul>
@@ -627,10 +634,13 @@
 <li><code>xor %rax, %rax</code></li>
 </ul>
 <p>相比较来说，异或操作执行效率更改</p>
-<h2 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h2><p>指令有3种不同类型的操作数：寄存器操作数、内存操作数及立即数</p>
-<h3 id="寄存器操作数"><a href="#寄存器操作数" class="headerlink" title="寄存器操作数"></a>寄存器操作数</h3><p>寄存器非常小，可以快速访问位于CPU的存储器。但是某些寄存器有特殊用途，其它寄存器就是通用存储单元，用来存储 CPU 执行程序时所用到的变量。</p>
+<h2 id="操作数">操作数</h2>
+<p>指令有3种不同类型的操作数：寄存器操作数、内存操作数及立即数</p>
+<h3 id="寄存器操作数">寄存器操作数</h3>
+<p>寄存器非常小，可以快速访问位于CPU的存储器。但是某些寄存器有特殊用途，其它寄存器就是通用存储单元，用来存储 CPU 执行程序时所用到的变量。</p>
 <p>调用寄存器操作数可以直接使用寄存器的名称即可，在 <code>AT&amp;T</code> 中需要在寄存器前加 <code>%</code> ，在 <code>intel</code> 语法中不需要</p>
-<h3 id="内存操作数"><a href="#内存操作数" class="headerlink" title="内存操作数"></a>内存操作数</h3><p>内存操作数指的是一个内存地址，CPU 在这个地址获取单个或多字节，但是在 x86 中，每条指令中只支持一个显式内存操作数，也就是说不能在一条指令中直接将一个值从一个内存地址移动到另一个内存地址，必须使用寄存器作为中间存储</p>
+<h3 id="内存操作数">内存操作数</h3>
+<p>内存操作数指的是一个内存地址，CPU 在这个地址获取单个或多字节，但是在 x86 中，每条指令中只支持一个显式内存操作数，也就是说不能在一条指令中直接将一个值从一个内存地址移动到另一个内存地址，必须使用寄存器作为中间存储</p>
 <p>可以使用 <code>[ base + index * scale + displacement ]</code> 来指定内存操作数，而在 <code>AT&amp;T</code> 中，应该使用 <code>()</code> 代替 <code>[]</code> ，而且语法也不同，使用 <code>displacement(base, index, scale)</code> 。其中</p>
 <ul>
 <li><code>base</code> 是 64 位寄存器，基址</li>
@@ -638,13 +648,18 @@
 <li><code>scale</code> 比例，是1，2，4，8的整数值</li>
 <li><code>displacement</code> 偏移，是 32 位常量或者符号</li>
 </ul>
-<h3 id="立即数"><a href="#立即数" class="headerlink" title="立即数"></a>立即数</h3><p>立即数就是指令中硬编码的常量整数操作数，在 x86 上，立即数以小端格式编码，多字节整数的最低有效字节排在内存中的第一位，使用补码表示法表示有符号整数</p>
+<h3 id="立即数">立即数</h3>
+<p>立即数就是指令中硬编码的常量整数操作数，在 x86 上，立即数以小端格式编码，多字节整数的最低有效字节排在内存中的第一位，使用补码表示法表示有符号整数</p>
 <p>在使用时需要在数字前加 <code>$</code> 表示立即数</p>
-<h2 id="寻址模式"><a href="#寻址模式" class="headerlink" title="寻址模式"></a>寻址模式</h2><h3 id="立即数寻址"><a href="#立即数寻址" class="headerlink" title="立即数寻址"></a>立即数寻址</h3><p>直接把一个立即数在指令里给定，把这个数赋给目标操作数</p>
+<h2 id="寻址模式">寻址模式</h2>
+<h3 id="立即数寻址">立即数寻址</h3>
+<p>直接把一个立即数在指令里给定，把这个数赋给目标操作数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movq 123, %rax</span><br></pre></td></tr></table></figure>
-<h3 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h3><p>不直接在指令里面给出源操作数，而是把这个源操作数放在一个寄存器里面，通过寄存器来赋值</p>
+<h3 id="寄存器寻址">寄存器寻址</h3>
+<p>不直接在指令里面给出源操作数，而是把这个源操作数放在一个寄存器里面，通过寄存器来赋值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movq %rax. %rbx</span><br></pre></td></tr></table></figure>
-<h3 id="存储器寻址"><a href="#存储器寻址" class="headerlink" title="存储器寻址"></a>存储器寻址</h3><ol>
+<h3 id="存储器寻址">存储器寻址</h3>
+<ol>
 <li>直接寻址：直接在指令中给出操作数的偏移地址</li>
 <li>寄存器间接寻址：将操作数的地址写入寄存器中，然后利用寄存器寻找操作数的地址</li>
 <li>基址寻址： <code>base + displacement</code></li>
@@ -652,7 +667,9 @@
 <li>基址变址寻址： <code>base + index * scale + displacement</code></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">直接寻址</span><br><span class="line">movq (1000H), %rax</span><br><span class="line">寄存器间接寻址</span><br><span class="line">movq (%eax), %ebx</span><br><span class="line">基址寻址</span><br><span class="line">movq 4(%rbx), %rax</span><br><span class="line">变址寻址</span><br><span class="line">movq 4(, %eax, 4), %rax</span><br><span class="line">基址变址寻址</span><br><span class="line">movq 4(%rax. %eax, 4), %rbx</span><br></pre></td></tr></table></figure>
-<h2 id="指示标号"><a href="#指示标号" class="headerlink" title="指示标号"></a>指示标号</h2><h3 id="声明静态数据区"><a href="#声明静态数据区" class="headerlink" title="声明静态数据区"></a>声明静态数据区</h3><p>在 x86 汇编里可以使用特定的伪指令来声明静态数据区（类似于全局变量）</p>
+<h2 id="指示标号">指示标号</h2>
+<h3 id="声明静态数据区">声明静态数据区</h3>
+<p>在 x86 汇编里可以使用特定的伪指令来声明静态数据区（类似于全局变量）</p>
 <ul>
 <li><code>.byte</code> 可不带参数或者带多个表达式参数，表达式之间用逗号分隔，每个表达式参数都被汇编成一个字节</li>
 <li><code>.zero</code> 后面的参数表示声明的字节数，初始值为 0，可以为大量的内存区填充零</li>
@@ -662,42 +679,49 @@
 <li><code>ascii</code> 字符串，并且分配空间</li>
 <li><code>.string</code> 表示数据段中的字符串常量，初始为以 <code>null(0)</code>结尾的</li>
 </ul>
-<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>以冒号结尾，用来把标签名和标签出现的位置关联起来。一般来说，以点号开始的标签都是编译器生成的临时局部标签，其它标签则是用户可见的函数和全局变量名称</p>
+<h3 id="标签">标签</h3>
+<p>以冒号结尾，用来把标签名和标签出现的位置关联起来。一般来说，以点号开始的标签都是编译器生成的临时局部标签，其它标签则是用户可见的函数和全局变量名称</p>
 <p>汇编标签只是一个简单的地址标识符，标签主要用于程序流程控制（如分支、循环和子程序调用）</p>
 <ul>
 <li>标签是汇编语言中用于定义代码位置的符号，通常是一个名称后跟一个冒号（如 <code>measure_pwm_freq_start:</code> ）</li>
 <li>标签相当于程序的一个地址标记，当执行到 <code>jmp</code> ， <code>call</code> 等转移指令时，可以通过标签名来跳转到对应的内存地址继续执行</li>
 <li>汇编标签不封装数据或逻辑，它仅仅代表一段代码的开始位置，没有参数传递和返回值的概念</li>
 </ul>
-<h3 id="伪指令"><a href="#伪指令" class="headerlink" title="伪指令"></a>伪指令</h3><p>伪指令是内嵌在程序源代码中，由汇编器识别并执行相应动作的命令，伪指令在程序运行时并不执行。伪指令可用于定义变量、宏以及过程，可用于命名段以及执行许多其他与汇编器相关的簿记任务</p>
-<h2 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h2><p>调用约定被划分为两组规则集合。第一组由函数调用者使用，第二组由子进程的编写者即被调用者使用。</p>
-<p><strong>注意：</strong>遵守调用约定的这些规则时若产生错误，将会导致严重的程序错误，因为此时的栈处于一个不连续的状态。因此实现调用约定时必须小心</p>
-<h3 id="调用者规则"><a href="#调用者规则" class="headerlink" title="调用者规则"></a><strong>调用者规则</strong></h3><p><strong>调用子进程之前要做的</strong></p>
+<h3 id="伪指令">伪指令</h3>
+<p>伪指令是内嵌在程序源代码中，由汇编器识别并执行相应动作的命令，伪指令在程序运行时并不执行。伪指令可用于定义变量、宏以及过程，可用于命名段以及执行许多其他与汇编器相关的簿记任务</p>
+<h2 id="调用规则">调用规则</h2>
+<p>调用约定被划分为两组规则集合。第一组由函数调用者使用，第二组由子进程的编写者即被调用者使用。</p>
+<p>**注意：**遵守调用约定的这些规则时若产生错误，将会导致严重的程序错误，因为此时的栈处于一个不连续的状态。因此实现调用约定时必须小心</p>
+<h3 id="调用者规则"><strong>调用者规则</strong></h3>
+<p><strong>调用子进程之前要做的</strong></p>
 <ol>
-<li>调用前应该保存某些寄存器的内容，这些寄存器由 <code>caller-saved</code> 规则指定，包括 <code>eax, ecx, edx</code> 。因为被调用的子例程可以修改这些寄存器，所以如果 <code>caller</code> 需要在子例程返回后使用这些寄存器的值，则必须将这些寄存器入栈（可以在子例程返回后出栈恢复）</li>
+<li>调用前应该保存某些寄存器的内容，这些寄存器由 <code>caller-saved</code> 规则指定，包括 <code>eax, ecx, edx</code> 。因为被调用的子例程可以修改这些寄存器，所以如果 <code>caller</code> 需要在子例程返回后使用这些寄存器的值，则必须将这些寄存器入栈（可以在子例程返回后出栈恢复）</li>
 <li>为了向子例程传参，在调用子例程之前就需要将参数入栈。参数入栈遵从反向顺序（即最后一个参数第一个入栈）。因为栈往低处长，所以第一个参数会保存在最低的地址处（这种参数的倒转在历史上被函数用来传递可变数量的参数）</li>
-<li>为了调用子例程，使用 <code>call</code> 指令。这条指令在栈上所传递参数之后入栈其返回地址，然后跳入子例程，之后遵守的是接下来要介绍的 <code>callee</code> 规则</li>
+<li>为了调用子例程，使用 <code>call</code> 指令。这条指令在栈上所传递参数之后入栈其返回地址，然后跳入子例程，之后遵守的是接下来要介绍的 <code>callee</code> 规则</li>
 </ol>
 <p><strong>调用子进程之后，为了恢复原来的硬件状态。需要做</strong></p>
 <ol>
 <li>从栈中移除参数，这会将堆栈恢复到调用之前的状态</li>
-<li>通过出栈 <code>caller-saved</code> 恢复寄存器 <code>eax, ecx, edx</code> 的值。 <code>caller</code> 可以假设子例程中没有其他寄存器被修改</li>
+<li>通过出栈 <code>caller-saved</code> 恢复寄存器 <code>eax, ecx, edx</code> 的值。 <code>caller</code> 可以假设子例程中没有其他寄存器被修改</li>
 </ol>
-<h3 id="被调用者规则"><a href="#被调用者规则" class="headerlink" title="被调用者规则"></a><strong>被调用者规则</strong></h3><p><strong>子例程的定义应该在开头处就应坚持遵守以下规则</strong></p>
+<h3 id="被调用者规则"><strong>被调用者规则</strong></h3>
+<p><strong>子例程的定义应该在开头处就应坚持遵守以下规则</strong></p>
 <ol>
 <li>将 <code>ebp</code> 入栈，然后使用以下指令将 <code>esp</code> 的值拷贝到 <code>ebp</code></li>
-<li>之后在栈上开辟空间以分配给局部变量。由于栈往低处长，所以为了在栈顶获取空间， <code>esp</code> 应该执行减法。这个减数取决于所需局部变量的数量和大小。例如，如果需要三个整型值（每个 4 字节）， <code>esp</code> 需要减去 12 才能为它的局部变量开辟空间（即 <code>sub $12, %esp</code>）。与参数一样，局部变量也位于距基指针已知的偏移量处</li>
-<li>然后保存函数将要使用的那些 <code>callee-saved</code> 寄存器的值。也是通过入栈来保存。这些寄存器是 <code>ebx</code> ， <code>edi</code> 和 <code>esi</code>（ <code>esp</code> 和 <code>ebp</code> 仍要遵守调用约定，只是这个阶段暂时不需要入栈）</li>
+<li>之后在栈上开辟空间以分配给局部变量。由于栈往低处长，所以为了在栈顶获取空间， <code>esp</code> 应该执行减法。这个减数取决于所需局部变量的数量和大小。例如，如果需要三个整型值（每个 4 字节）， <code>esp</code> 需要减去 12 才能为它的局部变量开辟空间（即 <code>sub $12, %esp</code>）。与参数一样，局部变量也位于距基指针已知的偏移量处</li>
+<li>然后保存函数将要使用的那些 <code>callee-saved</code> 寄存器的值。也是通过入栈来保存。这些寄存器是 <code>ebx</code> ， <code>edi</code> 和 <code>esi</code>（ <code>esp</code> 和 <code>ebp</code> 仍要遵守调用约定，只是这个阶段暂时不需要入栈）</li>
 </ol>
 <p><strong>当子例程返回时，需要遵守以下步骤</strong></p>
 <ol>
 <li>在 <code>eax</code> 中留下返回值</li>
-<li>恢复被修改的 <code>callee-saved</code> 寄存器（ <code>edi</code> 和 <code>esi</code> ）原来的值。通过出栈恢复这些寄存器的值时，出栈顺序应该和入栈顺序相反</li>
+<li>恢复被修改的 <code>callee-saved</code> 寄存器（ <code>edi</code> 和 <code>esi</code> ）原来的值。通过出栈恢复这些寄存器的值时，出栈顺序应该和入栈顺序相反</li>
 <li>回收局部变量的空间。直接的办法是 <code>esp</code> 加上某个合适的值（因为这些空间是 <code>esp</code> 减去某个值而实现分配的）。事实上，更不容易出错的办法是拷贝 <code>ebp</code> 的值到 <code>esp</code> （<code>mov %ebp, %esp</code>）。这里的原理是 <code>ebp</code> 的值，总是与 <code>esp</code> 分配空间前的值相等</li>
 <li>在返回的那一刻，通过出栈 <code>ebp</code> 而恢复 <code>caller</code> 的 <code>ebp</code> 。回想我们在子例程入口做的第一件事就是将 <code>esp</code> 原来的值入栈</li>
-<li>最后，调用 <code>ret</code> 指令返回 <code>caller</code> 。该指令会从栈中找到合适的返回地址，并删掉这个地址</li>
+<li>最后，调用 <code>ret</code> 指令返回 <code>caller</code> 。该指令会从栈中找到合适的返回地址，并删掉这个地址</li>
 </ol>
-<h2 id="C语言与汇编语言共同编译"><a href="#C语言与汇编语言共同编译" class="headerlink" title="C语言与汇编语言共同编译"></a>C语言与汇编语言共同编译</h2><h3 id="传参规则"><a href="#传参规则" class="headerlink" title="传参规则"></a>传参规则</h3><ul>
+<h2 id="c语言与汇编语言共同编译">C语言与汇编语言共同编译</h2>
+<h3 id="传参规则">传参规则</h3>
+<ul>
 <li>一个参数用 <code>rdi</code></li>
 <li>两个参数用 <code>rdi</code> <code>rsi</code></li>
 <li>三个参数用 <code>rdi</code> <code>rsi</code> <code>rdx</code></li>
@@ -706,44 +730,58 @@
 <li>六个参数用 <code>rdi</code> <code>rsi</code> <code>rdx</code> <code>rcx</code> <code>r8</code> <code>r9</code></li>
 <li>返回值存入 <code>rax</code> 寄存器中</li>
 </ul>
-<h3 id="C-语言调用汇编语言"><a href="#C-语言调用汇编语言" class="headerlink" title="C 语言调用汇编语言"></a>C 语言调用汇编语言</h3><p>需要在 C 语言中进行声明对应的函数以及其参数，并且需要在汇编语言中将函数声明为 <code>global</code> 类型的符号，需要注意参数传入顺序</p>
+<h3 id="c-语言调用汇编语言">C 语言调用汇编语言</h3>
+<p>需要在 C 语言中进行声明对应的函数以及其参数，并且需要在汇编语言中将函数声明为 <code>global</code> 类型的符号，需要注意参数传入顺序</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> c = sum(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sum is %d&quot;</span>, c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.text</span><br><span class="line">.global sum</span><br><span class="line">.type sum, @function</span><br><span class="line">sum:</span><br><span class="line">  movq %rdi, %rax</span><br><span class="line">  addq %rsi, %rax</span><br><span class="line">  ret</span><br></pre></td></tr></table></figure>
-<h3 id="汇编语言调用-C-语言"><a href="#汇编语言调用-C-语言" class="headerlink" title="汇编语言调用 C 语言"></a>汇编语言调用 C 语言</h3><p>汇编语言调用 C 语言时，不需要声明 <code>extern</code> ，直接在代码中调用该函数即可，需要注意参数传入顺序</p>
+<h3 id="汇编语言调用-c-语言">汇编语言调用 C 语言</h3>
+<p>汇编语言调用 C 语言时，不需要声明 <code>extern</code> ，直接在代码中调用该函数即可，需要注意参数传入顺序</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">()</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> c = func();</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;sum is %d&quot;</span>, c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text</span><br><span class="line">.global func</span><br><span class="line">.type func, @function</span><br><span class="line">func:</span><br><span class="line">  movq $1, %rdi</span><br><span class="line">  movq $2, %rsi</span><br><span class="line">  call sum ; 此时返回值存储在 %rax 寄存器中，所以直接返回也是如此</span><br><span class="line">  ret</span><br></pre></td></tr></table></figure>
-<h2 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">asm</span> [ <span class="keyword">volatile</span> ] ( </span><br><span class="line">       assembler template</span><br><span class="line">       [ : output operands ]                <span class="comment">/* optional */</span></span><br><span class="line">       [ : input operands  ]                <span class="comment">/* optional */</span></span><br><span class="line">       [ : <span class="built_in">list</span> of clobbered registers ]    <span class="comment">/* optional */</span></span><br><span class="line">       );</span><br></pre></td></tr></table></figure>
-<h3 id="asm"><a href="#asm" class="headerlink" title="asm"></a>asm</h3><p>是 gcc 关键字，表示接下来将要嵌入汇编代码。为了避免 keyword asm 与程序中其它部分产生命名冲突，可以使用 <code>__asm__</code> 关键字，与之等价</p>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>是 gcc 关键字，表示不需要对下面的汇编代码做任何优化，为了避免 keyword asm 与程序中其它部分产生命名冲突，可以使用 <code>__volatile__</code> 关键字，与之等价</p>
-<h3 id="assember-template"><a href="#assember-template" class="headerlink" title="assember template"></a>assember template</h3><p>这一部分是要嵌入的汇编指令，由于是嵌入在 C 语言之中的，所以需要使用双引号来将命令括起来，从而使得 gcc 将其以字符串的形式将这些命令传递给汇编器 as。需要注意的点如下</p>
+<h2 id="内联汇编">内联汇编</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">asm</span> [ <span class="keyword">volatile</span> ] ( </span><br><span class="line">       assembler template</span><br><span class="line">       [ : output operands ]                <span class="comment">/* optional */</span></span><br><span class="line">       [ : input operands  ]                <span class="comment">/* optional */</span></span><br><span class="line">       [ : <span class="built_in">list</span> of clobbered registers ]    <span class="comment">/* optional */</span></span><br><span class="line">       );</span><br></pre></td></tr></table></figure>
+<h3 id="asm">asm</h3>
+<p>是 gcc 关键字，表示接下来将要嵌入汇编代码。为了避免 keyword asm 与程序中其它部分产生命名冲突，可以使用 <code>__asm__</code> 关键字，与之等价</p>
+<h3 id="volatile">volatile</h3>
+<p>是 gcc 关键字，表示不需要对下面的汇编代码做任何优化，为了避免 keyword asm 与程序中其它部分产生命名冲突，可以使用 <code>__volatile__</code> 关键字，与之等价</p>
+<h3 id="assember-template">assember template</h3>
+<p>这一部分是要嵌入的汇编指令，由于是嵌入在 C 语言之中的，所以需要使用双引号来将命令括起来，从而使得 gcc 将其以字符串的形式将这些命令传递给汇编器 as。需要注意的点如下</p>
 <ol>
-<li><p>有时候汇编指令可能有多个，中间需要换行处理或者是使用分号相隔，例如</p>
+<li>
+<p>有时候汇编指令可能有多个，中间需要换行处理或者是使用分号相隔，例如</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;movl %%eax, %%ebx; movl %%ebx, %%ecx;&quot;</span>)</span>;</span><br><span class="line"><span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;movl %%eax, %%ebx\n movl %%ebx, %%ecx\n&quot;</span>)</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>语法问题需要注意，这里使用的汇编语法是 AT&amp;T 的汇编语法，也就是目的操作数在后面</p>
+<li>
+<p>语法问题需要注意，这里使用的汇编语法是 AT&amp;T 的汇编语法，也就是目的操作数在后面</p>
 </li>
-<li><p>参数调用和寄存器使用需要注意</p>
+<li>
+<p>参数调用和寄存器使用需要注意</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">10</span>, b;</span><br><span class="line"><span class="keyword">asm</span> (<span class="string">&quot;movl %1, %%eax; movl %%eax, %0;&quot;</span> : <span class="string">&quot;=r&quot;</span>(b) : <span class="string">&quot;r&quot;</span>(a) : <span class="string">&quot;%eax&quot;</span>); </span><br></pre></td></tr></table></figure>
-<p> 对于参数调用是使用 <code>%n</code> 来调用的，其中 <code>n</code> 就是第 <code>n</code> 个参数，这个是从第一个 <code>output operands</code> 从 0 开始标号的，直到最后一个 <code>input operand</code></p>
-<p> 同时为了与寄存器的调用分别，所以寄存器的使用会使用 <code>%%</code> 来指代</p>
+<p>对于参数调用是使用 <code>%n</code> 来调用的，其中 <code>n</code> 就是第 <code>n</code> 个参数，这个是从第一个 <code>output operands</code> 从 0 开始标号的，直到最后一个 <code>input operand</code></p>
+<p>同时为了与寄存器的调用分别，所以寄存器的使用会使用 <code>%%</code> 来指代</p>
 </li>
 </ol>
-<h3 id="output-operands"><a href="#output-operands" class="headerlink" title="output operands"></a>output operands</h3><p>该字段是可选字段，用来指明输出的操作数，一般的格式为</p>
+<h3 id="output-operands">output operands</h3>
+<p>该字段是可选字段，用来指明输出的操作数，一般的格式为</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">: <span class="string">&quot;=constraints&quot;</span>(output)</span><br></pre></td></tr></table></figure>
 <p>其中引号之内的是指定 <code>output operands</code> 应当遵守的约束。 <code>output</code> 位存放指令结果的变量，通常是一个 C 语言变量。其中 <code>=</code> 是 <code>output operands</code> 特有的约束，表示该操作数是只写的。</p>
 <p>如果输出有多个，典型的格式如下</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;xxx&quot;</span>; : <span class="string">&quot;=a&quot;</span>(o1) : <span class="string">&quot;=b&quot;</span>(o2) : <span class="string">&quot;=c&quot;</span>(o3) : <span class="string">&quot;a&quot;</span> (i1))</span>;</span><br></pre></td></tr></table></figure>
 <p>其中 <code>=a</code> 表示先将命令执行结果输出到 <code>eax</code> 寄存器，然后再由寄存器更新位于内存中的 <code>output</code> ，其它的也是如此。可以为 <code>output operand</code> 分别指定约束。这些约束会在下面的约束中介绍</p>
-<h3 id="input-operands"><a href="#input-operands" class="headerlink" title="input operands"></a>input operands</h3><p>这个字段为可选字段，可以指明输入操作数，典型格式为</p>
+<h3 id="input-operands">input operands</h3>
+<p>这个字段为可选字段，可以指明输入操作数，典型格式为</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">: <span class="string">&quot;constraints&quot;</span>(intput)</span><br></pre></td></tr></table></figure>
 <p>其中 <code>constraints</code> 是 gcc 支持的各种约束方式。但是 <code>input operands</code> 与 <code>output operands</code> 的数量是有限的，并且每种指令集体系结构对于涉及到的指令支持的最多操作数也是有限制的，所以这里的操作数数量受到限制。此处具体的上限为 <code>max(10, max_in_instruction)</code> ，其中 <code>max_in_instruction</code> 是 ISA 中拥有最多操作数的那条指令所包含的操作数数目。</p>
 <p>需要注意的是，如果指明 <code>input operands</code> 时，即使指令不会有 <code>output operands</code> 也需要给出对应的 <code>:</code> ，例如</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;lidt %0&quot;</span> : : <span class="string">&quot;m&quot;</span>(idt_operand))</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="list-of-clobbered-registers"><a href="#list-of-clobbered-registers" class="headerlink" title="list of clobbered registers"></a>list of clobbered registers</h3><p>该字段为可选字段，用于列出指令中涉及到的且没有出现在 <code>output operands</code> 和 <code>input operands</code> 字段的那些寄存器，若寄存器被列入到 <code>clobber-list</code> ，就是告诉 gcc，哪些寄存器可能会被内联汇编命令改写。所以在执行内联汇编时，这些寄存器就不会被 gcc 分配给其它进程或者命令使用</p>
-<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><p>通常在 <code>output operands</code> 和 <code>input operands</code> 中通常需要指定各自的 <code>constraints</code> ，以便更加明确的完成期望的任务。</p>
+<h3 id="list-of-clobbered-registers">list of clobbered registers</h3>
+<p>该字段为可选字段，用于列出指令中涉及到的且没有出现在 <code>output operands</code> 和 <code>input operands</code> 字段的那些寄存器，若寄存器被列入到 <code>clobber-list</code> ，就是告诉 gcc，哪些寄存器可能会被内联汇编命令改写。所以在执行内联汇编时，这些寄存器就不会被 gcc 分配给其它进程或者命令使用</p>
+<h3 id="约束">约束</h3>
+<p>通常在 <code>output operands</code> 和 <code>input operands</code> 中通常需要指定各自的 <code>constraints</code> ，以便更加明确的完成期望的任务。</p>
 <ol>
-<li><p>寄存器操作数约束</p>
-<p> 操作数被指定这类约束时，表明汇编指令执行时，操作数将被存储在指定的通用寄存器中，使用寄存器进行中转。具体如下</p>
+<li>
+<p>寄存器操作数约束</p>
+<p>操作数被指定这类约束时，表明汇编指令执行时，操作数将被存储在指定的通用寄存器中，使用寄存器进行中转。具体如下</p>
 <ul>
 <li><code>a</code> ： <code>eax</code> ， <code>ax</code> ， <code>al</code></li>
 <li><code>b</code> ： <code>ebx</code> ， <code>bx</code> ， <code>bl</code></li>
@@ -754,15 +792,18 @@
 <li><code>r</code> ：使用以上任意一个可用寄存器</li>
 </ul>
 </li>
-<li><p>内存操作数约束</p>
-<p> 对于不希望使用寄存器中转，直接操作内存时，可以使用 <code>m</code> 来约束</p>
+<li>
+<p>内存操作数约束</p>
+<p>对于不希望使用寄存器中转，直接操作内存时，可以使用 <code>m</code> 来约束</p>
 </li>
-<li><p>关联约束</p>
-<p> 有些时候，如果命令输入输出均为同一个变量，则可以在内联汇编中指定以 <code>matching constraint</code> 的方式分配寄存器，此时 <code>input operands</code> 与 <code>output operands</code> 共用一个中转寄存器</p>
+<li>
+<p>关联约束</p>
+<p>有些时候，如果命令输入输出均为同一个变量，则可以在内联汇编中指定以 <code>matching constraint</code> 的方式分配寄存器，此时 <code>input operands</code> 与 <code>output operands</code> 共用一个中转寄存器</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;incl %0&quot;</span> : <span class="string">&quot;=a&quot;</span>(var) : <span class="string">&quot;0&quot;</span>(var))</span>;</span><br></pre></td></tr></table></figure>
-<p> 由于输入输出均为同一个变量，因此可以使用 <code>0</code> 来指定都用 <code>eax</code> 作为中转寄存器，需要注意的是 <code>0</code> 约束修饰的是 <code>input operands</code></p>
+<p>由于输入输出均为同一个变量，因此可以使用 <code>0</code> 来指定都用 <code>eax</code> 作为中转寄存器，需要注意的是 <code>0</code> 约束修饰的是 <code>input operands</code></p>
 </li>
-<li><p>约束修饰符</p>
+<li>
+<p>约束修饰符</p>
 <ul>
 <li><code>=</code> 表示操作数在这条指令中是仅写的，这个操作数的先前值将被忽略，并向其中写入输出数据</li>
 <li><code>&amp;</code> 表示操作数是一个 <code>early-clobber</code> 操作数，它在指令使用输入操作数之前被写入了值，因此这个操作数不能位于被指令读取的寄存器中，也不能位于任何作为内存地址组成部分的寄存器中。另外，如果一个 <code>early-clobber</code> 操作数也是一个读或写操作数时，该操作数只有在被使用之后才会被写入。而且 <code>early-clobber</code> 操作数总是被写入的，只读的 <code>early-clobber</code> 操作数将会在编译过程报错。实际上就是对 gcc 声明：gcc 不得为任何 <code>input opereands</code> 分配与此 <code>output operands</code> 操作表达式相同的寄存器。如果已经使用 <code>+</code> 或者 <code>=</code> 占据了约束修饰的第一个位置，那 <code>&amp;</code> 只能占据第二个字符</li>
@@ -770,7 +811,9 @@
 <li><code>%</code> 可以交换操作数，使得 gcc 生成更好的代码。例如 <code>asm(&quot;fadd %0, %1, %2&quot; : “=f”(c) : “%f”(a), “f”(b));</code> 这个汇编指令计算操作数 <code>a</code> 和 <code>b</code> 的和，然后将结果写入到 <code>c</code> 中，其中 <code>%</code> 表示如果编译器可以通过交换操作数 <code>a</code> 和 <code>b</code> 生成更好的代码的话，那么可以交换两个操作数。但是 <code>gcc</code> 只能处理 <code>asm</code> 中的一个交换对，如果使用多个 <code>%</code> ，编译器会导致错误</li>
 </ul>
 </li>
-<li>其它约束<ul>
+<li>
+<p>其它约束</p>
+<ul>
 <li>空格：空白字符将被忽略，可以插入除第一个位置以外的任何位置。这使得不同操作数的每个选项在机器描述中对齐，即使它们有不同数量的约束和修饰符</li>
 <li><code>m</code> ：允许内存操作数，它可以是计算机支持的任何类型的地址。注意，用于通用内存约束的字母可以由后端使用 <code>TARGET_MEM_CONSTRAINT</code> 宏重新定义</li>
 <li><code>o</code> ：允许使用内存运算对象，但仅当该地址是可偏移的（offsettable）。这意味着可以向地址添加一个小整数（实际上是操作数的字节宽度，由其机器模式决定），结果也是一个有效的内存地址。例如，一个常量地址是可偏移的;一个寄存器和一个常量之和的地址（只要一个稍大的常量也在机器支持的地址偏移量范围内）也是一样的;但自动递增或自动递减地址是不可偏移的。更复杂的间接/索引地址可以偏移，也可以不偏移，这取决于机器支持的其它寻址模式。需要注意，在一个可以被另一个操作数匹配的输出操作数中，约束字母 <code>o</code> 只有在同时伴有 <code>&lt;</code> （如果目标机器有前任寻址）和 <code>&gt;</code> （如果目标机器有前增量寻址）时才有效。</li>
@@ -891,7 +934,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">其它寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86-64-%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">x86-64 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AT-amp-T%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">AT&amp;T常用的指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">操作数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">寄存器操作数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">内存操作数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">立即数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">寻址模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80"><span class="nav-number">5.1.</span> <span class="nav-text">立即数寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">5.2.</span> <span class="nav-text">寄存器寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">5.3.</span> <span class="nav-text">存储器寻址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%A4%BA%E6%A0%87%E5%8F%B7"><span class="nav-number">6.</span> <span class="nav-text">指示标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-number">6.1.</span> <span class="nav-text">声明静态数据区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">6.2.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">6.3.</span> <span class="nav-text">伪指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%A7%84%E5%88%99"><span class="nav-number">7.</span> <span class="nav-text">调用规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%80%85%E8%A7%84%E5%88%99"><span class="nav-number">7.1.</span> <span class="nav-text">调用者规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E8%B0%83%E7%94%A8%E8%80%85%E8%A7%84%E5%88%99"><span class="nav-number">7.2.</span> <span class="nav-text">被调用者规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%85%B1%E5%90%8C%E7%BC%96%E8%AF%91"><span class="nav-number">8.</span> <span class="nav-text">C语言与汇编语言共同编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E5%8F%82%E8%A7%84%E5%88%99"><span class="nav-number">8.1.</span> <span class="nav-text">传参规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="nav-number">8.2.</span> <span class="nav-text">C 语言调用汇编语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8-C-%E8%AF%AD%E8%A8%80"><span class="nav-number">8.3.</span> <span class="nav-text">汇编语言调用 C 语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96"><span class="nav-number">9.</span> <span class="nav-text">内联汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#asm"><span class="nav-number">9.1.</span> <span class="nav-text">asm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">9.2.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assember-template"><span class="nav-number">9.3.</span> <span class="nav-text">assember template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-operands"><span class="nav-number">9.4.</span> <span class="nav-text">output operands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#input-operands"><span class="nav-number">9.5.</span> <span class="nav-text">input operands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-of-clobbered-registers"><span class="nav-number">9.6.</span> <span class="nav-text">list of clobbered registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F"><span class="nav-number">9.7.</span> <span class="nav-text">约束</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">其它寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86-64-%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">x86-64 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#at-t%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">AT&amp;T常用的指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">操作数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">寄存器操作数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">内存操作数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">立即数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">寻址模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80"><span class="nav-number">5.1.</span> <span class="nav-text">立即数寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">5.2.</span> <span class="nav-text">寄存器寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">5.3.</span> <span class="nav-text">存储器寻址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%A4%BA%E6%A0%87%E5%8F%B7"><span class="nav-number">6.</span> <span class="nav-text">指示标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-number">6.1.</span> <span class="nav-text">声明静态数据区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">6.2.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">6.3.</span> <span class="nav-text">伪指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%A7%84%E5%88%99"><span class="nav-number">7.</span> <span class="nav-text">调用规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%80%85%E8%A7%84%E5%88%99"><span class="nav-number">7.1.</span> <span class="nav-text">调用者规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E8%B0%83%E7%94%A8%E8%80%85%E8%A7%84%E5%88%99"><span class="nav-number">7.2.</span> <span class="nav-text">被调用者规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%85%B1%E5%90%8C%E7%BC%96%E8%AF%91"><span class="nav-number">8.</span> <span class="nav-text">C语言与汇编语言共同编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E5%8F%82%E8%A7%84%E5%88%99"><span class="nav-number">8.1.</span> <span class="nav-text">传参规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="nav-number">8.2.</span> <span class="nav-text">C 语言调用汇编语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8-c-%E8%AF%AD%E8%A8%80"><span class="nav-number">8.3.</span> <span class="nav-text">汇编语言调用 C 语言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96"><span class="nav-number">9.</span> <span class="nav-text">内联汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#asm"><span class="nav-number">9.1.</span> <span class="nav-text">asm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">9.2.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assember-template"><span class="nav-number">9.3.</span> <span class="nav-text">assember template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-operands"><span class="nav-number">9.4.</span> <span class="nav-text">output operands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#input-operands"><span class="nav-number">9.5.</span> <span class="nav-text">input operands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-of-clobbered-registers"><span class="nav-number">9.6.</span> <span class="nav-text">list of clobbered registers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F"><span class="nav-number">9.7.</span> <span class="nav-text">约束</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -964,12 +1007,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17:42</span>
+    <span title="站点阅读时长">22:25</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
