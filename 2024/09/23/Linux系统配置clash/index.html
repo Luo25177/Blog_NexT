@@ -30,9 +30,10 @@
 <meta property="og:description" content="Linux配置clash">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/Screenshot_from_2024-09-23_17-00-07.png">
-<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/Screenshot_from_2024-09-23_17-08-47.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/%E6%88%AA%E5%9B%BE_2025-03-10_10-59-27.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/%E6%88%AA%E5%9B%BE_2025-03-10_10-56-12.png">
 <meta property="article:published_time" content="2024-09-23T12:07:55.000Z">
-<meta property="article:modified_time" content="2024-09-23T12:22:18.039Z">
+<meta property="article:modified_time" content="2025-03-10T12:40:44.398Z">
 <meta property="article:author" content="落">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="clash">
@@ -227,10 +228,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-09-23 20:07:55 / 修改时间：20:22:18" itemprop="dateCreated datePublished" datetime="2024-09-23T20:07:55+08:00">2024-09-23</time>
+              <time title="创建时间：2024-09-23 20:07:55" itemprop="dateCreated datePublished" datetime="2024-09-23T20:07:55+08:00">2024-09-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-10 20:40:44" itemprop="dateModified" datetime="2025-03-10T20:40:44+08:00">2025-03-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -247,7 +254,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -269,6 +276,9 @@
       
         <h3 id="前言">前言</h3>
 <p>在 Linux 上进行项目开发时，经常会用到 github 来进行对项目的管理，但是苦于没有好的代理，经过一番查找，找到了 clash，是一个非常好用的代理软件</p>
+<h3 id="安装支持">安装支持</h3>
+<p>主要是需要用到 <code>curl</code> 工具，所以直接在命令行中输入如下代码即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install curl</span><br></pre></td></tr></table></figure>
 <h3 id="安装clash">安装clash</h3>
 <p>文件下载： <a target="_blank" rel="noopener" href="https://zywang.lanzn.com/iPMwp2aneodc">https://zywang.lanzn.com/iPMwp2aneodc</a></p>
 <p>下载完成之后，直接将其解压到 <code>Documents</code> 目录下，保证自己不会误删这个文件</p>
@@ -287,12 +297,12 @@
 <p>将其中的所有 <code>127.0.0.1</code> 修改为自己的 <code>ip</code> 地址，后面的端口号也可以自己修改，一般来说会使用 <code>127.0.0.1:7890</code> 端口，之后保存文件退出。退出之后还需要将这些设置应用一下。需要注意的是，这条指令只能在 <code>bash</code> 终端中使用。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile.d/clash.sh</span><br></pre></td></tr></table></figure>
 <p>之后在浏览器中输入 <code>127.0.0.1:9090/ui/#/conifgs</code> 进入如下页面</p>
-<p><img src="/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/Screenshot_from_2024-09-23_17-08-47.png" alt="Screenshot from 2024-09-23 17-08-47.png"></p>
-<p>将 API Base URL 修改为 <code>127.0.0.1:9090</code> ，对应的密码可以设置为配置文件中 <code>CLASH_SECRET</code> 的值，然后点击 Add 即可添加一个按钮，这个就是 clash 界面的按钮，然后点击就可以进入 clash 的配置界面了，但是需要注意，只有打开代理之后才能看到配置界面</p>
+<p><img src="/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/%E6%88%AA%E5%9B%BE_2025-03-10_10-59-27.png" alt="截图 2025-03-10 10-59-27.png"></p>
+<p>将 API Base URL 修改为 <code>127.0.0.1:9090</code> ，对应的密码需要设置为配置文件中 <code>CLASH_SECRET</code> 的值，然后点击 Add 即可看到下方添加了一个项目，项目下带星号意味着有密码，这个就是进入 clash 界面的按钮，然后点击就可以进入 clash 的配置界面了，必须得手动添加一个带有密码的项目，点击进入这个带有密码的项目中才可以。但是需要注意，只有打开代理之后才能看到配置界面，然后进行对应的配置设置即可</p>
+<p><img src="/Blog_NexT/2024/09/23/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AEclash/%E6%88%AA%E5%9B%BE_2025-03-10_10-56-12.png" alt="截图 2025-03-10 10-56-12.png"></p>
 <p>然后继续按照提示执行下面代码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile.d/clash.sh <span class="comment"># 更新配置文件</span></span><br><span class="line">proxy_on <span class="comment"># 打开代理</span></span><br></pre></td></tr></table></figure>
-<p>之后就可以使用了</p>
-<p>在第一次配置之后再次使用时，就不需要上述那么麻烦了，只需要在终端输入如下指令即可</p>
+<p>之后就可以使用了，在第一次配置之后再次使用时，就不需要上述那么麻烦了，只需要在终端输入如下指令即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo bash start.sh</span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/clash.sh <span class="comment"># 更新配置文件</span></span><br><span class="line">proxy_on <span class="comment"># 打开代理</span></span><br></pre></td></tr></table></figure>
 <h3 id="参考">参考</h3>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656856050">https://zhuanlan.zhihu.com/p/656856050</a></p>
@@ -398,7 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85clash"><span class="nav-number">2.</span> <span class="nav-text">安装clash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8clash"><span class="nav-number">3.</span> <span class="nav-text">使用clash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%94%AF%E6%8C%81"><span class="nav-number">2.</span> <span class="nav-text">安装支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85clash"><span class="nav-number">3.</span> <span class="nav-text">安装clash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8clash"><span class="nav-number">4.</span> <span class="nav-text">使用clash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
