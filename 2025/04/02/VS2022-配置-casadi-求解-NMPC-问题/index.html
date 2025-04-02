@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog_NexT/images/logo4.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog_NexT/images/logo4.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基于 vs2022 和 webots 平台搭建 casadi 来求解 NMPC 问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VS2022 配置 casadi 求解 NMPC 问题">
+<meta property="og:url" content="https://luo25177.github.io/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="LuosBlog">
+<meta property="og:description" content="基于 vs2022 和 webots 平台搭建 casadi 来求解 NMPC 问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492652894.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492727377.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492882588.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743494552859.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743561668096.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743571604645.png">
+<meta property="article:published_time" content="2025-04-02T07:52:05.000Z">
+<meta property="article:modified_time" content="2025-04-02T07:59:20.600Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="casadi">
+<meta property="article:tag" content="NMPC">
+<meta property="article:tag" content="webots">
+<meta property="article:tag" content="vs2022">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492652894.png">
+
+<link rel="canonical" href="https://luo25177.github.io/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>VS2022 配置 casadi 求解 NMPC 问题 | LuosBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LuosBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.jpg">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuosBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VS2022 配置 casadi 求解 NMPC 问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-02 15:52:05 / 修改时间：15:59:20" itemprop="dateCreated datePublished" datetime="2025-04-02T15:52:05+08:00">2025-04-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">控制理论</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">基于 vs2022 和 webots 平台搭建 casadi 来求解 NMPC 问题</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<p>最近在研究 NMPC 时，找到了 casadi 这个求解库，本来是在 ros+gazebo 平台上搭建的，但是最终的运行效果不太好，所以就打算先使用自己比较熟悉的 webots+vs 平台上进行测试，之后再移植过去</p>
+<h2 id="部署优化求解工具-casadi">部署优化求解工具 casadi</h2>
+<h3 id="下载-ipopt-的-vs2022-预编译程序">下载 ipopt 的 vs2022 预编译程序</h3>
+<p>在 ipopt 的 <a target="_blank" rel="noopener" href="https://github.com/coin-or/Ipopt/releases">github 官方仓库</a>中找到 vs2022 的预编译版本，就是基于 vs2022 已经编译好的，不需要自行编译。可以直接选择较新的版本，记得要选择后面带有 <code>msvs2022</code> 的压缩包</p>
+<p><img src="/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492652894.png" alt="1743492652894.png"></p>
+<h3 id="下载-casadi-的源码">下载 casadi 的源码</h3>
+<p>在 casadi 的 <a target="_blank" rel="noopener" href="https://github.com/casadi/casadi/releases">github 官方仓库</a>中找到适合的版本，下载对应的 Source Code 压缩包即可</p>
+<p><img src="/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492727377.png" alt="1743492727377.png"></p>
+<h3 id="编译">编译</h3>
+<p>由于下载的 ipopt 不需要编译，所以就只需要编译 casadi 即可。把上述的 ipopt 和 casadi 的源码放到一个不会被删掉的地方，建议是有一个比较统一存放 C++ 依赖库的地方，如下图所示</p>
+<p><img src="/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743492882588.png" alt="1743492882588.png"></p>
+<p>然后在 casadi 的目录下新建一个 <code>install</code> 目录下，并且在 casadi 目录下新建一个 <code>run.bat</code> 文件，这个文件中需要写入 casadi 的编译和安装脚本，但是一般双击 <code>.bat</code> 文件时会直接运行，所以可以先新建一个 <code>run.txt</code> 文件，之后再重命名即可。在文件中写入如下指令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="literal">-G</span> <span class="string">&quot;Visual Studio 17 2022&quot;</span> <span class="literal">-A</span> x64 <span class="literal">-B</span> build <span class="literal">-DWITH_IPOPT</span>=ON <span class="literal">-DIPOPT_LIBRARIES</span>:FILEPATH=<span class="string">&quot;ipopt的目录/lib/ipopt.dll.lib&quot;</span> <span class="literal">-DIPOPT_INCLUDE_DIRS</span>:PATH=<span class="string">&quot;ipopt的目录/include/coin-or&quot;</span>  <span class="literal">-DCMAKE_INSTALL_PREFIX</span>:PATH=<span class="string">&quot;casadi的目录/install&quot;</span></span><br><span class="line">cmake <span class="literal">--build</span> build <span class="literal">--config</span> Release</span><br><span class="line">cmake <span class="literal">--install</span> build</span><br></pre></td></tr></table></figure>
+<p>之后双击运行，等待其编译安装结束</p>
+<h2 id="在-vs-中配置-casadi">在 vs 中配置 casadi</h2>
+<p>编译完成之后需要在 vs2022 的 IDE 中进行配置。由于这个配置是针对于项目的，所以可以做一个属性表，就能够重复利用到多个项目中</p>
+<h3 id="制作属性表">制作属性表</h3>
+<p>打开一个项目，并且在项目中打开 <strong>视图-其他窗口-属性管理器</strong>，在属性管理器中添加新新项目属性表</p>
+<p><img src="/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743494552859.png" alt="1743494552859.png"></p>
+<p>就可以看到在 Release x64 下有个 casadi 的配置，然后右键打开其属性，开始编辑属性</p>
+<p><strong>包含目录</strong></p>
+<p>位于 VC++ 目录下，在其中添加新项目，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">casadi存放目录\install\casadi\include</span><br><span class="line">casadi存放目录\install\casadi</span><br></pre></td></tr></table></figure>
+<p><strong>外部包含目录</strong></p>
+<p>位于 VC++ 目录下，在其中添加新项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">casadi存放目录\install\casadi</span><br><span class="line">casadi存放目录\install\casadi\include</span><br></pre></td></tr></table></figure>
+<p><strong>库目录</strong></p>
+<p>位于 VC++ 目录下，在其中添加新项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">casadi存放目录\build\Release</span><br><span class="line">casadi存放目录</span><br></pre></td></tr></table></figure>
+<p><strong>附加库目录</strong></p>
+<p>位于链接器-常规下，在其中添加新项目，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">casadi存放目录\casadi\core\runtime</span><br><span class="line">casadi存放目录\casadi\core</span><br><span class="line">casadi存放目录\build\casadi\core</span><br><span class="line">casadi存放目录\build</span><br><span class="line">casadi存放目录</span><br></pre></td></tr></table></figure>
+<p><strong>附加依赖项</strong></p>
+<p>位于链接器-输入下，在其中添加新项目，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">casadi.lib</span><br></pre></td></tr></table></figure>
+<p>到此属性表就制作完毕了，之后就可以选中对应的属性表，右键保存之后就可以在该项目的目录下看到这个 <code>casadi.props</code> 文件。在之后的使用中就直接把这个文件复制到对应的项目目录下，在该项目的属性管理器中导入该属性表即可。需要注意的是，如果你的依赖库的位置发生了改变，属性表也需要改变</p>
+<h3 id="添加动态链接库文件">添加动态链接库文件</h3>
+<p>动态链接库 dll 文件是运行 exe 文件时实时调用的，因此需要将dll文件复制粘贴到生成的 exe 文件同级目录，将编译生成的 <code>casadi.dll</code> 以及 <code>casadi_nlpsol_ipopt.dll</code> 文件粘贴到和生成的 exe 文件同级的文件夹内</p>
+<p>一般这两个文件都存在于 casadi 的安装目录下，即 <code>casadi存放目录\install\casadi</code></p>
+<h3 id="配置环境变量">配置环境变量</h3>
+<p>添加过链接库之后，还会提示找不到 <code>casadi_nlpsol_ipopt.dll</code> 文件的错误，就需要将 ipopt 的程序路径添加到系统环境变量中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipopt存放目录\bin</span><br></pre></td></tr></table></figure>
+<h3 id="一些其他的问题">一些其他的问题</h3>
+<p><strong>vs2022 创建属性表闪退</strong></p>
+<p>在创建属性表时有时会遇到创建属性表之后 vs2022 卡死闪退的情况，解决方法如下</p>
+<ol>
+<li>在 Visual Studio Installer 中查看是否有 vs2022 的更新，如果有就更新到最新版</li>
+<li>使用 <code>win+R</code> 输入 <code>cmd</code> 打开终端，在其中输入指令 <code>regsvr32 jscript9Legacy.dll</code> 并运行</li>
+</ol>
+<p>之后就可以成功创建了</p>
+<h2 id="casadi-求解-nmpc">casadi 求解 NMPC</h2>
+<p>利用简单的一阶倒立摆来验证算法</p>
+<h3 id="动力学分析">动力学分析</h3>
+<p><img src="/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743561668096.png" alt="1743561668096.png"></p>
+<ol>
+<li>
+<p>底座分析</p>
+<ol>
+<li>
+<p>x 方向上</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\textcircled&#039; in math mode at position 19: …dot{x}=F-N\quad\̲t̲e̲x̲t̲c̲i̲r̲c̲l̲e̲d̲{1}
+">M\ddot{x}=F-N\quad\textcircled{1}
+</p>
+</li>
+<li>
+<p>y 方向上</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>N</mi></msub><mo>=</mo><mi>P</mi><mo>+</mo><mi>M</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">F_N=P+Mg
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span></span></p>
+</li>
+</ol>
+</li>
+<li>
+<p>摆杆分析</p>
+<ol>
+<li>
+<p>x 方向上</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\textcircled&#039; in math mode at position 74: …heta)}{2})\quad\̲t̲e̲x̲t̲c̲i̲r̲c̲l̲e̲d̲{2}
+">N=m(\ddot{x}+\frac{\partial^2}{\partial t^2}\frac{L\sin(\theta)}{2})\quad\textcircled{2}
+</p>
+</li>
+<li>
+<p>y 方向上</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\textcircled&#039; in math mode at position 66: …theta)}{2}\quad\̲t̲e̲x̲t̲c̲i̲r̲c̲l̲e̲d̲{3}
+">P-mg=m\frac{\partial^2}{\partial t^2}\frac{L\cos(\theta)}{2}\quad\textcircled{3}
+</p>
+</li>
+<li>
+<p>扭矩</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\textcircled&#039; in math mode at position 72: …theta)}{2}\quad\̲t̲e̲x̲t̲c̲i̲r̲c̲l̲e̲d̲{4}
+">I_m\ddot{\theta}=\frac{PL\sin(\theta)}{2}-\frac{NL\cos(\theta)}{2}\quad\textcircled{4}
+</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="求解系统状态空间方程">求解系统状态空间方程</h3>
+<p>根据上述公式 <span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\textcircled&#039; in math mode at position 1: \̲t̲e̲x̲t̲c̲i̲r̲c̲l̲e̲d̲{1}\sim\textcir…">\textcircled{1}\sim\textcircled{4}</span> 联立求解出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>θ</mi><mo>¨</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>x</mi><mo>¨</mo></mover></mrow><annotation encoding="application/x-tex">\ddot{\theta},\ddot{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.12574em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.22222em;"><span class="mord">¨</span></span></span></span></span></span></span></span></span></span> ，如下</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>θ</mi><mo>¨</mo></mover><mo>=</mo><mfrac><mrow><mi>L</mi><mi>m</mi><mo fence="false">[</mo><mn>2</mn><mi>g</mi><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>−</mo><mn>2</mn><mi>F</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>+</mo><mi>L</mi><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mn>2</mn><mi>M</mi><mo stretchy="false">)</mo><msup><mover accent="true"><mi>θ</mi><mo>˙</mo></mover><mn>2</mn></msup><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo fence="false">]</mo></mrow><mrow><mn>4</mn><msub><mi>I</mi><mi>m</mi></msub><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo><mo>+</mo><msup><mi>L</mi><mn>2</mn></msup><mi>m</mi><mo fence="false">[</mo><mi>M</mi><mo>−</mo><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mn>2</mn><mi>M</mi><mo stretchy="false">)</mo><msup><mo><mi>sin</mi><mo>⁡</mo></mo><mn>2</mn></msup><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo fence="false">]</mo></mrow></mfrac><mspace linebreak="newline"></mspace><mover accent="true"><mi>x</mi><mo>¨</mo></mover><mo>=</mo><mo>−</mo><mfrac><mrow><mi>L</mi><mi>m</mi><msup><mover accent="true"><mi>θ</mi><mo>˙</mo></mover><mn>2</mn></msup><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>L</mi><mn>2</mn></msup><mi>m</mi><mo>−</mo><mn>4</mn><msub><mi>I</mi><mi>m</mi></msub><mo stretchy="false">)</mo><mo>−</mo><mn>2</mn><mi>F</mi><mo stretchy="false">(</mo><mn>4</mn><msub><mi>I</mi><mi>m</mi></msub><mo>+</mo><msup><mi>L</mi><mn>2</mn></msup><mi>m</mi><mi>cos</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>θ</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>+</mo><msup><mi>L</mi><mn>2</mn></msup><mi>g</mi><msup><mi>m</mi><mn>2</mn></msup><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mi>θ</mi><mo stretchy="false">)</mo></mrow><mrow><mn>2</mn><mrow><mo fence="true">(</mo><mn>4</mn><msub><mi>I</mi><mi>m</mi></msub><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo><mo>+</mo><msup><mi>L</mi><mn>2</mn></msup><mi>m</mi><mrow><mo fence="true">[</mo><mi>M</mi><msup><mo><mi>cos</mi><mo>⁡</mo></mo><mn>2</mn></msup><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo><msup><mo><mi>sin</mi><mo>⁡</mo></mo><mn>2</mn></msup><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo fence="true">]</mo></mrow><mo fence="true">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">\ddot{\theta}=\frac{Lm\Big[2g(m+M)\sin(\theta)-2F\cos(\theta)+L(m+2M)\dot{\theta}^2\sin(\theta)\cos(\theta)\Big]}{4I_m(m+M)+L^2m\big[M-(m+2M)\sin^2(\theta)\big]}\\\ddot{x}=-\frac{L m \dot{\theta}^2 \sin(\theta) (L^2m - 4I_m) - 2F (4I_m + L^2m \cos(2\theta)) + L^2g m^2 \sin(2\theta)}{2 \left( 4I_m (m + M) + L^2m \left[ M \cos^2(\theta) - (m + M) \sin^2(\theta) \right] \right)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9313em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.301898em;vertical-align:-1.111878em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.19002em;"><span style="top:-2.388132em;"><span class="pstrut" style="height:3.15em;"></span><span class="mord"><span class="mord">4</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mord"><span class="delimsizing size1">[</span></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">sin</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.871868em;"><span style="top:-3.12076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mord"><span class="delimsizing size1">]</span></span></span></span><span style="top:-3.38em;"><span class="pstrut" style="height:3.15em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-4.1900200000000005em;"><span class="pstrut" style="height:3.15em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="mord mathdefault">m</span><span class="mord"><span class="delimsizing size2">[</span></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">L</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.055550000000000016em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mord"><span class="delimsizing size2">]</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.111878em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.66786em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.22222em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.7201779999999998em;vertical-align:-1.111878em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6083em;"><span style="top:-2.2381320000000002em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord">4</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">cos</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">sin</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.871868em;"><span style="top:-3.12076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="mord mathdefault">m</span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.055550000000000016em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">4</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">4</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.111878em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h3 id="设置-nmpc-的参数">设置 NMPC 的参数</h3>
+<p>计算完上述的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>θ</mi><mo>¨</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>x</mi><mo>¨</mo></mover></mrow><annotation encoding="application/x-tex">\ddot{\theta},\ddot{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.12574em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.22222em;"><span class="mord">¨</span></span></span></span></span></span></span></span></span></span> 之后，还需要设定 NMPC 的步长，预测步数和权重矩阵</p>
+<ol>
+<li>步长的选择
+<ol>
+<li>对于快速动态系统，步长一般都较长，一般就是 10 ms 到 100 ms</li>
+<li>对于高阶离散方法（例如 4 阶龙格库塔方法），允许使用较大点的步长</li>
+<li>对于低阶方法（例如欧拉方法）需要更小的步长来保证精度</li>
+</ol>
+</li>
+<li>预测步数选择
+<ol>
+<li>预测时域通常需要覆盖掉系统动态的过渡阶段，通常为系统稳定时间的 1-2 倍</li>
+<li>步数过多会增加优化变量维度，可能超出实时计算能力，若需要减少计算量，可适当缩小预测步数或增大步长</li>
+</ol>
+</li>
+<li>惩罚矩阵
+<ol>
+<li>状态跟踪误差权重矩阵 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">Q</span></span></span></span> ，用于调节状态误差的优先级</li>
+<li>控制输入权重矩阵 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> ，用于限制控制输入的幅值或变化率</li>
+<li>终端误差权重矩阵 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span> ，用于强调终端状态的准确性</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">Q</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 过于接近的话，会导致 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span> 的变化致使代价函数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi></mrow><annotation encoding="application/x-tex">J</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span></span></span></span> 的变化不明显，从而最终求解得到的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span></span></span></span> 很小</li>
+</ol>
+</li>
+</ol>
+<p>可以设定一些初始值来计算代价函数，以此来设定 NMPC 的步长和预测步数，代码如下所示，可以根据设定一个初始的力 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span> ，不断改变时间常数来计算相对应的代价函数，对比之后选择合适的时间常数。需要注意的是代价函数之间差别较小的话，会导致求解 NMPC 时陷入局部最优解，从而能很快得到结果，但是效果很差。若代价函数值过大的话，会导致计算周期长，甚至求解错误</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">predict_n = <span class="number">10</span>;</span><br><span class="line">predict_step = <span class="number">0.04</span>;</span><br><span class="line"></span><br><span class="line">x0 = [<span class="number">0</span>; <span class="number">0</span>; <span class="number">0</span>; <span class="number">0</span>];</span><br><span class="line">x_ref = [<span class="number">0</span>; <span class="number">0</span>; <span class="number">1</span>; <span class="number">0</span>];</span><br><span class="line">F_val = <span class="number">0</span>;</span><br><span class="line">X = x0;</span><br><span class="line">J = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : <span class="number">1</span> : predict_n</span><br><span class="line">    theta_ddot_val = subs(theta_ddot, [theta(t), theta_dot, x(t), x_dot, F], [X(<span class="number">1</span>, <span class="built_in">i</span>), X(<span class="number">2</span>, <span class="built_in">i</span>), X(<span class="number">3</span>, <span class="built_in">i</span>), X(<span class="number">4</span>, <span class="built_in">i</span>), F_val]);</span><br><span class="line">    x_ddot_val = subs(x_ddot, [theta(t), theta_dot, x(t), x_dot, F], [X(<span class="number">1</span>, <span class="built_in">i</span>), X(<span class="number">2</span>, <span class="built_in">i</span>), X(<span class="number">3</span>, <span class="built_in">i</span>), X(<span class="number">4</span>, <span class="built_in">i</span>), F_val]);</span><br><span class="line">    X_dot = double([X(<span class="number">2</span>, <span class="built_in">i</span>); theta_ddot_val; X(<span class="number">4</span>, <span class="built_in">i</span>); x_ddot_val]);</span><br><span class="line">    X = [X, X_dot * predict_step + X(:, <span class="built_in">i</span>)];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">J1 = <span class="number">0</span>;</span><br><span class="line">Q = <span class="built_in">diag</span>([<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">1</span>]);</span><br><span class="line">R = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : <span class="number">1</span> : predict_n + <span class="number">1</span></span><br><span class="line">    J1 = J1 + (X(:, <span class="built_in">i</span>) - x_ref)&#x27; * Q * (X(:, <span class="built_in">i</span>) - x_ref) + F_val&#x27; * R * F_val;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">F_val = <span class="number">10</span>;</span><br><span class="line">X = x0;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : <span class="number">1</span> : predict_n</span><br><span class="line">    theta_ddot_val = subs(theta_ddot, [theta(t), theta_dot, x(t), x_dot, F], [X(<span class="number">1</span>, <span class="built_in">i</span>), X(<span class="number">2</span>, <span class="built_in">i</span>), X(<span class="number">3</span>, <span class="built_in">i</span>), X(<span class="number">4</span>, <span class="built_in">i</span>), F_val]);</span><br><span class="line">    x_ddot_val = subs(x_ddot, [theta(t), theta_dot, x(t), x_dot, F], [X(<span class="number">1</span>, <span class="built_in">i</span>), X(<span class="number">2</span>, <span class="built_in">i</span>), X(<span class="number">3</span>, <span class="built_in">i</span>), X(<span class="number">4</span>, <span class="built_in">i</span>), F_val]);</span><br><span class="line">    X_dot = double([X(<span class="number">2</span>, <span class="built_in">i</span>); theta_ddot_val; X(<span class="number">4</span>, <span class="built_in">i</span>); x_ddot_val]);</span><br><span class="line">    X = [X, X_dot * predict_step + X(:, <span class="built_in">i</span>)];</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">J2 = <span class="number">0</span>;</span><br><span class="line">Q = <span class="built_in">diag</span>([<span class="number">10</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">1</span>]);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : <span class="number">1</span> : predict_n + <span class="number">1</span></span><br><span class="line">    J2 = J2 + (X(:, <span class="built_in">i</span>) - x_ref)&#x27; * Q * (X(:, <span class="built_in">i</span>) - x_ref) + F_val&#x27; * R * F_val;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">disp</span>(J1);</span><br><span class="line"><span class="built_in">disp</span>(J2);</span><br></pre></td></tr></table></figure>
+<h3 id="示例运行结果"><strong>示例运行结果</strong></h3>
+<p>该示例基于 webots+vs2022 平台实现。状态值为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>θ</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mover accent="true"><mi>θ</mi><mo>˙</mo></mover></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>x</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mover accent="true"><mi>x</mi><mo>˙</mo></mover></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">X=\begin{bmatrix}\theta\\\dot{\theta}\\x\\\dot{x}\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.891300000000001em;vertical-align:-2.1956500000000005em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6529999999999996em;"><span style="top:-1.6499900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.79999em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-3.3959900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-3.4119800000000002em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.653em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15003em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6956500000000005em;"><span style="top:-4.855650000000001em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.5643499999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.055550000000000016em;"><span class="mord">˙</span></span></span></span></span></span></span></span></span><span style="top:-2.3643499999999995em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-1.1643499999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.11111000000000001em;"><span class="mord">˙</span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1956500000000005em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6529999999999996em;"><span style="top:-1.6499900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.79999em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-3.3959900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-3.4119800000000002em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.653em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15003em;"><span></span></span></span></span></span></span></span></span></span></span> ，设定目标值为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>r</mi><mi>e</mi><mi>f</mi></mrow></msub><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.5</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">X_{ref}=\begin{bmatrix}0\\0\\0.5\\0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.80303em;vertical-align:-2.15003em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6529999999999996em;"><span style="top:-1.6499900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.79999em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-3.3959900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-3.4119800000000002em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.653em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15003em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6500000000000004em;"><span style="top:-4.8100000000000005em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span><span style="top:-1.2099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6529999999999996em;"><span style="top:-1.6499900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.79999em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-3.3959900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-3.4119800000000002em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.653em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15003em;"><span></span></span></span></span></span></span></span></span></span></span> ，运行结果如下</p>
+<p><img src="/Blog_NexT/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/1743571604645.png" alt="1743571604645.png"></p>
+<h3 id="nmpc-求解器代码示例介绍">NMPC 求解器代码示例介绍</h3>
+<p><strong>计算代价函数</strong></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">SX  J = <span class="number">0</span>;</span><br><span class="line">int <span class="built_in">i</span>;</span><br><span class="line">SX  U = SX::sym(<span class="string">&quot;u&quot;</span>, control_n, predict_n);</span><br><span class="line">SX  X = SX::sym(<span class="string">&quot;x&quot;</span>, state_n, predict_n + <span class="number">1</span>);</span><br><span class="line">SX  x0 = SX::sym(<span class="string">&quot;x0&quot;</span>, state_n);</span><br><span class="line">SX  x_ref = SX::sym(<span class="string">&quot;x_ref&quot;</span>, state_n);</span><br><span class="line">X(Slice(), <span class="number">0</span>) = x0;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; predict_n; ++<span class="built_in">i</span>) &#123;</span><br><span class="line">  SX k1 = _dynamics(SXDict&#123; &#123;<span class="string">&quot;x&quot;</span>, X(Slice(), <span class="built_in">i</span>)&#125;, &#123;<span class="string">&quot;u&quot;</span>, U(Slice(), <span class="built_in">i</span>)&#125; &#125;).at(<span class="string">&quot;xdot&quot;</span>);</span><br><span class="line">  SX k2 = _dynamics(SXDict&#123; &#123;<span class="string">&quot;x&quot;</span>, X(Slice(), <span class="built_in">i</span>) + <span class="number">0.5</span> * predict_step * k1&#125;, &#123;<span class="string">&quot;u&quot;</span>, U(Slice(), <span class="built_in">i</span>)&#125; &#125;).at(<span class="string">&quot;xdot&quot;</span>);</span><br><span class="line">  SX k3 = _dynamics(SXDict&#123; &#123;<span class="string">&quot;x&quot;</span>, X(Slice(), <span class="built_in">i</span>) + <span class="number">0.5</span> * predict_step * k2&#125;, &#123;<span class="string">&quot;u&quot;</span>, U(Slice(), <span class="built_in">i</span>)&#125; &#125;).at(<span class="string">&quot;xdot&quot;</span>);</span><br><span class="line">  SX k4 = _dynamics(SXDict&#123; &#123;<span class="string">&quot;x&quot;</span>, X(Slice(), <span class="built_in">i</span>) + <span class="number">0.5</span> * predict_step * k3&#125;, &#123;<span class="string">&quot;u&quot;</span>, U(Slice(), <span class="built_in">i</span>)&#125; &#125;).at(<span class="string">&quot;xdot&quot;</span>);</span><br><span class="line">  X(Slice(), <span class="built_in">i</span> + <span class="number">1</span>) = X(Slice(), <span class="built_in">i</span>) + (predict_step / <span class="number">6.0</span>) * (k1 + <span class="number">2</span> * k2 + <span class="number">2</span> * k3 + k4);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; predict_n; ++<span class="built_in">i</span>)</span><br><span class="line">  J += SX::<span class="built_in">dot</span>((X(Slice(), <span class="built_in">i</span>) - x_ref), SX::mtimes(_Q, (X(Slice(), <span class="built_in">i</span>) - x_ref))) + </span><br><span class="line">    SX::<span class="built_in">dot</span>(U(Slice(), <span class="built_in">i</span>), SX::mtimes(_R, U(Slice(), <span class="built_in">i</span>)));</span><br><span class="line">J += SX::mtimes((X(Slice(), <span class="built_in">i</span>) - x_ref).T(), SX::mtimes(_Q, (X(Slice(), <span class="built_in">i</span>) - x_ref)));</span><br></pre></td></tr></table></figure>
+<p><strong>设定求解器的参数</strong></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SXDict nlp = &#123;</span><br><span class="line">  &#123; <span class="string">&quot;x&quot;</span>, <span class="built_in">reshape</span>(U, <span class="number">-1</span>, <span class="number">1</span>) &#125;,</span><br><span class="line">  &#123; <span class="string">&quot;f&quot;</span>, J &#125;,</span><br><span class="line">  &#123; <span class="string">&quot;p&quot;</span>, vertcat(x0, x_ref) &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Dict opts;</span><br><span class="line">opts[<span class="string">&quot;ipopt.max_iter&quot;</span>] = <span class="number">5000</span>;</span><br><span class="line">opts[<span class="string">&quot;print_time&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">opts[<span class="string">&quot;ipopt.print_level&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">opts[<span class="string">&quot;ipopt.acceptable_tol&quot;</span>] = <span class="number">1e-6</span>;</span><br><span class="line">opts[<span class="string">&quot;ipopt.acceptable_obj_change_tol&quot;</span>] = <span class="number">1e-4</span>;</span><br><span class="line">solver = nlpsol(<span class="string">&quot;solver&quot;</span>, <span class="string">&quot;ipopt&quot;</span>, nlp, opts);</span><br></pre></td></tr></table></figure>
+<p><strong>求解结果</strong></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SX lbu = <span class="built_in">repmat</span>(_u_min, predict_n, <span class="number">1</span>);</span><br><span class="line">SX ubu = <span class="built_in">repmat</span>(_u_max, predict_n, <span class="number">1</span>);</span><br><span class="line">args[<span class="string">&quot;lbx&quot;</span>] = lbu;</span><br><span class="line">args[<span class="string">&quot;ubx&quot;</span>] = ubu;</span><br><span class="line">args[<span class="string">&quot;p&quot;</span>] = vertcat(x0, x_ref);</span><br><span class="line">args[<span class="string">&quot;x0&quot;</span>] = DM::<span class="built_in">zeros</span>(control_n * predict_n, <span class="number">1</span>);</span><br><span class="line">DMDict res = solver(args);</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">reshape</span>(res.at(<span class="string">&quot;x&quot;</span>), control_n, predict_n);</span><br></pre></td></tr></table></figure>
+<p><strong>代码地址</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/InvertedPendulum">github 仓库</a></p>
+<h2 id="参考文章">参考文章</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41627985/article/details/132073765">CasADI嵌入式部署</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_64448652/article/details/146291436">VS2022新建props属性表闪退</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2025/04/02/VS2022-%E9%85%8D%E7%BD%AE-casadi-%E6%B1%82%E8%A7%A3-NMPC-%E9%97%AE%E9%A2%98/" title="VS2022 配置 casadi 求解 NMPC 问题">https://luo25177.github.io/2025/04/02/VS2022-配置-casadi-求解-NMPC-问题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/casadi/" rel="tag"># casadi</a>
+              <a href="/Blog_NexT/tags/NMPC/" rel="tag"># NMPC</a>
+              <a href="/Blog_NexT/tags/webots/" rel="tag"># webots</a>
+              <a href="/Blog_NexT/tags/vs2022/" rel="tag"># vs2022</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2025/03/09/%E8%B6%85%E5%89%8D%E5%92%8C%E6%BB%9E%E5%90%8E%E8%A1%A5%E5%81%BF%E5%99%A8/" rel="prev" title="超前和滞后补偿器">
+      <i class="fa fa-chevron-left"></i> 超前和滞后补偿器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96%E6%B1%82%E8%A7%A3%E5%B7%A5%E5%85%B7-casadi"><span class="nav-number">2.</span> <span class="nav-text">部署优化求解工具 casadi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-ipopt-%E7%9A%84-vs2022-%E9%A2%84%E7%BC%96%E8%AF%91%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.1.</span> <span class="nav-text">下载 ipopt 的 vs2022 预编译程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-casadi-%E7%9A%84%E6%BA%90%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">下载 casadi 的源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">2.3.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-vs-%E4%B8%AD%E9%85%8D%E7%BD%AE-casadi"><span class="nav-number">3.</span> <span class="nav-text">在 vs 中配置 casadi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E5%B1%9E%E6%80%A7%E8%A1%A8"><span class="nav-number">3.1.</span> <span class="nav-text">制作属性表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">添加动态链接库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B6%E4%BB%96%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.4.</span> <span class="nav-text">一些其他的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#casadi-%E6%B1%82%E8%A7%A3-nmpc"><span class="nav-number">4.</span> <span class="nav-text">casadi 求解 NMPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">动力学分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%96%B9%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">求解系统状态空间方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-nmpc-%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">设置 NMPC 的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.4.</span> <span class="nav-text">示例运行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nmpc-%E6%B1%82%E8%A7%A3%E5%99%A8%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.5.</span> <span class="nav-text">NMPC 求解器代码示例介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:39</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>
