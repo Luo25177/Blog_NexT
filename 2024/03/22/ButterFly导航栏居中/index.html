@@ -32,8 +32,8 @@
 <meta property="article:published_time" content="2024-03-22T01:08:36.000Z">
 <meta property="article:modified_time" content="2025-04-02T12:23:47.605Z">
 <meta property="article:author" content="落">
-<meta property="article:tag" content="ButterFly">
 <meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="ButterFly">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://luo25177.github.io/2024/03/22/ButterFly%E5%AF%BC%E8%88%AA%E6%A0%8F%E5%B1%85%E4%B8%AD/">
@@ -270,22 +270,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言">前言</h2>
-<p>之前样式的导航栏实际上倒也还好，只是在查找 ButterFly 美化时恰巧看到了这个，所以就做一下并且记录下来，原文请参考 <a target="_blank" rel="noopener" href="https://b.leonus.cn/2022/hexoCenter.html">butterfly博客导航栏居中</a></p>
-<h2 id="搜索按钮修改">搜索按钮修改</h2>
-<p>按照如下代码修改文件 <code>themes\butterfly\layout\includes\header\nav.pug</code></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前样式的导航栏实际上倒也还好，只是在查找 ButterFly 美化时恰巧看到了这个，所以就做一下并且记录下来，原文请参考 <a target="_blank" rel="noopener" href="https://b.leonus.cn/2022/hexoCenter.html">butterfly博客导航栏居中</a></p>
+<h2 id="搜索按钮修改"><a href="#搜索按钮修改" class="headerlink" title="搜索按钮修改"></a>搜索按钮修改</h2><p>按照如下代码修改文件 <code>themes\butterfly\layout\includes\header\nav.pug</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">nav#nav</span><br><span class="line">  span#blog-info</span><br><span class="line">    a(href=url_for(&#x27;/&#x27;) title=config.title)</span><br><span class="line">      if theme.nav.logo</span><br><span class="line">        img.site-icon(src=url_for(theme.nav.logo))</span><br><span class="line">      if theme.nav.display_title</span><br><span class="line">        span.site-name=config.title</span><br><span class="line">    </span><br><span class="line">  #menus</span><br><span class="line">    !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br><span class="line">    #nav-right</span><br><span class="line">      if (theme.algolia_search.enable || theme.local_search.enable || theme.docsearch.enable)</span><br><span class="line">        #search-button</span><br><span class="line">          a.site-page.social-icon.search(href=&quot;javascript:void(0);&quot;)</span><br><span class="line">            i.fas.fa-search.fa-fw</span><br><span class="line">          //- span=&#x27; &#x27;+_p(&#x27;search.title&#x27;)</span><br><span class="line"></span><br><span class="line">    #toggle-menu</span><br><span class="line">      a.site-page(href=&quot;javascript:void(0);&quot;)</span><br><span class="line">        i.fas.fa-bars.fa-fw</span><br></pre></td></tr></table></figure>
-<h2 id="导航栏居中">导航栏居中</h2>
-<p>导航栏只需要绝对定位，然后距离屏幕左边 50% ，然后再往左移动自身的 50% 就可以了，这里需要写一个自定义的 <code>css</code> 文件，在文件夹下创建文件 <code>themes\butterfly\source\css\Navigation_style.css</code> ，在其中写入如下内容</p>
+<h2 id="导航栏居中"><a href="#导航栏居中" class="headerlink" title="导航栏居中"></a>导航栏居中</h2><p>导航栏只需要绝对定位，然后距离屏幕左边 50% ，然后再往左移动自身的 50% 就可以了，这里需要写一个自定义的 <code>css</code> 文件，在文件夹下创建文件 <code>themes\butterfly\source\css\Navigation_style.css</code> ，在其中写入如下内容</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#nav</span> <span class="selector-class">.menus_items</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">width</span>: fit-content;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里使用 <code>fit-content</code> 使 <code>menus_items</code> 的宽度为内容宽度，可以避免一些奇怪的 bug</p>
-<h2 id="子菜单栏横向">子菜单栏横向</h2>
-<p>子菜单居中其实也非常的简单，只需要使其所有子菜单先变成横向，然后再居中就好了</p>
-<h3 id="子菜单横向">子菜单横向</h3>
-<p>再上述所建立的 <code>.css</code> 文件中再添加如下代码</p>
+<h2 id="子菜单栏横向"><a href="#子菜单栏横向" class="headerlink" title="子菜单栏横向"></a>子菜单栏横向</h2><p>子菜单居中其实也非常的简单，只需要使其所有子菜单先变成横向，然后再居中就好了</p>
+<h3 id="子菜单横向"><a href="#子菜单横向" class="headerlink" title="子菜单横向"></a>子菜单横向</h3><p>再上述所建立的 <code>.css</code> 文件中再添加如下代码</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#nav</span> <span class="selector-class">.menus_items</span> <span class="selector-class">.menus_item</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.menus_item_child</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="子菜单居中">子菜单居中</h3>
-<p>居中可以单独给每一个 <code>ul</code> 元素添加样式，可以把每一个子菜单调节到满意的位置，但是如果新增菜单需要修改一下这个文件</p>
+<h3 id="子菜单居中"><a href="#子菜单居中" class="headerlink" title="子菜单居中"></a>子菜单居中</h3><p>居中可以单独给每一个 <code>ul</code> 元素添加样式，可以把每一个子菜单调节到满意的位置，但是如果新增菜单需要修改一下这个文件</p>
 <p>然后给每一个子菜单设置样式，这里拿其中一个做演示，如果有多个折叠子菜单，多复制几个就可以</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 这里的2是代表导航栏的第二个元素，即有子菜单的元素，可以按自己需求修改 */</span></span><br><span class="line"><span class="selector-class">.menus_items</span> <span class="selector-class">.menus_item</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>) <span class="selector-class">.menus_item_child</span> &#123;</span><br><span class="line">    <span class="attribute">left</span>: -<span class="number">65px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -314,8 +308,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/Blog_NexT/tags/ButterFly/" rel="tag"># ButterFly</a>
               <a href="/Blog_NexT/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/Blog_NexT/tags/ButterFly/" rel="tag"># ButterFly</a>
           </div>
 
         
@@ -462,12 +456,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:46</span>
+    <span title="站点阅读时长">17:59</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
