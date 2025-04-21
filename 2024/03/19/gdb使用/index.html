@@ -269,34 +269,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言">前言</h2>
-<h3 id="gdb-功能">gdb 功能</h3>
-<ul>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="gdb-功能"><a href="#gdb-功能" class="headerlink" title="gdb 功能"></a>gdb 功能</h3><ul>
 <li>动态改变程序的执行环境。</li>
 <li>自定义启动运行需要调试的程序。</li>
 <li>在指定位置使用条件表达式设置断点。</li>
 <li>在程序暂停时观察代码内变量值的变化。</li>
 </ul>
-<h3 id="开始前准备">开始前准备</h3>
-<p>主要是生成调试信息，在编译的时候，添加 <code>-g</code> 选项来生成调试信息，以此来使用 gdb 的调试</p>
-<h2 id="gdb-外部指令">gdb 外部指令</h2>
-<ul>
+<h3 id="开始前准备"><a href="#开始前准备" class="headerlink" title="开始前准备"></a>开始前准备</h3><p>主要是生成调试信息，在编译的时候，添加 <code>-g</code> 选项来生成调试信息，以此来使用 gdb 的调试</p>
+<h2 id="gdb-外部指令"><a href="#gdb-外部指令" class="headerlink" title="gdb 外部指令"></a>gdb 外部指令</h2><ul>
 <li><code>gdb 可执行文件名</code> 启动 gdb 调试</li>
 <li><code>gdb --help</code> 查看指令帮助</li>
 <li><code>man gdb</code> 查看 gdb 手册</li>
 <li><code>gdb -x xxx</code> 在 gdb 启动时运行一些脚本</li>
 <li><code>gdb --version</code> 查看 gdb 版本</li>
 </ul>
-<h2 id="gdb-内部指令">gdb 内部指令</h2>
-<h3 id="开始运行">开始运行</h3>
-<ul>
+<h2 id="gdb-内部指令"><a href="#gdb-内部指令" class="headerlink" title="gdb 内部指令"></a>gdb 内部指令</h2><h3 id="开始运行"><a href="#开始运行" class="headerlink" title="开始运行"></a>开始运行</h3><ul>
 <li><code>r/run</code> 开始运行，会一直运行，直到断点</li>
 <li><code>start</code> 开始运行，在 <code>main</code> 处会停下来</li>
 <li><code>starti</code> 开始运行，在第一条指令处停下来</li>
 <li><code>r/run param</code> 开始运行，会一直运行，直到断点，后面的 <code>param</code> 就是可执行文件后面需要跟的参数</li>
 </ul>
-<h3 id="运行中指令">运行中指令</h3>
-<ul>
+<h3 id="运行中指令"><a href="#运行中指令" class="headerlink" title="运行中指令"></a>运行中指令</h3><ul>
 <li><code>c/continue</code> 继续运行，一直运行，直到下一个断点</li>
 <li><code>c/continue n</code> 继续运行，一直运行，会忽略 <code>n</code> 个断点</li>
 <li><code>s/step</code> 单步，不进入函数内部</li>
@@ -309,8 +302,7 @@
 <li><code>u</code> 退出当前循环体</li>
 <li><code>step, next, stepi, nexti</code> 后面加次数都表示执行一定次数该指令</li>
 </ul>
-<h3 id="调试中变量相关">调试中变量相关</h3>
-<ul>
+<h3 id="调试中变量相关"><a href="#调试中变量相关" class="headerlink" title="调试中变量相关"></a>调试中变量相关</h3><ul>
 <li><code>info args</code> 打印当前函数的参数名及值</li>
 <li><code>info locals</code> 打印当前函数中所有局部变量及其值</li>
 <li><code>set var arg=val</code> 设置变量的值</li>
@@ -320,8 +312,7 @@
 <li><code>wha/whatis arg</code> 显示变量的类型</li>
 <li><code>show arg</code> 可以显示历史中变量的最后十个值</li>
 </ul>
-<h3 id="断点和监视点">断点和监视点</h3>
-<p><strong>断点</strong></p>
+<h3 id="断点和监视点"><a href="#断点和监视点" class="headerlink" title="断点和监视点"></a>断点和监视点</h3><p><strong>断点</strong></p>
 <ul>
 <li><code>b func_name</code> 在函数处添加断点</li>
 <li><code>b *func_name</code> 在函数处添加断点，这里使用 <code>*</code> 的主要是为了使断点设置到汇编语言层的函数开头</li>
@@ -353,8 +344,7 @@
 <li><code>delete</code> 删除所有断点和监视点</li>
 <li><code>delete n</code> 删除 <code>n</code> 号断点或者监视点</li>
 </ul>
-<h3 id="窗口指令">窗口指令</h3>
-<ul>
+<h3 id="窗口指令"><a href="#窗口指令" class="headerlink" title="窗口指令"></a>窗口指令</h3><ul>
 <li><code>layout src</code> 显示源码</li>
 <li><code>layout asm</code> 显示汇编代码</li>
 <li><code>layout split</code> 显示源代码和汇编代码</li>
@@ -369,8 +359,7 @@
 <li><code>focus asm</code> 聚焦到汇编代码窗口</li>
 <li><code>focus regs</code> 聚焦到寄存器窗口</li>
 <li><code>refresh</code> 刷新所有窗口</li>
-<li><code>winheight name +/- line</code> 调整 <code>name</code> 窗口高度
-<ul>
+<li><code>winheight name +/- line</code> 调整 <code>name</code> 窗口高度<ul>
 <li><code>reg</code> 寄存器</li>
 <li><code>cmd</code> 命令行</li>
 <li><code>src</code> 源码</li>
@@ -379,24 +368,21 @@
 </li>
 <li><code>update</code> 更新源代码窗口和当前执行点</li>
 <li><code>ctrl-l</code> 刷新窗口</li>
-<li><code>ctrl-x + n</code> 也就是先按下 <code>ctrl-x</code> 然后再按 <code>n</code>
-<ul>
+<li><code>ctrl-x + n</code> 也就是先按下 <code>ctrl-x</code> 然后再按 <code>n</code><ul>
 <li><code>1</code> 单窗口模式，显示一个窗口</li>
 <li><code>2</code> 双窗口模式，显示两个窗口</li>
 <li><code>a</code> 回到传统模式，也就是退出 <code>layout</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="寄存器指令">寄存器指令</h3>
-<ul>
+<h3 id="寄存器指令"><a href="#寄存器指令" class="headerlink" title="寄存器指令"></a>寄存器指令</h3><ul>
 <li><code>i/info reg/register</code> 显示寄存器的值，不包括浮点寄存器和向量寄存器的内容</li>
 <li><code>i/info all-register/reg</code> 显示所有寄存器的内容</li>
 <li><code>i regsiter/reg reg_name</code> 显示 <code>reg_name</code> 寄存器的内容</li>
 <li><code>p/print $reg</code> 显示对应寄存器 <code>reg</code> 的值</li>
 <li><code>set var $reg=n</code> 设置寄存器 <code>reg</code> 的值为 <code>n</code></li>
 </ul>
-<h3 id="栈帧操作">栈帧操作</h3>
-<ul>
+<h3 id="栈帧操作"><a href="#栈帧操作" class="headerlink" title="栈帧操作"></a>栈帧操作</h3><ul>
 <li><code>bt/backtrace</code> 查看栈回溯信息，执行该栈回溯命令后，会显示程序执行到什么位置，包含哪些帧等信息。每一帧都有一个编号，从 0 开始。0 表示当前正在执行的函数，1 表示调用当前函数的函数，以此类推。栈回溯是倒序排列的</li>
 <li><code>bt/backtrace n</code> 只显示开头 <code>n</code> 个栈帧</li>
 <li><code>bt/backtrace -n</code> 只显示最后 <code>n</code> 个栈帧</li>
@@ -413,12 +399,10 @@
 <li><code>whe/where</code> 查看调用的堆栈</li>
 <li><code>disas/disassemble</code> 反汇编当前的函数或者指定函数</li>
 </ul>
-<h3 id="显示指令">显示指令</h3>
-<ul>
+<h3 id="显示指令"><a href="#显示指令" class="headerlink" title="显示指令"></a>显示指令</h3><ul>
 <li><code>p/print /格式 arg/$reg</code> 用于指定显示格式</li>
 <li><code>x /格式 addr</code> 用指定格式显示 <code>addr</code> 内存中的内容</li>
-<li>格式
-<ul>
+<li>格式<ul>
 <li><code>x</code> 显示为 16 进制数字</li>
 <li><code>d</code> 显示为 10 进制数字</li>
 <li><code>u</code> 显示为无符号 10 进制数字</li>
@@ -431,8 +415,7 @@
 <li><code>i</code> 显示为机器语言(仅在显示内存的X命令中可以使用)</li>
 </ul>
 </li>
-<li><code>x /NFU addr</code> 其中 <code>N</code> 表示向下显示多少个， <code>F</code> 表示格式，如上， <code>U</code> 表示单位大小
-<ul>
+<li><code>x /NFU addr</code> 其中 <code>N</code> 表示向下显示多少个， <code>F</code> 表示格式，如上， <code>U</code> 表示单位大小<ul>
 <li><code>b</code> 字节</li>
 <li><code>h</code> 半字</li>
 <li><code>w</code> 字</li>
@@ -447,8 +430,7 @@
 <li><code>disable display n</code> 禁用 <code>n</code> 号跟踪变量</li>
 <li><code>enable display n</code> 启用 <code>n</code> 号跟踪变量</li>
 </ul>
-<h3 id="反向调试">反向调试</h3>
-<ul>
+<h3 id="反向调试"><a href="#反向调试" class="headerlink" title="反向调试"></a>反向调试</h3><ul>
 <li><code>record</code> 用于开始记录程序反向调试所需要的信息，其中包括保存程序的每一步每一行的结果等信息，而且反向调试只能到执行这条指令的位置，如果没有执行这条指令是没有办法进行反向调试的</li>
 <li><code>record stop</code> 停止反向调试，反向调试的记录停止，就可以开始正常运行了</li>
 <li><code>rc/reverse-continue</code> 开始反向运行，直到碰到一个断点</li>
@@ -459,26 +441,22 @@
 <li><code>reverse-finish</code> 反向运行程序回到调用当前函数的地方</li>
 <li><code>set exec-direction [forward|reverse]</code> 设置程序运行方向，就可以使用 <code>stop</code> 和 <code>continue</code> 等指令来执行反向的调试指令</li>
 </ul>
-<h3 id="抓取和释放进程">抓取和释放进程</h3>
-<ul>
+<h3 id="抓取和释放进程"><a href="#抓取和释放进程" class="headerlink" title="抓取和释放进程"></a>抓取和释放进程</h3><ul>
 <li><code>detach</code> 将正在调试的进程释放掉，不再进行调试，该进程会继续执行</li>
 <li><code>attach pid</code> 可以调试已经启动的进程，或者调试陷入死循环而无法返回的控制台进程</li>
 </ul>
-<h3 id="结束">结束</h3>
-<ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><ul>
 <li><code>q/quit</code> 退出当前调试</li>
 <li><code>k/kill</code> 杀死当前正在调试的进程，不会退出，可以重新使用开始运行指令开始</li>
 </ul>
-<h3 id="其它一些操作">其它一些操作</h3>
-<ul>
+<h3 id="其它一些操作"><a href="#其它一些操作" class="headerlink" title="其它一些操作"></a>其它一些操作</h3><ul>
 <li><code>edit</code> 编辑文件或者函数</li>
 <li><code>find dir xxx</code> 寻找 <code>dir</code> 路径下名为 <code>xxx</code> 的文件</li>
 <li><code>dir</code> 用于指定源文件目录</li>
 <li><code>print-object arg</code> 显示目标信息</li>
 <li><code>sharelibrary</code> 加载共享的符号</li>
 </ul>
-<h2 id="gdb-初始化文件">gdb 初始化文件</h2>
-<p>linux 环境下初始化文件为 <code>.gdbinit</code> 文件，会在用户的主目录下寻找一个名为 <code>.gdbinit</code> 的文件，如果存在该文件，gdb 就会在启动之前将其作为命令文件运行，初始化文件和命令文件运行顺序如下</p>
+<h2 id="gdb-初始化文件"><a href="#gdb-初始化文件" class="headerlink" title="gdb 初始化文件"></a>gdb 初始化文件</h2><p>linux 环境下初始化文件为 <code>.gdbinit</code> 文件，会在用户的主目录下寻找一个名为 <code>.gdbinit</code> 的文件，如果存在该文件，gdb 就会在启动之前将其作为命令文件运行，初始化文件和命令文件运行顺序如下</p>
 <ol>
 <li><code>~/.gdbinit</code></li>
 <li>运行命令选项</li>
@@ -491,8 +469,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layout src</span><br></pre></td></tr></table></figure>
 <p>但是一般来说，当在一个非 <code>home</code> 目录下添加一个 <code>.gdbinit</code> 时，就必须要在 <code>home</code> 目录下添加一个 <code>.gdbinit</code> 文件，并且此文件中必须声明</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add-auto-load-safe-path xxx/.gdbinit</span><br></pre></td></tr></table></figure>
-<h2 id="后记">后记</h2>
-<p>虽然 gdb 调试很强大，但是没有一个交互的页面其实也是有点难受的，但是 gdb 调试适用性很广。现在大部分都可以直接使用 vscode+cmake 来调试，其实很方便，能把所有变量都放在侧边栏以便调试确实很不错。但是丝毫不影响 gdb 的强大。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>虽然 gdb 调试很强大，但是没有一个交互的页面其实也是有点难受的，但是 gdb 调试适用性很广。现在大部分都可以直接使用 vscode+cmake 来调试，其实很方便，能把所有变量都放在侧边栏以便调试确实很不错。但是丝毫不影响 gdb 的强大。</p>
 
     </div>
 
@@ -666,12 +643,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:49</span>
+    <span title="站点阅读时长">18:03</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

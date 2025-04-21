@@ -41,9 +41,9 @@
 <meta property="article:published_time" content="2025-04-11T10:59:02.000Z">
 <meta property="article:modified_time" content="2025-04-11T11:00:10.760Z">
 <meta property="article:author" content="落">
+<meta property="article:tag" content="Adams">
 <meta property="article:tag" content="机械结构设计">
 <meta property="article:tag" content="机械结构仿真">
-<meta property="article:tag" content="Adams">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744274446346.png">
 
@@ -275,9 +275,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="sw-模型装配与导出">SW 模型装配与导出</h2>
-<h3 id="模型装配问题">模型装配问题</h3>
-<p>这里使用一个简单的曲柄滑块模型来进行示例，如下图所示为装配好的装配体</p>
+        <h2 id="SW-模型装配与导出"><a href="#SW-模型装配与导出" class="headerlink" title="SW 模型装配与导出"></a>SW 模型装配与导出</h2><h3 id="模型装配问题"><a href="#模型装配问题" class="headerlink" title="模型装配问题"></a>模型装配问题</h3><p>这里使用一个简单的曲柄滑块模型来进行示例，如下图所示为装配好的装配体</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744274446346.png" alt="1744274446346.png"></p>
 <p><strong>注意</strong></p>
 <ol>
@@ -286,8 +284,7 @@
 <li>SW 中绘制模型时，不要使用中文名称，否则导入到 adams 之后会出现文件名称显示错误的问题，到时候不好操作</li>
 <li>在 SW 模型中固定的零件，导入到 adams 中之后是属于 ground 的实体，所以如果期望这个结构不固定的话，就不能定义为固定的零件</li>
 </ol>
-<h3 id="模型导出问题">模型导出问题</h3>
-<p>模型导出为 adams 文件需要使用 SOLIDWORKS Motions 这个插件，而且需要使用运动算例，步骤如下</p>
+<h3 id="模型导出问题"><a href="#模型导出问题" class="headerlink" title="模型导出问题"></a>模型导出问题</h3><p>模型导出为 adams 文件需要使用 SOLIDWORKS Motions 这个插件，而且需要使用运动算例，步骤如下</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/a.png" alt="屏幕截图 2025-04-10 164445.png"></p>
 <ol>
 <li>点击运动算例</li>
@@ -302,8 +299,7 @@
 <li>输出出来的文件格式为 .adm 形式</li>
 <li>在 SW 中，装配体所处的位置与导入 adams 之后位置一样，所以一开始在装配体中就把位置搞好，别导入 adams 之后找不到了</li>
 </ol>
-<h2 id="模型导入">模型导入</h2>
-<p>打开 adams view 之后选择导入现有模型</p>
+<h2 id="模型导入"><a href="#模型导入" class="headerlink" title="模型导入"></a>模型导入</h2><p>打开 adams view 之后选择导入现有模型</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744286621614.png" alt="1744286621614.png"></p>
 <p>选择对应的文件即可导入模型。右下角的几个图标，从左往右的作用依次是</p>
 <ol>
@@ -315,23 +311,18 @@
 <li>零件渲染方式</li>
 <li>隐藏/显示子坐标系，运动副等</li>
 </ol>
-<h2 id="设定力与驱动">设定力与驱动</h2>
-<h3 id="设定力">设定力</h3>
-<p>选择对应的力的形式，然后在图上选择对应的零件（1 个或者 2 个）然后对于作用力还需要选择力的方向。需要注意的是，这里基本上都需要在图上进行选择这些力的作用点和作用方向</p>
+<h2 id="设定力与驱动"><a href="#设定力与驱动" class="headerlink" title="设定力与驱动"></a>设定力与驱动</h2><h3 id="设定力"><a href="#设定力" class="headerlink" title="设定力"></a>设定力</h3><p>选择对应的力的形式，然后在图上选择对应的零件（1 个或者 2 个）然后对于作用力还需要选择力的方向。需要注意的是，这里基本上都需要在图上进行选择这些力的作用点和作用方向</p>
 <p>一般最常用的就是接触力，所以这里介绍一下接触力的设定</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744288787112.png" alt="1744288787112.png"></p>
 <p>具体步骤上图所示，需要注意的是，接触力并不需要从图中指定，而是从双击框弹出来的窗口中选择，而且需要选择的 Solid 类型的模型，这个可以查看右侧窗口中的 Model 类型。不需要从图中选择是因为它是两个物体之间接触产生的力，并不是一个固定的力，除此以外还可以设置接触力的摩擦系数等</p>
-<h3 id="设定驱动">设定驱动</h3>
-<p>一般常用的驱动就是运动副驱动，选择之后需要在图上点击，选择对应的运动副，前提是要打开显示运动副才能点到</p>
+<h3 id="设定驱动"><a href="#设定驱动" class="headerlink" title="设定驱动"></a>设定驱动</h3><p>一般常用的驱动就是运动副驱动，选择之后需要在图上点击，选择对应的运动副，前提是要打开显示运动副才能点到</p>
 <p>如果点错了也没关系，可以右键选择对应的驱动，选择修改该驱动，可以更改该驱动对应的的运动副和运动类型</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744288539609.png" alt="1744288539609.png"></p>
 <p>如图所示，选择正确的运动副即可。对于驱动的运动，可以修改图中函数对应的内容，即可实现想要的运动了，可以修改驱动控制的类型是力、速度或位移等</p>
-<h2 id="开始仿真">开始仿真</h2>
-<p>设置好上面的东西之后就可以开始仿真了</p>
+<h2 id="开始仿真"><a href="#开始仿真" class="headerlink" title="开始仿真"></a>开始仿真</h2><p>设置好上面的东西之后就可以开始仿真了</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744289328359.png" alt="1744289328359.png"></p>
 <p>在该窗口上可以设置终止时间、步数、步长等信息。分析类型一般选择默认就可以，也可以选择想用的分析类型。还可以选择选择是否更新图形显示，关掉的话可以加快一点解算的速度。设置完成之后点击绿三角即可开始仿真</p>
-<h2 id="仿真结果分析">仿真结果分析</h2>
-<p>依旧是仿真的这个界面，最下面一行的五个按键</p>
+<h2 id="仿真结果分析"><a href="#仿真结果分析" class="headerlink" title="仿真结果分析"></a>仿真结果分析</h2><p>依旧是仿真的这个界面，最下面一行的五个按键</p>
 <p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744291161222.png" alt="1744291161222.png"></p>
 <ol>
 <li>第一个是保存仿真结果，保存之后的仿真结果可以在视窗中的结果中看到。每次仿真都会默认保存到 Last_Run 中，如果不希望结果被覆盖就可以将仿真结果保存，这样再次进行仿真就会保留原来的结果</li>
@@ -341,21 +332,17 @@
 <li>第五个是数据绘图分析</li>
 </ol>
 <p>选择保存仿真结果，之后仿真结果就会被保存在当前工作目录下</p>
-<h3 id="绘图分析">绘图分析</h3>
-<p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744292388977.png" alt="1744292388977.png"></p>
+<h3 id="绘图分析"><a href="#绘图分析" class="headerlink" title="绘图分析"></a>绘图分析</h3><p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744292388977.png" alt="1744292388977.png"></p>
 <p>如图所示，依次选择模型、过滤器、对象、特征和分量，选择对应的分量之后即可点击添加曲线，就可以把对应的曲线添加到图中</p>
 <ul>
-<li>过滤器
-<ul>
+<li>过滤器<ul>
 <li>body：即物体部分</li>
 <li>force：力</li>
 <li>constraint：即连接和驱动部分</li>
 </ul>
 </li>
-<li>特征，不同的过滤器下的部分的特征是不同的
-<ul>
-<li>物体特征
-<ul>
+<li>特征，不同的过滤器下的部分的特征是不同的<ul>
+<li>物体特征<ul>
 <li><code>CM_Position</code> 质心位置</li>
 <li><code>CM_Velocity</code> 质心速度</li>
 <li><code>CM_Acceleration</code> 质心加速度</li>
@@ -369,14 +356,12 @@
 <li><code>Potential_Energy_Delta</code> <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Delta%E4%BD%8D%E5%8A%BF%E5%9E%92/22360061">Delta 位势垒</a></li>
 </ul>
 </li>
-<li>力
-<ul>
+<li>力<ul>
 <li><code>Element_Force</code> 力</li>
 <li><code>Element_Torque</code> 力矩</li>
 </ul>
 </li>
-<li>运动副
-<ul>
+<li>运动副<ul>
 <li><code>Element_Force</code> 力</li>
 <li><code>Element_Torque</code> 力矩</li>
 <li><code>Translational_Displacement</code> 平移位移</li>
@@ -387,8 +372,7 @@
 <li><code>Angular_Acceleration</code> 角加速度</li>
 </ul>
 </li>
-<li>驱动：相对于运动副之外，额外多了一个
-<ul>
+<li>驱动：相对于运动副之外，额外多了一个<ul>
 <li><code>Power_Consumption</code> 功耗</li>
 </ul>
 </li>
@@ -396,14 +380,12 @@
 </li>
 </ul>
 <p>最后可以在右上角文件的地方，选择导出数据文件</p>
-<h3 id="动画导出">动画导出</h3>
-<p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744294464352.png" alt="1744294464352.png"></p>
+<h3 id="动画导出"><a href="#动画导出" class="headerlink" title="动画导出"></a>动画导出</h3><p><img src="/Blog_NexT/2025/04/11/Adams-%E4%BB%BF%E7%9C%9F%E5%85%A5%E9%97%A8/1744294464352.png" alt="1744294464352.png"></p>
 <ol>
 <li>在右上角选择动画，即可进入动画分析</li>
 <li>在屏幕上右键点击选择加载动画即可出现图中窗口，选择上面步骤中保存的仿真结果，也可以选择 Last_Run 即上次仿真结果</li>
 </ol>
-<h2 id="后记">后记</h2>
-<p>不得不说，这个 adams 古早的软件用起来各种东西都与比较常用的 SW 相差甚远，总之就是操作很难受，不过如果一步步认真来还是能很好的做出来的。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>不得不说，这个 adams 古早的软件用起来各种东西都与比较常用的 SW 相差甚远，总之就是操作很难受，不过如果一步步认真来还是能很好的做出来的。</p>
 <p>网络上很多 adams 的使用是直接在 adams 中进行建模，或者是将 SW 的模型导出为 Parasolid 格式，这种导入之后会有个缺点，就是需要自己手动对各个零件添加运动副关系，一旦零件数量多了就显得十分麻烦（面对我那 20 多个零件的模型发出无力的叹息），再加上 adams 选点操作实在令人难受，所以就选择了使用 SW motion 插件来导出 Adams 文件。这个插件具有很强大的 adams 兼容能力，几乎在 SW 中的所有配合都能很好的转化为 Adams 中的连接约束，极大的简化了工作流程，最终验证之后的效果也非常好</p>
 <p>本人花费了三天的时间研究这个 adams 的基础使用，多亏了实验室的学长学姐的帮助才避免了很多坑。以此写下这些步骤，以便大家共同学习</p>
 
@@ -432,9 +414,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/Blog_NexT/tags/Adams/" rel="tag"># Adams</a>
               <a href="/Blog_NexT/tags/%E6%9C%BA%E6%A2%B0%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="tag"># 机械结构设计</a>
               <a href="/Blog_NexT/tags/%E6%9C%BA%E6%A2%B0%E7%BB%93%E6%9E%84%E4%BB%BF%E7%9C%9F/" rel="tag"># 机械结构仿真</a>
-              <a href="/Blog_NexT/tags/Adams/" rel="tag"># Adams</a>
           </div>
 
         
@@ -508,7 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sw-%E6%A8%A1%E5%9E%8B%E8%A3%85%E9%85%8D%E4%B8%8E%E5%AF%BC%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">SW 模型装配与导出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%A3%85%E9%85%8D%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">模型装配问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">模型导出问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">模型导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%AE%9A%E5%8A%9B%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">设定力与驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%AE%9A%E5%8A%9B"><span class="nav-number">3.1.</span> <span class="nav-text">设定力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%AE%9A%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.2.</span> <span class="nav-text">设定驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E4%BB%BF%E7%9C%9F"><span class="nav-number">4.</span> <span class="nav-text">开始仿真</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">仿真结果分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%9B%BE%E5%88%86%E6%9E%90"><span class="nav-number">5.1.</span> <span class="nav-text">绘图分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E5%AF%BC%E5%87%BA"><span class="nav-number">5.2.</span> <span class="nav-text">动画导出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SW-%E6%A8%A1%E5%9E%8B%E8%A3%85%E9%85%8D%E4%B8%8E%E5%AF%BC%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">SW 模型装配与导出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%A3%85%E9%85%8D%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">模型装配问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">模型导出问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">模型导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%AE%9A%E5%8A%9B%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">设定力与驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%AE%9A%E5%8A%9B"><span class="nav-number">3.1.</span> <span class="nav-text">设定力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E5%AE%9A%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.2.</span> <span class="nav-text">设定驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E4%BB%BF%E7%9C%9F"><span class="nav-number">4.</span> <span class="nav-text">开始仿真</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">仿真结果分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%9B%BE%E5%88%86%E6%9E%90"><span class="nav-number">5.1.</span> <span class="nav-text">绘图分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E5%AF%BC%E5%87%BA"><span class="nav-number">5.2.</span> <span class="nav-text">动画导出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -581,12 +563,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:49</span>
+    <span title="站点阅读时长">18:03</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

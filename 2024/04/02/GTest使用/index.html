@@ -273,22 +273,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言">前言</h2>
-<p>在编写代码中有 <code>bug</code> 很常见，通过编写完备的<strong>单元测试</strong>，可以及时发现问题，并且在后续的代码改进中持续观测是否引入了新的 <code>bug</code> ，使用 <code>GTest</code> 是一个不错的选择</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在编写代码中有 <code>bug</code> 很常见，通过编写完备的<strong>单元测试</strong>，可以及时发现问题，并且在后续的代码改进中持续观测是否引入了新的 <code>bug</code> ，使用 <code>GTest</code> 是一个不错的选择</p>
 <p><code>GTest</code> 可以用作代码的检测，一般来说可以搭配 <code>CTest</code> 来进行测试</p>
-<h3 id="单元测试">单元测试</h3>
-<p>就是对程序中最小的单元进行测试，最小的可测试单元可以是一个函数，一个调用过程，一个类等</p>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>就是对程序中最小的单元进行测试，最小的可测试单元可以是一个函数，一个调用过程，一个类等</p>
 <p>对于 <code>C/C++</code> 来说，测试一般是一个函数，检测目标函数在所有可能的输入下，函数执行过程和输出是否符合预期</p>
 <p>在测试功能中，每一个单元都是一个可执行文件，实现了 <code>main</code> 函数，所以要在 <code>CMakeLists.txt</code> 中使用 <code>add_test</code> 命令来添加测试用例</p>
-<h3 id="测试用例">测试用例</h3>
-<p>指的是对一项特定的任务进行测试，体现着测试方案，方法，技术和策略等，包括测试目标，环境，输入数据，步骤，预期结果和测试脚本等</p>
+<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>指的是对一项特定的任务进行测试，体现着测试方案，方法，技术和策略等，包括测试目标，环境，输入数据，步骤，预期结果和测试脚本等</p>
 <p>对于上述单元测试，就是在不同输入下，目标函数的预期执行过程和输出，不同的情形可以有一个或者多个测试用例，编写测试用例<strong>尽量覆盖所有输入情况</strong>，特别是边界值，特殊值和异常</p>
-<h2 id="gtest介绍">GTest介绍</h2>
-<p>是 Google 开源的一个跨平台的 <code>C++</code> 单元测试框架（ <code>Google Test</code> ），提供了非常丰富的测试断言、判断宏，便于开发者编写测试用例。</p>
-<h2 id="gtest配置">GTest配置</h2>
-<p>下载地址 <a target="_blank" rel="noopener" href="https://github.com/google/googletest">google-test</a></p>
-<h3 id="安装-linux">安装——linux</h3>
-<p>在终端命令行中输入指令</p>
+<h2 id="GTest介绍"><a href="#GTest介绍" class="headerlink" title="GTest介绍"></a>GTest介绍</h2><p>是 Google 开源的一个跨平台的 <code>C++</code> 单元测试框架（ <code>Google Test</code> ），提供了非常丰富的测试断言、判断宏，便于开发者编写测试用例。</p>
+<h2 id="GTest配置"><a href="#GTest配置" class="headerlink" title="GTest配置"></a>GTest配置</h2><p>下载地址 <a target="_blank" rel="noopener" href="https://github.com/google/googletest">google-test</a></p>
+<h3 id="安装——linux"><a href="#安装——linux" class="headerlink" title="安装——linux"></a>安装——linux</h3><p>在终端命令行中输入指令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libgtest-dev</span><br></pre></td></tr></table></figure>
 <p>然后对应的源码会下载到 <code>/usr/src/</code> 文件夹</p>
 <p>进入 <code>/usr/src/</code> 文件夹之后，会看到 <code>gtest</code> 文件夹，进入其中并且执行下列指令（在该文件夹下的操作需要有 <code>root</code> 权限）</p>
@@ -296,8 +290,7 @@
 <p>执行结束之后，会在 <code>build</code> 文件夹下看到 <code>lib</code> 文件夹，里面是编译好的静态库文件，进入其中执行以下指令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp libgtest*.a /usr/local/lib</span><br></pre></td></tr></table></figure>
 <p>将静态库文件复制到 <code>lib</code> 目录下，之后就可以在项目中使用 <code>find_package</code> 来找到 <code>gtest</code> 并且使用 <code>target_link_libraries</code> 指令在项目中使用了</p>
-<h3 id="配置-windows">配置——windows</h3>
-<p>在 <code>windows</code> 上的配置，可以直接将 <code>GTest</code> 添加到项目中。例如在根目录下新建一个文件夹为 <code>third_party</code> ，下载 <code>realse</code> 版本，并且解压</p>
+<h3 id="配置——windows"><a href="#配置——windows" class="headerlink" title="配置——windows"></a>配置——windows</h3><p>在 <code>windows</code> 上的配置，可以直接将 <code>GTest</code> 添加到项目中。例如在根目录下新建一个文件夹为 <code>third_party</code> ，下载 <code>realse</code> 版本，并且解压</p>
 <p>需要修改根目录 <code>CMakeLists.txt</code> 文件，使用指令 <code>add_subdirectory</code> 导入 <code>gtest</code> 到项目中，在开启单元测试时，添加 <code>gtest</code> 为子模块，并将对应的头文件路径添加进来</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enable_testing()</span><br><span class="line">add_subdirectory(third_party/googletest-release-1.12.1)</span><br><span class="line">include_directories(third_party/googletest-release-1.12.1/googletest/include)</span><br></pre></td></tr></table></figure>
 <p>此时执行 <code>cmake -B build</code> 可以看到构建目录下多了一个 <code>build/third_party/googletest-release-1.12.1</code> ，在构建的目录编译 <code>cmake</code> 之后会在构建的目录下的 <code>lib</code> 文件夹中生成四个库文件</p>
@@ -307,19 +300,15 @@
 <li><code>libgmock.a</code> 主要提供数据库交互，网络连接等方面的模拟测试</li>
 <li><code>libgmock_main.a</code> 提供数据库交互，网络连接的主入口，只有链接该库，测试用例就会编译生成可执行文件</li>
 </ul>
-<h2 id="gtest语法">GTest语法</h2>
-<p><code>gtest</code> 中的断言分为两类</p>
-<h3 id="assert"><code>ASSERT_*</code></h3>
-<p>如果检测出失败就直接退出当前函数</p>
+<h2 id="GTest语法"><a href="#GTest语法" class="headerlink" title="GTest语法"></a>GTest语法</h2><p><code>gtest</code> 中的断言分为两类</p>
+<h3 id="ASSERT"><a href="#ASSERT" class="headerlink" title="ASSERT_*"></a><code>ASSERT_*</code></h3><p>如果检测出失败就直接退出当前函数</p>
 <ul>
-<li>条件判断
-<ul>
+<li>条件判断<ul>
 <li><code>ASSERT_TRUE(condition);</code>  判断条件是否为真</li>
 <li><code>ASSERT_FALSE(condition);</code>  判断条件是否为假</li>
 </ul>
 </li>
-<li>数值比较
-<ul>
+<li>数值比较<ul>
 <li><code>ASSERT_EQ(val1, val2);</code> 判断是否相等</li>
 <li><code>ASSERT_NE(val1, val2);</code> 判断是否不相等</li>
 <li><code>ASSERT_LT(val1, val2);</code> 判断是否小于</li>
@@ -328,8 +317,7 @@
 <li><code>ASSERT_GE(val1, val2);</code> 判断是否大于等于</li>
 </ul>
 </li>
-<li>字符串比较
-<ul>
+<li>字符串比较<ul>
 <li><code>ASSERT_STREQ(str1,str2);</code> 判断字符串是否相等</li>
 <li><code>ASSERT_STRNE(str1,str2);</code> 判断字符串是否相等</li>
 <li><code>ASSERT_STRCASEEQ(str1,str2);</code> 判断字符串是否相等，忽视大小写</li>
@@ -337,17 +325,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="expect"><code>EXPECT_*</code></h3>
-<p>如果检测失败就发出提示，但是继续执行</p>
+<h3 id="EXPECT"><a href="#EXPECT" class="headerlink" title="EXPECT_*"></a><code>EXPECT_*</code></h3><p>如果检测失败就发出提示，但是继续执行</p>
 <ul>
-<li>条件判断
-<ul>
+<li>条件判断<ul>
 <li><code>EXPECT_TRUE(condition);</code>  判断条件是否为真</li>
 <li><code>EXPECT_FALSE(condition);</code>  判断条件是否为假</li>
 </ul>
 </li>
-<li>数值比较
-<ul>
+<li>数值比较<ul>
 <li><code>EXPECT_EQ(val1, val2);</code> 判断是否相等</li>
 <li><code>EXPECT_NE(val1, val2);</code> 判断是否不相等</li>
 <li><code>EXPECT_LT(val1, val2);</code> 判断是否小于</li>
@@ -356,8 +341,7 @@
 <li><code>EXPECT_GE(val1, val2);</code> 判断是否大于等于</li>
 </ul>
 </li>
-<li>字符串比较
-<ul>
+<li>字符串比较<ul>
 <li><code>EXPECT_STREQ(str1,str2);</code> 判断字符串是否相等</li>
 <li><code>EXPECT_STRNE(str1,str2);</code> 判断字符串是否相等</li>
 <li><code>EXPECT_STRCASEEQ(str1,str2);</code> 判断字符串是否相等，忽视大小写</li>
@@ -365,10 +349,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="测试">测试</h2>
-<p>需要注意的是，在测试项目中需要链接 <code>libgtest</code> ，如果在测试的程序中没有写 <code>main</code> 函数，就需要链接 <code>libgtest_main</code></p>
-<h3 id="编写测试用例-cmakelists">编写测试用例 CMakeLists</h3>
-<p>在 <code>src</code> 文件夹下新建一个文件 <code>test.cpp</code> ，并且在其中写入</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>需要注意的是，在测试项目中需要链接 <code>libgtest</code> ，如果在测试的程序中没有写 <code>main</code> 函数，就需要链接 <code>libgtest_main</code> </p>
+<h3 id="编写测试用例-CMakeLists"><a href="#编写测试用例-CMakeLists" class="headerlink" title="编写测试用例 CMakeLists"></a>编写测试用例 CMakeLists</h3><p>在 <code>src</code> 文件夹下新建一个文件 <code>test.cpp</code> ，并且在其中写入</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> _a, <span class="type">int</span> _b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _a + _b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">TEST</span>(test_case_name, test_name) &#123;</span><br><span class="line">  <span class="type">int</span> res = <span class="built_in">add</span>(<span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(res, <span class="number">30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后在根目录下的 <code>CMakeLists.txt</code> 文件中继续写入下列内容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">set(GTEST_LIB gtest gtest_main)</span><br><span class="line"></span><br><span class="line">add_executable(test src/test.cpp)</span><br><span class="line">target_link_libraries(test gtest gtest_main)</span><br><span class="line">add_test(NAME test COMMAND test)</span><br><span class="line">set(CTEST_OUPUT_ON_FAILURE TRUE)</span><br><span class="line">set(GTEST_COLOR TRUE)</span><br></pre></td></tr></table></figure>
@@ -376,8 +358,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake -B build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
 <p>然后就可以进行测试， <code>ctest</code> 执行测试</p>
 <p><img src="/Blog_NexT/2024/04/02/GTest%E4%BD%BF%E7%94%A8/1712026397325.png" alt="1712026397325.png"></p>
-<h3 id="编写测试程序-g">编写测试程序 g++</h3>
-<p>直接新建源文件 <code>test.cpp</code> ，并且在其中写入</p>
+<h3 id="编写测试程序-g"><a href="#编写测试程序-g" class="headerlink" title="编写测试程序 g++"></a>编写测试程序 g++</h3><p>直接新建源文件 <code>test.cpp</code> ，并且在其中写入</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> _a, <span class="type">int</span> _b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _a + _b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">TEST</span>(test_case_name, test_name) &#123;</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="built_in">add</span>(<span class="number">10</span>, <span class="number">20</span>), <span class="number">30</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="built_in">add</span>(<span class="number">12</span>, <span class="number">318</span>), <span class="number">330</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在终端执行下列指令，进行编译</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ test1.cpp -lgtest -lpthread -lgtest_main</span><br></pre></td></tr></table></figure>
@@ -484,7 +465,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">测试用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gtest%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">GTest介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gtest%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">GTest配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-linux"><span class="nav-number">3.1.</span> <span class="nav-text">安装——linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-windows"><span class="nav-number">3.2.</span> <span class="nav-text">配置——windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gtest%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">GTest语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-number">4.1.</span> <span class="nav-text">ASSERT_*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expect"><span class="nav-number">4.2.</span> <span class="nav-text">EXPECT_*</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B-cmakelists"><span class="nav-number">5.1.</span> <span class="nav-text">编写测试用例 CMakeLists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F-g"><span class="nav-number">5.2.</span> <span class="nav-text">编写测试程序 g++</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">测试用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GTest%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">GTest介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GTest%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">GTest配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E2%80%94%E2%80%94linux"><span class="nav-number">3.1.</span> <span class="nav-text">安装——linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E2%80%94%E2%80%94windows"><span class="nav-number">3.2.</span> <span class="nav-text">配置——windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GTest%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">GTest语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ASSERT"><span class="nav-number">4.1.</span> <span class="nav-text">ASSERT_*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPECT"><span class="nav-number">4.2.</span> <span class="nav-text">EXPECT_*</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B-CMakeLists"><span class="nav-number">5.1.</span> <span class="nav-text">编写测试用例 CMakeLists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F-g"><span class="nav-number">5.2.</span> <span class="nav-text">编写测试程序 g++</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -557,12 +538,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:49</span>
+    <span title="站点阅读时长">18:03</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
