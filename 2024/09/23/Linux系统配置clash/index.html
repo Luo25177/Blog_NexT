@@ -274,12 +274,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在 Linux 上进行项目开发时，经常会用到 github 来进行对项目的管理，但是苦于没有好的代理，经过一番查找，找到了 clash，是一个非常好用的代理软件</p>
-<h3 id="安装支持"><a href="#安装支持" class="headerlink" title="安装支持"></a>安装支持</h3><p>主要是需要用到 <code>curl</code> 工具，所以直接在命令行中输入如下代码即可</p>
+        <h3 id="前言">前言</h3>
+<p>在 Linux 上进行项目开发时，经常会用到 github 来进行对项目的管理，但是苦于没有好的代理，经过一番查找，找到了 clash，是一个非常好用的代理软件</p>
+<h3 id="安装支持">安装支持</h3>
+<p>主要是需要用到 <code>curl</code> 工具，所以直接在命令行中输入如下代码即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install curl</span><br></pre></td></tr></table></figure>
-<h3 id="安装clash"><a href="#安装clash" class="headerlink" title="安装clash"></a>安装clash</h3><p>文件下载： <a target="_blank" rel="noopener" href="https://zywang.lanzn.com/iPMwp2aneodc">https://zywang.lanzn.com/iPMwp2aneodc</a></p>
+<h3 id="安装clash">安装clash</h3>
+<p>文件下载： <a target="_blank" rel="noopener" href="https://zywang.lanzn.com/iPMwp2aneodc">https://zywang.lanzn.com/iPMwp2aneodc</a></p>
 <p>下载完成之后，直接将其解压到 <code>Documents</code> 目录下，保证自己不会误删这个文件</p>
-<h3 id="使用clash"><a href="#使用clash" class="headerlink" title="使用clash"></a>使用clash</h3><p>使用 <code>ctrl-alt-t</code> 打开终端，然后进入该文件目录中，按照里面的 <code>readme.md</code> 文件做一些配置</p>
+<h3 id="使用clash">使用clash</h3>
+<p>使用 <code>ctrl-alt-t</code> 打开终端，然后进入该文件目录中，按照里面的 <code>readme.md</code> 文件做一些配置</p>
 <p>在终端输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .<span class="built_in">env</span></span><br></pre></td></tr></table></figure>
 <p>使用 vim 修改该配置文件，将其中的 <code>CLASH_URL</code> 修改为自己的订阅地址，并且将 <code>CLASH_SECRET</code> 设置为一个比较简单的就行，例如 123。然后保存退出即可</p>
@@ -300,7 +304,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile.d/clash.sh <span class="comment"># 更新配置文件</span></span><br><span class="line">proxy_on <span class="comment"># 打开代理</span></span><br></pre></td></tr></table></figure>
 <p>之后就可以使用了，在第一次配置之后再次使用时，就不需要上述那么麻烦了，只需要在终端输入如下指令即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo bash start.sh</span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/clash.sh <span class="comment"># 更新配置文件</span></span><br><span class="line">proxy_on <span class="comment"># 打开代理</span></span><br></pre></td></tr></table></figure>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656856050">https://zhuanlan.zhihu.com/p/656856050</a></p>
+<h3 id="参考">参考</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656856050">https://zhuanlan.zhihu.com/p/656856050</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/692414049">https://zhuanlan.zhihu.com/p/692414049</a></p>
 
     </div>
@@ -476,12 +481,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:03</span>
+    <span title="站点阅读时长">22:49</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
@@ -541,10 +546,58 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -269,36 +269,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>bochs</code> 中自带一个反汇编器，这只能查看可执行文件的反汇编之后的指令，但是如果书写 C 语言的话，就使得调试非常麻烦（无计可施），所以利用 <code>bochs</code> 来写操作系统还是挺困难的，同时也没有办法查看各个变量的状态和 <code>cpu</code> 的状态。一旦遇到问题就很被动，所以介绍一个 bochs+gdb 的一个调试工具链</p>
-<h2 id="bochs安装与配置"><a href="#bochs安装与配置" class="headerlink" title="bochs安装与配置"></a>bochs安装与配置</h2><h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install g++ </span><br><span class="line">sudo apt-get install make</span><br><span class="line">sudo apt-get install libx11-dev xserver-xorg-dev xorg-dev</span><br></pre></td></tr></table></figure>
-<h3 id="安装-bochs"><a href="#安装-bochs" class="headerlink" title="安装 bochs"></a>安装 <code>bochs</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://udomain.dl.sourceforge.net/project/bochs/bochs/2.6.8/bochs-2.6.8.tar.gz</span><br><span class="line">tar zxvf bochs-2.6.8.tar.gz</span><br><span class="line"><span class="built_in">cd</span> bochs-2.6.8/</span><br><span class="line">./configure --prefix=/your_path/bochs --enable-gdb-stub --enable-disasm --enable-iodebug --enable-x86-debugger --with-x --with-x11 LDFLAGS=<span class="string">&#x27;-pthread&#x27;</span></span><br><span class="line">make -j12</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+        <h2 id="前言">前言</h2>
+<p><code>bochs</code> 中自带一个反汇编器，这只能查看可执行文件的反汇编之后的指令，但是如果书写 C 语言的话，就使得调试非常麻烦（无计可施），所以利用 <code>bochs</code> 来写操作系统还是挺困难的，同时也没有办法查看各个变量的状态和 <code>cpu</code> 的状态。一旦遇到问题就很被动，所以介绍一个 bochs+gdb 的一个调试工具链</p>
+<h2 id="bochs安装与配置">bochs安装与配置</h2>
+<h3 id="安装环境">安装环境</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install g++ </span><br><span class="line">sudo apt-get install make</span><br><span class="line">sudo apt-get install libx11-dev xserver-xorg-dev xorg-dev</span><br></pre></td></tr></table></figure>
+<h3 id="安装-bochs">安装 <code>bochs</code></h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://udomain.dl.sourceforge.net/project/bochs/bochs/2.6.8/bochs-2.6.8.tar.gz</span><br><span class="line">tar zxvf bochs-2.6.8.tar.gz</span><br><span class="line"><span class="built_in">cd</span> bochs-2.6.8/</span><br><span class="line">./configure --prefix=/your_path/bochs --enable-gdb-stub --enable-disasm --enable-iodebug --enable-x86-debugger --with-x --with-x11 LDFLAGS=<span class="string">&#x27;-pthread&#x27;</span></span><br><span class="line">make -j12</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 <p>其中</p>
 <ul>
 <li><code>--enable-debugger</code> 将 Bochs 使用内置的反汇编器进行调试</li>
 <li><code>--enable-gdb-stub</code> 开放端口提供 GDB 远程调试</li>
 <li><code>--enable-readline</code> 使用 Bochs 内置调试器时使用 readline 库提供的自动补全和历史命令功能</li>
 </ul>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>进入到安装目录中，也就是在 <code>config</code> 中指定的路径 <code>/your_path/bochs</code></p>
+<h3 id="配置">配置</h3>
+<p>进入到安装目录中，也就是在 <code>config</code> 中指定的路径 <code>/your_path/bochs</code></p>
 <p>新建一个配置文件 <code>bochsrc.disk</code> ，然后向其中写入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一步，首先设置 Bochs 在运行过程中能够使用的内存，本例为 32MB </span></span><br><span class="line">megs: 32 </span><br><span class="line"></span><br><span class="line"><span class="comment">#第二步，设置对应真实机器的 BIOS 和 VGA BIOS </span></span><br><span class="line">romimage: file=/your_path/bochs/share/bochs/BIOS-bochs-latest </span><br><span class="line">vgaromimage: file=/your_path/bochs/share/bochs/VGABIOS-lgpl-latest </span><br><span class="line"></span><br><span class="line"><span class="comment">#第三步，设置 Bochs 所使用的磁盘，软盘的关键字为 floppy。 </span></span><br><span class="line"><span class="comment">#若只有一个软盘，则使用 floppya 即可，若有多个，则为 floppya，floppyb… </span></span><br><span class="line"><span class="comment">#floppya: 1_44=a.img, status=inserted </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#第四步，选择启动盘符 </span></span><br><span class="line"><span class="comment">#boot: floppy #默认从软盘启动，将其注释 </span></span><br><span class="line">boot: disk <span class="comment">#改为从硬盘启动。我们的任何代码都将直接写在硬盘上，所以不会再有读写软盘的操作 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#第五步，设置日志文件的输出 </span></span><br><span class="line"><span class="built_in">log</span>: bochsout.txt </span><br><span class="line"></span><br><span class="line"><span class="comment">#第六步，开启或关闭某些功能 </span></span><br><span class="line"><span class="comment">#下面是关闭鼠标，并打开键盘 </span></span><br><span class="line">mouse: enabled=0 </span><br><span class="line">keyboard: keymap=/your_path/bochs/share/bochs/keymaps/x11-pc-us.map </span><br><span class="line"></span><br><span class="line"><span class="comment"># 硬盘设置 </span></span><br><span class="line">ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 gdb 调试端口 1234</span></span><br><span class="line">gdbstub:enabled=1,port=1234,text_base=0,data_base=0,bss_base=0</span><br></pre></td></tr></table></figure>
 <p>完成之后在目录下输入 <code>bin/bochs</code> 测试结果，后面会跳出一个选项，已经有一个默认配置 6 了，所以输入 6，可以发现跳出一个 <code>bochs</code> 虚拟机。退出需要在终端输入指令 <code>exit</code></p>
-<h3 id="创建虚拟硬盘"><a href="#创建虚拟硬盘" class="headerlink" title="创建虚拟硬盘"></a>创建虚拟硬盘</h3><p>使用其中的工具 <code>bximage</code> 来创建虚拟硬盘，使用 <code>bin/bximage</code> 来创建</p>
+<h3 id="创建虚拟硬盘">创建虚拟硬盘</h3>
+<p>使用其中的工具 <code>bximage</code> 来创建虚拟硬盘，使用 <code>bin/bximage</code> 来创建</p>
 <ul>
 <li><code>bin/bximage --help</code> 查看各个选项参数的含义</li>
 <li><code>bin/bximage -mode=&quot;create&quot; -hd=60 -imgmode=&quot;flat&quot; -q hd60M.img</code> 创建虚拟硬盘，将出现的最后依据加入到配置文件 <code>bochsrc</code> 中，把硬盘设置那一句换掉，然后可以运行测试</li>
 </ul>
 <p>之后运行测试都使用 <code>bin/bochs -f bochsrc.disk</code> 来运行，但是应该会出现一些无法读取或者写入的错误，这时候就需要使用 <code>sudo bin/bochs -f bochsrc.disk</code> 执行</p>
-<h3 id="安装编译工具"><a href="#安装编译工具" class="headerlink" title="安装编译工具"></a>安装编译工具</h3><p>由于使用的是 <code>nasm</code> ，所以下载对应的工具</p>
+<h3 id="安装编译工具">安装编译工具</h3>
+<p>由于使用的是 <code>nasm</code> ，所以下载对应的工具</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nasm</span><br></pre></td></tr></table></figure>
-<h3 id="bochs的调试"><a href="#bochs的调试" class="headerlink" title="bochs的调试"></a>bochs的调试</h3><p>对于要写一个操作系统来说，不能调试可太麻烦了，所以可以使用 bochs 的调试功能，它的调试指令基本和 gdb 类似，但也有不同之处，可以自己上网查一查手册</p>
+<h3 id="bochs的调试">bochs的调试</h3>
+<p>对于要写一个操作系统来说，不能调试可太麻烦了，所以可以使用 bochs 的调试功能，它的调试指令基本和 gdb 类似，但也有不同之处，可以自己上网查一查手册</p>
 <p>其次有个配置在代码里可以实现断点功能的，在 <code>bochsrc.disk</code> 中添加下面这句话</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magic_break: enabled=1</span><br></pre></td></tr></table></figure>
 <p>然后在代码中想要暂停的地方可以写下，就会在这条语句中停止，然后就可以开始调试</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xchg bx, bx</span><br></pre></td></tr></table></figure>
 <p>但是这个很不实用，只能调试汇编语言，所以下面使用 gdb 就可以调试 c 语言</p>
-<h2 id="编译配置"><a href="#编译配置" class="headerlink" title="编译配置"></a>编译配置</h2><p>对于编译方面，需要将所有的编译选项加上 <code>-g</code> ，并且对链接之后得到的可执行目标文件 <code>kernel.bin</code> 提取符号，得到 <code>kernel.sym</code> ，如下</p>
+<h2 id="编译配置">编译配置</h2>
+<p>对于编译方面，需要将所有的编译选项加上 <code>-g</code> ，并且对链接之后得到的可执行目标文件 <code>kernel.bin</code> 提取符号，得到 <code>kernel.sym</code> ，如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objcopy --only-keep-debug $(KERNEL_BUILD_PATH)/kernel.bin $(KERNEL_BUILD_PATH)/kernel.sym</span><br></pre></td></tr></table></figure>
-<h2 id="gdb-配置"><a href="#gdb-配置" class="headerlink" title="gdb 配置"></a>gdb 配置</h2><p>上述配置完成之后，使用 <code>bin/bochs -f bochsrc.disk</code> 指令进入运行之后会卡死，会等待 <code>gdb</code> 链接端口进行调试。这时候打开 <code>gdb</code> 输入如下指令之后就可以进行调试了</p>
+<h2 id="gdb-配置">gdb 配置</h2>
+<p>上述配置完成之后，使用 <code>bin/bochs -f bochsrc.disk</code> 指令进入运行之后会卡死，会等待 <code>gdb</code> 链接端口进行调试。这时候打开 <code>gdb</code> 输入如下指令之后就可以进行调试了</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target remote localhost:1234</span><br><span class="line">symbol-file ./build/kernel/kernel.sym</span><br></pre></td></tr></table></figure>
 <p>但是还是有点麻烦，所以这时候可以创建一个 <code>.gdbinit</code> 来做 <code>gdb</code> 的初始化，实际上就是在打开 <code>gdb</code> 时会自动执行其中的指令，从而完成配置。但是需要在 <code>/home/user</code> 之下创建一个 <code>.gdbinit</code> 文件来使得将 <code>.gdbinit</code> 链接到期望的 <code>.gdbinit</code> 。具体操作可以在当前文件夹下运行一下 <code>gdb</code> 就可以得到来自于 <code>gdb</code> 的教程了</p>
 <p>配置结束之后就可以使用 <code>gdb</code> 来进行调试了，调试的指令与 <code>gdb</code> 一致</p>
@@ -475,12 +485,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:03</span>
+    <span title="站点阅读时长">22:49</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
@@ -540,10 +550,58 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

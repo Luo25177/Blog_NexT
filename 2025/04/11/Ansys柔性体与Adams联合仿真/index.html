@@ -44,9 +44,9 @@
 <meta property="article:published_time" content="2025-04-11T10:59:09.000Z">
 <meta property="article:modified_time" content="2025-04-11T11:00:40.372Z">
 <meta property="article:author" content="落">
+<meta property="article:tag" content="Ansys">
 <meta property="article:tag" content="机械结构设计">
 <meta property="article:tag" content="机械结构仿真">
-<meta property="article:tag" content="Ansys">
 <meta property="article:tag" content="柔性体">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1.png">
@@ -279,27 +279,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="SW-模型导出"><a href="#SW-模型导出" class="headerlink" title="SW 模型导出"></a>SW 模型导出</h2><p>在 SW 中选择对应的单个零件，注意是单个零件（不论是由多少个零件合成的，都算作单个零件）这样方便导入 adams 中替换掉刚性体。将单个零件导出为 Parasolid 格式，之后便可以导入到 ANSYS 中</p>
-<h2 id="导入-ANSYS-中"><a href="#导入-ANSYS-中" class="headerlink" title="导入 ANSYS 中"></a>导入 ANSYS 中</h2><h3 id="导入模型"><a href="#导入模型" class="headerlink" title="导入模型"></a>导入模型</h3><p>打开 WorkBench，选择右侧栏内的模态，双击之后出现左侧项目原理图，右键几何结构即可选择导入模型</p>
+        <h2 id="sw-模型导出">SW 模型导出</h2>
+<p>在 SW 中选择对应的单个零件，注意是单个零件（不论是由多少个零件合成的，都算作单个零件）这样方便导入 adams 中替换掉刚性体。将单个零件导出为 Parasolid 格式，之后便可以导入到 ANSYS 中</p>
+<h2 id="导入-ansys-中">导入 ANSYS 中</h2>
+<h3 id="导入模型">导入模型</h3>
+<p>打开 WorkBench，选择右侧栏内的模态，双击之后出现左侧项目原理图，右键几何结构即可选择导入模型</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1.png" alt="2025-04-10 225118.png"></p>
-<h3 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h3><p>导入模型之后，再次右键几何结构，即可出现如下窗口，选择 DesignModeler 中编辑几何结构</p>
+<h3 id="生成模型">生成模型</h3>
+<p>导入模型之后，再次右键几何结构，即可出现如下窗口，选择 DesignModeler 中编辑几何结构</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/2.png" alt="2025-04-10 225408.png"></p>
 <p>进入 DesignModeler 之后，在右侧栏中选择导入，生成导入模型即可</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/3.png" alt="2025-04-10 225817.png"></p>
-<h3 id="检验模型"><a href="#检验模型" class="headerlink" title="检验模型"></a>检验模型</h3><p>可在 WorkBench 中右键几何结构，选择 spaceclaim 中编辑几何结构，来检验模型，能生成模型即可，好像这一步用处不大</p>
-<h2 id="工程数据设置"><a href="#工程数据设置" class="headerlink" title="工程数据设置"></a>工程数据设置</h2><p>在 WorkBench 原理图中，右键工程数据，选择编辑即可进入，这里面是零件所用的材料，也可自定义材料</p>
+<h3 id="检验模型">检验模型</h3>
+<p>可在 WorkBench 中右键几何结构，选择 spaceclaim 中编辑几何结构，来检验模型，能生成模型即可，好像这一步用处不大</p>
+<h2 id="工程数据设置">工程数据设置</h2>
+<p>在 WorkBench 原理图中，右键工程数据，选择编辑即可进入，这里面是零件所用的材料，也可自定义材料</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744297415726.png" alt="1744297415726.png"></p>
 <p>如图所示，添加了一个新材料——橡胶，点击表格中源的那一项即可出现下面属性大纲，之后双击右侧栏中的项目属性，即可将其添加进来，最后可以上网查找对应的数据填入表格中即可在后续过程中使用，设置完成之后即可在模型设置中使用，为模型更改材料</p>
-<h2 id="模型设置"><a href="#模型设置" class="headerlink" title="模型设置"></a>模型设置</h2><p>在 WorkBench 原理图中，右键模型，选择编辑进入模型编辑界面</p>
-<h3 id="修改材料"><a href="#修改材料" class="headerlink" title="修改材料"></a>修改材料</h3><p>进入模型编辑界面之后，在右侧栏中可以选择几何结构中的固体，选中之后可以选择修改其材料，可以看到右侧窗口中有先前添加的材料——橡胶，可以选择橡胶材料</p>
+<h2 id="模型设置">模型设置</h2>
+<p>在 WorkBench 原理图中，右键模型，选择编辑进入模型编辑界面</p>
+<h3 id="修改材料">修改材料</h3>
+<p>进入模型编辑界面之后，在右侧栏中可以选择几何结构中的固体，选中之后可以选择修改其材料，可以看到右侧窗口中有先前添加的材料——橡胶，可以选择橡胶材料</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744357633913.png" alt="1744357633913.png"></p>
-<h3 id="添加远程点"><a href="#添加远程点" class="headerlink" title="添加远程点"></a>添加远程点</h3><p>如下图所示，在右侧模型处右键选择插入远程点即可，远程点主要是后续在 adams 中定义铰接、运动副等</p>
+<h3 id="添加远程点">添加远程点</h3>
+<p>如下图所示，在右侧模型处右键选择插入远程点即可，远程点主要是后续在 adams 中定义铰接、运动副等</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/4.png" alt="屏幕截图 2025-04-11 155820.png"></p>
 <p>添加远程点之后，需要指定远程点的位置，一般是选择某个面（这需要设置上面栏中的选择模式为选择面），之后它会自动定义为这个面所形成的三维体的重心。所以对于一般的转动副连接处，就可以选择转动轴孔洞的柱面</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744360130420.png" alt="1744360130420.png"></p>
 <p>设置完成之后，需要为这个远程点添加命令，即设置节点编号，等号右侧的 <code>s1</code> 可以随便取名即节点的编号，需要注意在每个远程点下面都要添加指令为这个远程点添加编号，而且这个编号不能重复</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744360290892.png" alt="1744360290892.png"></p>
-<h3 id="划分网格"><a href="#划分网格" class="headerlink" title="划分网格"></a>划分网格</h3><p>划分网格以便于对该零件进行求解，这个实际上就是对结构的一种有限元分析，将零件划分为有限个部分再进行分析的，步骤如下</p>
+<h3 id="划分网格">划分网格</h3>
+<p>划分网格以便于对该零件进行求解，这个实际上就是对结构的一种有限元分析，将零件划分为有限个部分再进行分析的，步骤如下</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744360716973.png" alt="1744360716973.png"></p>
 <ol>
 <li>右键网格属性，选择插入<strong>尺寸调整属性</strong></li>
@@ -307,13 +317,15 @@
 <li>选择划分单位尺寸，这个尺寸根据自己的零件大小划分即可，尺寸越小网格数量就越多，计算结果越精确，同时也需要较高的性能</li>
 <li>设置完成之后，在右侧栏中，右键网格选择生成网格即可生成</li>
 </ol>
-<h3 id="模态求解"><a href="#模态求解" class="headerlink" title="模态求解"></a>模态求解</h3><p>上述设置完成之后，就可以选择在模态中添加命令来进行求解和生成 mnf 文件了，命令如图所示</p>
+<h3 id="模态求解">模态求解</h3>
+<p>上述设置完成之后，就可以选择在模态中添加命令来进行求解和生成 mnf 文件了，命令如图所示</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744361030719.png" alt="1744361030719.png"></p>
 <p>命令解释</p>
 <ul>
 <li><code>OUTRES,all,all</code> 将所有结果写入到结果文件</li>
 <li><code>\PREP7</code> 进入到当前处理器，从当前处理器切换到前处理模块，准备进行建模、网格划分等前处理操作</li>
-<li><code>/UNITS,MKS</code> 指定单位，这个单位选择一定要与 Adams 中相同。这里可以选择的单位如下<ul>
+<li><code>/UNITS,MKS</code> 指定单位，这个单位选择一定要与 Adams 中相同。这里可以选择的单位如下
+<ul>
 <li><code>MKS</code> 国际单位制的工程版本</li>
 <li><code>SI</code> 国际单位制</li>
 <li><code>USER</code> 允许用户自定义单位系统</li>
@@ -327,9 +339,11 @@
 <p>脚本写完之后，可以直接右键模态属性中的求解选择求解即可</p>
 <p>如果最终出现了报错信息：求解过程中出现未知错误。检查“求解信息”对象上的“求解器输出”，查找可能的原因，不用理它，这已经解算完成了</p>
 <p>还有一种错误就是如果为几何结构选择的材料没有弹性模量和泊松比等信息的话，也会报错</p>
-<h2 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h2><p>在 WorkBench 中，直接 ctrl+s 保存文件，可以自己指定保存路径，这里需要注意，如果要导入 Adams 中使用的话，一定不要使用中文路径</p>
+<h2 id="保存文件">保存文件</h2>
+<p>在 WorkBench 中，直接 ctrl+s 保存文件，可以自己指定保存路径，这里需要注意，如果要导入 Adams 中使用的话，一定不要使用中文路径</p>
 <p>保存完成之后，可以在保存文件目录下 <code>ansys_files\dp0\SYS\MECH</code> 中可以找到 <code>file.mnf</code> 文件，即是生成的柔性体文件</p>
-<h2 id="Adams-导入柔性体文件"><a href="#Adams-导入柔性体文件" class="headerlink" title="Adams 导入柔性体文件"></a>Adams 导入柔性体文件</h2><p>在将柔性体零件导入 Adams 之前，需要设置 Adams 文件的单位，在<strong>设置-单位</strong>中选择单位为 MKS，这个根据自己的来设置吧，但是需要与导出的 ANSYS 柔性体零件的单一致</p>
+<h2 id="adams-导入柔性体文件">Adams 导入柔性体文件</h2>
+<p>在将柔性体零件导入 Adams 之前，需要设置 Adams 文件的单位，在<strong>设置-单位</strong>中选择单位为 MKS，这个根据自己的来设置吧，但是需要与导出的 ANSYS 柔性体零件的单一致</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/5.png" alt="屏幕截图 2025-04-11 171922.png"></p>
 <ol>
 <li>在右侧栏中选择需要柔性化的零件，右键选择柔性化</li>
@@ -338,9 +352,11 @@
 <li>最后使得两个零件重合，即可应用</li>
 </ol>
 <p>需要注意的是导入之后，柔性体会替换掉原有的零件，并且继承原有零件的所有运动副</p>
-<h2 id="仿真效果"><a href="#仿真效果" class="headerlink" title="仿真效果"></a>仿真效果</h2><p>最终结果上可以看到，柔性的零件在运行过程中变成彩色的了，也就是它在运行过程中的受力情况，运行完成之后，可以在结果后处理中进行分析</p>
+<h2 id="仿真效果">仿真效果</h2>
+<p>最终结果上可以看到，柔性的零件在运行过程中变成彩色的了，也就是它在运行过程中的受力情况，运行完成之后，可以在结果后处理中进行分析</p>
 <p><img src="/Blog_NexT/2025/04/11/Ansys%E6%9F%94%E6%80%A7%E4%BD%93%E4%B8%8EAdams%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F/1744368026308.png" alt></p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>对于 ANSYS 的使用方法还有很多，由于我只是个初学者，很多东西都不理解，多亏了网上有很多教程。但是这些教程几乎都没有写到关于 ANSYS 单位与 Adams 单位之间的问题，以至于我在做的时候，遇到了很多问题。ANSYS 柔性体导入到 Adams 之后并不是百分百成功的，有时候柔性体与其他零件的运动副会出现问题，导致仿真报错，就需要自己一个个将这些运动副失效之后，再测试，对于有问题的运动副，可以自己添加一个对应的即可，最后就可以成功运行了</p>
+<h2 id="后记">后记</h2>
+<p>对于 ANSYS 的使用方法还有很多，由于我只是个初学者，很多东西都不理解，多亏了网上有很多教程。但是这些教程几乎都没有写到关于 ANSYS 单位与 Adams 单位之间的问题，以至于我在做的时候，遇到了很多问题。ANSYS 柔性体导入到 Adams 之后并不是百分百成功的，有时候柔性体与其他零件的运动副会出现问题，导致仿真报错，就需要自己一个个将这些运动副失效之后，再测试，对于有问题的运动副，可以自己添加一个对应的即可，最后就可以成功运行了</p>
 
     </div>
 
@@ -367,9 +383,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/Blog_NexT/tags/Ansys/" rel="tag"># Ansys</a>
               <a href="/Blog_NexT/tags/%E6%9C%BA%E6%A2%B0%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="tag"># 机械结构设计</a>
               <a href="/Blog_NexT/tags/%E6%9C%BA%E6%A2%B0%E7%BB%93%E6%9E%84%E4%BB%BF%E7%9C%9F/" rel="tag"># 机械结构仿真</a>
-              <a href="/Blog_NexT/tags/Ansys/" rel="tag"># Ansys</a>
               <a href="/Blog_NexT/tags/%E6%9F%94%E6%80%A7%E4%BD%93/" rel="tag"># 柔性体</a>
           </div>
 
@@ -444,7 +460,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SW-%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">SW 模型导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5-ANSYS-%E4%B8%AD"><span class="nav-number">2.</span> <span class="nav-text">导入 ANSYS 中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">导入模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">生成模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">检验模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E6%95%B0%E6%8D%AE%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">工程数据设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">模型设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%90%E6%96%99"><span class="nav-number">4.1.</span> <span class="nav-text">修改材料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E7%82%B9"><span class="nav-number">4.2.</span> <span class="nav-text">添加远程点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%92%E5%88%86%E7%BD%91%E6%A0%BC"><span class="nav-number">4.3.</span> <span class="nav-text">划分网格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%80%81%E6%B1%82%E8%A7%A3"><span class="nav-number">4.4.</span> <span class="nav-text">模态求解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">保存文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adams-%E5%AF%BC%E5%85%A5%E6%9F%94%E6%80%A7%E4%BD%93%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">Adams 导入柔性体文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E6%95%88%E6%9E%9C"><span class="nav-number">7.</span> <span class="nav-text">仿真效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">8.</span> <span class="nav-text">后记</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sw-%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">SW 模型导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5-ansys-%E4%B8%AD"><span class="nav-number">2.</span> <span class="nav-text">导入 ANSYS 中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">导入模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">生成模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">检验模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E6%95%B0%E6%8D%AE%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">工程数据设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">模型设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%90%E6%96%99"><span class="nav-number">4.1.</span> <span class="nav-text">修改材料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E7%82%B9"><span class="nav-number">4.2.</span> <span class="nav-text">添加远程点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%92%E5%88%86%E7%BD%91%E6%A0%BC"><span class="nav-number">4.3.</span> <span class="nav-text">划分网格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%80%81%E6%B1%82%E8%A7%A3"><span class="nav-number">4.4.</span> <span class="nav-text">模态求解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">保存文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adams-%E5%AF%BC%E5%85%A5%E6%9F%94%E6%80%A7%E4%BD%93%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">Adams 导入柔性体文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E6%95%88%E6%9E%9C"><span class="nav-number">7.</span> <span class="nav-text">仿真效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">8.</span> <span class="nav-text">后记</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -517,12 +533,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:03</span>
+    <span title="站点阅读时长">22:49</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
@@ -582,10 +598,58 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
