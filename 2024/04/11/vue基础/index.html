@@ -273,24 +273,30 @@
 
       
         <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Web.git">代码</a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>vue 是前端优秀框架，是一套用于构建用户界面的渐进式框架</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<h2 id="简介">简介</h2>
+<p>vue 是前端优秀框架，是一套用于构建用户界面的渐进式框架</p>
+<h3 id="特点">特点</h3>
+<ul>
 <li>简单</li>
 <li>易学</li>
 <li>…</li>
 </ul>
-<h2 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h2><h3 id="使用命令行安装"><a href="#使用命令行安装" class="headerlink" title="使用命令行安装"></a>使用命令行安装</h3><p><code>vue cli</code> 是一个基于 <code>vue.js</code> 进行快速开发的完整系统</p>
+<h2 id="安装使用">安装使用</h2>
+<h3 id="使用命令行安装">使用命令行安装</h3>
+<p><code>vue cli</code> 是一个基于 <code>vue.js</code> 进行快速开发的完整系统</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
 <p>测试，在终端输入以下指令测试是否安装成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br></pre></td></tr></table></figure>
-<h3 id="一些功能"><a href="#一些功能" class="headerlink" title="一些功能"></a>一些功能</h3><p>使用下列指令打开一个 gui 界面来引导项目创建等一系列操作</p>
+<h3 id="一些功能">一些功能</h3>
+<p>使用下列指令打开一个 gui 界面来引导项目创建等一系列操作</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
-<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>在终端使用下列指令创建一个项目</p>
+<h3 id="创建项目">创建项目</h3>
+<p>在终端使用下列指令创建一个项目</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create projectname</span><br></pre></td></tr></table></figure>
 <p>输入之后需要使用上下按键来选择默认项目模板</p>
 <p>可以选择手动选择，然后按照如下选择</p>
 <p><img src="/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/config.png" alt="config"></p>
-<h3 id="文件目录说明"><a href="#文件目录说明" class="headerlink" title="文件目录说明"></a>文件目录说明</h3><div class="table-container">
+<h3 id="文件目录说明">文件目录说明</h3>
 <table>
 <thead>
 <tr>
@@ -360,22 +366,25 @@
 <td>项目配置文件。</td>
 </tr>
 <tr>
-<td>README.md</td>
+<td><a target="_blank" rel="noopener" href="http://README.md">README.md</a></td>
 <td>项目的说明文档，markdown 格式</td>
 </tr>
 <tr>
 <td>dist</td>
-<td>使用 npm run build 命令打包后会生成该目录。</td>
+<td>使用 npm run build 命令打包后会生成该目录。</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><h3 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h3><p>数据绑定常见的形式就是使用 <code>Mustache</code> 双大括号的语法文本插值</p>
+<h2 id="基础语法">基础语法</h2>
+<h3 id="文本">文本</h3>
+<p>数据绑定常见的形式就是使用 <code>Mustache</code> 双大括号的语法文本插值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span&gt;Message: &#123;&#123;msg&#125;&#125;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
 <p>一般配合 <code>js</code> 中的 <code>data()</code> 设置数据</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">msg</span>: <span class="string">&quot;msg&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="原始HTML"><a href="#原始HTML" class="headerlink" title="原始HTML"></a>原始HTML</h3><p>双大括号会将数据解释为普通文本，而非 <code>html</code> 代码，为了输出 <code>html</code> 就需要使用 <code>v-html</code> 指令</p>
-<h3 id="attribute属性"><a href="#attribute属性" class="headerlink" title="attribute属性"></a>attribute属性</h3><p><code>Mustache</code> 语法不能再 <code>html</code> 属性中使用，但是可以使用 <code>v-bind</code> 指令。 <code>class</code> 与 <code>style</code> 是 <code>html</code> 元素的属性，用于设置元素的样式，我们可以用 <code>v-bind</code> 来设置样式属性。有两种写法，如下</p>
+<h3 id="原始html">原始HTML</h3>
+<p>双大括号会将数据解释为普通文本，而非 <code>html</code> 代码，为了输出 <code>html</code> 就需要使用 <code>v-html</code> 指令</p>
+<h3 id="attribute属性">attribute属性</h3>
+<p><code>Mustache</code> 语法不能再 <code>html</code> 属性中使用，但是可以使用 <code>v-bind</code> 指令。 <code>class</code> 与 <code>style</code> 是 <code>html</code> 元素的属性，用于设置元素的样式，我们可以用 <code>v-bind</code> 来设置样式属性。有两种写法，如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:id=&quot;dynamicId&quot;&gt;v-bind:&lt;/div&gt;</span><br><span class="line">&lt;div :id=&quot;dynamicId&quot;&gt;v-bind:&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>内联样式</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;div :style=&quot;&#123; color: activeColor, fontSize: fontSize + &#x27;px&#x27; &#125;&quot;&gt;1&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;!--其中 activeColor:&quot;red&quot;, fontSize: 20--&gt;</span><br></pre></td></tr></table></figure>
@@ -396,76 +405,89 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;newComponentName class=&quot;classA&quot;&gt;&lt;/newComponentName&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">const app = Vue.createApp(&#123;&#125;)</span><br><span class="line">app.component(&#x27;newComponentName&#x27;, &#123;</span><br><span class="line">  template: `</span><br><span class="line">    &lt;p :class=&quot;$attrs.class&quot;&gt;这是一个段落&lt;/p&gt;</span><br><span class="line">    &lt;span&gt;这是一个子组件&lt;/span&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;)</span><br><span class="line">app.mount(&#x27;#app&#x27;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <p>最终渲染结果为</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">:class</span>=<span class="string">&quot;classA&quot;</span>&gt;</span>这是一个段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>这是一个子组件<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用Js表达式"><a href="#使用Js表达式" class="headerlink" title="使用Js表达式"></a>使用Js表达式</h3><p><code>vue.js</code> 提供了完全的 js 表达式支持，使用双括号来表示使其被解析为 js 表达式。但是，双括号中只能包含单个表达式</p>
+<h3 id="使用js表达式">使用Js表达式</h3>
+<p><code>vue.js</code> 提供了完全的 js 表达式支持，使用双括号来表示使其被解析为 js 表达式。但是，双括号中只能包含单个表达式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 有效</span><br><span class="line">&#123;&#123;number + 1&#125;&#125;</span><br><span class="line">&#123;&#123;ok? &#x27;y&#x27; : &#x27;n&#x27;&#125;&#125;</span><br><span class="line"></span><br><span class="line">// 无效</span><br><span class="line">&#123;&#123;var a = 1&#125;&#125; //语句</span><br><span class="line">&#123;&#123;if(ok) &#123;return msg;&#125;&#125;&#125; // 流程控制语句也不会生效</span><br></pre></td></tr></table></figure>
-<h3 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h3><ul>
-<li><code>v-if</code> 用于条件性的渲染一块内容，这块内容只会在指令的表达式返回 <code>true</code> 时渲染<ul>
+<h3 id="条件渲染">条件渲染</h3>
+<ul>
+<li><code>v-if</code> 用于条件性的渲染一块内容，这块内容只会在指令的表达式返回 <code>true</code> 时渲染
+<ul>
 <li>真正的条件渲染，会保证在切换过程中，条件块内的事件监听器和子组件适当的被销毁和重建</li>
 <li>也是惰性的，如果在初始渲染时条件为假，那什么也不做，直到变为真才会做渲染</li>
 </ul>
 </li>
 <li><code>v-else</code> 用于作为 <code>v-if</code> 的 <code>else</code> 块</li>
-<li><code>v-show</code> 用于条件性展示元素的另一个选项<ul>
+<li><code>v-show</code> 用于条件性展示元素的另一个选项
+<ul>
 <li>不管初始条件是什么都会渲染元素，并且只是简单的基于 <code>css</code> 进行切换</li>
 <li>一般来说 <code>v-if</code> 有更高的切换开销，而 <code>v-show</code> 有更高的初始渲染开销，所以如果需要非常频繁的切换则使用 <code>v-show</code> ，如果在运行中很少改变就使用 <code>v-if</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h3><ul>
+<h3 id="列表渲染">列表渲染</h3>
+<ul>
 <li><code>v-for</code> 把一个数组映射为一组元素，基于一个数组来渲染一个列表，指令需要使用 <code>item in items</code> 语法来实现</li>
 <li>当 <code>vue</code> 正在更新使用 <code>v-for</code> 渲染的元素列表时，它默认使用“就地更新”的策略，如果数据项的顺序被改变，vue 将不会移动 dom 元素来匹配数据项的顺序，而是就地更新每个元素，并且保证它们在每个索引位置正确渲染。为了给 vue 一个提示，以便它能够跟踪每个节点，从而重新排列现有元素，需要为每一项提供一个唯一的 <code>key</code> attribute</li>
 </ul>
-<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
+<h3 id="事件处理">事件处理</h3>
+<ul>
 <li>监听事件，可以使用 <code>v-on</code> 指令（可缩写为 <code>@</code> 符号）来监听 dom 事件，并且在触发事件时执行一些 <code>js</code> 指令</li>
 <li>事件处理方法，很多事件处理逻辑会比较复杂，所以可以写为一个调用的方法名称</li>
 <li>内联处理器中的方法，也可以称作事件传递函数</li>
 </ul>
-<h3 id="表单输入绑定"><a href="#表单输入绑定" class="headerlink" title="表单输入绑定"></a>表单输入绑定</h3><ul>
+<h3 id="表单输入绑定">表单输入绑定</h3>
+<ul>
 <li><code>v-model</code> 指令在表单 <code>&lt;input&gt;</code> ， <code>&lt;textarea&gt;</code> 以及 <code>&lt;select&gt;</code> 元素上创建双向数据绑定，它会根据空间类型自动选取正确的方法来更新元素。本质上不过是语法糖，负责监听用户输入事件来更新数据，并且完成一些特殊处理</li>
 <li><code>.lazy</code> 修饰符， <code>v-model</code> 事件在每次 <code>input</code> 事件触发之后就进行数据同步，可以添加该修饰符，从而转为 <code>change</code> 事件之后进行同步</li>
 <li><code>.trim</code> 修饰符，可以自动过滤用户输入的首尾空白字符</li>
 </ul>
-<h3 id="组件基础"><a href="#组件基础" class="headerlink" title="组件基础"></a>组件基础</h3><ul>
+<h3 id="组件基础">组件基础</h3>
+<ul>
 <li>单文件组件，单文件组件是一种特殊的文件格式，允许将 <code>vue</code> 组件中的模板，逻辑与样式封装在单个文件中</li>
-<li>加载组件步骤<ul>
-<li>引入组件 <code>import mycomponent from &#39;./components/mycomponent.vue&#39;; &#39;./components/mycomponent&#39;</code></li>
+<li>加载组件步骤
+<ul>
+<li>引入组件 <code>import mycomponent from './components/mycomponent.vue'; './components/mycomponent'</code></li>
 <li>挂载组件 <code>components: &#123;mycomponent&#125;</code></li>
 <li>显示组件 <code>&lt;mycomponent/&gt;</code></li>
 </ul>
 </li>
-<li>组件组织，通常一个应用会以一棵嵌套的组件树的形式来组织<br><img src="/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/component_tree.png" alt="conponent_tree"></li>
+<li>组件组织，通常一个应用会以一棵嵌套的组件树的形式来组织<br>
+<img src="/Blog_NexT/2024/04/11/vue%E5%9F%BA%E7%A1%80/component_tree.png" alt="conponent_tree"></li>
 </ul>
-<h3 id="props组件交互"><a href="#props组件交互" class="headerlink" title="props组件交互"></a>props组件交互</h3><p>组件与组件之间是需要存在交互的，否则完全没关系，组件的意义就很小了，而 <code>props</code> 是可以在组件上注册的一些自定义 <code>attribute</code> ，传递的方向就是父组件传递到子组件</p>
+<h3 id="props组件交互">props组件交互</h3>
+<p>组件与组件之间是需要存在交互的，否则完全没关系，组件的意义就很小了，而 <code>props</code> 是可以在组件上注册的一些自定义 <code>attribute</code> ，传递的方向就是父组件传递到子组件</p>
 <p><code>props</code> 传递的参数是没有类型限制的，但是传入数据为数组或者对象类型时，默认值时需要返回工厂模式，也就是定义一个返回一个空数组的函数</p>
 <p><strong>使用方法</strong></p>
 <ol>
-<li><p>在调用组件的文件中声明需要传递的变量，写法与组件文件中一致</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&quot;一个标题&quot;</span>,</span><br><span class="line">    age : <span class="number">10</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要在加载组件时传入参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;props_test :title=&quot;title&quot; :age=&quot;age&quot;/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在组件中需要使用 <code>props</code> 声明变量</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;props_test&quot;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    title: &#123;</span><br><span class="line">      type:String,</span><br><span class="line">      default:&quot;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    age: &#123;</span><br><span class="line">      type: Number,</span><br><span class="line">      default:0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
+<li>在调用组件的文件中声明需要传递的变量，写法与组件文件中一致</li>
 </ol>
-<h3 id="自定义事件组件交互"><a href="#自定义事件组件交互" class="headerlink" title="自定义事件组件交互"></a>自定义事件组件交互</h3><p>自定义事件可以在组件中反向传递数据， <code>prop</code> 可以将数据从父组件传递到子数组，对于反向操作，可以使用自定义事件实现</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&quot;一个标题&quot;</span>,</span><br><span class="line">    age : <span class="number">10</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要在加载组件时传入参数</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;props_test :title=&quot;title&quot; :age=&quot;age&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在组件中需要使用 <code>props</code> 声明变量</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;props_test&quot;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    title: &#123;</span><br><span class="line">      type:String,</span><br><span class="line">      default:&quot;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    age: &#123;</span><br><span class="line">      type: Number,</span><br><span class="line">      default:0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义事件组件交互">自定义事件组件交互</h3>
+<p>自定义事件可以在组件中反向传递数据， <code>prop</code> 可以将数据从父组件传递到子数组，对于反向操作，可以使用自定义事件实现</p>
 <ul>
 <li>使用 <code>this.$emit()</code> 函数，其中第一个参数是字符串，理论上是随便的，但是需要与弗组件中对应，第二个参数就是传递的数据</li>
 </ul>
 <p><strong>使用</strong></p>
 <ol>
-<li><p>首先在子组件中做定义一个按钮或者触发这个事件的元素</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;sendHandle&quot;</span>&gt;</span>sendData<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>并且定义函数 <code>sendHandle</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">sendHandle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.$emit(<span class="string">&quot;onEvent&quot;</span>, <span class="string">&quot;data&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在父组件中加载该组件时，需要做如下的定义</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">props_test</span> @<span class="attr">onEvent</span>=<span class="string">&quot;getDataHandle&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>需要注意，这里的 <code>onEvent</code> 与第一步中的 <code>$emit()</code> 的第一个参数是对应的，需要一致。然后自定义收到消息的回调函数，这里的 <code>data</code> 就是上述 <code>$emit()</code> 函数的第二个参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">getDataHandle</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>首先在子组件中做定义一个按钮或者触发这个事件的元素</li>
 </ol>
-<h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3><p>每个组件在被创建时都要经过一系列初始化的过程，例如设置数据监听，编译模板，实例挂载到 dom 上等，这个过程会运行一些叫做生命周期钩子的函数，给了用户在不同阶段添加代码的功能</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;sendHandle&quot;</span>&gt;</span>sendData<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>并且定义函数 <code>sendHandle</code></p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">sendHandle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.$emit(<span class="string">&quot;onEvent&quot;</span>, <span class="string">&quot;data&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在父组件中加载该组件时，需要做如下的定义</li>
+</ol>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">props_test</span> @<span class="attr">onEvent</span>=<span class="string">&quot;getDataHandle&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>需要注意，这里的 <code>onEvent</code> 与第一步中的 <code>$emit()</code> 的第一个参数是对应的，需要一致。然后自定义收到消息的回调函数，这里的 <code>data</code> 就是上述 <code>$emit()</code> 函数的第二个参数</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">getDataHandle</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="组件的生命周期">组件的生命周期</h3>
+<p>每个组件在被创建时都要经过一系列初始化的过程，例如设置数据监听，编译模板，实例挂载到 dom 上等，这个过程会运行一些叫做生命周期钩子的函数，给了用户在不同阶段添加代码的功能</p>
 <p>可以直接定义下面的函数，来实现在不同的阶段添加用户代码的功能</p>
 <ul>
 <li>创建时 <code>beforeCreate</code> <code>created</code></li>
@@ -573,7 +595,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">安装使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">使用命令行安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%8A%9F%E8%83%BD"><span class="nav-number">2.2.</span> <span class="nav-text">一些功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.3.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E"><span class="nav-number">2.4.</span> <span class="nav-text">文件目录说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8BHTML"><span class="nav-number">3.2.</span> <span class="nav-text">原始HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute%E5%B1%9E%E6%80%A7"><span class="nav-number">3.3.</span> <span class="nav-text">attribute属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Js%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">使用Js表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="nav-number">3.5.</span> <span class="nav-text">条件渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93"><span class="nav-number">3.6.</span> <span class="nav-text">列表渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.7.</span> <span class="nav-text">事件处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5%E7%BB%91%E5%AE%9A"><span class="nav-number">3.8.</span> <span class="nav-text">表单输入绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80"><span class="nav-number">3.9.</span> <span class="nav-text">组件基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92"><span class="nav-number">3.10.</span> <span class="nav-text">props组件交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92"><span class="nav-number">3.11.</span> <span class="nav-text">自定义事件组件交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.12.</span> <span class="nav-text">组件的生命周期</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">安装使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">使用命令行安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%8A%9F%E8%83%BD"><span class="nav-number">2.2.</span> <span class="nav-text">一些功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.3.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E"><span class="nav-number">2.4.</span> <span class="nav-text">文件目录说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8Bhtml"><span class="nav-number">3.2.</span> <span class="nav-text">原始HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attribute%E5%B1%9E%E6%80%A7"><span class="nav-number">3.3.</span> <span class="nav-text">attribute属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8js%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">使用Js表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="nav-number">3.5.</span> <span class="nav-text">条件渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93"><span class="nav-number">3.6.</span> <span class="nav-text">列表渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.7.</span> <span class="nav-text">事件处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5%E7%BB%91%E5%AE%9A"><span class="nav-number">3.8.</span> <span class="nav-text">表单输入绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80"><span class="nav-number">3.9.</span> <span class="nav-text">组件基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92"><span class="nav-number">3.10.</span> <span class="nav-text">props组件交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6%E7%BB%84%E4%BB%B6%E4%BA%A4%E4%BA%92"><span class="nav-number">3.11.</span> <span class="nav-text">自定义事件组件交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.12.</span> <span class="nav-text">组件的生命周期</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -646,12 +668,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:18</span>
+    <span title="站点阅读时长">23:07</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

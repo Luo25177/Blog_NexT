@@ -270,57 +270,79 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ros2 跟 ros1 相差并不是非常大，但是毕竟是一个新的机器人操作系统，相比 ros1 来说强大的很多，总结就是</p>
+        <h2 id="前言">前言</h2>
+<p>ros2 跟 ros1 相差并不是非常大，但是毕竟是一个新的机器人操作系统，相比 ros1 来说强大的很多，总结就是</p>
 <ul>
 <li>节点干掉了 Master</li>
 <li>通信换为了 DDS</li>
 <li>核心概念没变化</li>
 <li>编程难度上升</li>
 </ul>
-<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>这是我自己的学习之后写的代码 <a target="_blank" rel="noopener" href="https://github.com/Luo25177/ros2Work">github</a></p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>需要注意在 <code>package.xml</code> 和 <code>CMakeLists.txt</code> 中声明所需要的依赖</p>
+<h3 id="github仓库">github仓库</h3>
+<p>这是我自己的学习之后写的代码 <a target="_blank" rel="noopener" href="https://github.com/Luo25177/ros2Work">github</a></p>
+<h3 id="注意">注意</h3>
+<p>需要注意在 <code>package.xml</code> 和 <code>CMakeLists.txt</code> 中声明所需要的依赖</p>
 <hr>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="设置编码"><a href="#设置编码" class="headerlink" title="设置编码"></a>设置编码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install locales</span><br><span class="line">sudo locale-gen en_US en_US.UTF-8</span><br><span class="line">sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8</span><br><span class="line">export LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure>
-<h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install curl gnupg lsb-release</span><br><span class="line">sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg</span><br><span class="line">echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main&quot; | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
-<p>上述第二条指令可能会报错“无法连接到raw.githubusercontent.com”，解决办法如下</p>
+<h2 id="安装">安装</h2>
+<h3 id="设置编码">设置编码</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install locales</span><br><span class="line">sudo locale-gen en_US en_US.UTF-8</span><br><span class="line">sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8</span><br><span class="line">export LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure>
+<h3 id="添加源">添加源</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install curl gnupg lsb-release</span><br><span class="line">sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg</span><br><span class="line">echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main&quot; | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
+<p>上述第二条指令可能会报错“<a target="_blank" rel="noopener" href="http://xn--raw-7j2e211f47chuqck2e.githubusercontent.com">无法连接到raw.githubusercontent.com</a>&quot;，解决办法如下</p>
 <ol>
 <li>登录网站<a target="_blank" rel="noopener" href="https://www.ipaddress.com/">https://www.ipaddress.com/</a></li>
 <li>将 <code>raw.githubusercontent.com</code> 在查询栏中搜索，可以看到域名对应的 ip 地址信息</li>
 <li>将结果中的 ip 地址和域名拷贝到 <code>/etc/hosts</code> 文件中，（记得sudo）</li>
 <li>保存退出之后就可以重新尝试第二条指令了</li>
 </ol>
-<h3 id="安装ros2"><a href="#安装ros2" class="headerlink" title="安装ros2"></a>安装ros2</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt install ros-humble-desktop</span><br></pre></td></tr></table></figure>
-<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">echo &quot; source /opt/ros/humble/setup.bash&quot; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>打开两个终端，分别运行如下指令</p>
+<h3 id="安装ros2">安装ros2</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt install ros-humble-desktop</span><br></pre></td></tr></table></figure>
+<h3 id="设置环境变量">设置环境变量</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">echo &quot; source /opt/ros/humble/setup.bash&quot; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="测试">测试</h3>
+<p>打开两个终端，分别运行如下指令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node</span><br><span class="line">ros2 run turtlesim turtle_teleop_key</span><br></pre></td></tr></table></figure>
-<h2 id="ros2的一些指令"><a href="#ros2的一些指令" class="headerlink" title="ros2的一些指令"></a>ros2的一些指令</h2><h3 id="运行节点程序"><a href="#运行节点程序" class="headerlink" title="运行节点程序"></a>运行节点程序</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run</span><br></pre></td></tr></table></figure>
-<h3 id="查看节点信息"><a href="#查看节点信息" class="headerlink" title="查看节点信息"></a>查看节点信息</h3><p><strong>查看节点列表</strong></p>
+<h2 id="ros2的一些指令">ros2的一些指令</h2>
+<h3 id="运行节点程序">运行节点程序</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run</span><br></pre></td></tr></table></figure>
+<h3 id="查看节点信息">查看节点信息</h3>
+<p><strong>查看节点列表</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 node list</span><br></pre></td></tr></table></figure>
 <p><strong>查看具体节点信息</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 node info /turtlesim # 这里的turtlesim就是海龟节点</span><br></pre></td></tr></table></figure>
-<h3 id="查看话题信息"><a href="#查看话题信息" class="headerlink" title="查看话题信息"></a>查看话题信息</h3><p><strong>查看话题列表</strong></p>
+<h3 id="查看话题信息">查看话题信息</h3>
+<p><strong>查看话题列表</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic list</span><br></pre></td></tr></table></figure>
 <p><strong>利用echo指令查看话题中的消息</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic echo /turtle1/pose</span><br></pre></td></tr></table></figure>
-<h3 id="发布话题消息"><a href="#发布话题消息" class="headerlink" title="发布话题消息"></a>发布话题消息</h3><p>在上述小海龟中可以发布话题消息控制小海龟运动</p>
+<h3 id="发布话题消息">发布话题消息</h3>
+<p>在上述小海龟中可以发布话题消息控制小海龟运动</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist &quot;&#123;linear: &#123;x: 2.0, y: 0.0, z: 0.0&#125;, angular: &#123;x: 0.0, y: 0.0, z: 1.8&#125;&#125;&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="发送服务请求"><a href="#发送服务请求" class="headerlink" title="发送服务请求"></a>发送服务请求</h3><p>还是在上述的小海龟中，其实小海龟里创建了服务器可以在用户端的请求之下可以产生一个新的海龟</p>
+<h3 id="发送服务请求">发送服务请求</h3>
+<p>还是在上述的小海龟中，其实小海龟里创建了服务器可以在用户端的请求之下可以产生一个新的海龟</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 service call /spawn turtlesim/srv/Spawn &quot;&#123;x: 2, y: 2, theta: 0.2, name: &#x27;&#x27;&#125;&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="发送动作目标"><a href="#发送动作目标" class="headerlink" title="发送动作目标"></a>发送动作目标</h3><p>想要让海龟完成一个具体动作，比如转到指定角度，仿真器中提供的这个action可以帮上忙，通过命令行发送动作目标</p>
+<h3 id="发送动作目标">发送动作目标</h3>
+<p>想要让海龟完成一个具体动作，比如转到指定角度，仿真器中提供的这个action可以帮上忙，通过命令行发送动作目标</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute <span class="string">&quot;theta: 3&quot;</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="录制控制指令"><a href="#录制控制指令" class="headerlink" title="录制控制指令"></a>录制控制指令</h3><p>系统运行中参数太多，通过 <code>rosbag</code> 可以将数据录制与播放</p>
+<h3 id="录制控制指令">录制控制指令</h3>
+<p>系统运行中参数太多，通过 <code>rosbag</code> 可以将数据录制与播放</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ros2 bag record /turtle1/cmd_vel # 保存的具体的指令</span><br><span class="line">ros2 bag play rosbag2_2022_04_11-17_35_40/rosbag2_2022_04_11-17_35_40_0.db3 # 已经保存的录制的文件</span><br></pre></td></tr></table></figure>
-<h3 id="创建工作空间"><a href="#创建工作空间" class="headerlink" title="创建工作空间"></a>创建工作空间</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ./dev_ws/src</span><br><span class="line">cd ./dev_ws/src</span><br></pre></td></tr></table></figure>
-<h3 id="编译工作空间"><a href="#编译工作空间" class="headerlink" title="编译工作空间"></a>编译工作空间</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-colcon-ros</span><br><span class="line">cd ..</span><br><span class="line">colcon build</span><br></pre></td></tr></table></figure>
-<h3 id="设置运行环境变量"><a href="#设置运行环境变量" class="headerlink" title="设置运行环境变量"></a>设置运行环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source install/local_setup.sh # 仅在当前终端生效</span><br><span class="line">echo &quot;source $&#123;dev/install/local_setup.sh&quot; &gt;&gt; ~/.bashrc # 所有终端均生效</span><br></pre></td></tr></table></figure>
-<h3 id="创建功能包"><a href="#创建功能包" class="headerlink" title="创建功能包"></a>创建功能包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create --build-type &lt;build-type&gt; &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="创建工作空间">创建工作空间</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ./dev_ws/src</span><br><span class="line">cd ./dev_ws/src</span><br></pre></td></tr></table></figure>
+<h3 id="编译工作空间">编译工作空间</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-colcon-ros</span><br><span class="line">cd ..</span><br><span class="line">colcon build</span><br></pre></td></tr></table></figure>
+<h3 id="设置运行环境变量">设置运行环境变量</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source install/local_setup.sh # 仅在当前终端生效</span><br><span class="line">echo &quot;source $&#123;dev/install/local_setup.sh&quot; &gt;&gt; ~/.bashrc # 所有终端均生效</span><br></pre></td></tr></table></figure>
+<h3 id="创建功能包">创建功能包</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create --build-type &lt;build-type&gt; &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
 <p>其中</p>
 <ul>
 <li>create 表示创建功能包</li>
 <li>build-type 表示新创建的功能包是 C++ 还是 python 的，如果使用 C++，那这里就是 <code>ament_cmake</code> ，对于 python 就是 <code>ament_python</code></li>
 <li>package_name 新建功能包的名字</li>
 </ul>
-<h2 id="创建自定义消息和服务"><a href="#创建自定义消息和服务" class="headerlink" title="创建自定义消息和服务"></a>创建自定义消息和服务</h2><p>很恶心的一点就是,自定义的消息或者是服务的名称编译结束之后会变得不一样，引用的时候就会出现一些奇怪的bug，例如:</p>
+<h2 id="创建自定义消息和服务">创建自定义消息和服务</h2>
+<p>很恶心的一点就是,自定义的消息或者是服务的名称编译结束之后会变得不一样，引用的时候就会出现一些奇怪的bug，例如:</p>
 <p>AddTwoInt.srv -&gt; add_two_int.hpp &amp; AddTwoInt</p>
 <p>编译结束之后需要调用的头文件名称会不太一样,变成上面那种格式,但是在函数中调用的时候依旧是原来的定义的文件名的格式</p>
 <p>利用这条指令来查看自己是否创建完成消息或者服务</p>
@@ -334,7 +356,8 @@
 <li>package.xml 中 <code>&lt;depend&gt;interfaces&lt;/depend&gt;</code></li>
 </ol>
 <hr>
-<h2 id="话题通信"><a href="#话题通信" class="headerlink" title="话题通信"></a>话题通信</h2><p>使用 <code>Publisher</code> 来发布话题消息</p>
+<h2 id="话题通信">话题通信</h2>
+<p>使用 <code>Publisher</code> 来发布话题消息</p>
 <p>使用 <code>Subscription</code> 接受话题消息</p>
 <p>需要注意的是</p>
 <ol>
@@ -342,7 +365,8 @@
 <li><code>publisher</code> 和 <code>subscription</code> 需要有相同的消息名称</li>
 <li>话题通信是一种异步通信</li>
 </ol>
-<h3 id="命令行指令"><a href="#命令行指令" class="headerlink" title="命令行指令"></a>命令行指令</h3><ul>
+<h3 id="命令行指令">命令行指令</h3>
+<ul>
 <li><code>ros2 topic list</code> 查看话题列表</li>
 <li><code>ros2 topic info &lt;topic_name&gt;</code> 查看话题信息</li>
 <li><code>ros2 topic hz &lt;topic_name&gt;</code> 查看话题发布频率</li>
@@ -351,42 +375,55 @@
 <li><code>ros2 topic pub &lt;topic_name&gt; &lt;msg_type&gt; &lt;msg_data&gt;</code> 发布话题消息</li>
 </ul>
 <hr>
-<h2 id="服务通信"><a href="#服务通信" class="headerlink" title="服务通信"></a>服务通信</h2><p>使用 <code>service</code> 作为服务器</p>
+<h2 id="服务通信">服务通信</h2>
+<p>使用 <code>service</code> 作为服务器</p>
 <p>使用 <code>client</code> 作为客户端</p>
 <p>客户端可以向服务器发送请求和数据，需要自己创建自定义的消息类型和服务</p>
 <p>对于同一个服务器可以有多个客户端</p>
-<h3 id="命令行指令-1"><a href="#命令行指令-1" class="headerlink" title="命令行指令"></a>命令行指令</h3><ul>
+<h3 id="命令行指令">命令行指令</h3>
+<ul>
 <li><code>ros2 service list</code> 查看服务列表</li>
 <li><code>ros2 service type &lt;service_name&gt;</code> 查看服务数据类型</li>
 <li><code>ros2 service call &lt;service_name&gt; &lt;service_type&gt; &lt;service_data&gt;</code> 发送服务请求</li>
 </ul>
 <hr>
-<h2 id="动作"><a href="#动作" class="headerlink" title="动作"></a>动作</h2><p>一定一定要添加依賴 <code>rclcpp_action</code></p>
+<h2 id="动作">动作</h2>
+<p>一定一定要添加依賴 <code>rclcpp_action</code></p>
 <p>其中 <code>actionserver</code> 比较复杂，需要应对多种信号来做处理</p>
 <p><code>actionclient</code> 也比较复杂，需要定义一个 <code>option</code> 绑定多种函数，也不是很建议使用 <code>timer</code>，感觉会有点冲突？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A(接受到消息) --&gt; B[goalhandler自定义判断条件] --&gt; C&#123;judgement&#125; --&gt; |符合条件|acceptedhandler --&gt; D(execute)</span><br><span class="line">C&#123;judgement&#125; --&gt; |不符合条件|REJECT --&gt; E(cancel)</span><br><span class="line">C(execute) --&gt; |client终止运行|E(cancel)</span><br></pre></td></tr></table></figure>
 <p>动作的三个通信模块，有两个是服务，一个是话题，当客户端发送运动目标时，使用的是服务的请求调用，服务器端也会反馈一个应答，表示收到命令。动作的反馈过程，其实就是一个话题的周期发布，服务器端是发布者，客户端是订阅者</p>
 <p>没错，动作是一种应用层的通信机制，其底层就是基于话题和服务来实现的</p>
-<h3 id="自定义action接口"><a href="#自定义action接口" class="headerlink" title="自定义action接口"></a>自定义action接口</h3><p>通过在 <code>action</code> 文件夹下定义 <code>xxx.action</code> 文件，内部包含的内容类似于服务通信，例如</p>
+<h3 id="自定义action接口">自定义action接口</h3>
+<p>通过在 <code>action</code> 文件夹下定义 <code>xxx.action</code> 文件，内部包含的内容类似于服务通信，例如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bool enable # 定义动作的目标，表示动作开始的指令</span><br><span class="line">---</span><br><span class="line">bool finish # 定义动作的结果，表示是否成功执行</span><br><span class="line">---</span><br><span class="line">int32 state # 定义动作的反馈，表示当前执行到的位置</span><br></pre></td></tr></table></figure>
 <p>在 <code>CMakeLists.txt</code> 的 <code>rosidl_generate_interfaces</code> 添加 <code>xxx.action</code> 的路径，然后编译生成对应的头文件</p>
-<h3 id="命令行指令-2"><a href="#命令行指令-2" class="headerlink" title="命令行指令"></a>命令行指令</h3><ul>
+<h3 id="命令行指令">命令行指令</h3>
+<ul>
 <li><code>ros2 action list</code> 查看服务列表</li>
 <li><code>ros2 action info &lt;action_name&gt;</code> 查看数据服务类型</li>
 <li><code>ros2 action send_goal &lt;action_name&gt; &lt;action_type&gt; &lt;action_data&gt;</code> 发送服务请求</li>
 </ul>
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>参数实际上就是一个全局字典，相当于是所有 ros 线程公用的全局变量，所有节点都可以访问。如果其中一个节点对参数进行了修改，那其它的节点也会立即知道</p>
-<h3 id="命令行指令-3"><a href="#命令行指令-3" class="headerlink" title="命令行指令"></a>命令行指令</h3><ul>
+<h2 id="参数">参数</h2>
+<p>参数实际上就是一个全局字典，相当于是所有 ros 线程公用的全局变量，所有节点都可以访问。如果其中一个节点对参数进行了修改，那其它的节点也会立即知道</p>
+<h3 id="命令行指令">命令行指令</h3>
+<ul>
 <li><code>ros2 param list</code> 查看列表参数</li>
 <li><code>ros2 param describe nodename paramname</code> 获取某个参数的描述信息</li>
 <li><code>ros2 param get nodename paramname</code> 查询某个参数的值</li>
 <li><code>ros2 param set nodename paramname value</code> 修改某个参数的值</li>
 </ul>
-<h2 id="通信模型"><a href="#通信模型" class="headerlink" title="通信模型"></a>通信模型</h2><h3 id="点对点模型"><a href="#点对点模型" class="headerlink" title="点对点模型"></a>点对点模型</h3><p>许多客户端连接到一个服务器，每次通信时，通信双方必须建立一条连接。当通信节点增多时，连接数也会增多。而且每个客户端都需要知道服务器的具体地址和所提供的服务，一旦服务器地址发生变化，所有客户端都会受到影响</p>
-<h3 id="Broker模型"><a href="#Broker模型" class="headerlink" title="Broker模型"></a>Broker模型</h3><p>针对点对点模型进行了优化，由Broker集中处理所有人的请求，并进一步找到真正能响应该服务的角色。这样客户端就不用关心服务器的具体地址了。不过问题也很明显，Broker作为核心，它的处理速度会影响所有节点的效率，当系统规模增长到一定程度，Broker就会成为整个系统的性能瓶颈。更麻烦是，如果Broker发生异常，可能导致整个系统都无法正常运转。之前的ROS1系统，使用的就是类似这样的架构</p>
-<h3 id="广播模型"><a href="#广播模型" class="headerlink" title="广播模型"></a>广播模型</h3><p>所有节点都可以在通道上广播消息，并且节点都可以收到消息。这个模型解决了服务器地址的问题，而且通信双方也不用单独建立连接，但是广播通道上的消息太多了，所有节点都必须关心每条消息，其实很多是和自己没有关系的</p>
-<h3 id="DDS模型"><a href="#DDS模型" class="headerlink" title="DDS模型"></a>DDS模型</h3><p>以数据为中心，这种模型与广播模型有些类似，所有节点都可以在DataBus上发布和订阅消息。但它的先进之处在于，通信中包含了很多并行的通路，每个节点可以只关心自己感兴趣的消息，忽略不感兴趣的消息。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>ros2 相比于 ros1 来说，通讯上的实时性更好一点，并且 ros2 系统在应用和性能上只会比 ros1 更加强大</p>
+<h2 id="通信模型">通信模型</h2>
+<h3 id="点对点模型">点对点模型</h3>
+<p>许多客户端连接到一个服务器，每次通信时，通信双方必须建立一条连接。当通信节点增多时，连接数也会增多。而且每个客户端都需要知道服务器的具体地址和所提供的服务，一旦服务器地址发生变化，所有客户端都会受到影响</p>
+<h3 id="broker模型">Broker模型</h3>
+<p>针对点对点模型进行了优化，由Broker集中处理所有人的请求，并进一步找到真正能响应该服务的角色。这样客户端就不用关心服务器的具体地址了。不过问题也很明显，Broker作为核心，它的处理速度会影响所有节点的效率，当系统规模增长到一定程度，Broker就会成为整个系统的性能瓶颈。更麻烦是，如果Broker发生异常，可能导致整个系统都无法正常运转。之前的ROS1系统，使用的就是类似这样的架构</p>
+<h3 id="广播模型">广播模型</h3>
+<p>所有节点都可以在通道上广播消息，并且节点都可以收到消息。这个模型解决了服务器地址的问题，而且通信双方也不用单独建立连接，但是广播通道上的消息太多了，所有节点都必须关心每条消息，其实很多是和自己没有关系的</p>
+<h3 id="dds模型">DDS模型</h3>
+<p>以数据为中心，这种模型与广播模型有些类似，所有节点都可以在DataBus上发布和订阅消息。但它的先进之处在于，通信中包含了很多并行的通路，每个节点可以只关心自己感兴趣的消息，忽略不感兴趣的消息。</p>
+<h2 id="总结">总结</h2>
+<p>ros2 相比于 ros1 来说，通讯上的实时性更好一点，并且 ros2 系统在应用和性能上只会比 ros1 更加强大</p>
 
     </div>
 
@@ -488,7 +525,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#github%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">github仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">设置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%BA%90"><span class="nav-number">2.2.</span> <span class="nav-text">添加源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ros2"><span class="nav-number">2.3.</span> <span class="nav-text">安装ros2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.4.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">2.5.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ros2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">ros2的一些指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E8%8A%82%E7%82%B9%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">运行节点程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF"><span class="nav-number">3.2.</span> <span class="nav-text">查看节点信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%AF%9D%E9%A2%98%E4%BF%A1%E6%81%AF"><span class="nav-number">3.3.</span> <span class="nav-text">查看话题信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98%E6%B6%88%E6%81%AF"><span class="nav-number">3.4.</span> <span class="nav-text">发布话题消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82"><span class="nav-number">3.5.</span> <span class="nav-text">发送服务请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E5%8A%A8%E4%BD%9C%E7%9B%AE%E6%A0%87"><span class="nav-number">3.6.</span> <span class="nav-text">发送动作目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%95%E5%88%B6%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4"><span class="nav-number">3.7.</span> <span class="nav-text">录制控制指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">3.8.</span> <span class="nav-text">创建工作空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">3.9.</span> <span class="nav-text">编译工作空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.10.</span> <span class="nav-text">设置运行环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8A%9F%E8%83%BD%E5%8C%85"><span class="nav-number">3.11.</span> <span class="nav-text">创建功能包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E5%92%8C%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">创建自定义消息和服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%9D%E9%A2%98%E9%80%9A%E4%BF%A1"><span class="nav-number">5.</span> <span class="nav-text">话题通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">5.1.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E9%80%9A%E4%BF%A1"><span class="nav-number">6.</span> <span class="nav-text">服务通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4-1"><span class="nav-number">6.1.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E4%BD%9C"><span class="nav-number">7.</span> <span class="nav-text">动作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89action%E6%8E%A5%E5%8F%A3"><span class="nav-number">7.1.</span> <span class="nav-text">自定义action接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4-2"><span class="nav-number">7.2.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4-3"><span class="nav-number">8.1.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.</span> <span class="nav-text">通信模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.1.</span> <span class="nav-text">点对点模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broker%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.2.</span> <span class="nav-text">Broker模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E6%92%AD%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.3.</span> <span class="nav-text">广播模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDS%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.4.</span> <span class="nav-text">DDS模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#github%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">github仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">设置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%BA%90"><span class="nav-number">2.2.</span> <span class="nav-text">添加源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ros2"><span class="nav-number">2.3.</span> <span class="nav-text">安装ros2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.4.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">2.5.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ros2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">ros2的一些指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E8%8A%82%E7%82%B9%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">运行节点程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF"><span class="nav-number">3.2.</span> <span class="nav-text">查看节点信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%AF%9D%E9%A2%98%E4%BF%A1%E6%81%AF"><span class="nav-number">3.3.</span> <span class="nav-text">查看话题信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98%E6%B6%88%E6%81%AF"><span class="nav-number">3.4.</span> <span class="nav-text">发布话题消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82"><span class="nav-number">3.5.</span> <span class="nav-text">发送服务请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E5%8A%A8%E4%BD%9C%E7%9B%AE%E6%A0%87"><span class="nav-number">3.6.</span> <span class="nav-text">发送动作目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%95%E5%88%B6%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4"><span class="nav-number">3.7.</span> <span class="nav-text">录制控制指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">3.8.</span> <span class="nav-text">创建工作空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">3.9.</span> <span class="nav-text">编译工作空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.10.</span> <span class="nav-text">设置运行环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8A%9F%E8%83%BD%E5%8C%85"><span class="nav-number">3.11.</span> <span class="nav-text">创建功能包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E5%92%8C%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">创建自定义消息和服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%9D%E9%A2%98%E9%80%9A%E4%BF%A1"><span class="nav-number">5.</span> <span class="nav-text">话题通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">5.1.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E9%80%9A%E4%BF%A1"><span class="nav-number">6.</span> <span class="nav-text">服务通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">6.1.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E4%BD%9C"><span class="nav-number">7.</span> <span class="nav-text">动作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89action%E6%8E%A5%E5%8F%A3"><span class="nav-number">7.1.</span> <span class="nav-text">自定义action接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">7.2.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">8.1.</span> <span class="nav-text">命令行指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.</span> <span class="nav-text">通信模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.1.</span> <span class="nav-text">点对点模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#broker%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.2.</span> <span class="nav-text">Broker模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E6%92%AD%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.3.</span> <span class="nav-text">广播模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dds%E6%A8%A1%E5%9E%8B"><span class="nav-number">9.4.</span> <span class="nav-text">DDS模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -561,12 +598,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:18</span>
+    <span title="站点阅读时长">23:07</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

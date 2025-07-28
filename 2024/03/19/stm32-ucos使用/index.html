@@ -270,138 +270,177 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="计算机操作系统"><a href="#计算机操作系统" class="headerlink" title="计算机操作系统"></a>计算机操作系统</h3><p>计算机只由硬件构成的叫做“裸机“，不能工作，必须有软件</p>
+        <h3 id="计算机操作系统">计算机操作系统</h3>
+<p>计算机只由硬件构成的叫做“裸机“，不能工作，必须有软件</p>
 <ol>
-<li><p>多任务</p>
-<p> 把一个大任务分解为几个小任务，那在一个任务需要等待I/O时就可以交出CPU的使用权去运行其他的任务，可以极大的提高CPU的利用效率。</p>
+<li>
+<p>多任务</p>
+<p>把一个大任务分解为几个小任务，那在一个任务需要等待I/O时就可以交出CPU的使用权去运行其他的任务，可以极大的提高CPU的利用效率。</p>
 </li>
-<li><p>内核类型</p>
+<li>
+<p>内核类型</p>
 <ul>
-<li><p>可剥夺型内核</p>
-<p>  总是运行优先级别最高的任务，即使CPU正在运行某一个低优先级的任务，当高优先级的任务准备就绪时，就会剥夺低优先级的任务的CPU的使用权。</p>
+<li>
+<p>可剥夺型内核</p>
+<p>总是运行优先级别最高的任务，即使CPU正在运行某一个低优先级的任务，当高优先级的任务准备就绪时，就会剥夺低优先级的任务的CPU的使用权。</p>
 </li>
-<li><p>不可剥夺型内核</p>
-<p>  总是优先级别高的任务最先获得CPU的使用权，要求每个任务都能主动放弃CPU的使用权。</p>
+<li>
+<p>不可剥夺型内核</p>
+<p>总是优先级别高的任务最先获得CPU的使用权，要求每个任务都能主动放弃CPU的使用权。</p>
 </li>
 </ul>
 </li>
-<li><p>任务切换时间</p>
-<p> 多任务系统的任务之间的切换是需要时间的。操作系统的任务调度器就是做这项工作的。调度器在进行任务切换时需要一段时间，这段时间的长短也影响系统实时性，任务调度器进行任务切换所用的时间不能受到应用程序中其他因素（任务数目等）的影响。</p>
+<li>
+<p>任务切换时间</p>
+<p>多任务系统的任务之间的切换是需要时间的。操作系统的任务调度器就是做这项工作的。调度器在进行任务切换时需要一段时间，这段时间的长短也影响系统实时性，任务调度器进行任务切换所用的时间不能受到应用程序中其他因素（任务数目等）的影响。</p>
 </li>
-<li><p>终端延时</p>
-<p> 外部事件的发生会以中断申请信号的形式通知CPU，然后才运行中断服务程序来处理该事件，自CPU响应中断到CPU转向中断服务程序之间所用的时间叫做终端延时，也影响系统的实时性。</p>
+<li>
+<p>终端延时</p>
+<p>外部事件的发生会以中断申请信号的形式通知CPU，然后才运行中断服务程序来处理该事件，自CPU响应中断到CPU转向中断服务程序之间所用的时间叫做终端延时，也影响系统的实时性。</p>
 </li>
 </ol>
-<h3 id="ucosii使用"><a href="#ucosii使用" class="headerlink" title="ucosii使用"></a>ucosii使用</h3><ol>
-<li><p>用户应用程序的结构</p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">task1</span><span class="params">(<span class="type">void</span> *pdata)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">task2</span><span class="params">(<span class="type">void</span>* pdata)</span>;</span><br><span class="line">...</span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">		OSInit(); <span class="comment">// 初始化ucosii</span></span><br><span class="line">		OSTaskCreate(task1,....); <span class="comment">// 创建任务</span></span><br><span class="line">		OSStart(); <span class="comment">// 启动任务</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 使用 <code>OSStart()</code>函数启动各项任务之后，任务就交给操作系统管理和调度了。</p>
-</li>
-<li><p>系统任务</p>
+<h3 id="ucosii使用">ucosii使用</h3>
 <ol>
-<li><p>空闲任务</p>
-<p> 为了使CPU在没有用户任务可执行的时候有事可做，ucosii提供了一个空闲任务的系统任务，用户可以对空闲任务进行增加操作等，并且一个用户的应用程序必须使用这个空闲任务，不能用软件删除。</p>
+<li>
+<p>用户应用程序的结构</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">task1</span><span class="params">(<span class="type">void</span> *pdata)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">task2</span><span class="params">(<span class="type">void</span>* pdata)</span>;</span><br><span class="line">...</span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">		OSInit(); <span class="comment">// 初始化ucosii</span></span><br><span class="line">		OSTaskCreate(task1,....); <span class="comment">// 创建任务</span></span><br><span class="line">		OSStart(); <span class="comment">// 启动任务</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>OSStart()</code>函数启动各项任务之后，任务就交给操作系统管理和调度了。</p>
+</li>
+<li>
+<p>系统任务</p>
+<ol>
+<li>
+<p>空闲任务</p>
+<p>为了使CPU在没有用户任务可执行的时候有事可做，ucosii提供了一个空闲任务的系统任务，用户可以对空闲任务进行增加操作等，并且一个用户的应用程序必须使用这个空闲任务，不能用软件删除。</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">OS_TaskIdle</span><span class="params">(<span class="type">void</span>* p_arg)</span>&#123;</span><br><span class="line">		<span class="meta">#<span class="keyword">if</span> OS_CRITICAL_METHOD == 3u </span></span><br><span class="line">				OS_CPU_SR  cpu_sr = <span class="number">0u</span>; <span class="comment">// 为CPU状态寄存器分配存储空间</span></span><br><span class="line">		<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    p_arg = p_arg; <span class="comment">// 不使用会出现警告，有些编译器出现报错</span></span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        OS_ENTER_CRITICAL();<span class="comment">// 进入临界区，关闭所有中断</span></span><br><span class="line">        OSIdleCtr++;</span><br><span class="line">        OS_EXIT_CRITICAL(); <span class="comment">// 开放中断</span></span><br><span class="line">        OSTaskIdleHook(); <span class="comment">// 调用用户的任务的HOOK</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>统计任务</p>
-<p> 系统的统计任务 <code>OSTaskStat()</code> 可以每秒计算一次CPU在单位时间内被使用的时间，并且把结果以百分比的形式存放在变量 <code>OSCPUUsage</code> 中</p>
-<p> 用户是否使用这个统计任务，可以根据应用程序的实际需要选择，如果要使用就必须把定义在头文件 <code>OS_CFG.h</code> 中的系统配置常数 <code>OS_TASK_STAT_EN</code> 设置为1，并且在创建统计任务之前调用函数 <code>OSStatInit()</code> 对统计任务初始化。</p>
+<li>
+<p>统计任务</p>
+<p>系统的统计任务 <code>OSTaskStat()</code> 可以每秒计算一次CPU在单位时间内被使用的时间，并且把结果以百分比的形式存放在变量 <code>OSCPUUsage</code> 中</p>
+<p>用户是否使用这个统计任务，可以根据应用程序的实际需要选择，如果要使用就必须把定义在头文件 <code>OS_CFG.h</code> 中的系统配置常数 <code>OS_TASK_STAT_EN</code> 设置为1，并且在创建统计任务之前调用函数 <code>OSStatInit()</code> 对统计任务初始化。</p>
 </li>
 </ol>
 </li>
-<li><p>任务优先级别和优先权</p>
-<p> ucosii的每个任务都必须具有一个唯一的优先级别。ucosii把任务的优先权分为64个优先级别，每一个优先级别都用一个数字表示。数字0表示任务的优先级别最高，数字越大则表示任务的优先级别越高。</p>
-<p> 通常程序的任务数小于64。用户可以在需要的时候在文件 <code>OS_CFG.h</code> 文件中通过给表示最低优先级别的常数 <code>OS_LOWEST_PRIO</code> 赋值来定义程序中优先级别的数目。一旦被定义就意味着系统中可以使用的优先级别为 <code>0 ~ OS_LOWEST_PRIO</code> 一共OS_LOWEST_PRIO+1个，也限制了程序的任务数量。系统总是把 <code>OS_LOWEST_PRIO</code> 自动给空闲任务，把 <code>OS_LOWEST_PRIO-1</code> 给统计任务（如果使用的话）。</p>
+<li>
+<p>任务优先级别和优先权</p>
+<p>ucosii的每个任务都必须具有一个唯一的优先级别。ucosii把任务的优先权分为64个优先级别，每一个优先级别都用一个数字表示。数字0表示任务的优先级别最高，数字越大则表示任务的优先级别越高。</p>
+<p>通常程序的任务数小于64。用户可以在需要的时候在文件 <code>OS_CFG.h</code> 文件中通过给表示最低优先级别的常数 <code>OS_LOWEST_PRIO</code> 赋值来定义程序中优先级别的数目。一旦被定义就意味着系统中可以使用的优先级别为 <code>0 ~ OS_LOWEST_PRIO</code> 一共OS_LOWEST_PRIO+1个，也限制了程序的任务数量。系统总是把 <code>OS_LOWEST_PRIO</code> 自动给空闲任务，把 <code>OS_LOWEST_PRIO-1</code> 给统计任务（如果使用的话）。</p>
 </li>
-<li><p>任务堆栈</p>
+<li>
+<p>任务堆栈</p>
 <ol>
-<li><p>任务堆栈的创建</p>
-<p> 为了方便定义任务堆栈，文件 <code>OS_CPU.h</code> 中专门定义了一个数据类型 <code>OS_STK</code> </p>
+<li>
+<p>任务堆栈的创建</p>
+<p>为了方便定义任务堆栈，文件 <code>OS_CPU.h</code> 中专门定义了一个数据类型 <code>OS_STK</code></p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> OS_STK; <span class="comment">// 类型长度为16位 2个字节</span></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TASK_STK_SIZE 512  <span class="comment">// 定义堆栈长度 1024 个字节</span></span></span><br><span class="line">OS_STK TaskStk[TASK_STK_SIZE]; <span class="comment">// 定义一个数组作为任务堆栈</span></span><br></pre></td></tr></table></figure>
-<p> 创建任务函数</p>
+<p>创建任务函数</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INT8U  <span class="title function_">OSTaskCreate</span> <span class="params">(<span class="type">void</span>   (*task)(<span class="type">void</span> *p_arg), <span class="comment">// 指向任务的指针</span></span></span><br><span class="line"><span class="params">                     <span class="type">void</span>    *p_arg, <span class="comment">// 传递给任务的参数</span></span></span><br><span class="line"><span class="params">                     OS_STK  *ptos, <span class="comment">// 任务堆栈栈顶的指针</span></span></span><br><span class="line"><span class="params">                     INT8U    prio)</span> <span class="comment">// 指定任务的优先级别参数</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
-<li><p>任务创建</p>
-<p> 程序通过函数 <code>OSTaskCreate()</code> 来创建一个任务</p>
-<p> 函数对于创建任务的优先级别进行一系列判断，确定该优先级别合法并且未被使用之后，就调用函数 <code>OSTaskStkInit</code> 和 <code>OS_TCBInit</code> 对任务堆栈和任务的控制块进行初始化，初始化成功之后，把任务计数器加一之外还要判断ucosii的核心是否处于运行状态（<code>OSRunning == 1</code>），如果正在运行，调用 <code>OSSched()</code> 进行任务调度。</p>
+<li>
+<p>任务创建</p>
+<p>程序通过函数 <code>OSTaskCreate()</code> 来创建一个任务</p>
+<p>函数对于创建任务的优先级别进行一系列判断，确定该优先级别合法并且未被使用之后，就调用函数 <code>OSTaskStkInit</code> 和 <code>OS_TCBInit</code> 对任务堆栈和任务的控制块进行初始化，初始化成功之后，把任务计数器加一之外还要判断ucosii的核心是否处于运行状态（<code>OSRunning == 1</code>），如果正在运行，调用 <code>OSSched()</code> 进行任务调度。</p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">INT8U  <span class="title function_">OSTaskCreate</span> <span class="params">(<span class="type">void</span>   (*task)(<span class="type">void</span> *p_arg),</span></span><br><span class="line"><span class="params">                     <span class="type">void</span>    *p_arg,</span></span><br><span class="line"><span class="params">                     OS_STK  *ptos,</span></span><br><span class="line"><span class="params">                     INT8U    prio)</span></span><br><span class="line">&#123;</span><br><span class="line">    OS_STK     *psp;</span><br><span class="line">    INT8U       err;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> OS_CRITICAL_METHOD == 3u                 <span class="comment">/* Allocate storage for CPU status register               */</span></span></span><br><span class="line">    OS_CPU_SR   cpu_sr = <span class="number">0u</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> OS_SAFETY_CRITICAL_IEC61508</span></span><br><span class="line">    <span class="keyword">if</span> (OSSafetyCriticalStartFlag == OS_TRUE) &#123;</span><br><span class="line">        OS_SAFETY_CRITICAL_EXCEPTION();</span><br><span class="line">        <span class="keyword">return</span> (OS_ERR_ILLEGAL_CREATE_RUN_TIME);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> OS_ARG_CHK_EN &gt; 0u</span></span><br><span class="line">    <span class="keyword">if</span> (prio &gt; OS_LOWEST_PRIO) &#123;             <span class="comment">/* Make sure priority is within allowable range           */</span></span><br><span class="line">        <span class="keyword">return</span> (OS_ERR_PRIO_INVALID);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    OS_ENTER_CRITICAL();</span><br><span class="line">    <span class="keyword">if</span> (OSIntNesting &gt; <span class="number">0u</span>) &#123;                 <span class="comment">/* Make sure we don&#x27;t create the task from within an ISR  */</span></span><br><span class="line">        OS_EXIT_CRITICAL();</span><br><span class="line">        <span class="keyword">return</span> (OS_ERR_TASK_CREATE_ISR);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (OSTCBPrioTbl[prio] == (OS_TCB *)<span class="number">0</span>) &#123; <span class="comment">/* Make sure task doesn&#x27;t already exist at this priority  */</span></span><br><span class="line">        OSTCBPrioTbl[prio] = OS_TCB_RESERVED;<span class="comment">/* Reserve the priority to prevent others from doing ...  */</span></span><br><span class="line">                                             <span class="comment">/* ... the same thing until task is created.              */</span></span><br><span class="line">        OS_EXIT_CRITICAL();</span><br><span class="line">        psp = OSTaskStkInit(task, p_arg, ptos, <span class="number">0u</span>);             <span class="comment">/* Initialize the task&#x27;s stack         */</span></span><br><span class="line">        err = OS_TCBInit(prio, psp, (OS_STK *)<span class="number">0</span>, <span class="number">0u</span>, <span class="number">0u</span>, (<span class="type">void</span> *)<span class="number">0</span>, <span class="number">0u</span>);</span><br><span class="line">        <span class="keyword">if</span> (err == OS_ERR_NONE) &#123;</span><br><span class="line">            <span class="keyword">if</span> (OSRunning == OS_TRUE) &#123;      <span class="comment">/* Find highest priority task if multitasking has started */</span></span><br><span class="line">                OS_Sched();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            OS_ENTER_CRITICAL();</span><br><span class="line">            OSTCBPrioTbl[prio] = (OS_TCB *)<span class="number">0</span>;<span class="comment">/* Make this priority available to others                 */</span></span><br><span class="line">            OS_EXIT_CRITICAL();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (err);</span><br><span class="line">    &#125;</span><br><span class="line">    OS_EXIT_CRITICAL();</span><br><span class="line">    <span class="keyword">return</span> (OS_ERR_PRIO_EXIST);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>信号量和事件标志</p>
+<li>
+<p>信号量和事件标志</p>
 <ol>
-<li><p>信号量</p>
-<p> 信号量是用于同步和互斥的工具。信号量的值只能是0或正整数。信号量的值表示当前可用的资源数。当进程占有一个资源时，信号量减1，当进程释放一个资源时，信号量加1。如果信号量的值已经为0，那么等待进程将会被阻塞，直到有一个进程释放了一个资源，将信号量的值加1。</p>
+<li>
+<p>信号量</p>
+<p>信号量是用于同步和互斥的工具。信号量的值只能是0或正整数。信号量的值表示当前可用的资源数。当进程占有一个资源时，信号量减1，当进程释放一个资源时，信号量加1。如果信号量的值已经为0，那么等待进程将会被阻塞，直到有一个进程释放了一个资源，将信号量的值加1。</p>
 <ul>
-<li><p>创建信号量</p>
+<li>
+<p>创建信号量</p>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OS_EVENT *<span class="title function_">OSSemCreate</span><span class="params">(INT16U cnt)</span>; <span class="comment">//信号量计数器初始值</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>请求信号量</p>
+<li>
+<p>请求信号量</p>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求失败进入等待状态</span></span><br><span class="line"><span class="type">void</span>  <span class="title function_">OSSemPend</span> <span class="params">(OS_EVENT  *pevent,  <span class="comment">// 信号量指针</span></span></span><br><span class="line"><span class="params">                 INT32U     timeout, <span class="comment">// 等待时间限制</span></span></span><br><span class="line"><span class="params">                 INT8U     *perr)</span> <span class="comment">// 错误信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求失败继续运行</span></span><br><span class="line">INT16U  <span class="title function_">OSSemAccept</span> <span class="params">(OS_EVENT *pevent)</span> <span class="comment">// 信号量指针</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>发送信号量</p>
+<li>
+<p>发送信号量</p>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INT8U  <span class="title function_">OSSemPost</span> <span class="params">(OS_EVENT *pevent)</span> <span class="comment">// 信号量指针</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>删除信号量</p>
+<li>
+<p>删除信号量</p>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OS_EVENT  *<span class="title function_">OSSemDel</span> <span class="params">(OS_EVENT  *pevent, <span class="comment">// 信号量指针</span></span></span><br><span class="line"><span class="params">                     INT8U      opt, <span class="comment">// 删除条件选项</span></span></span><br><span class="line"><span class="params">                     INT8U     *perr)</span> <span class="comment">// 错误信息</span></span><br><span class="line">opt:</span><br><span class="line">1. OS_DEL_NO_PEND 等待任务表中没有等待任务时删除</span><br><span class="line">2. OSDEL_ALLWAYS 无论有无等待任务都删除</span><br><span class="line">！只能在任务中删除信号量，不能在中断中删除</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>查询状态</p>
+<li>
+<p>查询状态</p>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">INT8U  <span class="title function_">OSSemQuery</span> <span class="params">(OS_EVENT     *pevent,</span></span><br><span class="line"><span class="params">                   OS_SEM_DATA  *p_sem_data)</span> <span class="comment">// 存储信号量状态的结构</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> os_sem_data &#123;</span><br><span class="line">    INT16U  OSCnt;                          <span class="comment">/* Semaphore count                                         */</span></span><br><span class="line">    OS_PRIO OSEventTbl[OS_EVENT_TBL_SIZE];  <span class="comment">/* List of tasks waiting for event to occur                */</span></span><br><span class="line">    OS_PRIO OSEventGrp;                     <span class="comment">/* Group corresponding to tasks waiting for event to occur */</span></span><br><span class="line">&#125; OS_SEM_DATA;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p>事件标志</p>
-<p> 事件标志是一种进程同步工具，它可以用于同步进程之间的时间。事件标志的值只能为0或1。当事件标志的值为0时，等待进程将会被阻塞。当事件标志的值为1时，等待进程将会被唤醒，继续运行。事件标志主要用于等待某一个事件的发生，例如等待一个条件成立，或者等待一个时间的到来。</p>
+<li>
+<p>事件标志</p>
+<p>事件标志是一种进程同步工具，它可以用于同步进程之间的时间。事件标志的值只能为0或1。当事件标志的值为0时，等待进程将会被阻塞。当事件标志的值为1时，等待进程将会被唤醒，继续运行。事件标志主要用于等待某一个事件的发生，例如等待一个条件成立，或者等待一个时间的到来。</p>
 </li>
 </ol>
 </li>
-<li><p>时间管理</p>
-<p> ucosii提供了以下三种时间管理方法：</p>
+<li>
+<p>时间管理</p>
+<p>ucosii提供了以下三种时间管理方法：</p>
 <ol>
-<li><p>任务延迟</p>
-<p> 函数 <code>OSTimeDly()</code> 可以使当前执行的任务进入延迟状态，延迟的时间是以系统时钟节拍为单位的。</p>
+<li>
+<p>任务延迟</p>
+<p>函数 <code>OSTimeDly()</code> 可以使当前执行的任务进入延迟状态，延迟的时间是以系统时钟节拍为单位的。</p>
 </li>
-<li><p>任务延迟直到事件标志被设置</p>
-<p> 函数 <code>OSTimeDlyHMSM()</code> 可以使当前执行的任务进入延迟状态，延迟时间是以时、分、秒、毫秒表示的，当设定的时间到达或事件标志被设置时，任务将会恢复执行。</p>
+<li>
+<p>任务延迟直到事件标志被设置</p>
+<p>函数 <code>OSTimeDlyHMSM()</code> 可以使当前执行的任务进入延迟状态，延迟时间是以时、分、秒、毫秒表示的，当设定的时间到达或事件标志被设置时，任务将会恢复执行。</p>
 </li>
-<li><p>获取系统时钟</p>
-<p> 函数 <code>OSTimeGet()</code> 可以获取当前系统时钟的值，该值是以时钟节拍计数的。可以用于时间戳或超时计数等。</p>
+<li>
+<p>获取系统时钟</p>
+<p>函数 <code>OSTimeGet()</code> 可以获取当前系统时钟的值，该值是以时钟节拍计数的。可以用于时间戳或超时计数等。</p>
 </li>
 </ol>
 </li>
-<li><p>任务通信与同步</p>
+<li>
+<p>任务通信与同步</p>
 <ol>
-<li><p>队列</p>
-<p> 队列是一种任务通信的机制，用于在多个任务之间传递数据。队列的大小是固定的，队列可以存储指定类型的数据，每个数据的大小必须相同。队列分为FIFO队列和优先级队列。</p>
+<li>
+<p>队列</p>
+<p>队列是一种任务通信的机制，用于在多个任务之间传递数据。队列的大小是固定的，队列可以存储指定类型的数据，每个数据的大小必须相同。队列分为FIFO队列和优先级队列。</p>
 </li>
-<li><p>信号量和事件标志</p>
-<p> 信号量和事件标志是用于同步和互斥的工具。信号量的值只能是0或正整数。信号量的值表示当前可用的资源数。当进程占有一个资源时，信号量减1，当进程释放一个资源时，信号量加1。如果信号量的值已经为0，那么等待进程将会被阻塞，直到有一个进程释放了一个资源，将信号量的值加1。事件标志是一种进程同步工具，它可以用于同步进程之间的时间。事件标志的值只能为0或1。当事件标志的值为0时，等待进程将会被阻塞。当事件标志的值为1时，等待进程将会被唤醒，继续运行。事件标志主要用于等待某一个事件的发生，例如等待一个条件成立，或者等待一个时间的到来。</p>
+<li>
+<p>信号量和事件标志</p>
+<p>信号量和事件标志是用于同步和互斥的工具。信号量的值只能是0或正整数。信号量的值表示当前可用的资源数。当进程占有一个资源时，信号量减1，当进程释放一个资源时，信号量加1。如果信号量的值已经为0，那么等待进程将会被阻塞，直到有一个进程释放了一个资源，将信号量的值加1。事件标志是一种进程同步工具，它可以用于同步进程之间的时间。事件标志的值只能为0或1。当事件标志的值为0时，等待进程将会被阻塞。当事件标志的值为1时，等待进程将会被唤醒，继续运行。事件标志主要用于等待某一个事件的发生，例如等待一个条件成立，或者等待一个时间的到来。</p>
 </li>
-<li><p>互斥量</p>
-<p> 互斥量是一种用于保护共享资源的机制。当一个任务获得了互斥量的所有权，其他任务将无法访问共享资源，只有当该任务释放互斥量的所有权时，其他任务才能再次访问共享资源。</p>
+<li>
+<p>互斥量</p>
+<p>互斥量是一种用于保护共享资源的机制。当一个任务获得了互斥量的所有权，其他任务将无法访问共享资源，只有当该任务释放互斥量的所有权时，其他任务才能再次访问共享资源。</p>
 </li>
 </ol>
 </li>
-<li><p>中断处理</p>
-<p> 中断是一种异步事件，当外设发生中断时，CPU会暂停当前的任务，转而执行中断的处理程序。ucosii提供了中断服务例程（ISR）的支持，可以在ISR中使用ucosii的信号量、消息队列和事件标志等机制来完成各种任务。需要注意的是，中断服务程序应该尽量短小，以保证系统的实时性。</p>
+<li>
+<p>中断处理</p>
+<p>中断是一种异步事件，当外设发生中断时，CPU会暂停当前的任务，转而执行中断的处理程序。ucosii提供了中断服务例程（ISR）的支持，可以在ISR中使用ucosii的信号量、消息队列和事件标志等机制来完成各种任务。需要注意的是，中断服务程序应该尽量短小，以保证系统的实时性。</p>
 </li>
-<li><p>常见问题解决</p>
+<li>
+<p>常见问题解决</p>
 <ol>
-<li><p>任务堆栈不够用</p>
-<p> 如果任务的堆栈不够用，会导致任务运行异常，可以增加任务堆栈的大小或者减少任务中使用的局部变量的数量。</p>
+<li>
+<p>任务堆栈不够用</p>
+<p>如果任务的堆栈不够用，会导致任务运行异常，可以增加任务堆栈的大小或者减少任务中使用的局部变量的数量。</p>
 </li>
-<li><p>任务优先级别设置不当</p>
-<p> 如果任务的优先级别设置不当，会导致低优先级的任务无法得到CPU的使用权，从而导致系统异常。可以通过调整任务的优先级别来解决该问题。</p>
+<li>
+<p>任务优先级别设置不当</p>
+<p>如果任务的优先级别设置不当，会导致低优先级的任务无法得到CPU的使用权，从而导致系统异常。可以通过调整任务的优先级别来解决该问题。</p>
 </li>
-<li><p>队列、信号量和事件标志使用不当</p>
-<p> 如果队列、信号量和事件标志使用不当，会导致任务之间的同步和通信出现问题，可以通过检查代码来解决该问题。</p>
+<li>
+<p>队列、信号量和事件标志使用不当</p>
+<p>如果队列、信号量和事件标志使用不当，会导致任务之间的同步和通信出现问题，可以通过检查代码来解决该问题。</p>
 </li>
 </ol>
 </li>
-<li><p>任务挂起和恢复</p>
+<li>
+<p>任务挂起和恢复</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 任务挂起函数</span></span><br><span class="line">INT8U <span class="title function_">OSTaskSuspend</span><span class="params">(INT8U prio)</span>； <span class="comment">// prio是挂起任务的优先级别</span></span><br><span class="line">																	<span class="comment">// 参数为 OS_PRIO_SELF 时为挂起自身</span></span><br><span class="line">																	<span class="comment">// 根据具体的情况返回报错信息</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">OS_NO_ERR 无错误</span></span><br><span class="line"><span class="comment">OS_TASK_PEND_IDLE</span></span><br><span class="line"><span class="comment">OS_PRIO_INVALID</span></span><br><span class="line"><span class="comment">OS_TASK_SUSPEND_PRIO</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任务恢复函数</span></span><br><span class="line">INT8U  <span class="title function_">OSTaskResume</span> <span class="params">(INT8U prio)</span>；</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">OS_NO_ERR 无错误</span></span><br><span class="line"><span class="comment">OS_TASK_NOT_SUSPEND</span></span><br><span class="line"><span class="comment">OS_PRIO_INVALID</span></span><br><span class="line"><span class="comment">OS_TASK_RESUME_PRIO</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>任务调度器上锁和解锁</p>
+<li>
+<p>任务调度器上锁和解锁</p>
 <p>调度器上锁解锁函数 <code>OSSchedLock (void)</code>， <code>OSSchedUnlock (void)</code> 用于禁止任务调度，让cpu执行当前任务保持cpu 的控制权，解锁后可以进行调度。</p>
 <p>实现原理很简单，对全局变量锁定嵌套计数器 <code>OSLockNesting</code> 进行操作， <code>OSLockNesting</code> 记录了上锁函数 <code>OSSchedLock (void)</code> 的调用次数， <code>OSSchedLock (void)</code> 中对变量进行加一操作， <code>OSSchedUnlock (void)</code> 对变量进行减一操作，在引起任务调度的函数中进行判断，若变量  <code>OSLockNesting</code> 的值大于0，说明任务调度上锁，进行任务调度的函数中进行判断 <code>if (OSLockNesting &gt; 0u)</code> ，后 <code>return</code> ，不进行任务调度。但要满足一个条件，调用者不是中断服务子函数。</p>
 <p>上锁和解锁要成对使用！因为上锁以后系统就会被锁住，其他任务都不能运行，这些函数包括 <code>OSFlagPend</code> 、 <code>OSMboxPend</code> 、 <code>OSMutexPend</code> 、 <code>OSQPend</code> 、 <code>OSSemPend</code> 等。</p>
@@ -583,12 +622,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.5m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:18</span>
+    <span title="站点阅读时长">23:07</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
