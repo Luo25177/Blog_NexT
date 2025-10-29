@@ -271,10 +271,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言">前言</h2>
-<p>Gcc 4.1.2版本之后，对 X86 或 X86-64 支持内置原子操作。也就是不需要引入第三方库（如pthread）的锁保护，即可对1、2、4、8字节的数值或指针类型，进行原子加/减/与/或/异或等操作</p>
-<h2 id="sync-接口">__sync 接口</h2>
-<p>具体信息查看 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Atomic-Builtins.html">Built-in functions for atomic memory access</a></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Gcc 4.1.2版本之后，对 X86 或 X86-64 支持内置原子操作。也就是不需要引入第三方库（如pthread）的锁保护，即可对1、2、4、8字节的数值或指针类型，进行原子加/减/与/或/异或等操作</p>
+<h2 id="sync-接口"><a href="#sync-接口" class="headerlink" title="__sync 接口"></a>__sync 接口</h2><p>具体信息查看 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Atomic-Builtins.html">Built-in functions for atomic memory access</a></p>
 <ul>
 <li><code>type __sync_fetch_and_add (type *ptr, type value, ...)</code> 将 <code>value</code> 加到 <code>*ptr</code> 上，并且结果保存在 <code>*ptr</code> 上，返回操作之前的 <code>*ptr</code> 的值</li>
 <li><code>type __sync_fetch_and_sub (type *ptr, type value, ...)</code> 从 <code>*ptr</code> 减去 <code>value</code> ，结果保存到 <code>*ptr</code> ，并返回操作之前 <code>*ptr</code> 的值</li>
@@ -294,8 +292,7 @@
 <li><code>type __sync_lock_test_and_set (type *ptr, type value, ...)</code> 将 <code>value</code> 写入 <code>*ptr</code> ，对 <code>*ptr</code> 加锁，并且发返回操作之前的 <code>*ptr</code> 的值</li>
 <li><code>void __sync_lock_release (type *ptr, ...)</code> 将 0 写入到 <code>*ptr</code> 并且对 <code>*ptr</code> 解锁</li>
 </ul>
-<h2 id="atomic-接口">__atomic 接口</h2>
-<p>这些功能旨在取代遗留的 <code>__sync</code> 内置函数。主要区别在于，请求的内存顺序是函数的参数。新代码应始终使用 <code>__atomic</code> 内置函数而不是 <code>__sync builtins</code></p>
+<h2 id="atomic-接口"><a href="#atomic-接口" class="headerlink" title="__atomic 接口"></a>__atomic 接口</h2><p>这些功能旨在取代遗留的 <code>__sync</code> 内置函数。主要区别在于，请求的内存顺序是函数的参数。新代码应始终使用 <code>__atomic</code> 内置函数而不是 <code>__sync builtins</code></p>
 <p>具体信息查看 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html">Built-in Functions for Memory Model Aware Atomic Operations</a></p>
 <ul>
 <li><code>type __atomic_load_n (type *ptr, int memorder)</code> 原子加载操作，返回 <code>*ptr</code> 的内容</li>
@@ -443,7 +440,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -456,7 +453,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">113</span>
+        <span class="site-state-item-count">116</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -500,12 +497,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:18</span>
+    <span title="站点阅读时长">18:44</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog_NexT/images/logo4.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog_NexT/images/logo4.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Linux 上，基于 webots 仿真平台，利用 ros 作为控制器的机器人仿真">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webots+ros 机器人仿真">
+<meta property="og:url" content="https://luo25177.github.io/2025/10/23/webots-ros-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F/index.html">
+<meta property="og:site_name" content="LuosBlog">
+<meta property="og:description" content="Linux 上，基于 webots 仿真平台，利用 ros 作为控制器的机器人仿真">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-23T11:37:27.000Z">
+<meta property="article:modified_time" content="2025-10-29T11:43:45.745Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="ros">
+<meta property="article:tag" content="webots">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luo25177.github.io/2025/10/23/webots-ros-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>webots+ros 机器人仿真 | LuosBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LuosBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2025/10/23/webots-ros-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.png">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuosBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          webots+ros 机器人仿真
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-10-23 19:37:27" itemprop="dateCreated datePublished" datetime="2025-10-23T19:37:27+08:00">2025-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-29 19:43:45" itemprop="dateModified" datetime="2025-10-29T19:43:45+08:00">2025-10-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/" itemprop="url" rel="index"><span itemprop="name">机器人</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">Linux 上，基于 webots 仿真平台，利用 ros 作为控制器的机器人仿真</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前我做机器人仿真一直是在 windows 上，利用 webots+vs 进行仿真的，但是在 vs 上进行的仿真，移植到硬件上时需要改动的东西太多，几乎得重新写一遍，所以打算在 linux 上利用 ros 进行仿真。但是问题又来了，ros 中比较常用的仿真的软件就是 gazebo，但是 gazebo 的电机模块的力矩控制在我测试之后好像是有问题的，一旦施加力矩就会疯转。后来偶然间发现 linux 上是可以使用 <code>webots</code> 的，而且网络上的配置资料不算少，所以就打算使用 <code>webots</code> 来进行仿真。</p>
+<h3 id="ros-安装"><a href="#ros-安装" class="headerlink" title="ros 安装"></a>ros 安装</h3><ul>
+<li>ros1 安装可以参考 <a target="_blank" rel="noopener" href="https://seashore.top/Blog_ButterFly/2024/03/24/ros%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/，这个版本是">https://seashore.top/Blog_ButterFly/2024/03/24/ros%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/，这个版本是</a> ubuntu20.04</li>
+<li>ros2 安装可以参考 <a target="_blank" rel="noopener" href="https://seashore.top/Blog_ButterFly/2024/03/24/ros2%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/，这个版本是">https://seashore.top/Blog_ButterFly/2024/03/24/ros2%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/，这个版本是</a> ubuntu22.04</li>
+</ul>
+<h3 id="webots-安装"><a href="#webots-安装" class="headerlink" title="webots 安装"></a>webots 安装</h3><p>直接去官网上下载安装包即可，不要直接在主页上下载最新版的，那个不一定适配你的 ubuntu 版本，所以需要点 Download 右边的箭头，选择 Older version，从里面找到适合自己版本的安装包，不然就无法安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i webots_202xx_xxx.deb</span><br></pre></td></tr></table></figure>
+<p>有时候会出点问题，导致安装失败，可以利用下面的指令来尝试修复依赖关系并完成未完成的配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -f</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，需要设置环境变量，在 <code>~/.bashrc</code> 文件中最后一行添加以下指令，如果用的是 zsh 终端，就可以在 <code>~/.zshrc</code> 文件最后一行添加下面指令，由于是用安装包安装的，默认安装路径为 <code>/usr/local/webots</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> WEBOTS_HOME=/usr/local/webots</span><br></pre></td></tr></table></figure>
+<p>之后即可进入 <code>webots</code> ，需要注意的是如果下载的 <code>webots</code> 版本比较高的话，<code>webots</code> 的资源包是在线加载的，但是在线加载确实很慢，而且需要科学上网工具，很难受。所以给出的解决办法就是从官方 <code>github</code> 仓库里，找到下载的对应版本的 <code>webots</code> ，找到对应版本的 <code>assets-Rxxxx.zip</code> 文件，下载下来之后，将其解压并且替换掉文件夹 <code>~/.cache/Cyberbotics/Webots/assets</code> 即可。注意这个 <code>.cache</code> 是隐藏文件，需要在文件管理器中按下 <code>Ctrl+H</code> 快捷键显示隐藏文件，而且直接复制过去需要权限，就很麻烦，不如直接用指令将对应文件夹内的东西移动过去。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mv</span> assets-Rxxxx/* ~/.cache/Cyberbotics/Webots/assets/</span><br></pre></td></tr></table></figure>
+<p>另外新版本本地文档也没了，还需要从 <a target="_blank" rel="noopener" href="https://github.com/cyberbotics/webots">webots 官方仓库</a> 里找到文件夹 <code>docs</code> ，如果直接从网上下载的话，需要下载的东西很多，用的时间也很长，所以推荐一个小工具 <a target="_blank" rel="noopener" href="https://minhaskamal.github.io/DownGit/#/home">DownGit</a> ，进入网站之后，将 <code>https://github.com/cyberbotics/webots/tree/master/docs</code> 复制到 <code>url</code> 框中，点击 Download 即可下载。下载完成之后，将其解压替换掉 <code>webots</code> 安装目录下的 <code>docs</code> 文件夹即可。这个也是一样，需要权限，一般 webots 的安装目录为 <code>/usr/local/webots/</code> 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mv</span> docs/* /usr/local/webots/docs/</span><br></pre></td></tr></table></figure>
+<p>如果没有这个文件夹 <code>/usr/local/webots/docs/</code> 的话，就创建这个文件夹之后再次使用上述指令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/local/webots/docs</span><br></pre></td></tr></table></figure>
+<h3 id="webots-ros-安装"><a href="#webots-ros-安装" class="headerlink" title="webots_ros 安装"></a>webots_ros 安装</h3><p>在终端输入指令，记住要安装对应 <code>ros</code> 版本的 webot_ros，我这里用的是 ros-noetic ，所以对应的就是 ros-noetic-webots-ros</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-noetic-webots-ros</span><br></pre></td></tr></table></figure>
+<h2 id="webots-ros"><a href="#webots-ros" class="headerlink" title="webots_ros"></a>webots_ros</h2><h3 id="weobots-设置"><a href="#weobots-设置" class="headerlink" title="weobots 设置"></a>weobots 设置</h3><p>首先可以进入 webots 创建世界，创建需要仿真控制的机器人，之后将机器人的 <code>controller</code> 设置为 <code>ros</code> </p>
+<h3 id="ros-设置"><a href="#ros-设置" class="headerlink" title="ros 设置"></a>ros 设置</h3><p>webots_ros 之前是有官方文档的，但是现在好像没了，但是可以还是有 webots_ros 这个库的，里面是一些案例，有兴趣的话可以看看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/cyberbotics/webots_ros.git</span><br></pre></td></tr></table></figure>
+<p>在 webots_ros 中有一些需要用到的文件，需要复制到自己的功能包中，如下，这两个文件夹里就是 webots_ros 提供的那些关于传感器的服务和消息类型，实际上在安装过 <code>webots_ros</code> 之后，这两个文件夹也存在于 <code>$&#123;WEBOTS_HOME&#125;/projects/default/controllers/ros/include</code> 文件夹之下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> webots_ros/srv package_name/srv</span><br><span class="line">sudo <span class="built_in">cp</span> webots_ros/msg package_name/msg</span><br></pre></td></tr></table></figure>
+<p>需要修改 <code>CMakeLists.txt</code> 文件，添加消息和服务类型，这些都是在控制 webots 机器人时需要用到的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">add_message_files(</span><br><span class="line">  FILES</span><br><span class="line">  BoolStamped.msg</span><br><span class="line">  Float64Stamped.msg</span><br><span class="line">  Int32Stamped.msg</span><br><span class="line">  Int8Stamped.msg</span><br><span class="line">  RadarTarget.msg</span><br><span class="line">  RecognitionObject.msg</span><br><span class="line">  StringStamped.msg</span><br><span class="line">)</span><br><span class="line">add_service_files(</span><br><span class="line">  FILES</span><br><span class="line">  camera_get_focus_info.srv</span><br><span class="line">  camera_get_info.srv</span><br><span class="line">  camera_get_zoom_info.srv</span><br><span class="line">  display_draw_line.srv</span><br><span class="line">  display_draw_oval.srv</span><br><span class="line">  display_draw_pixel.srv</span><br><span class="line">  display_draw_polygon.srv</span><br><span class="line">  display_draw_rectangle.srv</span><br><span class="line">  display_draw_text.srv</span><br><span class="line">  display_get_info.srv</span><br><span class="line">  display_image_copy.srv</span><br><span class="line">  display_image_delete.srv</span><br><span class="line">  display_image_load.srv</span><br><span class="line">  display_image_new.srv</span><br><span class="line">  display_image_paste.srv</span><br><span class="line">  display_image_save.srv</span><br><span class="line">  display_set_font.srv</span><br><span class="line">  field_get_bool.srv</span><br><span class="line">  field_get_color.srv</span><br><span class="line">  field_get_count.srv</span><br><span class="line">  field_get_float.srv</span><br><span class="line">  field_get_int32.srv</span><br><span class="line">  field_get_node.srv</span><br><span class="line">  field_get_rotation.srv</span><br><span class="line">  field_get_string.srv</span><br><span class="line">  field_get_type.srv</span><br><span class="line">  field_get_type_name.srv</span><br><span class="line">  field_get_vec2f.srv</span><br><span class="line">  field_get_vec3f.srv</span><br><span class="line">  field_import_node.srv</span><br><span class="line">  field_import_node_from_string.srv</span><br><span class="line">  field_remove_node.srv</span><br><span class="line">  field_remove.srv</span><br><span class="line">  field_set_bool.srv</span><br><span class="line">  field_set_color.srv</span><br><span class="line">  field_set_float.srv</span><br><span class="line">  field_set_int32.srv</span><br><span class="line">  field_set_rotation.srv</span><br><span class="line">  field_set_string.srv</span><br><span class="line">  field_set_vec2f.srv</span><br><span class="line">  field_set_vec3f.srv</span><br><span class="line">  get_bool.srv</span><br><span class="line">  get_float_array.srv</span><br><span class="line">  get_float.srv</span><br><span class="line">  get_int.srv</span><br><span class="line">  get_string.srv</span><br><span class="line">  get_uint64.srv</span><br><span class="line">  get_urdf.srv</span><br><span class="line">  gps_decimal_degrees_to_degrees_minutes_seconds.srv</span><br><span class="line">  lidar_get_frequency_info.srv</span><br><span class="line">  lidar_get_info.srv</span><br><span class="line">  lidar_get_layer_point_cloud.srv</span><br><span class="line">  lidar_get_layer_range_image.srv</span><br><span class="line">  motor_set_control_pid.srv</span><br><span class="line">  mouse_get_state.srv</span><br><span class="line">  node_add_force_or_torque.srv</span><br><span class="line">  node_add_force_with_offset.srv</span><br><span class="line">  node_get_center_of_mass.srv</span><br><span class="line">  node_get_contact_point.srv</span><br><span class="line">  node_get_field.srv</span><br><span class="line">  node_get_id.srv</span><br><span class="line">  node_get_number_of_contact_points.srv</span><br><span class="line">  node_get_name.srv</span><br><span class="line">  node_get_orientation.srv</span><br><span class="line">  node_get_parent_node.srv</span><br><span class="line">  node_get_position.srv</span><br><span class="line">  node_get_static_balance.srv</span><br><span class="line">  node_get_status.srv</span><br><span class="line">  node_get_type.srv</span><br><span class="line">  node_get_velocity.srv</span><br><span class="line">  node_remove.srv</span><br><span class="line">  node_reset_functions.srv</span><br><span class="line">  node_move_viewpoint.srv</span><br><span class="line">  node_set_visibility.srv</span><br><span class="line">  node_set_velocity.srv</span><br><span class="line">  pen_set_ink_color.srv</span><br><span class="line">  range_finder_get_info.srv</span><br><span class="line">  receiver_get_emitter_direction.srv</span><br><span class="line">  robot_get_device_list.srv</span><br><span class="line">  robot_set_mode.srv</span><br><span class="line">  robot_wait_for_user_input_event.srv</span><br><span class="line">  save_image.srv</span><br><span class="line">  set_bool.srv</span><br><span class="line">  set_float.srv</span><br><span class="line">  set_float_array.srv</span><br><span class="line">  set_int.srv</span><br><span class="line">  set_string.srv</span><br><span class="line">  skin_get_bone_name.srv</span><br><span class="line">  skin_get_bone_orientation.srv</span><br><span class="line">  skin_get_bone_position.srv</span><br><span class="line">  skin_set_bone_orientation.srv</span><br><span class="line">  skin_set_bone_position.srv</span><br><span class="line">  speaker_is_sound_playing.srv</span><br><span class="line">  speaker_speak.srv</span><br><span class="line">  speaker_play_sound.srv</span><br><span class="line">  supervisor_get_from_def.srv</span><br><span class="line">  supervisor_get_from_id.srv</span><br><span class="line">  supervisor_movie_start_recording.srv</span><br><span class="line">  supervisor_set_label.srv</span><br><span class="line">  supervisor_virtual_reality_headset_get_orientation.srv</span><br><span class="line">  supervisor_virtual_reality_headset_get_position.srv</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>需要修改 <code>package.xml</code> 文件，需要在添加依赖的地方添加这两条语句，就是用于自定义消息类型的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以为 <code>webots</code> 写一个 <code>launch</code> 文件来启动对应的世界，一般是将 <code>webots</code> 的世界文件保存在功能包路径下的 <code>webots/world</code> 文件夹下，这个 <code>launch</code> 文件的功能就是打开 <code>world_name</code> 这个世界，然后启动 <code>webots</code> 的键盘节点，这样就有键盘输入了，就能在代码里写读取键盘来控制机器人了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- start Webots --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;no_gui&quot;</span> <span class="attr">default</span>=<span class="string">&quot;false,&quot;</span> <span class="attr">doc</span>=<span class="string">&quot;Start Webots with minimal GUI&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">&quot;$(find webots_ros)/launch/webots.launch&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;mode&quot;</span> <span class="attr">value</span>=<span class="string">&quot;realtime&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;no_gui&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(arg no_gui)&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;world&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(find package_name)/webots/world/world_name.wbt&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;auto_close&quot;</span> <span class="attr">default</span>=<span class="string">&quot;false&quot;</span> <span class="attr">doc</span>=<span class="string">&quot;Startup mode&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;keyboard_teleop&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;webots_ros&quot;</span> <span class="attr">type</span>=<span class="string">&quot;keyboard_teleop&quot;</span> <span class="attr">required</span>=<span class="string">&quot;$(arg auto_close)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="一些消息和服务类型"><a href="#一些消息和服务类型" class="headerlink" title="一些消息和服务类型"></a>一些消息和服务类型</h3><p>下面说以下我用的比较多的消息和服务类型，我刚开始用的时候，几乎在网络上找不到对应的文章，之后是自己通过启动 <code>webots</code> 之后，查看消息和服务的列表来做的，这里作为记录吧</p>
+<p><strong>电机相关</strong></p>
+<ul>
+<li><p>电机传感器反馈使能服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/position_sensor_name/enable</code></li>
+<li>消息类型： <code>webots::set_int</code></li>
+<li><p>传输的消息是传感器的反馈频率</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient joint_sensor_enable = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_int&gt;(<span class="string">&quot;/robot_name/position_sensor_name/enable&quot;</span>);</span><br><span class="line">webots_ros::set_int enable_time_step;</span><br><span class="line">joint_sensor_enable.request.value = TIME_STEP; <span class="comment">// 世界的步长，需要与 webots 中设置的世界步长一致</span></span><br><span class="line">force_feedback_enable.<span class="built_in">call</span>(enable_time_step);</span><br><span class="line"><span class="keyword">if</span> (!enable_time_step.response.success) <span class="built_in">ROS_INFO</span>(<span class="string">&quot;joint_sensor_enable failed&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机力矩反馈使能服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/motor_name/torque_feedback_sensor/enable</code></li>
+<li>消息类型： <code>webots::set_int</code></li>
+<li><p>传输的消息是传感器的反馈频率</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient force_feedback_enable = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_int&gt;(<span class="string">&quot;/robot_name/motor_name/torque_feedback_sensor/enable&quot;</span>);</span><br><span class="line">webots_ros::set_int enable_time_step;</span><br><span class="line">enable_time_step.request.value = TIME_STEP; <span class="comment">// 世界的步长，需要与 webots 中设置的世界步长一致</span></span><br><span class="line">force_feedback_enable.<span class="built_in">call</span>(enable_time_step);</span><br><span class="line"><span class="keyword">if</span> (!enable_time_step.response.success) <span class="built_in">ROS_INFO</span>(<span class="string">&quot;force_feedback_enable failed&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机位置获取消息订阅</p>
+<ul>
+<li>消息名称： <code>/robot_name/motor_name/value</code></li>
+<li>反馈函数形式： <code>void IOROS::callback(const webots_ros::Float64Stamped::ConstPtr &amp;value)</code> 其中的 <code>value</code> 形参就是接收到的消息</li>
+<li><p>需要等待订阅者成功订阅</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ros::Subscriber motor_get_pos = nh.<span class="built_in">subscribe</span>(<span class="string">&quot;/robot_name/motor_name/value&quot;</span>, <span class="number">1</span>, pos_callback);</span><br><span class="line"><span class="keyword">while</span> (motor_get_pos.<span class="built_in">getNumPublishers</span>() == <span class="number">0</span>)</span><br><span class="line">  ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pos_callback</span><span class="params">(<span class="type">const</span> webots_ros::Float64Stamped::ConstPtr &amp;value)</span> </span>&#123;</span><br><span class="line">  <span class="type">float</span> position = value-&gt;data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机速度获取请求服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/motor_name/get_velocity</code></li>
+<li><p>消息类型： <code>webots::get_float</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient motor_get_vel = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::get_float&gt;(<span class="string">&quot;/quadruped/rf_hip_joint/get_velocity&quot;</span>);</span><br><span class="line">webots_ros::get_float get_velocity_srv;</span><br><span class="line">motor_get_vel.<span class="built_in">call</span>(get_velocity_srv);</span><br><span class="line"><span class="type">float</span> motor_vel = get_velocity_srv.response.value;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机力矩获取消息订阅</p>
+<ul>
+<li>消息名称： <code>/robot_name/motor_name/torque_feedback_sensor/value</code></li>
+<li><p>反馈函数形式： <code>void IOROS::rf_hip_tor_callback(const webots_ros::Float64Stamped::ConstPtr &amp;value)</code> 其中 <code>value</code> 形参就是接收到的消息</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ros::Subscriber motor_get_tor = nh.<span class="built_in">subscribe</span>(<span class="string">&quot;/robot_name/motor_name/torque_feedback_sensor/value&quot;</span>, <span class="number">1</span>, tor_callback);</span><br><span class="line"><span class="keyword">while</span> (motor_get_tor.<span class="built_in">getNumPublishers</span>() == <span class="number">0</span>)</span><br><span class="line">  ;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tor_callback</span><span class="params">(<span class="type">const</span> webots_ros::Float64Stamped::ConstPtr &amp;value)</span> </span>&#123;</span><br><span class="line">  <span class="type">float</span> torque = value-&gt;data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机位置设置请求服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/motor_name/set_position</code></li>
+<li>消息类型： <code>webots::set_float</code></li>
+<li><p>传输的消息是电机位置值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient motor_set_pos = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_float&gt;(<span class="string">&quot;/robot_name/motor_name/set_position&quot;</span>);</span><br><span class="line">webots_ros::set_float pos;</span><br><span class="line">pos.request.value = position;</span><br><span class="line">motor_set_pos.<span class="built_in">call</span>(pos);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机速度设置请求服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/motor_name/set_velocity</code></li>
+<li>消息类型： <code>webots::set_float</code></li>
+<li><p>传输的消息是电机速度值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient motor_set_vel = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_float&gt;(<span class="string">&quot;/robot_name/motor_name/set_velocity&quot;</span>);</span><br><span class="line">webots_ros::set_float vel;</span><br><span class="line">vel.request.value = velocity;</span><br><span class="line">motor_set_vel.<span class="built_in">call</span>(vel);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机力矩设置请求服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/motor_name/set_torque</code></li>
+<li>消息类型： <code>webots::set_float</code></li>
+<li><p>传输的消息是电机力矩值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient motor_set_tor = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_float&gt;(<span class="string">&quot;/robot_name/motor_name/set_torque&quot;</span>);</span><br><span class="line">webots_ros::set_float tor;</span><br><span class="line">tor.request.value = torque;</span><br><span class="line">motor_set_tor.<span class="built_in">call</span>(tor);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>电机力设置请求服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/motor_name/set_force</code></li>
+<li>消息类型： <code>webots::set_float</code></li>
+<li><p>传输的消息是电机力矩值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient motor_set_tor = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_float&gt;(<span class="string">&quot;/robot_name/motor_name/set_force&quot;</span>);</span><br><span class="line">webots_ros::set_float force;</span><br><span class="line">force.request.value = force_value;</span><br><span class="line">motor_set_tor.<span class="built_in">call</span>(force);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>imu 相关</strong></p>
+<ul>
+<li><p>imu 使能服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/imu_name/enable</code></li>
+<li>消息类型： <code>webots::set_int</code></li>
+<li><p>传输的消息是传感器的反馈频率</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient imu_enable = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_int&gt;(<span class="string">&quot;/robot_name/imu_name/enable&quot;</span>);</span><br><span class="line">webots_ros::set_int enable_time_step;</span><br><span class="line">enable_time_step.request.value = TIME_STEP; <span class="comment">// 世界的步长，需要与 webots 中设置的世界步长一致</span></span><br><span class="line">imu_enable.<span class="built_in">call</span>(enable_time_step);</span><br><span class="line"><span class="keyword">if</span> (!enable_time_step.response.success) <span class="built_in">ROS_INFO</span>(<span class="string">&quot;imu_enable false&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>imu 四元数消息订阅</p>
+<ul>
+<li>消息名称： <code>/robot_name/imu_name/quaternion</code></li>
+<li><p>回调函数形式： <code>void imu_callback(const sensor_msgs::Imu::ConstPtr &amp;values)</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ros::Subscriber imu_sub = nh.<span class="built_in">subscribe</span>(<span class="string">&quot;/robot_name/imu_name/quaternion&quot;</span>, <span class="number">1</span>, imu_callback);</span><br><span class="line"><span class="keyword">while</span> (imu_sub.<span class="built_in">getNumPublishers</span>() == <span class="number">0</span>)</span><br><span class="line">  ;</span><br><span class="line">  </span><br><span class="line"> <span class="function"><span class="type">void</span> <span class="title">imu_callback</span><span class="params">(<span class="type">const</span> sensor_msgs::Imu::ConstPtr &amp;values)</span> </span>&#123;</span><br><span class="line">  quat[<span class="number">0</span>] = values-&gt;orientation.x;</span><br><span class="line">  quat[<span class="number">1</span>] = values-&gt;orientation.y;</span><br><span class="line">  quat[<span class="number">2</span>] = values-&gt;orientation.z;</span><br><span class="line">  quat[<span class="number">3</span>] = values-&gt;orientation.w;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>gyro 相关</strong></p>
+<ul>
+<li><p>gyro 使能服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/gyro_name/enable</code></li>
+<li>消息类型： <code>webots::set_int</code></li>
+<li><p>传输的消息是传感器的反馈频率</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient gyro_enable = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_int&gt;(<span class="string">&quot;/robot_name/gyro_name/enable&quot;</span>);</span><br><span class="line">webots_ros::set_int enable_time_step;</span><br><span class="line">enable_time_step.request.value = TIME_STEP; <span class="comment">// 世界的步长，需要与 webots 中设置的世界步长一致</span></span><br><span class="line">gyro_enable.<span class="built_in">call</span>(enable_time_step);</span><br><span class="line"><span class="keyword">if</span> (!enable_time_step.response.success) <span class="built_in">ROS_INFO</span>(<span class="string">&quot;gyro_enable false&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>gyro 角速度消息订阅</p>
+<ul>
+<li>消息名称： <code>/robot_name/gyro_name/values</code></li>
+<li><p>反馈函数形式： <code>void gyro_callback(const sensor_msgs::Imu::ConstPtr &amp;values)</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ros::Subscriber gyro_sub = nh.<span class="built_in">subscribe</span>(<span class="string">&quot;/robot_name/gyro_name/values&quot;</span>, <span class="number">1</span>, gyro_callback);</span><br><span class="line"><span class="keyword">while</span> (gyro_sub.<span class="built_in">getNumPublishers</span>() == <span class="number">0</span>)</span><br><span class="line">  ;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">gyro_callback</span><span class="params">(<span class="type">const</span> sensor_msgs::Imu::ConstPtr &amp;values)</span> </span>&#123;</span><br><span class="line">  gyro[<span class="number">0</span>] = values-&gt;angular_velocity.x;</span><br><span class="line">  gyro[<span class="number">1</span>] = values-&gt;angular_velocity.y;</span><br><span class="line">  gyro[<span class="number">2</span>] = values-&gt;angular_velocity.z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>accel 相关</strong></p>
+<ul>
+<li><p>accel 使能服务</p>
+<ul>
+<li>服务名称： <code>/robot_name/accel_name/enable</code></li>
+<li>消息类型： <code>webots::set_int</code></li>
+<li><p>传输的消息是传感器的反馈频率</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros::ServiceClient accel_enable = nh.<span class="built_in">serviceClient</span>&lt;webots_ros::set_int&gt;(<span class="string">&quot;/robot_name/accel_name/enable&quot;</span>);</span><br><span class="line">webots_ros::set_int enable_time_step;</span><br><span class="line">enable_time_step.request.value = TIME_STEP; <span class="comment">// 世界的步长，需要与 webots 中设置的世界步长一致</span></span><br><span class="line">accel_enable.<span class="built_in">call</span>(enable_time_step);</span><br><span class="line"><span class="keyword">if</span> (!enable_time_step.response.success) <span class="built_in">ROS_INFO</span>(<span class="string">&quot;accel_enable false&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>accel 加速度消息订阅</p>
+<ul>
+<li>消息名称： <code>/robot_name/accel_name/values</code></li>
+<li><p>反馈函数形式： <code>void accel_callback(const sensor_msgs::Imu::ConstPtr &amp;values)</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ros::Subscriber accel_sub = nh.<span class="built_in">subscribe</span>(<span class="string">&quot;/quadruped/accel/values&quot;</span>, <span class="number">1</span>, accel_callback);</span><br><span class="line"><span class="keyword">while</span> (accel_sub.<span class="built_in">getNumPublishers</span>() == <span class="number">0</span>)</span><br><span class="line">  ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">accel_callback</span><span class="params">(<span class="type">const</span> sensor_msgs::Imu::ConstPtr &amp;values)</span> </span>&#123;</span><br><span class="line">  accel[<span class="number">0</span>] = values-&gt;angular_velocity.x;</span><br><span class="line">  accel[<span class="number">1</span>] = values-&gt;angular_velocity.y;</span><br><span class="line">  accel[<span class="number">2</span>] = values-&gt;angular_velocity.z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>实际上可以看出来，其实还挺简单的，而且很有规律，例如需要设置值的服务，消息类型就是 <code>set_</code> 开头的，需要获取数据的服务，消息类型就是 <code>get_</code> 开头的，所以最难的就是看看复制到功能包里的 <code>srv</code> ·和 <code>msg</code> 文件。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>由于这个是之前研究的，最近才整理了一下，所以可能有错误，参考即可，主要还是要靠自己多研究研究</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2025/10/23/webots-ros-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F/" title="webots+ros 机器人仿真">https://luo25177.github.io/2025/10/23/webots-ros-机器人仿真/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/ros/" rel="tag"># ros</a>
+              <a href="/Blog_NexT/tags/webots/" rel="tag"># webots</a>
+              <a href="/Blog_NexT/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2025/09/30/%E8%BF%9B%E5%85%A5ubuntu%E4%B9%8B%E5%90%8E%E5%BF%85%E5%81%9A%E7%9A%84%E9%85%8D%E7%BD%AE/" rel="prev" title="进入ubuntu之后必做的配置">
+      <i class="fa fa-chevron-left"></i> 进入ubuntu之后必做的配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/" rel="next" title="Clion+AT32 配置">
+      Clion+AT32 配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ros-%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">ros 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webots-%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">webots 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webots-ros-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">webots_ros 安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webots-ros"><span class="nav-number">2.</span> <span class="nav-text">webots_ros</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#weobots-%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">weobots 设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ros-%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">ros 设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%B6%88%E6%81%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">一些消息和服务类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.png">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">116</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:44</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

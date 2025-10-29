@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog_NexT/images/logo4.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog_NexT/images/logo4.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="在 Windows 上配置利用 Clion 编译调试 AT32 项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clion+AT32 配置">
+<meta property="og:url" content="https://luo25177.github.io/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="LuosBlog">
+<meta property="og:description" content="在 Windows 上配置利用 Clion 编译调试 AT32 项目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761729561207.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761728562211.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761734138239.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761734864766.png">
+<meta property="article:published_time" content="2025-10-29T11:39:50.000Z">
+<meta property="article:modified_time" content="2025-10-29T11:43:58.584Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="clion">
+<meta property="article:tag" content="at32">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761729561207.png">
+
+<link rel="canonical" href="https://luo25177.github.io/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Clion+AT32 配置 | LuosBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LuosBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.png">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuosBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Clion+AT32 配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-10-29 19:39:50 / 修改时间：19:43:58" itemprop="dateCreated datePublished" datetime="2025-10-29T19:39:50+08:00">2025-10-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">单片机</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">在 Windows 上配置利用 Clion 编译调试 AT32 项目</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做一个基于 AT32 的 FOC 的项目，在开始写代码之前对整体的代码框架构思了一下，有些部分打算用 C++ 来写。另外由于之前的经验，用 keil 中的 arm 编译器编译出来的 C++ 的程序有很大问题，所以就打算使用 Clion 来做这个。网络上很多教程说的不是很清楚，或者说并没有把整个部分做完整，所以打算自己记录下来。</p>
+<h3 id="软件版本"><a href="#软件版本" class="headerlink" title="软件版本"></a>软件版本</h3><ul>
+<li>Clion 2025.2.4</li>
+<li>AT32 WorkBench 1.2.00</li>
+</ul>
+<h3 id="芯片型号"><a href="#芯片型号" class="headerlink" title="芯片型号"></a>芯片型号</h3><p>芯片型号为 AT32F403ACGT7</p>
+<h2 id="编译工具配置"><a href="#编译工具配置" class="headerlink" title="编译工具配置"></a>编译工具配置</h2><p>整个项目编译过程需要 AT32 官方提供的工具包 OpenOCD 下载支持和 arm-none-eabi-gcc 等编译器。可以直接从官网上下载，也可以点击下面的链接进行下载。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.arterytek.com/file/download/2612">OpenOCD_v2.0.7</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/niXman/mingw-builds-binaries/releases">mingw</a> 这个需要自己选择一个合适的版本，最新的不一定是最好的，因为 Clion 对 GDB 的支持是有版本限制的。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-win32.exe?rev=29bb46cfa0434fbda93abb33c1d480e6&amp;revision=29bb46cf-a043-4fbd-a93a-bb33c1d480e6&amp;hash=7F9172DA90CDBE38413D44B2BAFDDCDC">GNU Arm Embedded Toolchain 10.3</a></li>
+</ul>
+<p>上述的 OpenOCD 和 mingw 是不需要自己安装的，所以它需要你将它解压到某个你熟悉的位置，方便查找，然后需要手动将其 <code>bin</code> 文件夹添加到系统环境变量中。GNU Arm 工具链是需要安装的，可以在安装时就选择添加到系统环境变量中。之后就需要重启一下电脑，更新一下系统环境变量，之后可以在终端测试一下你的 mingw 和 GNU Arm 的工具链是否安装好。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gcc <span class="literal">-v</span></span><br><span class="line">g++ <span class="literal">-v</span></span><br><span class="line">arm<span class="literal">-none-eabi-gcc</span> <span class="literal">-v</span></span><br><span class="line">arm<span class="literal">-none-eabi-g</span>++ <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+<p>如果正常显示，那就说明安装好了。</p>
+<h2 id="AT32-WorkBench-导出工程代码"><a href="#AT32-WorkBench-导出工程代码" class="headerlink" title="AT32 WorkBench 导出工程代码"></a>AT32 WorkBench 导出工程代码</h2><p>使用 workbench 直接导出工程代码，这个配置基本上就按照自己的项目需求配置即可。只是在最后导出时需要修改一下，如下图所示，将工具链改为 AT32 IDE 或者 cmake 都可，我这里是导出为 AT32 IDE 的。</p>
+<p><img src="/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761729561207.png" alt="1761729561207.png"></p>
+<h2 id="Clion-配置"><a href="#Clion-配置" class="headerlink" title="Clion 配置"></a>Clion 配置</h2><p>如果是第一次安装 Clion 的话，可以选择设置语言为中文，直接在设置里查找 Language，设置为中文即可。如果你之前一直在 vscode 上进行开发，而且 vscode 已经有很多配置了，那么切换成 Clion 的时候，它会提醒你是否要导入 vscode 中的配置，这一点还是很不错的。</p>
+<h3 id="工具链配置"><a href="#工具链配置" class="headerlink" title="工具链配置"></a>工具链配置</h3><p>进入 Clion 之后，打开你这个项目的文件夹，进入设置中设置工具链。如图所示，首先是进入设置中的构建执行部署，之后设置工具链。如果你的选项栏中没有 MinGW 的话，就点击上方那个 “+” 号，添加一个 MinGW 的工具链。工具链中的设置：工具集就选择你的 mingw 的文件夹，构建工具就选择 <code>mingw\bin\mingw32-make.exe</code> 文件，C 编译器选择使用 GNU Arm 的工具 <code>arm-none-eabi-gcc.exe</code> ，这个文件在你的 GNU Arm 的安装地址下，对应的 C++ 编译器选择使用 <code>arm-none-eabi-g++.exe</code> 。如果你希望你的项目能够调试的话，建议是选择调试器。</p>
+<p><img src="/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761728562211.png" alt="1761728562211.png"></p>
+<h3 id="CMakeLists-文件"><a href="#CMakeLists-文件" class="headerlink" title="CMakeLists 文件"></a>CMakeLists 文件</h3><p>首先是需要在项目的根目录下添加 CMakeLists.txt 文件，CMakeLists.txt 文件如下，我也对对应的代码进行了解释。但是一般的话，第一次添加 CMakeLists.txt 文件时，该项目并不会被识别为 cmake 项目，所以此时是没有 cmake 的构建的。这时候需要在左侧项目栏中，选中 CMakeLists.txt 文件，右键它点击加载 cmake 项目即可完成构建。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"># 设置为通用系统</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SYSTEM_NAME Generic)</span><br><span class="line"># 设置系统版本号</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SYSTEM_VERSION <span class="number">1</span>)</span><br><span class="line"># 要求 cmake 最低版本</span><br><span class="line">cmake_minimum_required(VERSION <span class="number">3.21</span>)</span><br><span class="line"></span><br><span class="line"># 设置项目所用的 C 语言的编译器，这里设置为 GNU Arm 工具链的编译器</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_COMPILER arm-none-eabi-gcc)</span><br><span class="line"># C++ 编译器</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_COMPILER arm-none-eabi-g++)</span><br><span class="line"># 汇编编译器</span><br><span class="line"><span class="keyword">set</span>(CMAKE_ASM_COMPILER arm-none-eabi-gcc)</span><br><span class="line"># 静态库工具</span><br><span class="line"><span class="keyword">set</span>(CMAKE_AR arm-none-eabi-ar)</span><br><span class="line"># 目标文件转换工具</span><br><span class="line"><span class="keyword">set</span>(CMAKE_OBJCOPY arm-none-eabi-objcopy)</span><br><span class="line"># 目标文件反汇编工具</span><br><span class="line"><span class="keyword">set</span>(CMAKE_OBJDUMP arm-none-eabi-objdump)</span><br><span class="line"># 文件大小分析工具</span><br><span class="line"><span class="keyword">set</span>(SIZE arm-none-eabi-size)</span><br><span class="line"># 设置编译目标类型为静态库</span><br><span class="line"><span class="keyword">set</span>(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)</span><br><span class="line"></span><br><span class="line"># 项目设置，支持 C C++ 汇编</span><br><span class="line">project(AT32 C CXX ASM)</span><br><span class="line"># C++ <span class="number">17</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"># C11</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_STANDARD <span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"># 添加 ARM 数学库相关的编译定义</span><br><span class="line">add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING;)</span><br><span class="line"># 添加编译和链接选项 硬件浮点单元</span><br><span class="line">add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)</span><br><span class="line">add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)</span><br><span class="line"></span><br><span class="line"># arm-none-eabi-gcc 报错 undefined reference to `_exit<span class="string">&#x27;解决方案，关闭 semi-host 通信机制</span></span><br><span class="line"><span class="string">add_compile_options(--specs=nosys.specs)</span></span><br><span class="line"><span class="string">add_link_options(--specs=nosys.specs)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 优化等级 -O1</span></span><br><span class="line"><span class="string">add_compile_options(-O1)</span></span><br><span class="line"><span class="string"># 处理器架构</span></span><br><span class="line"><span class="string">add_compile_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)</span></span><br><span class="line"><span class="string">add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)</span></span><br><span class="line"><span class="string"># 代码生成选项</span></span><br><span class="line"><span class="string">add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)</span></span><br><span class="line"><span class="string"># 编译器特殊选项，支持 C++ 编译</span></span><br><span class="line"><span class="string">add_compile_options($&lt;$&lt;COMPILE_LANGUAGE:ASM&gt;:-x$&lt;SEMICOLON&gt;assembler-with-cpp&gt;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">include_directories(</span></span><br><span class="line"><span class="string"># 这里只添加你需要依赖的文件的目录即可</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"># 添加预处理器定义</span></span><br><span class="line"><span class="string">add_definitions(-DAT32F403ACGT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F403A_V1_0)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">file(GLOB SOURCES CONFIGURE_DEPENDS</span></span><br><span class="line"><span class="string"># 这里只添加你需要的源文件即可，AT32 WorkBench 会把你不需要的某些文件也生成在这个项目里，但是如果选择了只生成必要的文件的话，就不会生成它所需要的源文件，编译会报错，所以这个需要根据自己需求来写</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设置 ld 链接器的规则文件</span></span><br><span class="line"><span class="string">set(LINKER_SCRIPT <span class="subst">$&#123;CMAKE_SOURCE_DIR&#125;</span>/libraries/cmsis/cm4/device_support/startup/gcc/linker/AT32F403AxG_FLASH.ld)</span></span><br><span class="line"><span class="string"># 指定链接脚本</span></span><br><span class="line"><span class="string">add_link_options(-T <span class="subst">$&#123;LINKER_SCRIPT&#125;</span>)</span></span><br><span class="line"><span class="string"># 添加链接器选项，内存使用报告，生成 map 文件</span></span><br><span class="line"><span class="string">add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=<span class="subst">$&#123;PROJECT_BINARY_DIR&#125;</span>/<span class="subst">$&#123;PROJECT_NAME&#125;</span>.map)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 可执行文件定义</span></span><br><span class="line"><span class="string">add_executable(<span class="subst">$&#123;PROJECT_NAME&#125;</span>.elf <span class="subst">$&#123;SOURCES&#125;</span> <span class="subst">$&#123;LINKER_SCRIPT&#125;</span>)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设置生成 hex 和 bin 文件，即十六进制和二进制文件</span></span><br><span class="line"><span class="string">set(HEX_FILE <span class="subst">$&#123;PROJECT_BINARY_DIR&#125;</span>/<span class="subst">$&#123;PROJECT_NAME&#125;</span>.hex)</span></span><br><span class="line"><span class="string">set(BIN_FILE <span class="subst">$&#123;PROJECT_BINARY_DIR&#125;</span>/<span class="subst">$&#123;PROJECT_NAME&#125;</span>.bin)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">add_custom_command(TARGET <span class="subst">$&#123;PROJECT_NAME&#125;</span>.elf POST_BUILD</span></span><br><span class="line"><span class="string">        COMMAND <span class="subst">$&#123;CMAKE_OBJCOPY&#125;</span> -Oihex $&lt;TARGET_FILE:<span class="subst">$&#123;PROJECT_NAME&#125;</span>.elf&gt; <span class="subst">$&#123;HEX_FILE&#125;</span></span></span><br><span class="line"><span class="string">        COMMAND <span class="subst">$&#123;CMAKE_OBJCOPY&#125;</span> -Obinary $&lt;TARGET_FILE:<span class="subst">$&#123;PROJECT_NAME&#125;</span>.elf&gt; <span class="subst">$&#123;BIN_FILE&#125;</span></span></span><br><span class="line"><span class="string">        COMMENT &quot;Building <span class="subst">$&#123;HEX_FILE&#125;</span></span></span><br><span class="line"><span class="string">Building <span class="subst">$&#123;BIN_FILE&#125;</span>&quot;)</span></span><br></pre></td></tr></table></figure>
+<p>构建完成之后，右上角处会出现这个项目的 cmake 应用程序，这个 cmake 就相当于配置好了</p>
+<p><img src="/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761734138239.png" alt="1761734138239.png"></p>
+<h3 id="OpenOCD-下载配置"><a href="#OpenOCD-下载配置" class="headerlink" title="OpenOCD 下载配置"></a>OpenOCD 下载配置</h3><p>首先需要添加一个配置文件，对应于不同的下载器，配置文件写法也不一样，例如我这里使用的是 dap 下载器，所以就列出 dap 下载器的配置文件。首先在当前项目根目录下添加文件 <code>at32-daplink.cfg</code> ，并且在其中写入如下的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">adapter driver cmsis-dap</span><br><span class="line">source [find interface/cmsis-dap.cfg]</span><br><span class="line">cmsis_dap_backend hid</span><br><span class="line">transport select swd</span><br><span class="line">source [find target/at32f403axx.cfg]</span><br><span class="line"># download speed = 10MHz</span><br><span class="line">adapter speed 10000</span><br></pre></td></tr></table></figure>
+<p>上述的东西配置完成之后，就在这个运行调试配置界面上，点击左上角的 “+” 号，添加 OpenOCD 项目，选择目标为你这个项目的名称，选择对应的可执行的二进制文件，调试器就选择配置的工具链中的 GDB，面板配置文件选择上面刚刚新建的文件。需要注意的是，如果在 CMakeLists.txt 配置中失败了，那在选择目标和可执行二进制文件时，就不会出现 <code>.elf</code> 文件。</p>
+<p><img src="/Blog_NexT/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/1761734864766.png" alt="1761734864766.png"></p>
+<p>配置到此基本上就完了，之后就可以开始使用 Clion 快乐的写代码了。</p>
+<h2 id="遇到的一些问题"><a href="#遇到的一些问题" class="headerlink" title="遇到的一些问题"></a>遇到的一些问题</h2><ol>
+<li><p>arm-none-eabi-gcc 报错 undefined reference to <code>_exit</code> 等等一些未定的引用。在 CMakeLists.txt 文件中添加如下两行指令。</p>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_compile_options(--specs=nosys.specs)</span><br><span class="line">add_link_options(--specs=nosys.specs)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这个教程实际上也是参考了很多教程做出来的，而且过程中也遇到各种各样的问题，但是有些问题我也没遇到，所以教程只能做参考，出现没遇到的问题还是需要自己上网查查的。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2025/10/29/Clion-AT32-%E9%85%8D%E7%BD%AE/" title="Clion+AT32 配置">https://luo25177.github.io/2025/10/29/Clion-AT32-配置/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/clion/" rel="tag"># clion</a>
+              <a href="/Blog_NexT/tags/at32/" rel="tag"># at32</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2025/10/23/webots-ros-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F/" rel="prev" title="webots+ros 机器人仿真">
+      <i class="fa fa-chevron-left"></i> webots+ros 机器人仿真
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">软件版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%AF%E7%89%87%E5%9E%8B%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">芯片型号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">编译工具配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AT32-WorkBench-%E5%AF%BC%E5%87%BA%E5%B7%A5%E7%A8%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">AT32 WorkBench 导出工程代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clion-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">Clion 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E9%93%BE%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">工具链配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMakeLists-%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">CMakeLists 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenOCD-%E4%B8%8B%E8%BD%BD%E9%85%8D%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">OpenOCD 下载配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">遇到的一些问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.png">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">116</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:44</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

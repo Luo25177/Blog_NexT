@@ -269,12 +269,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="安装">安装</h2>
-<p>在linux系统中安装只需要一行指令</p>
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在linux系统中安装只需要一行指令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ctags</span><br></pre></td></tr></table></figure>
-<h2 id="指令">指令</h2>
-<h3 id="终端中指令">终端中指令</h3>
-<p><strong>创建索引文件</strong></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><h3 id="终端中指令"><a href="#终端中指令" class="headerlink" title="终端中指令"></a>终端中指令</h3><p><strong>创建索引文件</strong></p>
 <p>ctags 其它的指令使用的前提都是为操作的文件建立索引文件的基础上进行的，所以在使用 ctags 对文件进行检索之前，先执行命令如下指令来创建索引文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctags -R .</span><br></pre></td></tr></table></figure>
 <p>可以在该指令之后添加参数，参数具体说明看下述 ctags参数，例如</p>
@@ -284,13 +281,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi –t variable_name/function_name</span><br></pre></td></tr></table></figure>
 <p><strong>ctags参数</strong></p>
 <ul>
-<li><code>--list-maps</code> ctags可以根据文件的扩展名以及文件名的形式确定该文件是何种语言。用–list-maps查看默认情况下支持那些语言，每一种支持的语言支持的文件扩展名是什么</li>
+<li><code>--list-maps</code> ctags可以根据文件的扩展名以及文件名的形式确定该文件是何种语言。用—list-maps查看默认情况下支持那些语言，每一种支持的语言支持的文件扩展名是什么</li>
 <li><code>--list-kinds</code> 查看默认支持的所有语言可以识别的语法元素</li>
 <li><code>--c++-kinds</code> ctags 可以识别很多元素，但并不会全部记录，可以控制 ctags 记录的语法元素的种类</li>
 <li><code>--langmap</code> 可以指定ctags用特定语言的分析器来分析某种扩展名的文件或者名字符合特定模式的文件</li>
 <li><code>-h</code> 用于指定一些其它后缀名的文件也是头文件</li>
-<li><code>--fields</code> ctags 对语法元素的描述取决于语法元素的种类。可以在命令行中指定显示哪些描述，以哪种格式显示等
-<ul>
+<li><code>--fields</code> ctags 对语法元素的描述取决于语法元素的种类。可以在命令行中指定显示哪些描述，以哪种格式显示等<ul>
 <li>i 表示如果有继承，标明父类</li>
 <li>a 表示如果是类的成员，要标明其 <code>access</code> 属性 <code>public or private</code></li>
 <li>S 表示如果是函数，要标明函数的 <code>signature</code></li>
@@ -301,7 +297,7 @@
 <li><code>--extra</code> ctags 在记录成员函数时，默认情况下 tag 的名字只包括该函数的名字，不包括类名，这样很多不同类但同名的函数所对应的 <code>tag</code> 名字都一样。于是在 <code>vim</code> 中使用函数名来定位时就会出现很多选择，很麻烦。如果想用包括类名的函数全名进行定位，就得要求 ctags 记录全名</li>
 <li><code>--exclude</code> 默认 ctags 是会扫描所有文件的，可以要求 ctags 不要扫描某些目录或文件</li>
 </ul>
-<h3 id="vim中常用指令">vim中常用指令</h3>
+<h3 id="vim中常用指令"><a href="#vim中常用指令" class="headerlink" title="vim中常用指令"></a>vim中常用指令</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -332,6 +328,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 
     </div>
 
@@ -448,7 +445,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -461,7 +458,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">113</span>
+        <span class="site-state-item-count">116</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -505,12 +502,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.5m</span>
+    <span title="站点总字数">1.2m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:18</span>
+    <span title="站点阅读时长">18:44</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
