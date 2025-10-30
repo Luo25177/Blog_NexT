@@ -269,48 +269,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="stm32f4内部的flash"><a href="#stm32f4内部的flash" class="headerlink" title="stm32f4内部的flash"></a>stm32f4内部的flash</h2><p>stm32芯片内部有一个flash存储器，主要用于存储编译之后烧录进来的代码，由于flash存储器的内容在掉电之后不会丢失，芯片重新上电复位之后内核可以从内部flash中加载代码并运行。</p>
+        <h2 id="stm32f4内部的flash">stm32f4内部的flash</h2>
+<p>stm32芯片内部有一个flash存储器，主要用于存储编译之后烧录进来的代码，由于flash存储器的内容在掉电之后不会丢失，芯片重新上电复位之后内核可以从内部flash中加载代码并运行。</p>
 <p>除了使用外部的工具（如下载器）读写内部FLASH外，STM32F4芯片在运行的时候，也能对自身的内部FLASH进行读写，因此，若内部FLASH存储了应用程序后还有剩余空间，我们可以把它像外部SPI-FLASH那样利用起来，存储一些程序运行时产生的需要掉电保存的数据。</p>
 <p>由于访问内部FLASH比外部SPI-FLASH的速度快的多，所以在紧急状态下常常会使用内部FLASH存储关键记录；为了防止应用程序被抄袭，有的应用会禁止读写内部FLASH中的内容，或者在第一次运行时计算机机密信息并记录到某些区域，然后删除自身的部分加密代码，这些都涉及到内部FLASH的操作。</p>
 <p>芯片内部存储的分区</p>
-<h3 id="主存储器"><a href="#主存储器" class="headerlink" title="主存储器"></a>主存储器</h3><ul>
-<li>介绍芯片时提到的flash的内存的大小都是指主存储器的大小，用于存放代码和数据常量（例如const类型的数据）。</li>
-<li>主存储器分为<strong>256</strong>页，每页大小<strong>2KB</strong>，一共512KB。这个分页就是FLASH的存储扇区，与其他的FLASH一样，写入数据前要先按照页就是扇区进行擦除。</li>
-<li>stm32f4的主存储器分为4个 16KB 扇区、1个 64KB 扇区和 7个 128KB 扇区</li>
-<li><p>stm32的型号：STM32F4ZG</p>
+<h3 id="主存储器">主存储器</h3>
 <ul>
-<li><p>G代表FLASH的大小</p>
-<p>4表示16KB；       6表示32KB；      8表示64KB；      B表示128KB</p>
-<p>C表示256KB；    E表示512KB；    F表示768KB；    <strong>G表示1024KB</strong></p>
+<li>
+<p>介绍芯片时提到的flash的内存的大小都是指主存储器的大小，用于存放代码和数据常量（例如const类型的数据）。</p>
+</li>
+<li>
+<p>主存储器分为<strong>256</strong>页，每页大小<strong>2KB</strong>，一共512KB。这个分页就是FLASH的存储扇区，与其他的FLASH一样，写入数据前要先按照页就是扇区进行擦除。</p>
+</li>
+<li>
+<p>stm32f4的主存储器分为4个 16KB 扇区、1个 64KB 扇区和 7个 128KB 扇区</p>
+</li>
+<li>
+<p>stm32的型号：STM32F4ZG</p>
+<ul>
+<li>
+<p>G代表FLASH的大小</p>
+<p>4表示16KB；       6表示32KB；      8表示64KB；      B表示128KB</p>
+<p>C表示256KB；    E表示512KB；    F表示768KB；    <strong>G表示1024KB</strong></p>
 </li>
 </ul>
 </li>
-<li><p>闪存存储器接口寄存器</p>
+<li>
+<p>闪存存储器接口寄存器</p>
 <ul>
 <li>用于控制闪存读写，是整个闪存模块的控制机构</li>
 <li>在执行闪存写操作时，任何对闪存的读操作都是锁住总线，在写操作完成后，读操作才能正确进行；<strong>也就是说在进行写或者擦除操作时，不能进行数据或者代码的读取操作</strong>。</li>
 </ul>
 </li>
-<li><p>内部FLASH写入过程</p>
+<li>
+<p>内部FLASH写入过程</p>
 <ol>
-<li><p>解锁<br>由于内部FLASH空间主要存储的是应用程序。是非常关键的数据，为了防止误操作修改了这些内容，芯片复位后默认会给 FLASH 上锁，这个时候不再允许设置 FLASH 的控制寄存器，同时也不能修改 FLASH 中的内容。</p>
+<li>解锁<br>
+由于内部FLASH空间主要存储的是应用程序。是非常关键的数据，为了防止误操作修改了这些内容，芯片复位后默认会给 FLASH 上锁，这个时候不再允许设置 FLASH 的控制寄存器，同时也不能修改 FLASH 中的内容。</li>
+</ol>
 <p>所以对 FLASH 写入程序之前，需要先对其进行解锁操作。</p>
 <ul>
 <li>往 FLASH 密钥寄存器 FLASH_KEYR 中写入 KEY1=0x45670123</li>
 <li>再往 FLASH 密钥寄存器 FLASH_KEYR 中写入 KEY2=0xCDEF89AB</li>
 </ul>
-</li>
-<li><p>擦除扇区</p>
+<ol start="2">
+<li>擦除扇区</li>
+</ol>
 <p>在写入新的数据前，需要先擦除存储区域，STM32提供了<strong>扇区擦除指令</strong>和 <strong>整个FLASH擦除——批量擦除</strong>的指令，批量擦除指令仅针对主存储区。</p>
 <p><strong>扇区擦除的过程</strong></p>
 <ul>
 <li>检查FLASH_SR状态寄存器的 “忙碌寄存器BSY” ，以确认当前未执行任何FLASH操作</li>
 <li>在FLASH_CR寄存器中，将 “激活页擦除寄存器位PER” 置1</li>
-<li>用FLASH_AR寄存器选择要擦除的页<br>将FLASH_CR控制寄存器中的 “开始擦除寄存器位STRT” 置1，开始擦除</li>
+<li>用FLASH_AR寄存器选择要擦除的页<br>
+将FLASH_CR控制寄存器中的 “开始擦除寄存器位STRT” 置1，开始擦除</li>
 <li>等待BSY位被清零，表示擦除完成</li>
 </ul>
-</li>
-<li><p>写入数据</p>
+<ol start="3">
+<li>写入数据</li>
+</ol>
 <p>擦除完毕后即可写入数据，写入数据的过程并不是仅仅使用指针指向地址赋值，赋值前还需要配置一系列的寄存器</p>
 <ul>
 <li>检查FLASH_SR状态寄存器中的BSY位，以确认当前未执行任何其他的内部FLASH操作</li>
@@ -318,39 +335,45 @@
 <li>向指定的FLASH存储器地址执行数据写入操作，每次只能以16位的方式写入</li>
 <li>等待BSY位被清零时，表示写入成功</li>
 </ul>
-</li>
-<li><p>查看工程的空间分布</p>
-<p>由于内部FLASH本身存储有程序数据，若不是有意删除某段程序代码，一般不应该修改程序空间的内容，所以在使用内部FLASH存储其他数据前需要了解哪一些空间已经写入了程序代码，存储了程序代码的扇区都不应做任何的修改。通过查询应用程序编译时产生的 “*.map” 后缀文件，可以了解程序存储到了哪些区域。</p>
-</li>
+<ol start="4">
+<li>查看工程的空间分布</li>
 </ol>
+<p>由于内部FLASH本身存储有程序数据，若不是有意删除某段程序代码，一般不应该修改程序空间的内容，所以在使用内部FLASH存储其他数据前需要了解哪一些空间已经写入了程序代码，存储了程序代码的扇区都不应做任何的修改。通过查询应用程序编译时产生的 “*.map” 后缀文件，可以了解程序存储到了哪些区域。</p>
 </li>
 </ul>
 <ol>
-<li><p><strong>系统存储器</strong></p>
-<p> 系统存储器是STM32开发板出厂之前就已经使用的一块区域，用户是无法访问系统存储区的，主要是做串口下载程序的支持，以及USB、CAN等ISP烧录功能。（系统存储器主要是用来存放STM32F4的bootloader代码，此代码是出厂的时候就固化在STM32F4里面的，专门来给主存储器下载代码的）</p>
+<li>
+<p><strong>系统存储器</strong></p>
+<p>系统存储器是STM32开发板出厂之前就已经使用的一块区域，用户是无法访问系统存储区的，主要是做串口下载程序的支持，以及USB、CAN等ISP烧录功能。（系统存储器主要是用来存放STM32F4的bootloader代码，此代码是出厂的时候就固化在STM32F4里面的，专门来给主存储器下载代码的）</p>
 </li>
-<li><p><strong>OTP区域</strong></p>
-<p> <strong>一次性可编程区域</strong>，共528字节，被分成两部分，前面512个字节（32字节为1块，分成16块），可以用来存储一些用户数据（一次性的，写完一次，永远不可以擦除）后面16个字节，用于锁定对应块。</p>
+<li>
+<p><strong>OTP区域</strong></p>
+<p><strong>一次性可编程区域</strong>，共528字节，被分成两部分，前面512个字节（32字节为1块，分成16块），可以用来存储一些用户数据（一次性的，写完一次，永远不可以擦除）后面16个字节，用于锁定对应块。</p>
 </li>
-<li><p><strong>选项字节区域</strong></p>
-<p> 选项字节区域是用来配置FLASH的读写保护、待机/停机、软件/硬件看门狗功能。可以通过修改FLASH的选项控制<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AF%84%E5%AD%98%E5%99%A8&amp;spm=1001.2101.3001.7020">寄存器</a>进行修改。</p>
+<li>
+<p><strong>选项字节区域</strong></p>
+<p>选项字节区域是用来配置FLASH的读写保护、待机/停机、软件/硬件看门狗功能。可以通过修改FLASH的选项控制<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AF%84%E5%AD%98%E5%99%A8&amp;spm=1001.2101.3001.7020">寄存器</a>进行修改。</p>
 </li>
 </ol>
-<h2 id="鼎新图蓝牙使用"><a href="#鼎新图蓝牙使用" class="headerlink" title="鼎新图蓝牙使用"></a>鼎新图蓝牙使用</h2><ol>
+<h2 id="鼎新图蓝牙使用">鼎新图蓝牙使用</h2>
+<ol>
 <li>波特率，置低波特率为9600，置高为115200，其他波特率值只能用AT设置</li>
 <li>密码，置低密码方式1=8888，置高默认密码0000</li>
 <li>主从模式，置低为从设备，置高为主设备</li>
 <li>距离class级别切换，置低class1设备，置高为class2设备</li>
 <li>拨码有效，置低pio按键无效，置高有效</li>
-<li>清零，置高保持5秒再置低<ul>
+<li>清零，置高保持5秒再置低</li>
+</ol>
+<ul>
 <li>数据模式置高5秒再复位-启动清零=模块做清楚地址码并重新搜索工作。</li>
 <li>AT模式置高5秒再复位-启动清零+恢复=模块做彻底清零并恢复到出厂设置，并重新启动。</li>
 </ul>
-</li>
+<ol start="7">
 <li>主机切换连接至从机2，至低-时为当前从机，至高+为切换至另一个</li>
 <li>AT/数据模式切换，置低数据模式，AT无效，置高AT状态，红灯亮起</li>
 </ol>
-<p>绿灯常亮为成功配对，若要清零，把5或8，和6一起置高，等五秒再置低<br><a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=2013.1.0.0.295235c1bQOm52&amp;id=35050036589&amp;qq-pf-to=pcqq.c2c">淘宝网站</a></p>
+<p>绿灯常亮为成功配对，若要清零，把5或8，和6一起置高，等五秒再置低<br>
+<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=2013.1.0.0.295235c1bQOm52&amp;id=35050036589&amp;qq-pf-to=pcqq.c2c">淘宝网站</a></p>
 
     </div>
 
@@ -524,12 +547,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.6m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:43</span>
+    <span title="站点阅读时长">23:36</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
