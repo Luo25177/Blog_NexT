@@ -931,7 +931,7 @@ pre .javascript .function {
   margin-right: 0;
 }
 .pagination .page-number.current {
-  background: #ccc;
+  background: #666;
   border-top-color: #ccc;
   color: #fff;
 }
@@ -1035,7 +1035,7 @@ pre .javascript .function {
 }
 .headband {
   background: #222;
-  height: 3px;
+  height: 0px;
 }
 .site-meta {
   flex-grow: 1;
@@ -1242,7 +1242,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffeb75;
+  background: #ff7d59;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2758,6 +2758,11 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
+}
+@media (min-width: 992px) {
+  body {
+    padding-top: 20px;
+  }
 }
 .katex-display {
   width: 100%;
