@@ -269,9 +269,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言">前言</h2>
-<h3 id="简介">简介</h3>
-<p>Clang-format 是一种代码格式化的工具，可以用来格式化各种代码，支持的语言如下</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Clang-format 是一种代码格式化的工具，可以用来格式化各种代码，支持的语言如下</p>
 <ul>
 <li>C/C++</li>
 <li>Java</li>
@@ -281,8 +279,7 @@
 <li>C#</li>
 </ul>
 <p>Clang-format 的配置文件可以取名为 <code>.clang-format</code> 或者 <code>_clang-format</code> ，该文件被放在项目的根目录下，一般来说 Clang-format 会自己去寻找配置文件的</p>
-<h3 id="安装">安装</h3>
-<p><strong>windows</strong></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><strong>windows</strong></p>
 <p><a target="_blank" rel="noopener" href="https://releases.llvm.org/">Download LLVM releases</a></p>
 <p>直接从上述网站上找到一个对应的发行版安装即可</p>
 <p>然后在命令行中输入如下指令来查看是否安装完成，一般来说安装完成之后需要重新启动一下</p>
@@ -296,27 +293,22 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install clang-18 clang-tools-18 clang-18-doc libclang-common-18-dev libclang-18-dev libclang1-18 clang-format-18 python3-clang-18 clangd-18 clang-tidy-18 </span><br></pre></td></tr></table></figure>
 <p>之后可以验证</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">llvm-config-18 --version</span><br><span class="line">clang-format-18 --version</span><br></pre></td></tr></table></figure>
-<h3 id="原文地址">原文地址</h3>
-<p><a target="_blank" rel="noopener" href="https://clang.llvm.org/docs/ClangFormatStyleOptions.html">Clang-Format Style Options — Clang 20.0.0git documentation (llvm.org)</a></p>
-<h2 id="原理">原理</h2>
-<p>Clang-format 的底层原理是基于 Clang 编译器的前端技术，包括一下几个步骤</p>
+<h3 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h3><p><a target="_blank" rel="noopener" href="https://clang.llvm.org/docs/ClangFormatStyleOptions.html">Clang-Format Style Options — Clang 20.0.0git documentation (llvm.org)</a></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Clang-format 的底层原理是基于 Clang 编译器的前端技术，包括一下几个步骤</p>
 <ul>
 <li>词法分析：Clang-format 使用 Clange 的词法分析器，将源代码分解成标记，这些标记是代码的基本构建块，如关键词，标识符，运算符和分隔符</li>
 <li>语法分析：Clang-format 解析代码的语法结构，生成抽象语法树，抽象语法树是代码结构的树形表示形式，用于进一步分析和转换</li>
 <li>格式化规则应用：Clang-format 根据用户定义的格式化规则，对 AST 进行遍历和调整。规则涵盖了代码缩进，空格，换行和代码块布局等各个方面</li>
 <li>代码生成：Clang-format 将调整之后的 AST 转换回源代码文本，并且输出格式化之后的代码</li>
 </ul>
-<h2 id="vscode-配置-clang-format">vscode 配置 Clang-format</h2>
-<p>需要下载插件 C/C++，但是需要注意的是，下载的插件的版本必须是 1.17.4 以及之前的版本（后面更新的新版本好像用不了）</p>
+<h2 id="vscode-配置-Clang-format"><a href="#vscode-配置-Clang-format" class="headerlink" title="vscode 配置 Clang-format"></a>vscode 配置 Clang-format</h2><p>需要下载插件 C/C++，但是需要注意的是，下载的插件的版本必须是 1.17.4 以及之前的版本（后面更新的新版本好像用不了）</p>
 <p>然后在设置里找到 <code>format-enbale</code> 并且将其打开即可</p>
 <p>然后可以在项目的根目录下添加 <code>.clang-format</code> 文件，里面就可以写配置了，然后在格式化时 C/C++ 插件会自动寻找 <code>.clang-format</code> 文件的，一般来说会在该项目的根目录中寻找</p>
-<h2 id="命令行语法">命令行语法</h2>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang-format [options] [filename]</span><br></pre></td></tr></table></figure>
+<h2 id="命令行语法"><a href="#命令行语法" class="headerlink" title="命令行语法"></a>命令行语法</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang-format [options] [filename]</span><br></pre></td></tr></table></figure>
 <p>常用的选项如下</p>
 <ul>
 <li><code>-i</code> 直接修改文件而不是输出到标准输出</li>
-<li><code>-style</code> 指定格式化风格，如下几种预定风格
-<ul>
+<li><code>-style</code> 指定格式化风格，如下几种预定风格<ul>
 <li><a target="_blank" rel="noopener" href="https://llvm.org/docs/CodingStandards.html">LLVM</a></li>
 <li><a target="_blank" rel="noopener" href="https://google.github.io/styleguide/cppguide.html">Google</a></li>
 <li><a target="_blank" rel="noopener" href="https://chromium.googlesource.com/chromium/src/+/refs/heads/main/styleguide/styleguide.md">Chromium</a></li>
@@ -328,22 +320,17 @@
 </li>
 <li><code>-assume-filename</code> 指定文件类型，以便应用相应的格式化规则</li>
 </ul>
-<h2 id="配置文件语法">配置文件语法</h2>
-<p>在进行配置时，可以一次使用多个语言配置，如下</p>
+<h2 id="配置文件语法"><a href="#配置文件语法" class="headerlink" title="配置文件语法"></a>配置文件语法</h2><p>在进行配置时，可以一次使用多个语言配置，如下</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">Cpp</span></span><br><span class="line"><span class="attr">DerivePointerAlignment:</span> <span class="literal">false</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">JavaScript</span></span><br><span class="line"><span class="attr">ColumnLimit:</span> <span class="number">100</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">Proto</span></span><br><span class="line"><span class="attr">DisableFormat:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">CSharp</span></span><br><span class="line"><span class="attr">ColumnLimit:</span> <span class="number">100</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
 <p>可以在源代码中进行如下注释，表示这一段代码不需要被格式化</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// clang-format off</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">unformat_code</span><span class="params">()</span>;</span><br><span class="line"><span class="comment">// clang-format on</span></span><br></pre></td></tr></table></figure>
-<h3 id="编写规则">编写规则</h3>
-<ul>
+<h3 id="编写规则"><a href="#编写规则" class="headerlink" title="编写规则"></a>编写规则</h3><ul>
 <li>配置文件名必须为 <code>.clang-format</code></li>
 <li>该文件必须位于项目的根目录或者编译目录下</li>
 <li>文件采用 <code>YAML</code> 语法</li>
 </ul>
-<h3 id="配置字段解释">配置字段解释</h3>
-<ul>
-<li>
-<p><code>Language</code> 语言，可以指定当前配置文件为那些文件配置的</p>
-<ul>
+<h3 id="配置字段解释"><a href="#配置字段解释" class="headerlink" title="配置字段解释"></a>配置字段解释</h3><ul>
+<li><code>Language</code> 语言，可以指定当前配置文件为那些文件配置的<ul>
 <li>Cpp</li>
 <li>Java</li>
 <li>JavaScript</li>
@@ -354,9 +341,7 @@
 <li>CSharp</li>
 </ul>
 </li>
-<li>
-<p><code>BasedOnStyle</code> 基础风格，指定基本的风格样式</p>
-<ul>
+<li><code>BasedOnStyle</code> 基础风格，指定基本的风格样式<ul>
 <li>LLVM</li>
 <li>Google</li>
 <li>Chromium</li>
@@ -366,29 +351,21 @@
 <li>GNU</li>
 </ul>
 </li>
-<li>
-<p><code>AccessModifierOffset</code> 访问性修饰符偏移，这个偏移量是相对于原来已有的缩进而言的，需要在原来就有的偏移基础上进行的偏移</p>
-</li>
-<li>
-<p><code>AlignAfterOpenBracket</code> 开括号之后的对齐</p>
-<ul>
+<li><code>AccessModifierOffset</code> 访问性修饰符偏移，这个偏移量是相对于原来已有的缩进而言的，需要在原来就有的偏移基础上进行的偏移</li>
+<li><code>AlignAfterOpenBracket</code> 开括号之后的对齐<ul>
 <li><code>Align</code> 开阔号之后对齐变量</li>
 <li><code>DontAlign</code> 不对齐，换行后使用缩进</li>
 <li><code>AlwaysBreak</code> 一行放不下时，总是在一个开括号之后换行</li>
 <li><code>BlockIndext</code> 一行放不下时，总是在一个开括号之后换行，并且在新行关闭尾括号，但是仅限于圆括号</li>
 </ul>
 </li>
-<li>
-<p><code>AlignArrayOfStructures</code> 对齐结构体数组，当数组列数相等时，会对齐每行的文本</p>
-<ul>
+<li><code>AlignArrayOfStructures</code> 对齐结构体数组，当数组列数相等时，会对齐每行的文本<ul>
 <li><code>Left</code> 向左对齐</li>
 <li><code>Right</code> 向右对齐</li>
 <li><code>None</code> 不对齐</li>
 </ul>
 </li>
-<li>
-<p><code>AlignConsecutiveAssignments</code> 连续赋值对齐，连续几行的赋值语句中，等号对齐。其中有几个变量来控制</p>
-<ul>
+<li><code>AlignConsecutiveAssignments</code> 连续赋值对齐，连续几行的赋值语句中，等号对齐。其中有几个变量来控制<ul>
 <li><code>bool Enabled</code> 是否使能对齐</li>
 <li><code>bool AcrossEmptyLines</code> 可以跨越空白行进行对齐</li>
 <li><code>bool AcrossComments</code> 可以跨越注释行进行对齐</li>
@@ -396,44 +373,33 @@
 <li><code>bool PadOperators</code>  混合运算符填补对齐到所有左值的最右边界，仅限于连续赋值</li>
 </ul>
 </li>
-<li>
-<p><code>AlignConsecutiveBitFields</code> 位段对齐，主要用于结构体位阈段的对齐。由如下几个变量控制</p>
-<ul>
+<li><code>AlignConsecutiveBitFields</code> 位段对齐，主要用于结构体位阈段的对齐。由如下几个变量控制<ul>
 <li><code>Enabled</code> 使能对齐</li>
 <li><code>AcrossEmptyLines</code> 可以跨越空行进行对齐</li>
 <li><code>AcrossComments</code> 可以跨越注释进行对齐</li>
 </ul>
 </li>
-<li>
-<p><code>AlignConsecutiveDeclarations</code> 连续对齐声明，可以对齐变量等连续声明的语句。需要注意的是，这个对齐尽量不要跨越空白行，容易把函数定义也对齐了。由如下几个变量控制</p>
-<ul>
+<li><code>AlignConsecutiveDeclarations</code> 连续对齐声明，可以对齐变量等连续声明的语句。需要注意的是，这个对齐尽量不要跨越空白行，容易把函数定义也对齐了。由如下几个变量控制<ul>
 <li><code>Enabled</code> 使能对齐</li>
 <li><code>AcrossEmptyLines</code> 可以跨越空行进行对齐</li>
 <li><code>AcrossComments</code> 可以跨越注释进行对齐</li>
 </ul>
 </li>
-<li>
-<p><code>AlignEscapedNewlines</code> 对齐分割语法行的斜杠</p>
-<ul>
+<li><code>AlignEscapedNewlines</code> 对齐分割语法行的斜杠<ul>
 <li><code>DontAlign</code> 不对齐</li>
 <li><code>Left</code> 左对齐，尽可能向左对齐</li>
 <li><code>Right</code> 右对齐，对齐到列的最右边</li>
 </ul>
 </li>
-<li>
-<p><code>AlignOperands</code> 竖直对齐表达式的操作数，竖直对齐二元或三元表达式的操作数</p>
-<ul>
+<li><code>AlignOperands</code> 竖直对齐表达式的操作数，竖直对齐二元或三元表达式的操作数<ul>
 <li><code>DontAlign</code> 不对齐</li>
 <li><code>Align</code> 对齐</li>
 <li><code>AlignAfterOperators</code>  在操作符之后对齐，也就是是否对齐操作数</li>
 <li>外部属性 <code>BreakBeforeBinaryOperators</code> 在二元操作符之前打断，如果配置文件中设置了这个属性，操作符也会换行</li>
 </ul>
 </li>
-<li>
-<p><code>AlignTrailingComments</code> 对齐尾部注释</p>
-<ul>
-<li><code>Kind</code>
-<ul>
+<li><code>AlignTrailingComments</code> 对齐尾部注释<ul>
+<li><code>Kind</code><ul>
 <li><code>Leave</code> 不做格式化</li>
 <li><code>Always</code> 对齐尾部注释</li>
 <li><code>Never</code> 不对齐，但是进行缩进之类的操作</li>
@@ -442,26 +408,16 @@
 <li><code>OverEmptyLines</code> 跨越空白行的行数，超过这个行数的注释不会对齐</li>
 </ul>
 </li>
-<li>
-<p><code>AllowAllArgumentsOnNextLine</code> 允许参数在下一行上，如果函数调用或者带括号的函数初始化列表不在一行中，允许所有参数放到下一行</p>
-</li>
-<li>
-<p><code>AllowAllParametersOfDeclarationOnNextLine</code> 允许声明的参数在下一行上，函数声明无法放在一行中，允许将所有变量放在下一行上</p>
-</li>
-<li>
-<p>****<code>AllowShortBlocksOnASingleLine</code> 允许短语法块在单行上</p>
-<ul>
+<li><code>AllowAllArgumentsOnNextLine</code> 允许参数在下一行上，如果函数调用或者带括号的函数初始化列表不在一行中，允许所有参数放到下一行</li>
+<li><code>AllowAllParametersOfDeclarationOnNextLine</code> 允许声明的参数在下一行上，函数声明无法放在一行中，允许将所有变量放在下一行上</li>
+<li><em>**</em><code>AllowShortBlocksOnASingleLine</code> 允许短语法块在单行上<ul>
 <li><code>Never</code> 从不合并到单行上</li>
 <li><code>Always</code> 只合并空的块到单行上</li>
-<li><code>Empty</code> 总是合并短块到单行上</li>
+<li><code>Empty</code> 总是合并短块到单行上</li>
 </ul>
 </li>
-<li>
-<p><code>AllowShortEnumsOnASingleLine</code> 允许短的枚举类到单行上</p>
-</li>
-<li>
-<p><code>AllowShortFunctionsOnASingleLine</code> 允许短函数在单行上</p>
-<ul>
+<li><code>AllowShortEnumsOnASingleLine</code> 允许短的枚举类到单行上</li>
+<li><code>AllowShortFunctionsOnASingleLine</code> 允许短函数在单行上<ul>
 <li><code>None</code> 从不合并</li>
 <li><code>InlineOnly</code> 仅合并被定义在类里面的短函数</li>
 <li><code>Empty</code> 只合并空函数</li>
@@ -469,30 +425,22 @@
 <li><code>ALL</code> 合并所有合适的短函数在单行上</li>
 </ul>
 </li>
-<li>
-<p><code>AllowShortIfStatementsOnASingleLine</code> 允许 <code>if</code> 块在单行上</p>
-<ul>
+<li><code>AllowShortIfStatementsOnASingleLine</code> 允许 <code>if</code> 块在单行上<ul>
 <li><code>Never</code> 从不把 <code>if</code> 放在单行上</li>
 <li><code>WithoutElse</code> 没有 <code>else</code> 时放在单行上</li>
 <li><code>OnlyFirstIf</code> 只把第一个 <code>if</code> 语句放在单行上，后面的 <code>else if</code> 和 <code>else</code> 都不放在单行上</li>
 <li><code>AllIfsAndElse</code> 短语句放在单行上</li>
 </ul>
 </li>
-<li>
-<p><code>AllowShortLambdasOnASingleLine</code> 允许短匿名函数 <code>lambda</code> 放在单行上</p>
-<ul>
+<li><code>AllowShortLambdasOnASingleLine</code> 允许短匿名函数 <code>lambda</code> 放在单行上<ul>
 <li><code>None</code> 从不合并</li>
 <li><code>Empty</code> 只合并空的匿名函数</li>
 <li><code>Inline</code> 当匿名函数作为实参时，合并在单行上</li>
 <li><code>All</code> 合并所有短的匿名函数</li>
 </ul>
 </li>
-<li>
-<p><code>AllowShortLoopsOnASingleLine</code> 允许合并短循环到单行上</p>
-</li>
-<li>
-<p><code>AlwaysBreakAfterReturnType</code> 函数声明返回类型的换行风格</p>
-<ul>
+<li><code>AllowShortLoopsOnASingleLine</code> 允许合并短循环到单行上</li>
+<li><code>AlwaysBreakAfterReturnType</code> 函数声明返回类型的换行风格<ul>
 <li><code>None</code> 从不在返回类型之后自动换行</li>
 <li><code>All</code> 总是在返回类型之后自动换行</li>
 <li><code>TopLevel</code> 在顶级函数顶级返回类型处换行</li>
@@ -500,43 +448,30 @@
 <li><code>TopLevelDefinitions</code> 在顶级函数定义的返回类型处换行</li>
 </ul>
 </li>
-<li>
-<p><code>AlwaysBreakBeforeMultilineStrings</code> 多行字符串换行，在多行字符串字面量之前换行</p>
-</li>
-<li>
-<p><code>AlwaysBreakTemplateDeclarations</code> 模板声明换行</p>
-<ul>
+<li><code>AlwaysBreakBeforeMultilineStrings</code> 多行字符串换行，在多行字符串字面量之前换行</li>
+<li><code>AlwaysBreakTemplateDeclarations</code> 模板声明换行<ul>
 <li><code>No</code> 不会强制在模板声明处换行</li>
 <li><code>MultiLine</code> 仅在接下来的函数/类声明参数需要跨行时才会在模板处换行</li>
 <li><code>Yes</code> 总是在模板声明之后换行</li>
 </ul>
 </li>
-<li>
-<p><code>AttributeMacros</code> 属性宏，这个对于语言扩展或静态分析器注释非常有用</p>
-</li>
-<li>
-<p><code>BinPackArguments</code> 装箱变量</p>
-<ul>
+<li><code>AttributeMacros</code> 属性宏，这个对于语言扩展或静态分析器注释非常有用</li>
+<li><code>BinPackArguments</code> 装箱变量<ul>
 <li><code>false</code> 变量要么都在同一行，要么每个变量单独一行</li>
 <li><code>true</code> 会把变量合理打包放在一行上，更紧凑一点</li>
 </ul>
 </li>
-<li>
-<p><code>BitFieldColonSpacing</code> 位阈冒号的空格风格</p>
-<ul>
+<li><code>BitFieldColonSpacing</code> 位阈冒号的空格风格<ul>
 <li><code>Both</code> 在冒号每边都增加一个空格</li>
 <li><code>None</code> 不添加任何空格</li>
 <li><code>Before</code> 在冒号之前添加空格</li>
 <li><code>After</code> 在冒号之后添加空格</li>
 </ul>
 </li>
-<li>
-<p><code>BraceWrapping</code> 大括号换行风格。必须将 <code>BreakBeforeBraces</code> 设置为 <code>Custom</code> 时才有效，否则被忽略。由以下几个参数来定义</p>
-<ul>
+<li><code>BraceWrapping</code> 大括号换行风格。必须将 <code>BreakBeforeBraces</code> 设置为 <code>Custom</code> 时才有效，否则被忽略。由以下几个参数来定义<ul>
 <li><code>bool AfterCaseLabel</code> 在 <code>case</code> 之后的大括号换行</li>
 <li><code>bool AfterClass</code> 类定义之后换行</li>
-<li><code>AfterControlStatement</code> 控制语句之后换行
-<ul>
+<li><code>AfterControlStatement</code> 控制语句之后换行<ul>
 <li><code>Never</code> 从不换行</li>
 <li><code>MultiLine</code> 只在一个多行控制语句之后换行</li>
 <li><code>Always</code> 总是换行</li>
@@ -559,23 +494,15 @@
 <li><code>bool AfterObjCDeclaration</code> 在 ObjC 定义之后换行</li>
 </ul>
 </li>
-<li>
-<p><code>BreakAfterJavaFieldAnnotations</code> 在修饰器之后换行，适用于 Java</p>
-</li>
-<li>
-<p><code>BreakArrays</code> 仅用于支持 Json 数组换行</p>
-</li>
-<li>
-<p><code>BreakBeforeBinaryOperators</code> 二元操作符换行</p>
-<ul>
+<li><code>BreakAfterJavaFieldAnnotations</code> 在修饰器之后换行，适用于 Java</li>
+<li><code>BreakArrays</code> 仅用于支持 Json 数组换行</li>
+<li><code>BreakBeforeBinaryOperators</code> 二元操作符换行<ul>
 <li><code>None</code> 在操作符之后换行</li>
 <li><code>NonAssignment</code> 只在非赋值操作之前换行</li>
 <li><code>All</code> 在操作符之前换行</li>
 </ul>
 </li>
-<li>
-<p><code>BreakBeforeBraces</code> 大括号换行格式</p>
-<ul>
+<li><code>BreakBeforeBraces</code> 大括号换行格式<ul>
 <li><code>Attach</code> 总是将大括号附加到周围上下文</li>
 <li><code>Linux</code> 与上述类似，但是会在函数，命名空间和类定义处换行</li>
 <li><code>Mozilla</code> 与 <code>Attach</code> 类似，但是会在枚举和函数定义处换行</li>
@@ -587,408 +514,253 @@
 <li><code>Custom</code> 客制化配置每个大括号情况</li>
 </ul>
 </li>
-<li>
-<p><code>BreakBeforeConceptDeclarations</code> 概念声明换行风格</p>
-<ul>
+<li><code>BreakBeforeConceptDeclarations</code> 概念声明换行风格<ul>
 <li><code>Never</code> 保持模板声明行和 <code>concept</code> 在一行</li>
 <li><code>Allowed</code> 允许模板声明和 <code>concept</code> 之间换行，实际的表现取决于上下文和换行规则</li>
 <li><code>Always</code> 永远在 <code>concept</code> 之前换行，并且将改行放在模板声明之前</li>
 </ul>
 </li>
-<li>
-<p><code>BreakBeforeTernaryOperators</code> 三元操作符换行规则</p>
-<ul>
+<li><code>BreakBeforeTernaryOperators</code> 三元操作符换行规则<ul>
 <li><code>true</code> 在三元操作符之前换行</li>
 <li><code>false</code> 在三元操作符之后换行</li>
 </ul>
 </li>
-<li>
-<p><code>BreakConstructorInitializers</code> 构造函数换行风格</p>
-<ul>
+<li><code>BreakConstructorInitializers</code> 构造函数换行风格<ul>
 <li><code>BeforeColon</code> 冒号前和逗号之后换行</li>
 <li><code>BeforeComma</code> 逗号和冒号之前换行，并且对齐</li>
 <li><code>AfterColon</code> 在冒号和逗号之后换行</li>
 <li><code>AfterComma</code>仅在逗号之后进行换行</li>
 </ul>
 </li>
-<li>
-<p><code>BreakInheritanceList</code> 继承换行风格</p>
-<ul>
+<li><code>BreakInheritanceList</code> 继承换行风格<ul>
 <li><code>BeforeColon</code> 冒号前和逗号之后换行</li>
 <li><code>BeforeComma</code> 逗号和冒号之前换行，并且对齐</li>
 <li><code>AfterColon</code> 在冒号和逗号之后换行</li>
 <li><code>AfterComma</code>仅在逗号之后进行换行</li>
 </ul>
 </li>
-<li>
-<p><code>BreakStringLiterals</code> 字符串常量换行，允许对字符串字面量进行断行</p>
-</li>
-<li>
-<p><code>ColumnLimit</code> 列数限制，设置为 0 表示没有限制，不会在一行太长的语句中换行</p>
-</li>
-<li>
-<p><code>CommentPragmas</code> 注释表示。值为字符串，含有正则表达式，其描述具有特殊含义的注释，这些注释不应被分割成行或以其他方式更改</p>
-</li>
-<li>
-<p><code>CompactNamespaces</code> 紧凑命名空间</p>
-<ul>
+<li><code>BreakStringLiterals</code> 字符串常量换行，允许对字符串字面量进行断行</li>
+<li><code>ColumnLimit</code> 列数限制，设置为 0 表示没有限制，不会在一行太长的语句中换行</li>
+<li><code>CommentPragmas</code> 注释表示。值为字符串，含有正则表达式，其描述具有特殊含义的注释，这些注释不应被分割成行或以其他方式更改</li>
+<li><code>CompactNamespaces</code> 紧凑命名空间<ul>
 <li><code>true</code> 将连续的命名空间声明在一行中</li>
 <li><code>false</code> 每个命名空间在新行中声明</li>
 </ul>
 </li>
-<li>
-<p><code>ConstructorInitializerIndentWidth</code> 构造初始化缩进宽度，用于构造函数初始化列表和继承列表缩进的字符数，无符号整数</p>
-</li>
-<li>
-<p><code>ContinuationIndentWidth</code> 延续下一行缩进宽度，原来一行放不下时，换行后，新行缩进的字符数</p>
-</li>
-<li>
-<p><code>Cpp11BracedListStyle</code> 大括号列表风格，其中大括号列表中没有空格</p>
-<ul>
+<li><code>ConstructorInitializerIndentWidth</code> 构造初始化缩进宽度，用于构造函数初始化列表和继承列表缩进的字符数，无符号整数</li>
+<li><code>ContinuationIndentWidth</code> 延续下一行缩进宽度，原来一行放不下时，换行后，新行缩进的字符数</li>
+<li><code>Cpp11BracedListStyle</code> 大括号列表风格，其中大括号列表中没有空格<ul>
 <li><code>false</code> 就是大括号内有空格与变量分隔</li>
 </ul>
 </li>
-<li>
-<p><code>DeriveLineEnding</code> 提取行结尾</p>
-</li>
-<li>
-<p><code>DerivePointerAlignment</code> 提取指针对齐</p>
-<ul>
+<li><code>DeriveLineEnding</code> 提取行结尾</li>
+<li><code>DerivePointerAlignment</code> 提取指针对齐<ul>
 <li><code>true</code> 分析格式化文件中的 <code>&amp;</code> 和 <code>*</code> 最常见的对齐方式，然后指针和引用对齐将根据在文件中找到的对齐样式进行更新</li>
 </ul>
 </li>
-<li>
-<p><code>DisableFormat</code> 禁用格式化</p>
-</li>
-<li>
-<p><code>EmptyLineAfterAccessModifier</code> 定义何时在访问修饰符之后放置空行</p>
-<ul>
+<li><code>DisableFormat</code> 禁用格式化</li>
+<li><code>EmptyLineAfterAccessModifier</code> 定义何时在访问修饰符之后放置空行<ul>
 <li><code>Never</code> 移除访问修饰符之后所有的空行</li>
 <li><code>Leave</code> 在访问修饰符之后保持现有的空行</li>
 <li><code>Always</code> 如果访问修饰符之后没有空行，总是在后面添加空行</li>
 </ul>
 </li>
-<li>
-<p><code>EmptyLineBeforeAccessModifier</code> 访问修饰符前空行</p>
-<ul>
+<li><code>EmptyLineBeforeAccessModifier</code> 访问修饰符前空行<ul>
 <li><code>Never</code> 移除访问修饰符之前所有的空行</li>
 <li><code>Leave</code> 在访问修饰符之前保持现有的空行</li>
 <li><code>Always</code> 如果访问修饰符之前没有空行，总是在后面添加空行，除非访问修饰符位于结构或类定义的开头</li>
 <li><code>LogicalBlock</code> 有当访问修饰符开始一个新的逻辑块时才添加空行。逻辑块是由一个或多个成员字段或函数组成的一组</li>
 </ul>
 </li>
-<li>
-<p><code>ExperimentalAutoDetectBinPacking</code> 实验性的功能，不要在配置文件中使用，使用风险自负</p>
-</li>
-<li>
-<p><code>FixNamespaceComments</code> 修复命名空间描述</p>
-<ul>
+<li><code>ExperimentalAutoDetectBinPacking</code> 实验性的功能，不要在配置文件中使用，使用风险自负</li>
+<li><code>FixNamespaceComments</code> 修复命名空间描述<ul>
 <li><code>true</code> Clang-format 将为短命名空间添加丢失的命名空间结束注释，并且修复无效的现有注释</li>
 </ul>
 </li>
-<li>
-<p><code>ForEachMacros</code> 迭代循环宏，被解释为 <code>foreach</code> 循环而不是函数调用的宏向量</p>
-</li>
-<li>
-<p><code>IfMacros</code> 条件判断宏，被解释为条件语句而不是函数调用的宏向量</p>
-</li>
-<li>
-<p><code>IncludeBlocks</code> <code>include</code> 块风格</p>
-<ul>
+<li><code>ForEachMacros</code> 迭代循环宏，被解释为 <code>foreach</code> 循环而不是函数调用的宏向量</li>
+<li><code>IfMacros</code> 条件判断宏，被解释为条件语句而不是函数调用的宏向量</li>
+<li><code>IncludeBlocks</code> <code>include</code> 块风格<ul>
 <li><code>Preserve</code> 每个 <code>include</code> 块单独排序</li>
 <li><code>Merge</code> 合并多个 <code>include</code> 块，并且整体排序</li>
 <li><code>Regroup</code> 合并多个 <code>include</code> 块，并且整体排序，根据类别优先级分组，可参考 <code>IncludeCategories</code></li>
 </ul>
 </li>
-<li>
-<p><code>IncludeCategories</code> <code>include</code> 种类，正则表达式表示不同的 <code>include</code> 类别，然后进行排序。支持 POSIX 扩展正则表达式，每个分类都包含如下四个参数，下面是一个示例</p>
+<li><p><code>IncludeCategories</code> <code>include</code> 种类，正则表达式表示不同的 <code>include</code> 类别，然后进行排序。支持 POSIX 扩展正则表达式，每个分类都包含如下四个参数，下面是一个示例</p>
 <ul>
 <li><code>Regex</code> 正则表达式</li>
 <li><code>Priority</code> 优先级</li>
 <li><code>SortPriority</code> 默认优先级</li>
-<li><code>CaseSensitive</code> 是否区分大小写</li>
+<li><p><code>CaseSensitive</code> 是否区分大小写</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">IncludeCategories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">2</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">2</span></span><br><span class="line">    <span class="attr">CaseSensitive:</span>   <span class="literal">true</span> <span class="comment"># 字段标记为区分大小写，默认情况下不区分大小写</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^((&lt;|&quot;)(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">3</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;&lt;[[:alnum:].]+&gt;&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">1</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">IncludeCategories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">2</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">2</span></span><br><span class="line">    <span class="attr">CaseSensitive:</span>   <span class="literal">true</span> <span class="comment"># 字段标记为区分大小写，默认情况下不区分大小写</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^((&lt;|&quot;)(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">3</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;&lt;[[:alnum:].]+&gt;&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">1</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p><code>IncludeIsMainRegex</code> 指定一个正则表达式，其表明了文件到主包含映射中被允许的后缀名</p>
+<li><p><code>IncludeIsMainRegex</code> 指定一个正则表达式，其表明了文件到主包含映射中被允许的后缀名</p>
 </li>
-<li>
-<p><code>IncludeIsMainSourceRegex</code> 判断源文件的正则表达式。为被格式化的文件指定正则表达式，匹配正则表达式的这些文件允许在文件到 <code>main-include</code> 映射中被视为 <code>main</code></p>
-</li>
-<li>
-<p><code>IndentAccessModifiers</code> 访问修饰符缩进，用于指定访问修饰符是否应该有自己的缩进级别</p>
-<ul>
+<li><code>IncludeIsMainSourceRegex</code> 判断源文件的正则表达式。为被格式化的文件指定正则表达式，匹配正则表达式的这些文件允许在文件到 <code>main-include</code> 映射中被视为 <code>main</code></li>
+<li><code>IndentAccessModifiers</code> 访问修饰符缩进，用于指定访问修饰符是否应该有自己的缩进级别<ul>
 <li><code>false</code> 访问修饰符相对于成员缩进（或向外缩进），根据 <code>AccessModifierOffset</code> 。记录成员的缩进位置比记录低一级</li>
 <li><code>true</code> 访问修饰符获得自己的缩进级别，而且成员的缩进是在此基础上的</li>
 </ul>
 </li>
-<li>
-<p><code>IndentCaseBlocks</code> <code>case</code> 块的缩进</p>
-<ul>
+<li><code>IndentCaseBlocks</code> <code>case</code> 块的缩进<ul>
 <li><code>false</code> <code>case</code> 标签之后的块与 <code>case</code> 有着相同的缩进级别</li>
 <li><code>true</code> <code>case</code> 标签之后的缩进为作用域块，相对于 <code>case</code> 还有一级缩进</li>
 </ul>
 </li>
-<li>
-<p><code>IndentCaseLabels</code> <code>case label</code> 标签缩进</p>
-<ul>
+<li><code>IndentCaseLabels</code> <code>case label</code> 标签缩进<ul>
 <li><code>false</code> <code>case</code> 标签与 <code>switch</code> 标签有着相同的缩进等级</li>
 <li><code>true</code> <code>case</code> 标签在 <code>switch</code> 基础上有一级缩进</li>
 </ul>
 </li>
-<li>
-<p><code>IndentExternBlock</code> <code>Extern</code> 扩展块缩进</p>
-<ul>
+<li><code>IndentExternBlock</code> <code>Extern</code> 扩展块缩进<ul>
 <li><code>NoIndent</code> 不缩进</li>
 <li><code>Indent</code> 缩进</li>
 </ul>
 </li>
-<li>
-<p><code>IndentGotoLabels</code> 缩进 <code>goto</code> 跳转符号</p>
-</li>
-<li>
-<p><code>IndentPPDirectives</code> 预处理指令缩进</p>
-<ul>
+<li><code>IndentGotoLabels</code> 缩进 <code>goto</code> 跳转符号</li>
+<li><code>IndentPPDirectives</code> 预处理指令缩进<ul>
 <li><code>None</code> 不缩进任何预处理指令</li>
 <li><code>AfterHash</code> 缩进 <code>#</code> 之后的内容</li>
 <li><code>BeforeHash</code> 缩进时包括 <code>#</code></li>
 </ul>
 </li>
-<li>
-<p><code>IndentRequiresClause</code> 是否缩进模板中的 <code>require</code> 子句。这只适用于 <code>RequiresClausePosition</code> 为 <code>OwnLine</code> 或 <code>WithFollowing</code> 时</p>
-</li>
-<li>
-<p><code>IndentWidth</code> 缩进宽度，用于缩进的列数</p>
-</li>
-<li>
-<p><code>IndentWrappedFunctionNames</code> 如果函数定义或声明在类型之后换行，则函数名缩进</p>
-</li>
-<li>
-<p><code>InsertBraces</code> 插入括号。在控制语句之后插入大括号，除非控制语句位于宏定义中，或者大括号包含预处理指令。但是需要注意的是，设置之后有可能会导致错误的代码格式，需要小心使用</p>
-</li>
-<li>
-<p><code>InsertTrailingCommas</code> 插入尾部冒号</p>
-<ul>
+<li><code>IndentRequiresClause</code> 是否缩进模板中的 <code>require</code> 子句。这只适用于 <code>RequiresClausePosition</code> 为 <code>OwnLine</code> 或 <code>WithFollowing</code> 时</li>
+<li><code>IndentWidth</code> 缩进宽度，用于缩进的列数</li>
+<li><code>IndentWrappedFunctionNames</code> 如果函数定义或声明在类型之后换行，则函数名缩进</li>
+<li><code>InsertBraces</code> 插入括号。在控制语句之后插入大括号，除非控制语句位于宏定义中，或者大括号包含预处理指令。但是需要注意的是，设置之后有可能会导致错误的代码格式，需要小心使用</li>
+<li><code>InsertTrailingCommas</code> 插入尾部冒号<ul>
 <li><code>Wrapped</code> 会在跨多行换行的容器字面量（数组和对象）中插入尾随逗号。但是使用之后将禁用 <code>BinPackArguments</code></li>
 <li><code>None</code> 不插入</li>
 </ul>
 </li>
-<li>
-<p><code>JavaImportGroups</code> 为 Java 导入按照所需组排序的前缀向量</p>
-</li>
-<li>
-<p><code>JavaScriptQuotes</code> Java 的引号风格</p>
-<ul>
+<li><code>JavaImportGroups</code> 为 Java 导入按照所需组排序的前缀向量</li>
+<li><code>JavaScriptQuotes</code> Java 的引号风格<ul>
 <li><code>Leave</code> 保持原样</li>
 <li><code>Single</code> 总是使用单引号</li>
 <li><code>Double</code> 总是使用双引号</li>
 </ul>
 </li>
-<li>
-<p><code>JavaScriptWrapImports</code> Java 中 <code>import/export</code> 语句换行</p>
-</li>
-<li>
-<p><code>KeepEmptyLinesAtTheStartOfBlocks</code> 在一个语法块的开始刘空行</p>
-</li>
-<li>
-<p><code>LambdaBodyIndentation</code> 匿名函数表达式主体缩进样式</p>
-<ul>
+<li><code>JavaScriptWrapImports</code> Java 中 <code>import/export</code> 语句换行</li>
+<li><code>KeepEmptyLinesAtTheStartOfBlocks</code> 在一个语法块的开始刘空行</li>
+<li><code>LambdaBodyIndentation</code> 匿名函数表达式主体缩进样式<ul>
 <li><code>Signature</code> 将匿名函数主体相对于 该匿名函数签名对齐</li>
 <li><code>OuterScope</code> 相对于匿名函数签名所在的外部作用域的缩进级别对齐匿名函数主体</li>
 </ul>
 </li>
-<li>
-<p><code>MacroBlockBegin</code> 开始块的宏，匹配启动块的宏的正则表达式</p>
-</li>
-<li>
-<p><code>MacroBlockEnd</code> 结束块的宏</p>
-</li>
-<li>
-<p><code>MaxEmptyLinesToKeep</code> 最大持续空行，就是保留的最大空行数</p>
-</li>
-<li>
-<p><code>NamespaceIndentation</code> 命名空间内部是否缩进</p>
-<ul>
+<li><code>MacroBlockBegin</code> 开始块的宏，匹配启动块的宏的正则表达式</li>
+<li><code>MacroBlockEnd</code> 结束块的宏</li>
+<li><code>MaxEmptyLinesToKeep</code> 最大持续空行，就是保留的最大空行数</li>
+<li><code>NamespaceIndentation</code> 命名空间内部是否缩进<ul>
 <li><code>None</code> 不缩进</li>
 <li><code>Inner</code> 只缩进嵌套的命名空间（最外层命名空间内部不缩进）</li>
 <li><code>All</code> 所有命名空间都缩进</li>
 </ul>
 </li>
-<li>
-<p><code>NamespaceMacro</code> 命名空间宏，用于打开名称空间块的宏向量</p>
-</li>
-<li>
-<p><code>ObjCBinPackProtocolList</code> ObjC 的打包风格</p>
-<ul>
+<li><code>NamespaceMacro</code> 命名空间宏，用于打开名称空间块的宏向量</li>
+<li><code>ObjCBinPackProtocolList</code> ObjC 的打包风格<ul>
 <li><code>Never/Auto(BinPackParameters=false)</code> 则在超出 <code>ColumnLimit</code> 时将 <code>Objective-C</code> 协议一致性列表项布局到单独的行上</li>
 <li><code>Always/Auto(BinPackParameters=true)</code> 当代码长度超过 <code>ColumnLimit</code> 时，就会将 <code>Objective-C</code> 协议一致性列表项打包成尽可能少的行</li>
 </ul>
 </li>
-<li>
-<p><code>ObjCBlockIndentWidth</code> 用于 ObjC 块缩进的字符数</p>
-</li>
-<li>
-<p><code>ObjCBreakBeforeNestedBlockParam</code> 当函数调用中有嵌套的块参数时，将参数列表分解成行</p>
-</li>
-<li>
-<p><code>ObjCSpaceAfterProperty</code> 在 ObjC 的属性之后添加一个空格</p>
-</li>
-<li>
-<p><code>ObjCSpaceBeforeProtocolList</code> 在 ObjC 协议列表前面添加一个空格</p>
-</li>
-<li>
-<p><code>PPIndentWidth</code> 用于预处理器语句缩进的列数</p>
-</li>
-<li>
-<p><code>PackConstructorInitializers</code> 打包构造函数初始化列表</p>
-<ul>
+<li><code>ObjCBlockIndentWidth</code> 用于 ObjC 块缩进的字符数</li>
+<li><code>ObjCBreakBeforeNestedBlockParam</code> 当函数调用中有嵌套的块参数时，将参数列表分解成行</li>
+<li><code>ObjCSpaceAfterProperty</code> 在 ObjC 的属性之后添加一个空格</li>
+<li><code>ObjCSpaceBeforeProtocolList</code> 在 ObjC 协议列表前面添加一个空格</li>
+<li><code>PPIndentWidth</code> 用于预处理器语句缩进的列数</li>
+<li><code>PackConstructorInitializers</code> 打包构造函数初始化列表<ul>
 <li><code>Never</code> 总是将每个构造函数初始化列表放在一个单独的行中</li>
 <li><code>BinPack</code> 打包构造函数初始化列表</li>
 <li><code>CurrentLine</code> 如果合适，将所有构造函数初始化式放在当前行中，否则将每一个放在单独的一行上</li>
 <li><code>NextLine</code> 与上述相似，如果所有的构造函数初始化式都不适合当前行，则尝试将它们适合下一行</li>
 </ul>
 </li>
-<li>
-<p><code>PenaltyXxxx</code> 各类情况惩罚</p>
-</li>
-<li>
-<p><code>PointerAlignment</code> 指针对齐风格</p>
-<ul>
+<li><code>PenaltyXxxx</code> 各类情况惩罚</li>
+<li><code>PointerAlignment</code> 指针对齐风格<ul>
 <li><code>Left</code> 向左对齐</li>
 <li><code>Right</code> 向右对齐</li>
 <li><code>Middle</code> 中间对齐</li>
 </ul>
 </li>
-<li>
-<p><code>QualifierAlignment</code> 限定符对齐，不同的排列说明符和限定符的方法，主要是针对 <code>const</code> 和 <code>volatile</code></p>
-<ul>
+<li><code>QualifierAlignment</code> 限定符对齐，不同的排列说明符和限定符的方法，主要是针对 <code>const</code> 和 <code>volatile</code><ul>
 <li><code>Leave</code> 保持原状，不强制</li>
 <li><code>Left</code> 左对齐说明符或者限定符</li>
 <li><code>Right</code> 右对齐说明符或者限定符</li>
 <li><code>Custom</code> 将说明符/限定符更改为基于 <code>QualifierOrder</code> 对齐</li>
 </ul>
 </li>
-<li>
-<p><code>QualifierOrder</code> 说明符和限定符的顺序，限定符出现的顺序</p>
-<ul>
+<li><code>QualifierOrder</code> 说明符和限定符的顺序，限定符出现的顺序<ul>
 <li>包括 <code>const, inline, static, constexpr, volatile, restrict, type</code></li>
 <li>必须包含 <code>type</code> 。在 <code>type</code> 左边的项目将被放置在类型的左边，并按提供的顺序排列。 <code>type</code> 右侧的项目将被放置在类型的右侧，并按提供的顺序排列</li>
-<li>例子 <code>QualifierOrder: ['inline', 'static', 'const', 'volatile', 'type']</code></li>
+<li>例子 <code>QualifierOrder: [&#39;inline&#39;, &#39;static&#39;, &#39;const&#39;, &#39;volatile&#39;, &#39;type&#39;]</code></li>
 </ul>
 </li>
-<li>
-<p><code>RawStringFormats</code> 原始字符串格式</p>
-</li>
-<li>
-<p><code>ReferenceAlignment</code> 引用格式对齐</p>
-<ul>
+<li><code>RawStringFormats</code> 原始字符串格式</li>
+<li><code>ReferenceAlignment</code> 引用格式对齐<ul>
 <li><code>Left</code> 向左对齐</li>
 <li><code>Right</code> 向右对齐</li>
 <li><code>Middle</code> 中间对齐</li>
 </ul>
 </li>
-<li>
-<p><code>ReflowComments</code> 是否重新排版注释</p>
-</li>
-<li>
-<p><code>RemoveBracesLLVM</code> 移除括号，用来移除部分可以去掉的括号(大括号)，即 <code>if/else/for/while</code> 等语句。通过 LLVM 风格实现。可能导致未知错误，小心使用</p>
-</li>
-<li>
-<p><code>RemoveSemicolon</code> 移除分号，移除非空函数的分号。有可能带来未知风险</p>
-</li>
-<li>
-<p><code>RequiresClausePosition</code> <code>require</code> 子句位置</p>
-<ul>
+<li><code>ReflowComments</code> 是否重新排版注释</li>
+<li><code>RemoveBracesLLVM</code> 移除括号，用来移除部分可以去掉的括号(大括号)，即 <code>if/else/for/while</code> 等语句。通过 LLVM 风格实现。可能导致未知错误，小心使用</li>
+<li><code>RemoveSemicolon</code> 移除分号，移除非空函数的分号。有可能带来未知风险</li>
+<li><code>RequiresClausePosition</code> <code>require</code> 子句位置<ul>
 <li><code>OwnLine</code> 总是把要求子句放在单独一行上</li>
 <li><code>WithPreceding</code> 试着把从句和声明的前面部分放在一起</li>
 <li><code>WithFollowing</code> 尝试把 <code>requires</code> 子句和函数声明放在一起</li>
 <li><code>SingleLine</code> 如果可能的话，尽量把所有内容放在同一行。否则正常的断行规则就会被取代</li>
 </ul>
 </li>
-<li>
-<p><code>RequiresExpressionIndentation</code> <code>require</code> 表达式缩进</p>
-<ul>
+<li><code>RequiresExpressionIndentation</code> <code>require</code> 表达式缩进<ul>
 <li><code>OuterScope</code> 相对于 <code>require</code> 表达式所在的外部范围的缩进级别</li>
 <li><code>Keyword</code> 相对于 <code>require</code> 关键字的缩进</li>
 </ul>
 </li>
-<li>
-<p><code>SeparateDefinitionBlocks</code> 分离定义语句块，指定使用空行分隔定义块，包括类、结构、枚举和函数</p>
-<ul>
+<li><code>SeparateDefinitionBlocks</code> 分离定义语句块，指定使用空行分隔定义块，包括类、结构、枚举和函数<ul>
 <li><code>Leave</code> 保持原样</li>
 <li><code>Always</code> 在定义块之间插入空行</li>
 <li><code>Never</code> 在定义块之间移除空行</li>
 </ul>
 </li>
-<li>
-<p><code>ShortNamespaceLines</code> 短命名空间行数，这通过计算未换行行(即既不包含开始名称空间也不包含结束名称空间大括号)来确定短名称空间的最大长度，并使 <code>FixNamespaceComments</code> 忽略为这些名称空间添加结束注释</p>
-</li>
-<li>
-<p><code>SortIncludes</code> 对 <code>include</code> 排序</p>
-<ul>
+<li><code>ShortNamespaceLines</code> 短命名空间行数，这通过计算未换行行(即既不包含开始名称空间也不包含结束名称空间大括号)来确定短名称空间的最大长度，并使 <code>FixNamespaceComments</code> 忽略为这些名称空间添加结束注释</li>
+<li><code>SortIncludes</code> 对 <code>include</code> 排序<ul>
 <li><code>Never</code> 不进行排序</li>
 <li><code>CaseSensitive</code> 区分大小写，按照 ascii 排序</li>
 <li><code>CaseInsensitive</code> 不区分大小写，按照字母顺序排序</li>
 </ul>
 </li>
-<li>
-<p><code>SortJavaStaticImport</code> 排序 Java 静态导入</p>
-<ul>
+<li><code>SortJavaStaticImport</code> 排序 Java 静态导入<ul>
 <li><code>Before</code> 静态导入被放在非静态导入前面</li>
 <li><code>After</code> 静态导入被放在非静态导入前面</li>
 </ul>
 </li>
-<li>
-<p><code>SortUsingDeclarations</code> 对 <code>using</code> 声明进行排序，按照字母顺序排序</p>
-</li>
-<li>
-<p><code>SpaceAfterCStyleCast</code> C 风格类型转换，是否在 C 风格的类型转换之后插入空白符</p>
-</li>
-<li>
-<p><code>SpaceAfterLogicalNot</code> 是否在逻辑非操作符之后插入空格</p>
-</li>
-<li>
-<p><code>SpaceAfterTemplateKeyword</code> 是否在模板关键字之后插入空格</p>
-</li>
-<li>
-<p><code>SpaceAroundPointerQualifiers</code> 定义在什么情况下在指针限定符之前或之后放置空格</p>
-<ul>
+<li><code>SortUsingDeclarations</code> 对 <code>using</code> 声明进行排序，按照字母顺序排序</li>
+<li><code>SpaceAfterCStyleCast</code> C 风格类型转换，是否在 C 风格的类型转换之后插入空白符</li>
+<li><code>SpaceAfterLogicalNot</code> 是否在逻辑非操作符之后插入空格</li>
+<li><code>SpaceAfterTemplateKeyword</code> 是否在模板关键字之后插入空格</li>
+<li><code>SpaceAroundPointerQualifiers</code> 定义在什么情况下在指针限定符之前或之后放置空格<ul>
 <li><code>Default</code> 不用确保指针限定符周围的空格，而是使用 <code>PointerAlignment</code> 代替</li>
 <li><code>Before</code> 确保在指针限定符之前有一个空格</li>
 <li><code>After</code> 确保在指针限定符之后有一个空格</li>
 <li><code>Both</code> 确保在指针限定符之后和之前都有一个空格</li>
 </ul>
 </li>
-<li>
-<p><code>SpaceBeforeAssignmentOperators</code> 赋值操作符控空格，赋值操作符之前是否插入空格</p>
-</li>
-<li>
-<p><code>SpaceBeforeCaseColon</code> <code>case</code> 之后的冒号前是否插入空格</p>
-</li>
-<li>
-<p><code>SpaceBeforeCpp11BracedList</code> 大括号列表空格，是否在大括号列表之前插入空格</p>
-</li>
-<li>
-<p><code>SpaceBeforeCtorInitializerColon</code> 构造函数初始化中的冒号前是否插入空格</p>
-</li>
-<li>
-<p><code>SpaceBeforeInheritanceColon</code> 继承冒号前是否插入空格</p>
-</li>
-<li>
-<p><code>SpaceBeforeParens</code> 圆括号空格，圆括号前是否插入空格</p>
-<ul>
+<li><code>SpaceBeforeAssignmentOperators</code> 赋值操作符控空格，赋值操作符之前是否插入空格</li>
+<li><code>SpaceBeforeCaseColon</code> <code>case</code> 之后的冒号前是否插入空格</li>
+<li><code>SpaceBeforeCpp11BracedList</code> 大括号列表空格，是否在大括号列表之前插入空格</li>
+<li><code>SpaceBeforeCtorInitializerColon</code> 构造函数初始化中的冒号前是否插入空格</li>
+<li><code>SpaceBeforeInheritanceColon</code> 继承冒号前是否插入空格</li>
+<li><code>SpaceBeforeParens</code> 圆括号空格，圆括号前是否插入空格<ul>
 <li><code>Never</code> 从不在一个开圆括号之前放一个空格</li>
 <li><code>ControlStatement</code> 只在控制语句关键字之后的开括号前加空格</li>
-<li><code>ControlStatementsExceptControlMacros</code>  与上一个类似，但是排除宏定义</li>
+<li><code>ControlStatementsExceptControlMacros</code>  与上一个类似，但是排除宏定义</li>
 <li><code>NonEmptyParentheses</code> 只有当圆括号非空时</li>
 <li><code>Always</code> 总是在开括号之前放一个空格</li>
 <li><code>Custom</code> 自定义</li>
 </ul>
 </li>
-<li>
-<p><code>SpaceBeforeParensOptions</code> 圆括号前空格控制，控制括号前的个别空格，必须在 <code>SpaceBeforeParens</code> 设置为 <code>Custom</code> 时才有效</p>
-<ul>
+<li><code>SpaceBeforeParensOptions</code> 圆括号前空格控制，控制括号前的个别空格，必须在 <code>SpaceBeforeParens</code> 设置为 <code>Custom</code> 时才有效<ul>
 <li><code>bool AfterControlStatements</code> 在控制语句关键字和圆括号之间插入空格</li>
 <li><code>bool AfterForeachMacros</code> 在 <code>foreach</code> 宏和圆括号之间插入空格</li>
 <li><code>bool AfterFunctionDeclarationName</code> 在函数声明和开圆括号之前放置空格</li>
@@ -1000,54 +772,28 @@
 <li><code>bool BeforeNonEmptyParentheses</code> 只有当圆括号不是空的时候，才在圆括号前放空格</li>
 </ul>
 </li>
-<li>
-<p><code>SpaceBeforeRangeBasedForLoopColon</code> 是否在循环范围里的冒号前插入空格</p>
-</li>
-<li>
-<p><code>SpaceBeforeSquareBrackets</code> 方括号前插入空格，匿名函数不受影响，只有第一个方括号才会收到影响（如果有多个的话）</p>
-</li>
-<li>
-<p><code>SpaceInEmptyBlock</code> 空块中是否插入空格</p>
-</li>
-<li>
-<p><code>SpaceInEmptyParentheses</code> 空圆括号之间是否插入空格</p>
-</li>
-<li>
-<p><code>SpacesBeforeTrailingComments</code> 尾部注释前的空格数，不影响块注释</p>
-</li>
-<li>
-<p><code>SpacesInAngles</code> 角括号是否插入空格</p>
-<ul>
+<li><code>SpaceBeforeRangeBasedForLoopColon</code> 是否在循环范围里的冒号前插入空格</li>
+<li><code>SpaceBeforeSquareBrackets</code> 方括号前插入空格，匿名函数不受影响，只有第一个方括号才会收到影响（如果有多个的话）</li>
+<li><code>SpaceInEmptyBlock</code> 空块中是否插入空格</li>
+<li><code>SpaceInEmptyParentheses</code> 空圆括号之间是否插入空格</li>
+<li><code>SpacesBeforeTrailingComments</code> 尾部注释前的空格数，不影响块注释</li>
+<li><code>SpacesInAngles</code> 角括号是否插入空格<ul>
 <li><code>Never</code> 不插入</li>
 <li><code>Always</code> 在角括号之间插入空格</li>
 <li><code>Leave</code> 如果有空格，则在 <code>&lt;</code> 之后和 <code>&gt;</code> 之前保留且只保留一个空格</li>
 </ul>
 </li>
-<li>
-<p><code>SpacesInCStyleCastParentheses</code> 是否向 C 类型转换中插入空格</p>
-</li>
-<li>
-<p><code>SpacesInConditionalStatement</code> 条件表达式中的空格</p>
-</li>
-<li>
-<p><code>SpacesInContainerLiterals</code> 容器中的空格，在容器中插入空格（方括号和花括号中初始化数组之类的）</p>
-</li>
-<li>
-<p><code>SpacesInLineCommentPrefix</code> 行注释的开头允许有多少空格，要禁用最大值，请将其设置为 <code>-1</code> ，除此之外，最大值优先于最小值。在行注释区中，后面的行保持相对缩进。有两个参数</p>
-<ul>
+<li><code>SpacesInCStyleCastParentheses</code> 是否向 C 类型转换中插入空格</li>
+<li><code>SpacesInConditionalStatement</code> 条件表达式中的空格</li>
+<li><code>SpacesInContainerLiterals</code> 容器中的空格，在容器中插入空格（方括号和花括号中初始化数组之类的）</li>
+<li><code>SpacesInLineCommentPrefix</code> 行注释的开头允许有多少空格，要禁用最大值，请将其设置为 <code>-1</code> ，除此之外，最大值优先于最小值。在行注释区中，后面的行保持相对缩进。有两个参数<ul>
 <li><code>Minimum</code> 最小值</li>
 <li><code>Maximum</code> 最大值</li>
 </ul>
 </li>
-<li>
-<p><code>SpacesInParentheses</code> 在圆括号里的空格</p>
-</li>
-<li>
-<p><code>SpacesInSquareBrackets</code> 方括号中的空格</p>
-</li>
-<li>
-<p><code>Standard</code> C++ 标准，可以为</p>
-<ul>
+<li><code>SpacesInParentheses</code> 在圆括号里的空格</li>
+<li><code>SpacesInSquareBrackets</code> 方括号中的空格</li>
+<li><code>Standard</code> C++ 标准，可以为<ul>
 <li><code>c++03</code> 解析格式化为 <code>c++03</code></li>
 <li><code>c++11</code></li>
 <li><code>c++14</code></li>
@@ -1057,24 +803,12 @@
 <li><code>Auto</code> 根据输入和输出自动检测语言</li>
 </ul>
 </li>
-<li>
-<p><code>StatementAttributeLikeMacros</code> 在语句前被忽略的宏，就像它们是一个属性一样。这样它们就不会被解析为标识符</p>
-</li>
-<li>
-<p><code>StatementMacros</code> 完整语句的宏向量</p>
-</li>
-<li>
-<p><code>TabWidth</code> Tab 的宽度</p>
-</li>
-<li>
-<p><code>TypenameMacros</code> 类型名宏定义，类型声明而不是函数调用的宏向量</p>
-</li>
-<li>
-<p><code>UseCRLF</code> 换行时使用 <code>\r\n</code> 而不是 <code>\n</code> 。如果 <code>DeriveLineEnding</code> 为真，也可用作回退</p>
-</li>
-<li>
-<p><code>UseTab</code> 在文件中使用制表符的情况</p>
-<ul>
+<li><code>StatementAttributeLikeMacros</code> 在语句前被忽略的宏，就像它们是一个属性一样。这样它们就不会被解析为标识符</li>
+<li><code>StatementMacros</code> 完整语句的宏向量</li>
+<li><code>TabWidth</code> Tab 的宽度</li>
+<li><code>TypenameMacros</code> 类型名宏定义，类型声明而不是函数调用的宏向量</li>
+<li><code>UseCRLF</code> 换行时使用 <code>\r\n</code> 而不是 <code>\n</code> 。如果 <code>DeriveLineEnding</code> 为真，也可用作回退</li>
+<li><code>UseTab</code> 在文件中使用制表符的情况<ul>
 <li><code>Never</code> 从不使用</li>
 <li><code>ForIndentation</code> 仅用于缩进</li>
 <li><code>ForContinuationAndIndentation</code> 用制表符填充所有前导空白，并使用空格对齐出现在一行内</li>
@@ -1082,12 +816,9 @@
 <li><code>Always</code> 每当需要填充至少跨越一个制表位到下一个制表位的空白时，就使用制表符</li>
 </ul>
 </li>
-<li>
-<p><code>WhitespaceSensitiveMacros</code> 对空白敏感且不应被触及的宏向量</p>
-</li>
+<li><code>WhitespaceSensitiveMacros</code> 对空白敏感且不应被触及的宏向量</li>
 </ul>
-<h3 id="一个可供参考的版本">一个可供参考的版本</h3>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">Cpp</span></span><br><span class="line"><span class="attr">DisableFormat:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BasedOnStyle:</span> <span class="string">LLVM</span></span><br><span class="line"><span class="attr">AccessModifierOffset:</span> <span class="number">-2</span></span><br><span class="line"><span class="attr">AlignAfterOpenBracket:</span> <span class="string">Align</span></span><br><span class="line"><span class="attr">AlignArrayOfStructures:</span> <span class="string">Right</span></span><br><span class="line"><span class="attr">AlignConsecutiveAssignments:</span></span><br><span class="line">  <span class="attr">Enabled:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AcrossEmptyLines:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossComments:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AlignCompound:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">PadOperators:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlignConsecutiveBitFields:</span></span><br><span class="line">  <span class="attr">Enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossEmptyLines:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlignConsecutiveDeclarations:</span></span><br><span class="line">  <span class="attr">Enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossEmptyLines:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AcrossComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlignEscapedNewlines:</span> <span class="string">Left</span></span><br><span class="line"><span class="attr">AlignOperands:</span> <span class="string">DontAlign</span></span><br><span class="line"><span class="attr">AlignTrailingComments:</span></span><br><span class="line">  <span class="attr">Kind:</span> <span class="string">Always</span></span><br><span class="line">  <span class="attr">OverEmptyLines:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">AllowAllArgumentsOnNextLine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AllowAllParametersOfDeclarationOnNextLine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AllowShortBlocksOnASingleLine:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">AllowShortEnumsOnASingleLine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AllowShortFunctionsOnASingleLine:</span> <span class="string">InlineOnly</span></span><br><span class="line"><span class="attr">AllowShortIfStatementsOnASingleLine:</span> <span class="string">AllIfsAndElse</span></span><br><span class="line"><span class="attr">AllowShortLambdasOnASingleLine:</span> <span class="string">All</span></span><br><span class="line"><span class="attr">AllowShortLoopsOnASingleLine:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlwaysBreakAfterReturnType:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">AlwaysBreakBeforeMultilineStrings:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AlwaysBreakTemplateDeclarations:</span> <span class="literal">Yes</span></span><br><span class="line"><span class="attr">BinPackArguments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">BitFieldColonSpacing:</span> <span class="string">Both</span></span><br><span class="line"><span class="attr">BreakBeforeBraces:</span> <span class="string">Custom</span></span><br><span class="line"><span class="attr">BraceWrapping:</span></span><br><span class="line">  <span class="attr">AfterCaseLabel:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterClass:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterControlStatement:</span> <span class="string">Never</span></span><br><span class="line">  <span class="attr">AfterEnum:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterFunction:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterNamespace:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterStruct:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterUnion:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterExternBlock:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeCatch:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeElse:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeLambdaBody:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeWhile:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">IndentBraces:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyFunction:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyRecord:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyNamespace:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterObjCDeclaration:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BreakAfterJavaFieldAnnotations:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">BreakArrays:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BreakBeforeBinaryOperators:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">BreakBeforeConceptDeclarations:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">BreakBeforeTernaryOperators:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BreakConstructorInitializers:</span> <span class="string">AfterColon</span></span><br><span class="line"><span class="attr">BreakInheritanceList:</span> <span class="string">AfterComma</span></span><br><span class="line"><span class="attr">BreakStringLiterals:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ColumnLimit:</span> <span class="number">100</span></span><br><span class="line"><span class="attr">CompactNamespaces:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ConstructorInitializerIndentWidth:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">ContinuationIndentWidth:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">Cpp11BracedListStyle:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">DerivePointerAlignment:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">DeriveLineEnding:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">EmptyLineAfterAccessModifier:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">EmptyLineBeforeAccessModifier:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">FixNamespaceComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">ForEachMacros:</span> [<span class="string">&#x27;RANGES_FOR&#x27;</span>, <span class="string">&#x27;FOREACH&#x27;</span>]</span><br><span class="line"><span class="attr">IfMacros:</span> [<span class="string">&#x27;IF&#x27;</span>]</span><br><span class="line"><span class="attr">IncludeBlocks:</span> <span class="string">Regroup</span></span><br><span class="line"><span class="attr">IncludeCategories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">2</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">2</span></span><br><span class="line">    <span class="attr">CaseSensitive:</span>   <span class="literal">true</span> <span class="comment"># 字段标记为区分大小写，默认情况下不区分大小写</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^((&lt;|&quot;)(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">3</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;&lt;[[:alnum:].]+&gt;&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">1</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br><span class="line"><span class="attr">IndentAccessModifiers:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentCaseBlocks:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentCaseLabels:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">IndentExternBlock:</span> <span class="string">NoIndent</span></span><br><span class="line"><span class="attr">IndentGotoLabels:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentPPDirectives:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">IndentRequiresClause:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">IndentWidth:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">IndentWrappedFunctionNames:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">InsertBraces:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">InsertTrailingCommas:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">JavaScriptQuotes:</span> <span class="string">Double</span></span><br><span class="line"><span class="attr">JavaScriptWrapImports:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">KeepEmptyLinesAtTheStartOfBlocks:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">LambdaBodyIndentation:</span> <span class="string">Signature</span></span><br><span class="line"><span class="attr">MaxEmptyLinesToKeep:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">NamespaceIndentation:</span> <span class="string">All</span></span><br><span class="line"><span class="attr">ObjCBinPackProtocolList:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">ObjCBlockIndentWidth:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">ObjCBreakBeforeNestedBlockParam:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ObjCSpaceAfterProperty:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">PPIndentWidth:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">PackConstructorInitializers:</span> <span class="string">NextLine</span></span><br><span class="line"><span class="attr">PointerAlignment:</span> <span class="string">Left</span></span><br><span class="line"><span class="attr">QualifierAlignment:</span> <span class="string">Left</span></span><br><span class="line"><span class="attr">ReferenceAlignment:</span> <span class="string">Right</span></span><br><span class="line"><span class="attr">ReflowComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">RequiresClausePosition:</span> <span class="string">OwnLine</span></span><br><span class="line"><span class="attr">RequiresExpressionIndentation:</span> <span class="string">Keyword</span></span><br><span class="line"><span class="attr">SeparateDefinitionBlocks:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">ShortNamespaceLines:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">SortIncludes:</span> <span class="string">CaseSensitive</span></span><br><span class="line"><span class="attr">SortJavaStaticImport:</span> <span class="string">Before</span></span><br><span class="line"><span class="attr">SortUsingDeclarations:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceAfterCStyleCast:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceAfterLogicalNot:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceAfterTemplateKeyword:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceAroundPointerQualifiers:</span> <span class="string">Default</span></span><br><span class="line"><span class="attr">SpaceBeforeAssignmentOperators:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeCaseColon:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceBeforeCpp11BracedList:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeCtorInitializerColon:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeInheritanceColon:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeParens:</span> <span class="string">Custom</span></span><br><span class="line"><span class="attr">SpaceBeforeParensOptions:</span> </span><br><span class="line">  <span class="attr">AfterControlStatements:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterForeachMacros:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterFunctionDeclarationName:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterFunctionDefinitionName:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterIfMacros:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterOverloadedOperator:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterRequiresInClause:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterRequiresInExpression:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">BeforeNonEmptyParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceBeforeRangeBasedForLoopColon:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeSquareBrackets:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceInEmptyBlock:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceInEmptyParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesBeforeTrailingComments:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">SpacesInAngles:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">SpacesInCStyleCastParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesInConditionalStatement:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesInContainerLiterals:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpacesInLineCommentPrefix:</span></span><br><span class="line">  <span class="attr">Minimum:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">Maximum:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">SpacesInParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesInSquareBrackets:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">Standard:</span> <span class="string">Auto</span></span><br><span class="line"><span class="attr">TabWidth:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">UseTab:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+<h3 id="一个可供参考的版本"><a href="#一个可供参考的版本" class="headerlink" title="一个可供参考的版本"></a>一个可供参考的版本</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">Language:</span> <span class="string">Cpp</span></span><br><span class="line"><span class="attr">DisableFormat:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BasedOnStyle:</span> <span class="string">LLVM</span></span><br><span class="line"><span class="attr">AccessModifierOffset:</span> <span class="number">-2</span></span><br><span class="line"><span class="attr">AlignAfterOpenBracket:</span> <span class="string">Align</span></span><br><span class="line"><span class="attr">AlignArrayOfStructures:</span> <span class="string">Right</span></span><br><span class="line"><span class="attr">AlignConsecutiveAssignments:</span></span><br><span class="line">  <span class="attr">Enabled:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AcrossEmptyLines:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossComments:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AlignCompound:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">PadOperators:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlignConsecutiveBitFields:</span></span><br><span class="line">  <span class="attr">Enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossEmptyLines:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlignConsecutiveDeclarations:</span></span><br><span class="line">  <span class="attr">Enabled:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AcrossEmptyLines:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AcrossComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlignEscapedNewlines:</span> <span class="string">Left</span></span><br><span class="line"><span class="attr">AlignOperands:</span> <span class="string">DontAlign</span></span><br><span class="line"><span class="attr">AlignTrailingComments:</span></span><br><span class="line">  <span class="attr">Kind:</span> <span class="string">Always</span></span><br><span class="line">  <span class="attr">OverEmptyLines:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">AllowAllArgumentsOnNextLine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AllowAllParametersOfDeclarationOnNextLine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AllowShortBlocksOnASingleLine:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">AllowShortEnumsOnASingleLine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AllowShortFunctionsOnASingleLine:</span> <span class="string">InlineOnly</span></span><br><span class="line"><span class="attr">AllowShortIfStatementsOnASingleLine:</span> <span class="string">AllIfsAndElse</span></span><br><span class="line"><span class="attr">AllowShortLambdasOnASingleLine:</span> <span class="string">All</span></span><br><span class="line"><span class="attr">AllowShortLoopsOnASingleLine:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">AlwaysBreakAfterReturnType:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">AlwaysBreakBeforeMultilineStrings:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">AlwaysBreakTemplateDeclarations:</span> <span class="literal">Yes</span></span><br><span class="line"><span class="attr">BinPackArguments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">BitFieldColonSpacing:</span> <span class="string">Both</span></span><br><span class="line"><span class="attr">BreakBeforeBraces:</span> <span class="string">Custom</span></span><br><span class="line"><span class="attr">BraceWrapping:</span></span><br><span class="line">  <span class="attr">AfterCaseLabel:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterClass:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterControlStatement:</span> <span class="string">Never</span></span><br><span class="line">  <span class="attr">AfterEnum:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterFunction:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterNamespace:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterStruct:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterUnion:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterExternBlock:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeCatch:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeElse:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeLambdaBody:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">BeforeWhile:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">IndentBraces:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyFunction:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyRecord:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">SplitEmptyNamespace:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterObjCDeclaration:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BreakAfterJavaFieldAnnotations:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">BreakArrays:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BreakBeforeBinaryOperators:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">BreakBeforeConceptDeclarations:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">BreakBeforeTernaryOperators:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">BreakConstructorInitializers:</span> <span class="string">AfterColon</span></span><br><span class="line"><span class="attr">BreakInheritanceList:</span> <span class="string">AfterComma</span></span><br><span class="line"><span class="attr">BreakStringLiterals:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ColumnLimit:</span> <span class="number">100</span></span><br><span class="line"><span class="attr">CompactNamespaces:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ConstructorInitializerIndentWidth:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">ContinuationIndentWidth:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">Cpp11BracedListStyle:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">DerivePointerAlignment:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">DeriveLineEnding:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">EmptyLineAfterAccessModifier:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">EmptyLineBeforeAccessModifier:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">FixNamespaceComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">ForEachMacros:</span> [<span class="string">&#x27;RANGES_FOR&#x27;</span>, <span class="string">&#x27;FOREACH&#x27;</span>]</span><br><span class="line"><span class="attr">IfMacros:</span> [<span class="string">&#x27;IF&#x27;</span>]</span><br><span class="line"><span class="attr">IncludeBlocks:</span> <span class="string">Regroup</span></span><br><span class="line"><span class="attr">IncludeCategories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">2</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">2</span></span><br><span class="line">    <span class="attr">CaseSensitive:</span>   <span class="literal">true</span> <span class="comment"># 字段标记为区分大小写，默认情况下不区分大小写</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;^((&lt;|&quot;)(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">3</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;&lt;[[:alnum:].]+&gt;&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Regex:</span>           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    <span class="attr">Priority:</span>        <span class="number">1</span></span><br><span class="line">    <span class="attr">SortPriority:</span>    <span class="number">0</span></span><br><span class="line"><span class="attr">IndentAccessModifiers:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentCaseBlocks:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentCaseLabels:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">IndentExternBlock:</span> <span class="string">NoIndent</span></span><br><span class="line"><span class="attr">IndentGotoLabels:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">IndentPPDirectives:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">IndentRequiresClause:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">IndentWidth:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">IndentWrappedFunctionNames:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">InsertBraces:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">InsertTrailingCommas:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">JavaScriptQuotes:</span> <span class="string">Double</span></span><br><span class="line"><span class="attr">JavaScriptWrapImports:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">KeepEmptyLinesAtTheStartOfBlocks:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">LambdaBodyIndentation:</span> <span class="string">Signature</span></span><br><span class="line"><span class="attr">MaxEmptyLinesToKeep:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">NamespaceIndentation:</span> <span class="string">All</span></span><br><span class="line"><span class="attr">ObjCBinPackProtocolList:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">ObjCBlockIndentWidth:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">ObjCBreakBeforeNestedBlockParam:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ObjCSpaceAfterProperty:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">PPIndentWidth:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">PackConstructorInitializers:</span> <span class="string">NextLine</span></span><br><span class="line"><span class="attr">PointerAlignment:</span> <span class="string">Left</span></span><br><span class="line"><span class="attr">QualifierAlignment:</span> <span class="string">Left</span></span><br><span class="line"><span class="attr">ReferenceAlignment:</span> <span class="string">Right</span></span><br><span class="line"><span class="attr">ReflowComments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">RequiresClausePosition:</span> <span class="string">OwnLine</span></span><br><span class="line"><span class="attr">RequiresExpressionIndentation:</span> <span class="string">Keyword</span></span><br><span class="line"><span class="attr">SeparateDefinitionBlocks:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">ShortNamespaceLines:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">SortIncludes:</span> <span class="string">CaseSensitive</span></span><br><span class="line"><span class="attr">SortJavaStaticImport:</span> <span class="string">Before</span></span><br><span class="line"><span class="attr">SortUsingDeclarations:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceAfterCStyleCast:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceAfterLogicalNot:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceAfterTemplateKeyword:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceAroundPointerQualifiers:</span> <span class="string">Default</span></span><br><span class="line"><span class="attr">SpaceBeforeAssignmentOperators:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeCaseColon:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceBeforeCpp11BracedList:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeCtorInitializerColon:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeInheritanceColon:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeParens:</span> <span class="string">Custom</span></span><br><span class="line"><span class="attr">SpaceBeforeParensOptions:</span> </span><br><span class="line">  <span class="attr">AfterControlStatements:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterForeachMacros:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterFunctionDeclarationName:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterFunctionDefinitionName:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">AfterIfMacros:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterOverloadedOperator:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterRequiresInClause:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">AfterRequiresInExpression:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">BeforeNonEmptyParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceBeforeRangeBasedForLoopColon:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceBeforeSquareBrackets:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpaceInEmptyBlock:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpaceInEmptyParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesBeforeTrailingComments:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">SpacesInAngles:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">SpacesInCStyleCastParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesInConditionalStatement:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesInContainerLiterals:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">SpacesInLineCommentPrefix:</span></span><br><span class="line">  <span class="attr">Minimum:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">Maximum:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">SpacesInParentheses:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">SpacesInSquareBrackets:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">Standard:</span> <span class="string">Auto</span></span><br><span class="line"><span class="attr">TabWidth:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">UseTab:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -1188,7 +919,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E6%96%87%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.</span> <span class="nav-text">原文地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode-%E9%85%8D%E7%BD%AE-clang-format"><span class="nav-number">3.</span> <span class="nav-text">vscode 配置 Clang-format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">命令行语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">配置文件语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99"><span class="nav-number">5.1.</span> <span class="nav-text">编写规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5%E8%A7%A3%E9%87%8A"><span class="nav-number">5.2.</span> <span class="nav-text">配置字段解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BE%9B%E5%8F%82%E8%80%83%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.3.</span> <span class="nav-text">一个可供参考的版本</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E6%96%87%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.</span> <span class="nav-text">原文地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode-%E9%85%8D%E7%BD%AE-Clang-format"><span class="nav-number">3.</span> <span class="nav-text">vscode 配置 Clang-format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">命令行语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">配置文件语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99"><span class="nav-number">5.1.</span> <span class="nav-text">编写规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5%E8%A7%A3%E9%87%8A"><span class="nav-number">5.2.</span> <span class="nav-text">配置字段解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BE%9B%E5%8F%82%E8%80%83%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.3.</span> <span class="nav-text">一个可供参考的版本</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1204,7 +935,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1217,7 +948,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">120</span>
+        <span class="site-state-item-count">121</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1261,12 +992,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.6m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">24:55</span>
+    <span title="站点阅读时长">19:56</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
