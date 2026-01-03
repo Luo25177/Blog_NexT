@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="/Blog_NexT/js/snow.js"></script>
+<script src="/Blog_NexT/js/forbiden.js"></script>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog_NexT/images/logo4.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog_NexT/images/logo4.png">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/Blog_NexT/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog_NexT/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luo25177.github.io","root":"/Blog_NexT/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="生成器与判别器对抗训练，生成逼近真实分布合成数据的深度学习模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生成对抗网络GAN">
+<meta property="og:url" content="https://luo25177.github.io/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/index.html">
+<meta property="og:site_name" content="LuosBlog">
+<meta property="og:description" content="生成器与判别器对抗训练，生成逼近真实分布合成数据的深度学习模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020236856.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020314213.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767169285842.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767170892704.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1766997789882.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020779916.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767003517936.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767365783887.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/result.jpeg">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767063604640.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767436412032.png">
+<meta property="og:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767451178869.png">
+<meta property="article:published_time" content="2026-01-03T14:54:12.000Z">
+<meta property="article:modified_time" content="2026-01-03T14:57:30.464Z">
+<meta property="article:author" content="落">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="GAN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luo25177.github.io/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020236856.png">
+
+<link rel="canonical" href="https://luo25177.github.io/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>生成对抗网络GAN | LuosBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog_NexT/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LuosBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog_NexT/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-引导">
+
+    <a href="/Blog_NexT/../" rel="section"><i class="fas fa-heart fa-fw"></i>引导</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog_NexT/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog_NexT/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog_NexT/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/Blog_NexT/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luo25177.github.io/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog_NexT/images/avatar.png">
+      <meta itemprop="name" content="落">
+      <meta itemprop="description" content="茶凉言尽，月上柳梢">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuosBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          生成对抗网络GAN
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-01-03 22:54:12 / 修改时间：22:57:30" itemprop="dateCreated datePublished" datetime="2026-01-03T22:54:12+08:00">2026-01-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog_NexT/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>30k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>27 分钟</span>
+            </span>
+            <div class="post-description">生成器与判别器对抗训练，生成逼近真实分布合成数据的深度学习模型</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>生成对抗网络 GAN 在 2014 年被 lan Goodfellow 提出，主要用于图像生成、图像风格迁移、数据增强、超分辨率重建等领域，是深度学习的重要分支。GAN 的出现彻底改变了生成模型的训练方式，不再依赖传统的似然函数优化，而是通过对抗训练实现对复杂数据分布的隐式建模。</p>
+<h2 id="一些需要用到的知识"><a href="#一些需要用到的知识" class="headerlink" title="一些需要用到的知识"></a>一些需要用到的知识</h2><h3 id="散度"><a href="#散度" class="headerlink" title="散度"></a>散度</h3><p><strong>KL 散度</strong></p>
+<p>KL 散度又称为相对熵，是两个概率分布，真实分布 $P$ 和近似分布 $Q$ 之间差异的核心指标，它的核心本质就是利用分布 $Q$ 近似分布 $P$ 时，所产生的信息损失。KL 散度非对称（即 $D_{KL}(P\Vert Q)\not=D_{KL}(Q\Vert P)$ ）且非负，当 $P$ 和 $Q$ 完全相同时，散度值为 0。计算公式为</p>
+<script type="math/tex; mode=display">
+D_{KL}(P\Vert Q)=E_{x\sim P}[\log\frac{P(x)}{Q(x)}]\\\Downarrow\\D_{KL}(P\Vert Q)=\sum P(x)\log\frac{P(x)}{Q(x)}\\D_{KL}(P\Vert Q)=\int P(x)\log\frac{P(x)}{Q(x)}dx</script><p>在信息论的视角下</p>
+<ul>
+<li>信息熵 $H(P)=-\sum P(x)\log(P(x))$ 表示描述真实分布 $P$ 所需的最小信息量</li>
+<li>交叉熵 $H(P,Q)=-\sum P(x)\log(Q(x))$ 表示用近似分布 $Q$ 的编码方式描述真实分布 $P$ 所需的信息量</li>
+<li>KL 散度的本质就是交叉熵与真实熵之间的差值，即 $D_{KL}(P\Vert Q)=H(P,Q)-H(P)$</li>
+</ul>
+<p><strong>JS 散度</strong></p>
+<p>JS 散度是一种衡量两个概率分布 $P$ 和 $Q$ 之间相似度的指标，它基于 KL 进行改进，解决了 KL 散度非对称和取值范围无上限的问题。它的核心本质就是通过引入一个平均分布 $M=\frac{1}{2}(P+Q)$ ，并且计算 $P$ 和 $Q$ 相对于 $M$ 的 KL 散度的平均值，从而得到一个对称且取值范围位于 $[0,1]$ 之间的相似度分数</p>
+<script type="math/tex; mode=display">
+JS(P\Vert Q)=\frac{1}{2}(D_{KL}(P\Vert M)+D_{KL}(Q\Vert M))</script><p>其中 $M$ 是两个分布的平均分布， $D_{KL}(P\Vert M)$ 衡量 $P$ 相对于 $M$ 的信息损失。JS 散度可以看作是 KL 散度的对称化版本，衡量了两个分布之间的平均信息差异，当两个分布完全相同时 JS 散度为 0，表示它们的信息是完全一致的，两个分布差异较大时，JS 散度接近于 1</p>
+<h3 id="图像生成评价指标"><a href="#图像生成评价指标" class="headerlink" title="图像生成评价指标"></a>图像生成评价指标</h3><p><strong>IS</strong></p>
+<p>IS（Inception Score）用于评估生成图像的可识别性和多样性，它的分数越高代表图像既清晰可辨又多样，它解决了图像生成质量难以自动化量化的问题。利用 KL 散度来计算，衡量两个分布之间的差异</p>
+<script type="math/tex; mode=display">
+IS=\exp(E[D_{KL}(p(y\vert x)\Vert p(y))])</script><p>IS 的计算是利用 Inception Net-V3 网络的输出经过 softmax 之后的结果，即将生成的图像输入到 Inception Net-V3 网络进行分类之后，得到的概率分布进行的计算。其中 $p(y)$ 是所有输入图像的平均类别分布， $p(y\vert x)$ 表示给定输入图像 $x$ 生成的类别分布。</p>
+<p>所以 IS 实际上是结合了两个方面的评估：图像质量的期望值和图像质量分布的分歧度 KL。IS 的值越大越好</p>
+<p><strong>FID</strong></p>
+<p>FID（Frechet Inception Distance score）与 IS 类似，但是它并不使用 Inception Net-V3 的原本输出作为依据，它删除了在 Inception Net-V3 模型原本的输出层，于是输出层变为它的最后一个池化层。</p>
+<script type="math/tex; mode=display">
+FID=\Vert u_r-u_g\Vert^2+Tr(\sigma_r+\sigma_g-2(\sigma_r\sigma_g)^{0.5})</script><p>其中 $g$ 表示生成的图像， $r$ 表示真实的图像。另外 $\mu$ 和 $\sigma$ 分别是图像输入 Inception Net 之后输出的特征向量的均值和协方差矩阵。较低的 FID 意味着生成分布与真实图像之间更接近，如果用于测试的真实图片清晰度高且种类多样，也就意味着生成图像的质量高、多样性好。因此 FID 的值越小越好</p>
+<p><strong>KID</strong></p>
+<p>KID（Kernel Inception Distance）是一种用于评估生成图像质量的指标，通过核方法衡量生成图像与真实图像在特征空间中的分布差异。需要用到 Inception Net-V3 模型提取图像的高层特征，之后使用最大平均差异 MMD 作为核函数，计算生成样本与真实样本特征分布的距离。</p>
+<script type="math/tex; mode=display">
+KID=MMD^2(P,Q)=\Vert E_{x\sim P} \phi(x)-E_{y\sim Q}\phi(y)\Vert^2</script><p>其中 $P$ 表示真实图像的分布， $Q$ 表示生成图像的分布， $\phi(x)$ 是 Inception Net-V3 模型的中间层提取的图像高层特征向量， $E_{x\sim P}\phi(x)$ 表示真实图像特征的期望， $E_{y\sim Q}\phi(y)$ 表示生成图像特征的期望</p>
+<p>由于直接计算特征空间的范数难以实现，所以通过核函数的再生性，可将 $MMD^2$ 展开为核函数的期望的形式，更容易实现，即</p>
+<script type="math/tex; mode=display">
+KID(P,Q)=E_{x_1,x_2\sim P}k(x_1,x_2)+E_{y_1,y_2\sim Q}k(y_1,y_2)-2E_{x\sim P,y\sim Q}k(x,y)</script><p>其中 $k()$ 表示核函数，通用使用高斯核函数，也可使用线性核函数和多项式核函数。KID 通过核函数避免分布假设，更适合非高斯分布的特征差异捕捉，KID 的值越小，说明真实与生成特征分布越接近，生成质量越高。另外，它的特征提取必须使用 Inception-V3 的 <code>pool3</code> 层输出，否则结果无可比性</p>
+<p><strong>LPIPS</strong></p>
+<p>LPIPS（Learned Perceptual Image Patch Similarity）是一种基于深度学习的图像相似度评估指标，通过学习人类视觉感知的特征表示，衡量两幅图像在感知层面上的差异。</p>
+<p>它利用预训练的深度卷积神经网络提取图像的多层感知特征，在不同网络层计算特征之间的距离，并且通过可学习的权重融合各层的结果，最终输出一个标量值，表示两幅图像在感知上的相似度。LPIPS 相比于传统的指标，更符合人类视觉系统的感知特性，尤其在图像失真，风格迁移等任务中表现更好。它的流程如下</p>
+<ul>
+<li>使用预训练的深度网络，提取两幅图像 $I_1$ 和 $I_2$ 的多层特征 $\phi(I_1)$ 和 $\phi(I_2)$</li>
+<li>对每层的特征进行通道归一化，以消除不同层特征尺度差异的影响</li>
+<li>在每层计算归一化特征之间的 L2 距离 $d(I_1,I_2)$</li>
+<li>通过可学习的权重 $w$ 对各层距离进行加权求和，得到最终的 LPIPS 分数 $LPIPS(I_1,I_2)=\sum w_id_i(I_1,I_2)$</li>
+</ul>
+<p>LPIPS 模拟人类视觉系统对图像的感知过程，权重可以通过训练适应特定的任务，提高评估的精度。但是它的计算复杂度较高，计算速率较慢，只能衡量两幅图像之间的相对差异，无法评估单幅图像的绝对质量</p>
+<h3 id="Lipschitz-连续"><a href="#Lipschitz-连续" class="headerlink" title="Lipschitz 连续"></a>Lipschitz 连续</h3><p>Lipschitz 连续是衡量函数变化率有界性的强连续性条件，它的核心本质是：函数在定义域内任意两点的函数值变化量，与自变量变化量的比值始终不超过一个固定常数。定义如下</p>
+<p>对于函数 $f:\chi\rightarrow R$ ，如果它是 K-Lipschitz 连续的，则需要满足</p>
+<script type="math/tex; mode=display">
+\vert f(x_1)-f(x_2)\vert\leq K\Vert x_1-x_2\Vert\quad x_1,x_2\in\chi</script><p>单变量函数的 Lipschitz 连续可理解为：函数图像上任意两点的连线斜率绝对值不超过 L，即函数图像被 “夹在” 两条斜率为 $\pm L$ 的直线之间，不会出现陡峭的突变。Lipschitz 是最强的连续性条件，满足 Lipschitz 连续的函数一定一致连续。</p>
+<p>神经网络的 Lipschitz 常数与梯度范数直接相关：若网络 Lipschitz 常数有界，则梯度范数不会无限增大，可避免训练中的梯度爆炸问题</p>
+<h2 id="主要结构"><a href="#主要结构" class="headerlink" title="主要结构"></a>主要结构</h2><p>一个生成对抗网络主要包含两个基础的网络：生成器和判别器，它们在训练的过程中相互博弈，形成一种零和博弈的关系</p>
+<ul>
+<li>生成器 Generator：让生成的样本尽可能接近真实数据，从而欺骗判别器<ul>
+<li>输入随机噪声向量</li>
+<li>输出与真实数据分布相似的假样本</li>
+</ul>
+</li>
+<li>判别器 Discriminator：尽可能准确地区分真实样本和生成样本<ul>
+<li>输入真实数据或生成器生成的假样本</li>
+<li>输出样本为真实数据的概率</li>
+</ul>
+</li>
+</ul>
+<p>在训练的过程中，生成器和判别器的目标是是相互矛盾的。生成器的目标是生成尽量真实的数据，最好能够以假乱真，让判别器判断不出来，因此生成器的学习目标是让判别器上的判断准确性越来越低；而判别器的目标是尽量判别出真伪，因此判别器的学习目标是让自己的判断准确性越来越高。</p>
+<p>在不断的训练过程中，当生成器的数据越来越真时，判别器为了维持住自己的准确性，就必须向判别能力越来越强的方向迭代，而生成器为了使自己生成的样本骗过判别器，就需要生成越来越真实的样本，两个结构同时训练，最终两个结构会越来越完善。</p>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>生成器是数据的伪造者，本质上是一个无监督的生成式 MLP，从随机噪声中生成与真实数据分布一致的假数据，最终让判别器无法区分。它的核心结构如下</p>
+<ul>
+<li>输入：随机噪声向量，维度为低维，服从先验分布 $p_z(z)$ ，噪声仅输入到生成器的最底层，中间层不额外添加噪声</li>
+<li>输出：与真实数据维度完全一致的生成样本 $G(z;\theta_g)$ ，输出值范围需要匹配真实数据，与真实数据的取值范围一致。其中 $\theta_g$ 包含各层的权重矩阵和偏置向量，是生成器的可学习参数</li>
+<li>激活函数：隐藏层使用 ReLU 激活函数，解决梯度消失问题，提升深层网络训练稳定性；在输出层使用 Sigmoid 激活函数，将输出值压缩到 $[0,1]$ 区间，与真实数据分布匹配</li>
+</ul>
+<p>生成器咋训练时，生成器自身不直接接触真实数据，仅通过判别器的梯度反馈学习 </p>
+<h3 id="判别器"><a href="#判别器" class="headerlink" title="判别器"></a>判别器</h3><p>判别器的核心使命是区分输入样本来自真实数据还是生成器，本质上是一个有监督的二分类 MLP，多层全连接层逐步提取样本的抽象特征，结构设计服务于高精度区分真假的目标。它的结构如下</p>
+<ul>
+<li>输入：样本向量，输入的真实数据和生成器输出的尺寸一致。输入无需额外预处理，因生成器输出已与真实数据范围相匹配<ul>
+<li>真实样本直接来自训练集 $x\sim p_{data}(x)$</li>
+<li>生成样本来自于生成器的输出 $x=G(z;\theta_g)$</li>
+</ul>
+</li>
+<li>输出：输出为单个标量 $D(x;\theta_d)$ ，取值范围为 $[0,1]$ ，本质时二分类任务的概率输出。其中 $\theta_d$ 包含各层的权重矩阵和偏置向量，是判别器的可学习参数<ul>
+<li>输出越趋近于 1，判别器越认为输入是真实数据；而输出越接近 0，判别器越认为输入时生成数据</li>
+</ul>
+</li>
+<li>激活函数：在隐藏层使用 Maxout 单元替代 ReLU 和 Sigmoid，自带特征选择能力，避免梯度消失，且无需额外正则化即可提升泛化能力；输出层使用 Sigmoid 函数，将分类得分转化为概率，用以匹配二分类交叉熵损失的需求</li>
+<li>正则化：训练中使用 Dropout，随机失活部分隐藏层神经元，防止判别器过拟合</li>
+</ul>
+<h3 id="训练流程"><a href="#训练流程" class="headerlink" title="训练流程"></a>训练流程</h3><p>GAN 的训练过程是两者的动态博弈</p>
+<ul>
+<li>生成器生成假数据，输入到判别器</li>
+<li>判别器同时接收真实数据和假数据，计算两者的分类损失</li>
+<li>交替优化<ul>
+<li>固定生成器，更新判别器参数，使其更擅长区分真假</li>
+<li>固定判别器，更新生成器参数，使其生成更逼真的数据</li>
+</ul>
+</li>
+<li>最终训练达到 Nash Equilibrium，即生成器生成的数据与真实数据分布几乎一致，判别器无法区分真假</li>
+</ul>
+<p>GAN 的优化目标是一个极小极大的问题</p>
+<script type="math/tex; mode=display">
+\underset{G}{\min}\underset{D}{\max}V(D,G)=E_{x\sim p_{data}(x)}[\log D(x\vert y)]+E_{z\sim p_z(z)}[\log(1-D(G(z\vert y)))]</script><p>对应的损失函数如下</p>
+<ul>
+<li>判别器的损失函数 $L_D=-\frac{1}{m}\sum_i^m[\log(D(x_i\vert y_i))+\log(1-D(G(z_i\vert y_i)))]$ ，即真实图像的判别结果接近 1，而生成图像的判别结果接近 0</li>
+<li>生成器的损失函数 $L_G=-\frac{1}{m}\sum_i^m\log(1-D(G(z_i\vert y_i)))$ ，生成器的目标就是尽可能使得生成的图像判别结果接近 1</li>
+</ul>
+<h2 id="经典的-GAN-网络"><a href="#经典的-GAN-网络" class="headerlink" title="经典的 GAN 网络"></a>经典的 GAN 网络</h2><h3 id="CGAN"><a href="#CGAN" class="headerlink" title="CGAN"></a>CGAN</h3><p>CGAN 是生成对抗网络的条件扩展，核心创新点是在生成器和判别器中均引入条件信息 $y$ ，通过条件约束引导数据生成过程，网络结构围绕双输入设计。它的结构如下</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020236856.png" alt="1767020236856.png"></p>
+<ul>
+<li>条件信息 $y$ ：可是任意辅助信息，作用是引导生成器生成符合特定条件的样本，同时让判别器在给条件下区分真假样本</li>
+<li>生成器：负责生成复合条件 $y$ 的伪造样本，本质是带条件约束的非线性映射<ul>
+<li>输入：两个部分的联合输入，先验噪声 $z$ 和条件信息 $y$</li>
+<li>中间结构： $z$ 和 $y$ 分别经过独立的隐藏层，中间采用 ReLU 激活函数，再融合为联合隐藏表示，支持复杂的条件和噪声交互</li>
+<li>输出：生成与真实数据维度一致的样本</li>
+</ul>
+</li>
+<li>判别器：负责判断给定条件 $y$ 时，样本 $x$ 是来自真实数据还是生成器伪造的。网路结构同样基于 MLP 实现<ul>
+<li>输入：两部分联合输入，带判断的样本 $x$ 和与 $x$ 匹配的条件信息 $<em>y</em>$</li>
+<li>中间结构： $x$ 和 $y$ 分别经过独立的隐藏层，再融合成联合隐藏层，中间利用 maxout 激活函数，增强判别器的表达能力</li>
+<li>输出：输出结果为单个标量，用于表示在给定条件 $y$ 时，样本 $x$ 是来自真实数据的概率</li>
+</ul>
+</li>
+</ul>
+<p>CGAN 的训练的本质就是生成器和判别器的博弈，目标是让生成器学习在条件 $y$ 下生成足以骗过判别器的真实样本，让判别器学习在条件 $y$ 下精确区分真假样本。</p>
+<ul>
+<li>训练的目标函数 $\underset{G}{\min}\underset{D}{\max}V(D,G)=E_{x\sim p_{data}(x)}[\log D(x\vert y)]+E_{z\sim p_z(z)}[\log(1-D(G(z\vert y)))]$<ul>
+<li>判别器 $D$ 的目标为最大化目标函数，即尽可能准确区分真实数据 $x$ + 条件 $y$ 和生成数据 $G(z\vert y)$ + 条件 $y$ ，使得 $D(x\vert y)\rightarrow1$ 且 $D(G(z\vert y))\rightarrow0$</li>
+<li>生成器 $G$ 的目标是：最小化目标函数，尽可能生成让 $D$ 误判的样本，使得 $D(G(z\vert y))\rightarrow1$</li>
+</ul>
+</li>
+<li>训练前预处理<ul>
+<li>准备训练数据，并且将条件 $y$ 编码成可输入网络的向量形式</li>
+<li>准备噪声分布 $p_z(z)$</li>
+<li>初始化生成器和判别器的参数，网络结构按照上述的结构设计，需要注意激活函数的选择</li>
+</ul>
+</li>
+<li>交替训练判别器和生成器采用 mini-batch 随机梯度下降 训练，迭代至收敛<ul>
+<li>生成器生成样本：从真实数据分布 $p_{data}(x)$ 中采样真实数据 $\{x_1,\cdots,x_n\}$ ，对应的条件为 $\{y_1,\cdots,y_m\}$ 。从噪声分布 $p_z(z)$ 采样噪声 $\{z_1,\cdots,z_m\}$ ，通过生成器生成伪造样本 $\{G(z_1\vert y_1),\cdots,G(z_m\vert y_m)\}$</li>
+<li>判别器将所有样本接收，真实样本的标签为 1，从生成器生成的样本标签为 0</li>
+<li>生成器训练：生成器的损失函数为 $L_G=-\frac{1}{m}\sum_i^m\log(1-D(G(z_i\vert y_i)))$ ，利用反向传播，更新生成器的参数</li>
+<li>判别器训练：判别器的损失函数为 $L_D=-\frac{1}{m}\sum_i^m[\log(D(x_i\vert y_i))+\log(1-D(G(z_i\vert y_i)))]$ ，利用反向传播，更新判别器的参数</li>
+</ul>
+</li>
+<li>训练终止：迭代训练判别器和生成器，直到满足停止条件<ul>
+<li>生成样本质量达到预期</li>
+<li>验证集的 Parzen 窗口对数似然趋于稳定</li>
+</ul>
+</li>
+</ul>
+<p>CGAN 的核心设计是 <strong>将条件信息融入双网络</strong>：通过在 G 和 D 中同时输入条件 $y$ ，使生成过程从无目标随机生成变为有条件可控生成，所有的训练和交互都在给定条件 $y$ 的约束下进行的，最终实现输入条件 $y$ ，生成符合 $y$ 的真实样本的目标</p>
+<h3 id="DCGAN"><a href="#DCGAN" class="headerlink" title="DCGAN"></a>DCGAN</h3><p>DCGAN 的核心创新是为 GAN 设计了稳定训练的卷积网络架构，通过移除全连接层、优化卷积操作和激活函数等，解决了传统的 GAN 训练不稳定、生成样本质量差的问题。</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020314213.png" alt="1767020314213.png"></p>
+<ul>
+<li>核心架构设计原则：在 DCGAN 中，提出了几条关键架构的约束原则，是稳定训练的核心<ul>
+<li>移除池化层：判别器利用卷积实现下采样，生成器利用反卷积实现上采样，让网络自主学习采样规则</li>
+<li>批量归一化：在生成器和判别器的所有层中使用 BN，稳定训练的过程，避免梯度消失或梯度爆炸</li>
+<li>移除全连接层：深层架构中取消隐藏层的全连接层</li>
+<li>激活函数选择：生成器中除了输出层使用 Tanh 之外，其余全用 ReLU 激活函数，而判别器中所有层都使用 LeakyReLU 激活函数</li>
+</ul>
+</li>
+<li>生成器结构：生成器目标是从随机噪声 $z$ 生成与真实数分布一致的图像<ul>
+<li>输入层：输入的随机分布的噪声，通过全连接层扩映射为低分辨率且高通道数的 4 维张量，作为输入</li>
+<li>上采样：通过 4 层反卷积层，逐步扩大特征图的尺寸，同时减少通道数，最终生成目标所需图像</li>
+<li>无池化、全连接层：全程通过卷积层实现维度转换，保证特征的空间关联性</li>
+<li>激活函数：生成器中除了输出层使用 Tanh 以外，激活函数全部使用 ReLU</li>
+</ul>
+</li>
+<li>判别器结构：判别器的目标是区分真实图像和生成器生成的假图像<ul>
+<li>输入层：输入为真实的图像或生成器的输出，保证图像的维度一致</li>
+<li>下采样：通过 4 层卷积层逐步缩小特征图尺寸，同时增加通道数，提取图像的层级特征</li>
+<li>输出层：最后一层的卷积输出经过展平之后，接入单个 sigmoid 节点，输出样本 $x$ 是来自真实数据的概率</li>
+<li>激活函数：判别器所有层的激活函数都使用 LeakyReLU，斜率选择 0.2</li>
+</ul>
+</li>
+</ul>
+<p>DCGAN 的训练流程与 GAN 一致，但通过数据预处理、优化器调优和稳定性措施，得到了相比 GAN 更好的效果</p>
+<ul>
+<li>训练前预处理：<ul>
+<li>将输入图像缩放到 $[-1,1]$ 区间</li>
+<li>将数据去重处理，避免生成器记忆训练样本</li>
+<li>初始化参数：将所有权重都设置为从零中心正态分布中采样，标准差为 0.02</li>
+<li>优化器选择 Adam，设定学习率为 0.0002，避免训练震荡，且设置 $\beta=0.5$ ，提升稳定性</li>
+</ul>
+</li>
+<li>训练过程：训练采用交替迭代方式，核心是最小化生成器与判别器的对抗损失<ul>
+<li>生成器生成样本：从真实数据分布 $p_{data}(x)$ 中采样真实数据 $\{x_1,\cdots,x_n\}$ ，对应的条件为 $\{y_1,\cdots,y_m\}$ 。从噪声分布 $p_z(z)$ 采样噪声 $\{z_1,\cdots,z_m\}$ ，通过生成器生成伪造样本 $\{G(z_1\vert y_1),\cdots,G(z_m\vert y_m)\}$</li>
+<li>判别器接收所有图像，真实图像标签为 1，生成器生成的图像标签为 0</li>
+<li>生成器训练：计算判别器对该假图像的判断损失 $L_G=-\frac{1}{m}\sum_i^m\log(1-D(G(z_i\vert y_i)))$ ，通过反向传播更新生成器的权重</li>
+<li>判别器训练：判别器的损失函数为 $L_D=-\frac{1}{m}\sum_i^m[\log(D(x_i\vert y_i))+\log(1-D(G(z_i\vert y_i)))]$ ，利用反向传播，更新判别器的参数</li>
+</ul>
+</li>
+<li>迭代收敛：循环训练过程，直到满足停止条件<ul>
+<li>生成器生成的图像在视觉上接近真实数据</li>
+<li>生成的样本无明显噪声、语义连贯，判别器的损失趋于稳定</li>
+</ul>
+</li>
+</ul>
+<p>DCGAN 的主要核心就是为 GAN 设计了适配卷积网络的稳定架构，通过<strong>全卷积 + BN + 特定激活函数</strong>的组合，让 GAN 能深度学习图像的层级特征</p>
+<h3 id="Wasserstein-GAN"><a href="#Wasserstein-GAN" class="headerlink" title="Wasserstein GAN"></a>Wasserstein GAN</h3><p>WGAN 在 2017 年提出，是对传统 GAN 的改进算法，核心目标是通过 Wasserstein 距离替代 JS/KL 散度来衡量分布差异，解决了传统的 GAN 训练不稳定等问题。</p>
+<p>WGAN 的网络结构延续了 GAN 的生成器+判别器的两部分的结构，但对判别器的约束和输出做了关键的修改，同时保留生成器的核心功能，在 Wasserstein GAN 的论文中将修改后的判别器称为 Critic，用以区分其与传统的 GAN 判别器的差异</p>
+<ul>
+<li>生成器：输入随机噪声 $z$ ，噪声满足固定的先验分布，例如满足高斯分布，通过参数化函数生成样本 $g_\theta(z)$ ，目标是让生成样本的分布 $P_\theta$ 逼近真实的数据分布 $P_r$ 。网络有两种架构<ul>
+<li>卷积架构：沿用 DCGAN 的深度卷积结构</li>
+<li>MLP 架构：使用 4 层的 ReLU-MLP，每层有 512 个隐藏单元，使用 ReLU 激活函数</li>
+<li>激活函数支持使用 ReLU、Tanh、ELU 等光滑 Lipschitz 函数</li>
+<li>生成器的结构设计与传统的 GAN 一致，无需额外约束，仅通过梯度更新优化参数 $\theta$</li>
+</ul>
+</li>
+<li>Critic：不再输出数据是真实的概率，而是对输入的样本进行打分，反映样本与真实分布之间的距离，目标是学习一个 Lipschitz 函数，以逼近 Wasserstein 距离。网络结构也有两种架构，输出为 $f_w(x)$<ul>
+<li>卷积架构：沿用 DCGAN 的结构，但移除了输出层的 Sigmoid 激活，输出连续的分数</li>
+<li>MLP 架构：使用与生成器一致的 4 层 512 隐藏单元结构，使用 ReLU 激活函数</li>
+<li>约束 1-Lipschitz 条件：对任意的输入 $x_1$ 和 $x_2$ ，满足 $\vert f_w(x_1)-f_w(x_2)\vert\leq\Vert x_1-x_2\Vert$ ，保证函数光滑，避免梯度爆炸或消失。在每次更新权重时，将权重限制在区间 $[-c,c]$ 之内，默认 $c=0.01$ ，使其强制满足 Lipschitz 约束</li>
+<li>输出形式为连续值，无范围限制，利用上述对权重的约束来限制打分范围</li>
+</ul>
+</li>
+<li>Wasserstein 距离：用于表示两个分布的相似程度，Wasserstein 距离衡量了把数据从分布 $P$ 移动成分布 $Q$ 时所需要移动的平均距离的最小值。<ul>
+<li>计算公式为 $W(P,Q)=\underset{x\sim P,y\sim Q}{\inf}E\Vert x-y\Vert$</li>
+<li>其中 $\prod(P,Q)$ 表示两个分布组合起来的所有可能的联合分布的集合，对于每一个可能的联合分布，可以从中采样得到一个样本 $x$ 和 $y$ ，计算这对样本的距离 $\Vert x-y\Vert$ ，所以可以计算在该联合分布下，样本对距离的期望。在所有可能的联合分布中能够对这个期望值取到的下界就是 Wasserstein 距离</li>
+</ul>
+</li>
+</ul>
+<p>WGAN 的训练流程的核心设计为在单词训练循环中，先多次训练 Critic 到最优，再更新生成器，确保每次生成器更新时都能获得可靠的 Wasserstein 距离梯度</p>
+<ul>
+<li>训练前预处理<ul>
+<li>初始化生成器参数 $\theta$</li>
+<li>初始化 Critic 参数 $w_0$</li>
+<li>使用 RMSProp 优化器，针对非平稳损失的表现更好，避免 Adam 动量的副作用，学习率设置为 0.00005</li>
+<li>裁剪权重 $c=0.01$</li>
+<li>迭代 Critic 次数 $k=5$</li>
+</ul>
+</li>
+<li>训练 Critic k 次：每次训练 Critic 的目标都是最大化<strong>真实样本打分 - 生成样本打分</strong><ul>
+<li>从真实分布采样真实数据 $x$</li>
+<li>从先验分布 $p(z)$ 采样得到的噪声 $z$ ，经过生成器得到的生成样本 $g_\theta(z)$</li>
+<li>计算损失 $L(w)=\frac{1}{m}\sum_{i=1}^mf_w(x_i)-\frac{1}{m}\sum_{i=1}^mf_w(g_\theta(z_i))$ ，目标是最大化 $L(w)$</li>
+<li>通过计算损失对 $w$ 的梯度，利用 RMSProp 优化器更新参数</li>
+<li>将更新后的权重限制在 $[-c,c]$ 之内，强制满足 1-Lipschitz 约束</li>
+</ul>
+</li>
+<li>更新生成器：生成器的目标是最小化 Wasserstein 距离<ul>
+<li>从先验分布 $p(z)$ 采样得到的噪声 $z$ ，经过生成器得到的生成样本 $g_\theta(z)$</li>
+<li>计算生成器损失 $L(\theta)=-\frac{1}{m}\sum_{i=1}^mf_w(g_\theta(z))$ ，对于 Wasserstein 距离 $W(P_r,P_\theta)=\underset{x_r\sim P_r,x_g\sim P_\theta}{\inf}E[f_w(x_r)]-E[f_w(x_g)]$ 生成器需要最小化这个距离，即最小化 $-E[f_w(x_g)]$</li>
+<li>通过计算损失对 $\theta$ 的梯度，利用 RMSProp 优化器更新参数</li>
+</ul>
+</li>
+<li>观察 Critic 的损失曲线，当损失稳定且生成样本质量不再提升时停止。另外由于 WGAN 的损失曲线与样本的质量强相关，可直接通过损失判断训练进度</li>
+</ul>
+<p>WGAN 的核心创新是用 Wasserstein 距离替代传统散度，并通过 Critic + 权重裁剪实现该距离的优化</p>
+<h3 id="WGAN-GP"><a href="#WGAN-GP" class="headerlink" title="WGAN-GP"></a>WGAN-GP</h3><p>WGAN-GP 是 2017 年提出的对原始 WGAN 的核心改进方法，它的核心创新点是利用梯度惩罚来替代 WGAN 的权重裁剪，解决了权重裁剪导致的网络容量不足、梯度消失或爆炸等问题，实现了更稳定、泛化性更强的 GAN 训练</p>
+<p>WGAN-GP 的核心目标是在保留 WGAN 基于 Wasserstein 距离的稳定训练特性基础上，通过 1-Lipschitz 约束方式，支持深层网络训练，同时无需复杂参数调优。WGAN-GP 的网络结构分为生成器和判别器两个部分，如下</p>
+<ul>
+<li>生成器结构：将已知先验分布的随机噪声向量映射到目标数据空间，生成与真实数据分布接近的假样本<ul>
+<li>论文提到三个典型框架<ul>
+<li>卷积架构：沿用 DCGAN 的结构，但移除了输出层的 Sigmoid 激活，输出连续的分数</li>
+<li>MLP 架构：使用与生成器一致的 4 层 512 隐藏单元结构，使用 ReLU 激活函数</li>
+<li>ResNet 结构，使用残差连接的网络</li>
+</ul>
+</li>
+<li>上采样：在图像生成任务中的上采样操作用<strong>最近邻上采样</strong>配合 $3\times3$ 卷积层，避免信息丢失</li>
+<li>输出层图像任务用 Tanh 激活，文本任务用逐点卷积 + Softmax 激活函数</li>
+</ul>
+</li>
+<li>判别器结构：评估输入样本的 Wasserstein 距离分数，区分真实样本和生成样本，但输出的不是概率，而是对输入的样本进行打分，反映样本与真实分布之间的距离，目标是学习一个 Lipschitz 函数，以逼近 Wasserstein 距离<ul>
+<li>禁用批量归一化，使用层归一化代替</li>
+<li>它支持的架构与生成器的对称<ul>
+<li>卷积架构：沿用 DCGAN 的结构，但移除了输出层的 Sigmoid 激活，输出连续的分数</li>
+<li>MLP 架构：使用与生成器一致的 4 层 512 隐藏单元结构，使用 ReLU 激活函数</li>
+<li>ResNet 结构，使用残差连接的网络</li>
+</ul>
+</li>
+<li>激活函数与生成器一致，使用 ReLU 和 LeakyReLU</li>
+<li>下采样：图像任务使用均值池化配合 $3\times3$ 卷积，保持梯度平滑</li>
+<li>输出层：无激活函数，直接输出连续分数，匹配 Wasserstein 距离的数值特性</li>
+</ul>
+</li>
+</ul>
+<p>WGAN-GP 的训练流程遵循在单次训练循环中判别器多轮更新+生成器单轮更新的交替策略，核心是梯度惩罚的计算与优化，流程固定且超参数无需调优</p>
+<ul>
+<li>训练前预处理<ul>
+<li>优化器选择使用 Adam，定义它的优化器学习率 $\alpha=0.0001$ ，动量系数为 $\beta_1=0,\beta_2=0.9$</li>
+<li>生成器参数和判别器参数随机初始化，它们均使用 Adam 优化器</li>
+</ul>
+</li>
+<li>判别器训练：判别器的损失函数是 WGAN 原始损失与梯度惩罚项的结合，目标是强制判别器满足 1-Lipschitz 约束<ul>
+<li>损失函数为 $L(w)=E[f_w(g_\theta(z_i))]-E[f_w(x_i)]+\lambda E[(\Vert \nabla f_w(\hat{x})\Vert_2-1)^2]$</li>
+<li>$E[(\Vert \nabla f_w(x)\Vert_2-1)^2]$ 是梯度惩罚项：强制判别器在 $\hat{x}$ 处的梯度范数接近于 1，避免梯度过大，也避免梯度过小。其中 $\hat{x}$ 是真实样本和生成样本之间所有线性插值点的集合 $\hat{x}=\varepsilon x+(1-\varepsilon)g_\theta(z)$ 。当 $\varepsilon$ 从 0 到 1 遍历，所有可能的 $\hat{x}$ 构成了直线连接区域</li>
+<li>目标是最小化损失函数，等价于最大化 WGAN 的价值函数，WGAN 的原损失项为假样本分数 - 真实样本分数</li>
+</ul>
+</li>
+<li>生成器训练：生成器的目标是最小化 Wasserstein 距离<ul>
+<li>损失函数为 $L=-E[f_w(g_\theta(z))]$</li>
+<li>生成器期望判别器对假样本的分数尽可能高，目标是最小化损失函数</li>
+</ul>
+</li>
+<li>过拟合检测：WGAN-GP 的损失曲线具有明确意义，即训练损失与验证损失发散时，表明判别器过拟合，需终止训练或增加数据</li>
+</ul>
+<h3 id="LSGAN"><a href="#LSGAN" class="headerlink" title="LSGAN"></a>LSGAN</h3><p>LSGAN 是针对传统的 GAN 训练中梯度消失的问题提出的改进模型，它的核心创新点在于将判别器的 Sigmoid 交叉熵损失替换为最小二乘损失。最小二乘损失会惩罚在决策边界正确侧但远离真实数据的生成样本，迫使生成器产出更接近真实数据分布的样本，另外它也缓解了传统 GAN 的梯度消失问题，即使无批量归一化（BN）也能收敛，且不易出现模式崩溃</p>
+<p>LSGAN 设计了两种针对性架构，分别适配通用图像生成和多类别任务，核心延续了 DCGAN 的卷积和反卷积的框架，但在层结构和适配性上做了优化</p>
+<p>对于通用图像生成版本：参考 VGG 网络设计，重点优化了特征提取和分辨率恢复能力</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767169285842.png" alt="1767169285842.png"></p>
+<ul>
+<li>生成器<ul>
+<li>输入：1024 维随机噪声向量 $z$</li>
+<li>全连接层和反卷积层堆叠而成，后接 BN 层归一化</li>
+<li>激活函数使用 ReLU</li>
+</ul>
+</li>
+<li>判别器<ul>
+<li>输入真实图像或生成器伪造的图像</li>
+<li>层级结构以卷积层堆叠而成</li>
+<li>损失函数使用最小二乘损失</li>
+<li>激活函数使用 LeakyReLU</li>
+</ul>
+</li>
+</ul>
+<p>多类别任务：</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767170892704.png" alt="1767170892704.png"></p>
+<ul>
+<li>标签处理：输入标签编码为 one-hot 编码。将高维标签向量映射为低维向量，论文中映射为 256 维向量，再与生成器或判别器的中间层特征拼接，建立输入与输出的确定性关联</li>
+<li>生成器<ul>
+<li>输入 1024 维噪声 + 映射之后的 256 维标签向量</li>
+<li>层结构：全连接层连接，多个反卷积层堆叠，每一层后接 BN 批次归一化，输出最终反卷积</li>
+<li>激活函数使用 ReLU</li>
+</ul>
+</li>
+<li>判别器<ul>
+<li>输入真实或伪造的数据与映射之后的 256 维标签向量</li>
+<li>层结构：由多个卷积层堆叠而成，后接全连接层输出 1 维结果</li>
+<li>损失函数使用最小二乘损失</li>
+<li>激活函数使用 LeakyReLU</li>
+</ul>
+</li>
+</ul>
+<p>LSGAN 遵循 GAN 经典的生成器-判别器交替训练的框架，在目标函数和参数设置中有一定优化</p>
+<ul>
+<li>训练前准备<ul>
+<li>优化器使用 Adam，选择 $\beta_1=0.5$ ，学习率在场景数据中使用 0.001 ，多类别汉字数据中使用 0.0002</li>
+</ul>
+</li>
+<li>判别器训练<ul>
+<li>从真实数据分布采样真实样本 $x$ ，并获取对应的标签</li>
+<li>从噪声分布 $p(z)$ 采样噪声 $z$ ，通过生成器 $G$ 生成伪造样本 $G(z, \phi(y))$</li>
+<li>损失函数为 $L_D=\frac{1}{2}E[(D(x,\phi(y))-1)^2]+\frac{1}{2}E[D(G(z,\phi(y)))^2]$</li>
+<li>最小化损失函数，反向传播更新判别器参数，提升分辨准确率</li>
+</ul>
+</li>
+<li>生成器训练<ul>
+<li>从噪声分布采集新噪声 $z$ ，生成</li>
+<li>损失函数为 $L_G=\frac{1}{2}E[(D(G(z,\phi(y)))-1)^2]$</li>
+<li>最小化损失函数，反向传播更新生成器参数，提升伪造样本的逼真度</li>
+</ul>
+</li>
+<li>迭代训练，直到单类别场景中生成图像细节清晰，或在多类别场景中生成样本可读且对应标签正确</li>
+</ul>
+<p>LSGAN 的核心价值是用最小二乘损失解决了传统 GAN 的梯度消失和训练不稳定问题，通过两种针对性网络架构，分别适配了通用图像生成和多类别任务。训练流程延续了 GAN 的交替训练逻辑，但通过损失函数和标签处理的优化，实现了更高质量生成 + 更稳定训练的双重目标，尤其在场景图像和多类别字符生成中表现突出。</p>
+<h3 id="Pix2Pix"><a href="#Pix2Pix" class="headerlink" title="Pix2Pix"></a>Pix2Pix</h3><p>Pix2Pix 是基于条件生成对抗网络的通用图像到图像的翻译框架，核心优势是通过统一的架构适配多种任务，无需针对具体任务设计损失函数</p>
+<p>Pix2Pix 的网络结构由生成器和判别器构成，均采用卷积神经网络，并且对图像翻译任务做了特殊设计</p>
+<ul>
+<li>生成器结构：生成器的核心目标是通过输入图像 $x$ ，生成与真实输出 $y$ 一致的目标图像 $G(x,z)$ ，其中的 $z$ 是噪声。它的结构基于 U-Net，核心结构就是编码器-解码器，中间设置跳跃连接<ul>
+<li>编码器：用于下采样，逐步压缩空间维度，提升通道维度，提取高层语义特征。内部是多层结构，每一层都是<strong>卷积+BN+ReLU</strong> 堆叠而成。其中所有的卷积核尺寸都为 $4\times4$ ，步长为 2；编码器的 ReLU 激活函数都是带泄露的 ReLU，斜率为 0.2</li>
+<li>解码器：用于上采样，逐步恢复空间维度，降低通道维度，生成目标函数。内部也是多层结构，每一层的结构为<strong>卷积+BN+Dropout+ReLU</strong> 堆叠成。其中解码器中的 ReLU 激活函数都是普通的 ReLU 函数</li>
+<li>输出：解码器的最后一层输出通过 $1\times1$ 卷积映射到输出通道数，再经过 Tanh 处理后输出</li>
+<li>跳跃连接：将编码器的第 $i$ 层与解码器的第 $n-i$ 层（ $n$ 为总层数）的特征图按通道拼接，作用是直接传递输入与输出共享的低层次信息，避免信息丢失</li>
+<li>引入的噪声 $z$ 不直接输入随机噪声向量，而是在解码器多个层中加入 Dropout，避免生成器忽略噪声</li>
+</ul>
+</li>
+<li>判别器：判别器主要用于区分真实样本和伪造样本。它不判断整幅图像的真实性，而是判断每个图像块的真实性，再对所有块的判断结果取平均作为最终输出。<ul>
+<li>核心层：通过多层网络结构堆叠而成，每一层都是<strong>卷积+BN+ReLU</strong> 的结构。另外就是第一层没有 BN；ReLU 激活函数是带泄露的 ReLU，斜率为 0.2</li>
+<li>输出：最后一层的输出通过 $1\times1$ 的卷积映射到单通道，经过 Sigmoid 输出每个块的真实概率，之后对所有块的真实概率取均值，得到最终输出</li>
+</ul>
+</li>
+</ul>
+<p>Pix2Pix 的训练核心就是对抗学习+重建损失的结合，通过不断优化生成器和判别器，实现生成结构足够真实</p>
+<ul>
+<li>目标函数为 $\underset{G}{\min}\underset{D}{\max}[L_{GAN}(G,D)+\lambda L_{L1}(G)]$ ，目标函数分为两个部分，如下<ul>
+<li>条件 GAN 损失 $L_{GAN}(G,D)=E_{x,y}[\log D(x\vert y)]+E_{x,z}[\log(1-D(G(x\vert z)))]$ ，用于学习区分真实或伪造的样本对。其中 $D(x\vert y)$ 表示 D 判断 $(x,y)$ 为真的概率，目标是最大化 $\log D(x,y)$ ；其中 $D(x,G(x,z))$ 是判断伪造样本为真实的概率，目标是最小化 $\log(1-D(x,G(x,z)))$</li>
+<li>$L_1$ 重建损失 $L_{L1}(G)=E_{x,y,z}[\Vert y-G(x,z)\Vert_1]$ ，用于约束生成图像与真实图像的像素级差异，避免 GAN 生成的结果与输入无关。选择使用 $L_1$ 而非是 $L_2$ 是因为 $L_1$ 损失鼓励生成锐利图像， $L_2$ 易导致模糊；默认 $\lambda$ 选择为 100</li>
+</ul>
+</li>
+<li>训练前预处理<ul>
+<li>随机抖动：将输入图像 <code>resize</code> 到大尺寸，再随机裁剪回原尺寸，提升泛化能力</li>
+<li>镜像增强：随机水平反转图像，扩充训练数据</li>
+<li>权重初始化：将所有权重都设置为从零中心正态分布中采样，标准差为 0.02</li>
+</ul>
+</li>
+<li>训练流程<ul>
+<li>生成器生成伪造样本 $G(x,z)$ ，其中 $z$ 通过 Dropout 引入， $x$ 为输入图像</li>
+<li>将生成器的生成的样本标记为 0，将真实样本标记为 0</li>
+<li>训练生成器：根据损失函数 $L_G=-L_{GAN}(G,D)+\lambda L_{L1}(G)$ 通过反向传播更新生成器的权重</li>
+<li>训练判别器：根据损失函数 $L_D=-L_{GAN}(G,D)$ ，利用反向传播，更新判别器的参数</li>
+</ul>
+</li>
+<li>重复上述步骤，直到收敛<ul>
+<li>生成图像的视觉质量稳定</li>
+<li>损失曲线收敛达到预设阈值</li>
+</ul>
+</li>
+</ul>
+<p>在 Pix2Pix 论文中，还提到了 PatchGAN 全卷积判别器架构，核心特点是输出 $N\times N$ 的概率矩阵，而非单个标量，每个元素对应输入图像中一个局部 patch 的真伪判断结果，最终通过平均所有的 patch 结果得到整体判断</p>
+<p>核心设计理念</p>
+<ul>
+<li>专注于图像的局部高频细节而非全局结构，能更好捕捉纹理和边缘等细节特征</li>
+<li>马尔可夫假设：假设图像中的距离超过 patch 直径的像素是相互独立的，这有效地降低了计算复杂度</li>
+<li>全卷积实现：通过卷积层滑动计算所有的 patch，比逐个 patch 单独处理更高效</li>
+<li>支持任意大小的图像输入</li>
+</ul>
+<p>PatchGAN 在 Pix2Pix 中采用四层结构，如下</p>
+<ul>
+<li>采用 $4\times4\times64$ 的卷积层和 LeakyReLU 激活函数，无 BN 层</li>
+<li>采用 $4\times4\times128$ 的卷积层，后接 BN 批归一化和 LeakyReLU 激活函数</li>
+<li>采用 $4\times4\times256$ 的卷积层，后接 BN 批归一化和 LeakyReLU 激活函数</li>
+<li>采用 $4\times4\times512$ 的卷积层，后接 BN 批归一化和 LeakyReLU 激活函数</li>
+</ul>
+<p>输入时通常将条件图像与生成图像拼接之后输入</p>
+<h3 id="CycleGAN"><a href="#CycleGAN" class="headerlink" title="CycleGAN"></a>CycleGAN</h3><p>CycleGAN 是在 2017 年提出的无监督图像到图像转换模型，无需配对训练数据就能学习两个图像域 X 和 Y 之间的双向转换规则。它的核心结构是双生成器+双判别器的对称结构，同时通过循环一致性约束关联两个生成器</p>
+<ul>
+<li>生成器结构：两个生成器结构完全一致 $G(X\rightarrow Y),F(Y\rightarrow X)$ ，它们仅训练目标相反，均采用适用于图像风格迁移和超分辨率的残差网络架构，核心是通过<strong>下采样-特征提取-上采样</strong>的结构，同时保留图像内容一致性<ul>
+<li>$G(X\rightarrow Y)$ 用于把源域 $X$ 的真实图像转换为目标域 $Y$ 风格的假图像</li>
+<li>$F(Y\rightarrow X)$ 用于把源域 $Y$ 的真实图像转换为目标域 $X$ 风格的假图像</li>
+<li>采用实例归一化：替代批量归一化，减少对批次大小的依赖，提升风格迁移的稳定性和一致性</li>
+<li>反射填充：在图像边界进行镜像填充，以保持图像尺寸并适应卷积操作。在卷积层前使用，避免图像边缘出现拉伸或 artifacts，保持图像内容的完整性</li>
+<li>残差块：解决深层网络梯度消失的问题，确保内容特征不丢失，残差块数量根据输入分辨率调整</li>
+<li>生成器采用全卷积结构，支持任意尺寸输入图像，仅需要调整残差块数量即可适配不同分辨率</li>
+</ul>
+</li>
+<li>判别器结构：两个判别器结构一致 $D_X,D_Y$ ，均采用 $70\times70$ PatchGAN，核心是局部判别而全局判别，通过判断图像中 $70\times70$ 的 patch 是否为真实样本，实现对生成图像真实性的评估<ul>
+<li>$D_X$ 用于区分 $X$ 域的真实图像和生成器生成的假 $X$ 图像</li>
+<li>$D_Y$ 用于区分 $Y$ 域的真实图像和生成器生成的假 $Y$ 图像</li>
+<li>利用全卷积设计，可处理任意尺寸和输入图像</li>
+<li>网络结构为上述的 PatchGAN 结构</li>
+<li>输出每个 $70\times70$ patch 的真伪概率，最终通过平均得到整体判别结果</li>
+</ul>
+</li>
+</ul>
+<p>CycleGAN 的训练通过生成器与判别器的对抗博弈以及循环损失的约束，实现稳定训练</p>
+<ul>
+<li>核心目标函数 $L(G,F,D_X,D_Y)=L_{GAN}(G,D_Y,X,Y)+L_{GAN}(F,D_X,Y,X)+\lambda L_{cyc}(G,F)+0.5\lambda L_{identity}(G,F)$ 分为四个部分<ul>
+<li>对抗损失：目的是让生成器的输出分布与目标分布域一致，采用最小二乘损失。对抗损失分为两部分，生成器和判别器的目标都与上述的 GAN 中的一致<ul>
+<li>对于 $G(X\rightarrow Y)$ 和 $D_Y$ ，对抗损失为 $L_{GAN}(G,D_Y,X,Y)=E_{y\sim p_{data}(y)}[(D_Y(y)-1)^2]+E_{x\sim p_{data}(x)}[D_Y(G(x))^2]$</li>
+<li>对于 $F(Y\rightarrow X)$ 和 $D_X$ ，对抗损失为 $L_{GAN}(F,D_X,X,Y)=E_{x\sim p_{data}(x)}[(D_X(x)-1)^2]+E_{y\sim p_{data}(y)}[D_X(F(y))^2]$</li>
+</ul>
+</li>
+<li>循环一致性损失：损失采用 L1 范数 $L_{cyc}(G,F)=E_{x\sim p_{data}(x)}\Vert F(G(x))-x\Vert_1+E_{y\sim p_{data}(y)}\Vert G(F(y))-y\Vert_1$<ul>
+<li>前向循环： $x\rightarrow G(x)\rightarrow F(G(x))\approx x$</li>
+<li>后向循环： $y\rightarrow F(y)\rightarrow G(F(y))\approx y$</li>
+</ul>
+</li>
+<li>身份映射损失：针对需要保持颜色一致性的任务，额外添加约束 $L_{identity}(G,F)=E_{y\sim p_{data}(y)}\Vert G(y)-y\Vert_1+E_{x\sim p_{data}(x)}\Vert F(x)-x\Vert_1$ ，即生成器对目标域真实样本的转换应接近原样本</li>
+</ul>
+</li>
+<li>训练前预处理<ul>
+<li>数据准备：输入无配对的两个域的数据集 $X$ 和 $Y$ ，无需标注样本对应关系</li>
+<li>初始化生成器 $G(X\rightarrow Y),F(Y\rightarrow X)$ ，判别器 $D_X$ 和 $D_Y$ 的权重</li>
+</ul>
+</li>
+<li>训练流程<ul>
+<li>对于 $D_X$ ，用真实 $Y$ 域的样本 $y$ 和生成的样本 $G(x)$ 计算损失，反向传播更新参数</li>
+<li>对于 $D_X$ ，用真实 $X$ 域的样本 $x$ 和生成的样本 $F(y)$ 计算损失，反向传播更新参数</li>
+<li>对于生成器，需要计算对抗损失、循环一致性损失和身份映射损失，总的损失反向传播，同步更新 $G$ 和 $F$</li>
+</ul>
+</li>
+<li>迭代终止，直到满足条件停止<ul>
+<li>生成图像的视觉质量稳定</li>
+<li>损失曲线收敛达到预设阈值</li>
+</ul>
+</li>
+</ul>
+<p>生成器的网络结构核心差异在于残差块数量，需根据输入图像分辨率选择</p>
+<p>适配 128×128 分辨率，包含 6 个残差块，层级顺序如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>c7s1-64</th>
+<th>d128</th>
+<th>d256</th>
+<th>R256</th>
+<th>u128</th>
+<th>u64</th>
+<th>c7s1-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>适配 256×256 及更高分辨率，包含 9 个残差块，层级顺序如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>c7s1-64</th>
+<th>d128</th>
+<th>d256</th>
+<th>R256</th>
+<th>u128</th>
+<th>u64</th>
+<th>c7s1-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>9</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其中关键层的定义如下</p>
+<ul>
+<li><code>c7s1-k</code> 是 $7\times7\times k$ 卷积核+实例归一化+ReLU，其中卷积步长为 1</li>
+<li><code>dk</code> 是 $3\times3\times k$ 卷积+实例归一化+ReLU，其中卷积步长为 2</li>
+<li><code>Rk</code> 是 2 个 $3\times3\times k$ 卷积+实例归一化+ReLU，其中卷积的步长为 1，中间包含残差连接，也就是层级输入与输出相连</li>
+<li><code>uk</code> 是反卷积，是由 $3\times3\times k$ 的反卷积+实例归一化+ReLU，其中反卷积的步长为 0.5</li>
+</ul>
+<h3 id="ProGAN"><a href="#ProGAN" class="headerlink" title="ProGAN"></a>ProGAN</h3><p>ProGAN 是在 2018 年发表的生成对抗网训练方法，核心创新点是渐进式增长的生成器与判别器，它解决了传统 GAN 训练不稳定、高分辨率图像生成质量低、多样性不足等问题。传统 GAN 直接训练高分辨率图像生成时，因细节建模难度大、梯度不稳定，易出现模式崩溃和生成图像模糊的问题；ProGAN 提出从低分辨率开始，逐步向网络中添加层以建模更精细的细节，让模型先学习图像的全局结构，再逐步优化局部细节</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1766997789882.png" alt="1766997789882.png"></p>
+<p>ProGAN 的生成器和判别器的结构为镜像对称结构，同步渐进式增长，所有已经存在的层在训练全程都保持可训练的状态 </p>
+<ul>
+<li>生成器：从 4×4 分辨率开始，通过上采样 + 新增卷积层逐步提升分辨率，最终通过 toRGB 层映射为 RGB 图像<ul>
+<li>输入： $512\times1\times1$ 维度向量，向量中每个值都服从 $N(0,1)$ 分布，归一化到单位超球面</li>
+<li>上采样操作：采用 $2\times2$ 最近邻插值，将分辨率翻倍，将分辨率翻倍</li>
+<li>卷积块：每个分辨率阶段都包含 2 个 $3\times3$ 卷积层，激活函数为 Leaky ReLU，负斜率为 0.2</li>
+<li>toRGB 层：是逐点卷积层，将高维特征映射为 3 通道的 RGB 图像</li>
+<li>像素归一化：在每个卷积层之后使用，将每个像素的特征向量归一化到单位长度，防止信号幅度失控</li>
+</ul>
+</li>
+<li>判别器：从当前最高分辨率开始，通过下采样 + 卷积层逐步降低分辨率，最终通过全连接层输出真假判断<ul>
+<li>输入：RGB 图像，将实际图像下采样到当前训练的分辨率</li>
+<li>下采样操作：与生成器对称，采用平均池化层，将分辨率减半</li>
+<li>fromRGB 层：是逐点卷积层，将 RGB 图像映射为高维特征</li>
+<li>Minibatch Stddev 层：在 $4\times4$ 分辨率阶段插入，计算每个特征在批次内的标准差并拼接为新特征，强制判别器关注批次内的多样性，避免模式崩溃</li>
+</ul>
+</li>
+<li>像素级归一化：防止信号幅度过大<ul>
+<li>对每个像素的特征向量做 $L_2$ 归一化 $b_{x,y}=\frac{a_{x,y}}{\sqrt{\frac{1}{N}\sum_{j=0}^{N-1}(a_{x,y}^j)^2+\varepsilon}}$</li>
+<li>限制图像生成质量，仅约束信号的幅度，稳定性提升明显</li>
+</ul>
+</li>
+<li>Minibatch Stddev 层：即批次标准差，用于提升图像的多样性，避免模式崩溃<ul>
+<li>计算每个特征图在每个空间位置上的批次标准差</li>
+<li>对所有特征和空间位置的标准差取平均值，得到一个标量</li>
+<li>将标量复制后拼接为新的特征图，输入到后续层</li>
+</ul>
+</li>
+</ul>
+<p>ProGAN 的训练核心是<strong>逐步提升分辨率 + 平滑过渡新层</strong>，全程保持网络参数可训练</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767020779916.png" alt="1767020779916.png"></p>
+<ul>
+<li>训练前预处理<ul>
+<li>生成器和判定器仅包含 $4\times4$ 分辨率的基础卷积块，整体的网络结构比较简单，生成器生成 $4\times4$ 的 RGB 图像，而判别器接收 $4\times4$ 的 RGB 图像，输出图像真伪概率</li>
+<li>均衡学习率：权重初始化采用简单的 $N(0,1)$ ，运行时通过层特定常数缩放权重 $\hat{w}_i=\frac{w_i}{c}$ ，其中 $c$ 是来自 He 初始化方法的每层归一化常数，用以确保所有层的学习速度一致</li>
+</ul>
+</li>
+<li>分辨率提升阶段：当 $4\times4$ 分辨率训练稳定之后，开始逐步提高分辨率<ul>
+<li>添加新层：在生成器的上采样之后且 toRGB 层前添加对应高分辨率的卷积块；在判别器的 fromRGB 之后且下采样之前添加对应高分辨率的卷积块</li>
+<li>生成器平滑过渡：生成器的输出为 $\alpha\times \text{新层 RGB 图像} +(1-\alpha)\times\text{旧层上采样的图像}$ 。训练过程中 $\alpha$ 从 0 开始，每迭代一次就线性增加，直到 $\alpha=1$ 。过渡之后继续训练新分辨率层，直到稳定进入下一轮过渡</li>
+<li>判别器平滑过渡：融合新旧分辨率特征 $\alpha\times\text{新层下采样特征}+(1-\alpha)\times\text{旧层直接特征}$ 。训练过程中 $\alpha$ 从 0 开始，每迭代一次就线性增加，直到 $\alpha=1$ 。过渡之后由新层作为主导继续训练</li>
+<li>稳定训练。当 $\alpha=1$ 时，新层完全生效，继续训练该分辨率直到稳定</li>
+</ul>
+</li>
+<li>循环训练，当目标分辨率训练稳定，且连续迭代中生成图像的质量和多样性不再提升时，训练终止。最终生成器可输出高质量且高多样性的高分辨率图像</li>
+</ul>
+<p>上述的生成器的上采样中，利用了最近邻插值，这里介绍一下图像处理中的插值</p>
+<ul>
+<li>最近邻插值即零阶插值法：目标图像像素值与原图像最近像素完全一致</li>
+<li>线性插值：对于目标插值点 $x$ ，它的值为 $f(x)=\frac{x_1-x}{x_1-x_0}f(x_0)+\frac{x-x_0}{x_1-x_0}f(x_1)$</li>
+<li>双线性插值：与线性插值一样，这里的参考点数量是周围的 4 个点</li>
+<li>双三次插值：相当于最近的 16 个采样点的加权平均，权重为 $w(x)=\left\{\begin{aligned}&amp;0&amp;&amp;\vert x\vert\geq2\\&amp;4-8\vert x\vert+5\vert x\vert^2-\vert x\vert^3&amp;&amp;1\leq\vert x\vert&lt;2\\&amp;1-2\vert x\vert^2+\vert x\vert^3&amp;&amp;\vert x\vert&lt;1\end{aligned}\right.$ ，其中 $x$ 为距离</li>
+</ul>
+<h3 id="StackGAN"><a href="#StackGAN" class="headerlink" title="StackGAN"></a>StackGAN</h3><p>StackGAN 是一种用于文本到高分辨率图像合成的深度学习模型，在 2017 年被提出。核心目标是解决传统文本到图像生成模型中分辨率低、细节缺失、训练不稳定的痛点，实现了从纯文本描述生成图像</p>
+<p>StackGAN 的核心结构由条件增强模块，草图生成阶段和细节细化阶段组成</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767003517936.png" alt="1767003517936.png"></p>
+<ul>
+<li>文本编码：首先通过预训练的文本编码器将文本描述 $t$ 转换为固定维度的稠密向量：文本嵌入 $\varphi_t$</li>
+<li>条件增强模块：直接将词嵌入向量变换得到的条件编码当作潜在变量的方式是不妥的<ul>
+<li>高斯分布建模：将文本嵌入 $\varphi_t$ 输入到全连接层，输出高斯分布的均值 $\mu_0(\varphi_t)$ 和对角协方差矩阵 $\sigma_0(\varphi_t)$</li>
+<li>随机采样：从该高斯分布中随机采样得到条件潜变量 $\hat{c}_0=\mu_0+\sigma_0\odot\varepsilon$ ，其中 $\varepsilon\sim N(0,I)$ 引入可控随机性</li>
+<li>正则化约束：在生成器损失中加入 KL 散度项 $D_{KL}(N(\mu_0(\varphi_t),\sigma_0(\varphi_t))\Vert N(0,I))$ ，强制采样分布接近标准高斯分布，避免过拟合并保证潜空间平滑</li>
+</ul>
+</li>
+<li>Stage-1：基于文本描述，生成低分辨率图像，捕捉物体的基本形状、颜色和背景布局，为后续细化提供基础框架<ul>
+<li>生成器 $G_0$ 结构<ul>
+<li>输入：前置条件增强模块输出的条件潜变量 $\hat{c}_0$ ，引入随机噪声 $z\sim N(0,I)$ ，两者拼接输入</li>
+<li>通过<strong>上采样模块+BN+ReLU 激活函数</strong>，逐步提升特征图分辨率，最终输出低分辨率图像 $s_0=G_0(z,\hat{c}_0)$ 。上采用使用最近邻插值法上采样</li>
+<li>上采样模块包含最邻近插值与 $3\times3$ 卷积层</li>
+</ul>
+</li>
+<li>判别器 $D_0$ 结构：<ul>
+<li>输入：输入真实图像 $I_0$ 和生成器 $G_0$ 生成图像 $s_0$ ，并且引入文本编码输出的文本嵌入 $\varphi_t$</li>
+<li>文本嵌入 $\varphi_t$ 经全连接层压缩之后，空间复制为与图像下采样后尺寸匹配的张量</li>
+<li>图像经过下采样模块降低分辨率，与文本张量沿通道维度拼接</li>
+<li>通过逐点卷积融合图像图文特征，最终经过全连接层输出图像真实度和图像与文本匹配度的判别分数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Stage-2：以 Stage-1 生成的图像和文本描述为输入，修正 Stage-1 的缺陷，并为图像添加细节，最终生成高分辨率图像<ul>
+<li>生成器 $G$ 结构：结构设计为<strong>编码器-残差块-解码器</strong><ul>
+<li>编码器：接收第一阶段生成器生成的图像 $s_0$ ，经过下采样降低分辨率，提取特征</li>
+<li>文本融合：将文本条件潜变量 $\hat{c}$ 空间复制后，与图像编码器的输出拼接</li>
+<li>残差块：通过 $2\sim4$ 个残差块深度融合图文特征，修正结构缺陷。其中每个残差块的结构为 $3\times3$ 卷积+BN+ReLU</li>
+<li>解码器：经上采样块逐步提升分辨率，最终输出高分辨率图像</li>
+</ul>
+</li>
+<li>判别器 $D$ 结构：与 Stage-1 中的判别器类似，但它输入图像的分辨率更高，增加了额外的下采样模块<ul>
+<li>输入真实图像 $I$ 和 $G$ 生成图像 $s$ ，经过下采样之后与文本嵌入 $\varphi_t$ 拼接，之后接全连接层输出真实度和图像与文本匹配度的判别分数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>StackGAN 采用分阶段训练策略，先固定 Stage-2 的训练，训练 Stage-1 GAN 以建立文本到低分辨率草图的映射，再固定 Stage-1 的训练，开始训练 Stage-2 GAN 以完成草图到高分辨率细节的细化</p>
+<ul>
+<li>Stage-1 GAN 训练：固定 Stage-2 网络参数，仅迭代训练 $G_0$ 和 $D_0$<ul>
+<li>生成器的目标函数为 $L_{G_0}=E[\log(1-D_0(G_0(z,\hat{c}_0),\varphi_t))]+\lambda D_{KL}$</li>
+<li>判别器的目标函数为 $L_{D_0}=E[\log D_0(I_0,\varphi_t)]+E[\log(1-D_0(G_0(z,\hat{c}_0),\varphi_t))]$</li>
+<li>训练时最小化 $G_0$ 的损失 $L_{G_0}$ ，最大化 $D_0$ 的损失 $L_{D_0}$</li>
+</ul>
+</li>
+<li>Stage-2 GAN 训练：固定 Stage-1 网络参数，迭代训练 $G$ 和 $D$<ul>
+<li>生成器的目标函数为 $L_{G}=E[\log(1-D(G(s_0,\hat{c}),\varphi_t))]+\lambda D_{KL}$</li>
+<li>判别器的目标函数为 $L_{D}=E[\log D(I，\varphi_t)]+E[\log(1-D(G(s_0,\hat{c}),\varphi_t))]$</li>
+<li>训练时最小化 $G$ 的损失 $L_{G}$ ，最大化 $D$ 的损失 $L_{D}$</li>
+</ul>
+</li>
+</ul>
+<h3 id="BigGAN"><a href="#BigGAN" class="headerlink" title="BigGAN"></a>BigGAN</h3><p>BigGAN 是在 2019 年提出的大规模生成对抗网络。传统的 GAN 难以在图像网络等复杂数据集上生成高分辨率和高多样性的图像，核心的瓶颈在于训练的规模不足和稳定性较差。而 BigGAN 的核心目标是通过规模化训练来突破性能上限，同时解决大规模训练带来的特有不稳定性，缩小生成图像与真实图像的差距</p>
+<p>BigGAN 的网络结构基于 ResNet 的架构设计，分为生成器和判别器，结构设计如下</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767365783887.png" alt="1767365783887.png"></p>
+<ul>
+<li>生成器结构：核心是从输入向量到高分辨率图像的渐进式生成<ul>
+<li>输入层包含两个输入<ul>
+<li>latent 向量 $z\sim N(0, I)$ ，将向量 $z$ 按通道拆分，每个块与类嵌入拼接之后，传入对应分辨率的残差块中，通过线性映射层输入到残差块的各个 BN 中</li>
+<li>类嵌入 $Embed(y)$ ，将类别标签映射为向量。类嵌入通过线性投影将共享类嵌入映射到残差块的各个的 BN 层中</li>
+</ul>
+</li>
+<li>残差块：是核心生成单元，包含 $3\times3$ 卷积+BN+ReLU，通过上采样逐步提升图像分辨率，网络结构如图中 b 所示</li>
+<li>Non-Local Block：插入单个分辨率阶段，建模长距离依赖，提升全局结构一致性</li>
+<li>跨设备 BN：在大规模训练时，BN 统计量从所有设备聚合，而非单设备计算，避免小批次统计量偏差</li>
+<li>输出层：利用 $3\times3$ 卷积将通道数量压缩到 3，通过 Tanh 激活输出 $[-1,1]$ 范围的图像</li>
+</ul>
+</li>
+<li>判别器结构；判别器的核心任务是区分真实图像与生成器生成的图像<ul>
+<li>输入图像+类别标签</li>
+<li>残差块：是核心单元，通过下采样逐步降低分辨率、提升图像通道数，提取多尺寸特征，网络结构如图中 c 所示</li>
+<li>Non-Local Block：与生成器对应，插入单个分辨率阶段，增强全局特征捕捉</li>
+<li>投影条件：将类嵌入与最后一层特征进行点积，再叠加线性层输出判别分数，强化类别与图像特征的关联</li>
+<li>谱归一化：对所有卷积层权重进行普归一化，确保 Lipschitz 连续性，稳定对抗训练。</li>
+</ul>
+</li>
+<li>谱归一化：利用矩阵的谱范数调整，使得普范数被限制在一个特定的值，从而控制函数的 Lipschitz 常数<ul>
+<li>公式为 $W_{SN}=\frac{W}{\Vert W\Vert_\sigma}$ ，最终得到的 $\Vert W_{SN}\Vert_\sigma=1$ ，保证了该层的变换不会过渡放大输入</li>
+</ul>
+</li>
+<li>条件 BN：流程图中所用的 BN 为条件 BN，这里使用条件 BN 是为了保证条件信息不再只影响第一层，而是逐层控制图像生成的过程，它的结构如下<ul>
+<li>首先是标准化的 BN 步骤，计算 $\hat{x}=\frac{x-\mu_c}{\sqrt{\sigma^2_c+\varepsilon}}$ （在一般的 BN 里，后面要进行仿射变换输出 $y=\gamma_c \hat{x}+\beta_c$ ，其中 $\gamma_c$ 和 $\beta_c$ 是可学习的参数）这里不进行仿射变换，直接输出 $\hat{x}$ ，所以需要在定义 BN 时设置 <code>affine=False</code></li>
+<li>条件 BN 与原来的 BN 的区别就在于，它将条件信息嵌入到了 $\gamma_c$ 和 $\beta_c$ 中</li>
+<li>输出变为 $y=\gamma_c(cond)\hat{x}+\beta_c(cond)$</li>
+<li>其中 $\left\{\begin{aligned}&amp;e_y=Embedding(y)\\&amp;\gamma_c(y)=w_\gamma e_y+b_\gamma\\&amp;\beta_c(y)=w_\beta e_y+b_\beta\end{aligned}\right.$</li>
+</ul>
+</li>
+<li>Non-Local Block：标准卷积的感受野的增长是局部 + 逐层扩展的，如果想要建模长距离依赖或全局一致性，就需要很多层。于是引入 Non-Local Block，利用它可以实现任意位置的特征，都可以直接和所有其它位置建立联系<ul>
+<li>输入 $x\in B\times C\times H\times W$</li>
+<li>计算三个投影（利用逐点卷积） $\left\{\begin{aligned}\theta=w_\theta x\\\phi=w_\phi x\\g=w_g x\end{aligned}\right.$ ，并且将它们三个展平，其中 $\theta,\phi,g\in B\times C^\prime\times HW$ ，通常会选择 $C^\prime=\frac{C}{8}$</li>
+<li>计算相似度矩阵，计算点积 $s=\theta^T\phi\in B\times HW\times HW$ ，之后进行 Softmax 归一化 $\alpha=softmax(s)$</li>
+<li>全局特征聚合，计算点积 $y=sg^T \in B\times HW\times C^\prime$ ，之后将维度转置为 $B\times C^\prime\times HW$ ，之后展开为 $B\times C^\prime\times H\times W$</li>
+<li>利用逐点卷积将 $y$ 映射到 $B\times C\times H\times W$</li>
+<li>最终残差连接，输出 $x+y$</li>
+</ul>
+</li>
+</ul>
+<p>BigGAN-deep 是 BigGAN 的深度优化版本，参数更少但性能更优，相比 BigGAN，它的核心改进如下</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/result.jpeg" alt="result.jpeg"></p>
+<ul>
+<li>瓶颈残差块：在残差块的 $3\times3$ 卷积之前添加一个 $1\times1$ 卷积层，将通道数压缩，后添加一个 $1\times1$ 卷积恢复通道数。以减少计算量</li>
+<li>每个分辨率阶段包含两个残差块，在 BigGAN 中每个阶段仅包含一个残差块，整体的深度比 BigGAN 更深，但是由于引入了瓶颈残差块，所以整体参数更少</li>
+<li>隐藏向量 $z$ 输入到生成器中时，不再拆分，而是直接将完整的隐藏向量与类嵌入拼接之后输入到所有残差块</li>
+</ul>
+<p>BigGAN 的训练流程分为五个关键步骤</p>
+<ul>
+<li>训练前预处理<ul>
+<li>利用面积重采样将图像缩放到目标分辨率</li>
+<li>像素归一化：将图像的像素值映射到 $[-1,1]$ 范围</li>
+<li>类别标签处理：将类别标签转换为 one-hot 编码，再通过线性层映射为 128 维的类嵌入向量，用于后续条件生成</li>
+<li>模型权重初始化：G 和 D 均采用 正交初始化，减少训练初期参数震荡；同时类嵌入层、线性投影层的权重同样遵循正交初始化，保证类别信息传递的稳定性</li>
+<li>latent 向量 $z$ 的维度随着分辨率调整，采样自标准正态分布</li>
+</ul>
+</li>
+<li>生成器生成假图像<ul>
+<li>输入：latent 向量 $z$ ，还有类嵌入向量 $Embed(y)$ ，将它们分别传输到对应的残差块中（在 BigGAN 中，它们拼接之后再分别传输到对应的残差块中）</li>
+<li>前向传播：latent 向量 $z$ 也作为输入，通过生成器的残差块、Non-Local Block、BN 等，逐步上采样到目标分辨率</li>
+<li>最后通过 $3\times3$ 卷积将通道数压缩到 3，后用 Tanh 激活函数输出 $[-1,1]$ 范围的假图像 $G(z,y)$</li>
+<li>另外在采样时，使用 G 权重的指数移动平均 EMA，提升图像的一致性</li>
+</ul>
+</li>
+<li>判别器训练<ul>
+<li>输入从数据采集的真实图像 $x$ ，搭配对应的标签 $y$ ，还有上述生成器生成的 $G(z,y)$</li>
+<li>图像经过判别器的残差块下采样、Non-Local Block、谱归一化之后，输出判别分数 $D(x,y)$ 和 $D(G(z,y))$</li>
+<li>用 Hinge Loss 计算判别损失 $L_D=E[\max(0,1-D(x,y))]+E[\max(0, 1+D(G(z,y),y)]+\frac{\gamma}{2}E\Vert\nabla D(x, y)\Vert^2$ ，最后一项 R1 梯度惩罚项， $\gamma$ 为正则化强度，通常取 $1\sim10$</li>
+<li>利用损失函数，反向传播计算梯度，利用 Adam 优化器更新 D 的权重，重复更新两次判别器的权重。在更新 D 时，将 G 的权重固定</li>
+</ul>
+</li>
+<li>生成器训练<ul>
+<li>输入：使用生成器生成的假图像 $G(z,y)$ 以及判别器对其判别分数 $D(G(z,y),y)$</li>
+<li>用 Hinge Loss 计算生成器损失 $L_G=-E[D(G(z,y),y)]$ ，最小化 $L_G$ 。损失函数无需通过 $\log$ 函数转换，避免了梯度消失</li>
+<li>清空 G 的梯度，反向传播计算梯度，利用 Adam 优化器更新 G 的参数。另外更新 G 的 EMA 权重</li>
+</ul>
+</li>
+<li>迭代训练，每轮迭代之后检测关键指标<ul>
+<li>奇异值检测：利用 Arnoldi 迭代计算 G 和 D 各层权重的前 3 个奇异值 $\sigma_0,\sigma_1,\sigma_2$ ，G 的第一层容易出现 $\sigma_0$ 的持续增长，是训练坍塌的前兆</li>
+<li>损失与准确率检测：D 的训练准确率若 $&gt;98%$ ，但验证集的准确率仅在 $50\%\sim55\%$ 之间，说明 D 过拟合训练集，需早停</li>
+</ul>
+</li>
+</ul>
+<p>在大规模训练时，会不可避免地出现训练坍塌，G 地部分层起义值爆炸，生成图像的质量骤降。所以在检测到坍塌前兆之前，保存性能最优的 checkpoint；或者可以尝试 R1 梯度惩罚，可稳定训练，但会导致 IS 下降 $20\%\sim45\%$ ，最终选择早停。</p>
+<h3 id="StyleGAN"><a href="#StyleGAN" class="headerlink" title="StyleGAN"></a>StyleGAN</h3><p><strong>StyleGAN-V1</strong></p>
+<p>StyleGAN 是在 2018 年被提出的基于风格迁移思想的 GAN 生成器架构，核心目标是解决传统的 GAN 生成器的缺乏对图像合成过程的直观控制、latent 空间纠缠严重、随机细节生成不自然等问题</p>
+<p>StyleGAN 彻底重构了传统的 GAN 生成器的输入与特征调制方式，核心模块包含映射网络、生成器、判别器三大模块</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767063604640.png" alt="1767063604640.png"></p>
+<ul>
+<li>映射网络：打破原始 latent 空间 $Z$ 对训练数据分布的依赖，将 $Z$ 映射到解纠缠的中间空间 $W$ ，其中 $W$ 无需服从特定分布，可自由编码独立的变异因子<ul>
+<li>输入：原始 latent 向量 $z\in Z$ ，通常为 512 维标准正态分布</li>
+<li>结构：8 层全连接层结构，无归一化，中间使用 Leaky ReLU 激活函数</li>
+<li>输出：中间 latent 向量 $w\in W$</li>
+</ul>
+</li>
+<li>风格基础的生成器：从低分辨率到高分辨率逐步生成图像，每层通过风格调制 AdaIN 和噪声注入控制细节<ul>
+<li>输入：并非原始 latent 向量，而是一个可学习的常数张量，维度为 $4\times4\times512$</li>
+<li>结构：18 层卷积，每个分辨率中包含两个卷积层，上采样使用双线性插值代替最近邻插值，网络分辨率从 $4\times4$ 不断扩展到 $1024\times1024$</li>
+<li>输出：卷积层之后连接逐点卷积将特征图转为 RGB 图像</li>
+</ul>
+</li>
+<li>风格调制 AdaIN：StyleGAN 借鉴风格迁移中的 AdaIN 操作，实现风格对特征的调制。将 $w$ 编码的风格注入每一层卷积，实现尺度特定的风格控制（如低分辨率层的风格控制姿态，高分辨率层控制纹理）<ul>
+<li>公式为 $AdaIN(x_i,y)=y_{s,i}\frac{x_i-\mu(x_i)}{\sigma(x_i)}+y_{b,i}$</li>
+<li>其中 $x_i$ 是第 $i$ 层特征图，特征图就是每一层卷积神经网络的输出，而 $\mu(x_i)$ 和 $\sigma(x_i)$ 是特征图的均值和方差</li>
+<li>其中 $y=(y_s,y_b)$ 是风格向量：由中间的 latent 向量 $w$ 经学习的仿射变换得到，其中 $y_s$ 控制缩放， $y_b$ 控制偏移</li>
+</ul>
+</li>
+<li>噪声注入：为合成网络的每一层卷积后注入单通道高斯噪声，通过学习的逐特征图缩放因子（B 层）调整噪声强度，再叠加到特征图上。用于影响图像的随机细节，不改变高层属性，实现全局结构与随机细节额定分离</li>
+<li>风格混合：训练时随机选择部分图像，用两个不同的 latent 向量 $z_1$ 和 $z_2$ 分别映射到 $w_1$ 和 $w_2$ ，代表两种不同的风格，然后在网络中随机选择一个中间的交叉点 ，交叉点前半层使用 $w_1$ ，交叉点后半层使用 $w_2$ 。用于打破相邻层风格的相关性，提升生成图像的多样性和可控性</li>
+<li>判别器结构：继承自 ProGAN 的架构，网络结构与生成器对称</li>
+</ul>
+<p>StyleGAN 基于 ProGAN 的训练框架，从低分辨率的训练逐步到高分辨率的训练，优化了超参数、损失函数和正则化策略</p>
+<ul>
+<li>渐进式训练：从 $4\times4$ 分辨率开始，逐步提升到 $1024\times1024$ ，每个阶段训练时，先冻结已有层，仅训练新增的高分辨率层，再微调所有层，保证网络稳定性</li>
+<li>判别器的损失函数：使用两种结构的损失函数，一般会选择 R1 正则化<ul>
+<li>WGAN-GP 类似的，添加梯度惩罚项 $\lambda E[(\Vert \nabla D(\hat{x})\Vert_2-1)^2]$ ，其中 $\hat{x}$ 是真实样本和生成样本之间所有线性插值点的集合 $\hat{x}=\varepsilon x+(1-\varepsilon)G(z)$ 。当 $\varepsilon$ 从 0 到 1 遍历，所有可能的 $\hat{x}$ 构成了直线连接区域</li>
+<li>R1 正则化：在传统的 GAN 的损失函数之后添加 R1 正则化项 $\frac{\gamma}{2}E\Vert\nabla D(x)\Vert^2$</li>
+</ul>
+</li>
+<li>生成器的损失函数：与一般的 GAN 一致</li>
+<li>训练时随机选择部分图像，用两个不同的 latent 向量 $z_1$ 和 $z_2$ 分别映射到 $w_1$ 和 $w_2$ ，在合成网络的随机交叉点切换风格，用于打破相邻层风格的相关性，强制网络学习局部化的风格表示，提升生成图像的多样性和可控性</li>
+<li>$W$ 截断：由于中间空间 $W$ 中部分区域对应低概率训练数据，生成图像容易失真<ul>
+<li>计算 $W$ 空间的质心 $\bar{w}=E[f(z)]$ ，对新采样的 $w$ 缩放处理： $w^\prime=\bar{w}+\psi(w-\bar{w})(\psi&lt;1)$ ，通常 $\psi=0.7$</li>
+<li>用于限制 $w$ 偏离质心的程度，提升生成图像的平均质量，避免极端样本失真</li>
+</ul>
+</li>
+</ul>
+<p>在 StyleGAN 中，通过 $Z\rightarrow W$ 映射 + AdaIN + 噪声分离，在不改变 GAN 对抗框架的前提下，实现了多尺度、可解释、可控的图像生成</p>
+<p><strong>StyleGAN-V2</strong></p>
+<p>StyleGAN-V2 的核心目标是解决 StyleGAN 存在的图像伪影、生成器映射不平滑、分辨率利用不足等问题，通过架构重构和训练策略优化，在保持风格可控性的同时，显著提升了图像质量和训练效率</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767436412032.png" alt="1767436412032.png"></p>
+<p>StyleGAN2 针对性的重构了生成器和判别器的结构</p>
+<ul>
+<li>生成器的归一化操作：使用权重调制解调操作代替 AdaIN，是 StyleGAN2 最关键的架构创新，直接解决了 StyleGAN 的水滴状伪影的问题<ul>
+<li>StyleGAN 用 AdaIN 实现风格控制，其会单独归一化每个特征图的均值和方差，破坏了特征间的相对强度信息。生成器为了绕过这种限制，会刻意制造局部强尖峰即水滴状伪影，来隐性传递信号强度</li>
+<li>将 StyleGAN 的网络重构为<strong>调制—卷积—解调</strong></li>
+<li>调制 Modulation：通过风格向量 $s_i$ 缩放卷积权重 $w_{ijk}=s_i\cdot w_{ijk}$</li>
+<li>解调 Demodulation：对调制之后的权重计算 L2 范数，再将权重除以该范数，即 $w_{ijk}=\frac{w_{ijk}}{\sqrt{\sum_{i,k}w_{ijk}^2+\varepsilon}}$ ，本质是基于统计假设抵消调制带来的信号放大，而非强制归一化特征图</li>
+<li>这操作能完全消除水滴伪影，同时保留 StyleGAN 核心的风格混合能力</li>
+</ul>
+</li>
+<li>移除渐进式增长，改用跳连接+残差连接。利用训练时从低分辨率逐步过渡到高分辨率，虽然能稳定训练，但是会导致相位伪影，和移位不变性差<ul>
+<li>生成器采用输出跳连接，将不同分辨率的 RGB 输出上采样之后求和，形成最终图像</li>
+<li>判别器采用残差连接，通过驻点卷积调整特征图数量，避免梯度消失</li>
+<li>训练时网络结构固定，仅通过训练过程自然过渡：初期聚焦低分辨率特征，后期逐步转向高分辨率细节</li>
+</ul>
+</li>
+<li>提升网络容量，充分利用高分辨率：StyleGAN 中生成的 $1024\times1024$ 的图像，实际上仅相当于是 $512\times512$ 图像的锐化版本，无法充分利用目标分辨率。此时增加生成器和判别器的最高分辨率层的特征图数量，从而得到较高的分辨率细节</li>
+<li>训练流程创新：StyleGAN 的训练存在两个关键问题：生成器映射不平滑、正则化计算成本高、图像难以反向投影到 latent 空间，StyleGAN2 针对这些问题优化了训练策略<ul>
+<li>路径长度正则化：StyleGAN2 中路径长度正则化的损失函数为 $L_{pl}=E_{x,y\sim N(0,I)}(\Vert J_w^Ty\Vert_2-a)^2$<ul>
+<li>其中 $J_w$ 是生成器映射 $G(w):W\rightarrow Y$ 在 $w$ 处的雅可比矩阵，描述 $w$ 微小变化时，生成图像 $G(w)$ 各像素的灵敏度。但是实际上直接计算 $J_w$ 计算太困难，一般的计算公式为 $J_w=\nabla_w(G(w)y)$ ，其中的 $y$ 是随机噪声图像，像素值服从标准的高斯分布，图像维度与生成器输出维度一致，作用是模拟图像空间的随机扰动方向</li>
+<li>其中 $a$ 不是固定值，是随着训练动态调整的梯度长度取值，采用指数移动平均更新 $a_{new}=a_{old}+\beta(E\Vert J_w^Ty\Vert_2-a_{old})$ ， $\beta$ 是 EMA 衰减系数，本质是控制历史值和当前均值的权重，核心是让 $a$ 缓慢适应梯度尺度</li>
+</ul>
+</li>
+<li>惰性正则化：传统的正则化与主损失函数同步优化，计算成本较高，占用 GPU 内存大。StyleGAN2 通过降低正则化计算频率，每计算 16 个 batch 时仅计算 1 次正则化；另外通过缩放正则化权重、Adam 优化器的 $\beta_1$ 和 $\beta_2$ ，平衡主损失与正则化的梯度贡献</li>
+</ul>
+</li>
+<li>感知路径长度：感知路径长度是衡量生成对抗网络的 latent 空间平稳性的关键指标。PPL 的计算流程如下<ul>
+<li>从生成器的输入分布中随机采样两对 latent 向量 $z_1,z_2$ ，初步处理得到中间 latent 向量 $w_1=f(z_1),w_2=f(z_2)$ ，一般使用 $w$ 的情况比较多</li>
+<li>计算 latent 空间插值（也可以使用 $w$ ），在 $z_1$ 和 $z_2$ 之间定义一条插值路径<ul>
+<li>球面插值：适用于归一化的 latent 空间，避免线性插值导致的径向尺度失真 $z(t)=slerp(z_1,z_2,t)=\frac{\sin((1-t)\theta)}{\sin\theta}z_1+\frac{\sin(t\theta)}{\sin\theta}z_2$</li>
+<li>线性插值：适用于解耦之后的中间 latent 空间，例如 $w$ 空间，计算更简洁 $w(t)=lerp(w_1,w_2,t)=(1-t)w_1+tw_2$</li>
+</ul>
+</li>
+<li>取极小步长 $\varepsilon$ ，在插值路径上取两个无限接近的点 $t$ 和 $t+\varepsilon$ ，通过生成器生成对应的图像，即 $G(z(t))$ 和 $G(z(t+\varepsilon))$</li>
+<li>计算感知距离：用感知距离衡量两张生成图像的差异，核心目标是让距离与人类视觉感知一致，最常用 LPIPS 方法。计算两张图像之间的感知距离，记作 $d(G(z(t)),G(z(t+\varepsilon)))$</li>
+<li>统计平均与缩放：为消除步长 $\varepsilon$ 的影响，需对感知距离进行缩放，并对大量采样对取期望，得到最终的 PPL 值 $L_z=E(\frac{1}{\varepsilon^2}d(G(z(t)),G(z(t+\varepsilon))))$</li>
+</ul>
+</li>
+</ul>
+<p><strong>StyleGAN-V3</strong></p>
+<p>StyleGAN3 的核心是通过信号处理优化解决 StyleGAN2 的纹理粘贴问题，实现平移和旋转等变性，网络结构基于 StyleGAN2 改进，训练流程聚焦逐步优化等变性与生成质量平衡。StyleGAN3 的判别器沿用 StyleGAN2 的结构，对映射网络和合成网络都做了改进</p>
+<p><img src="/Blog_NexT/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/1767451178869.png" alt="1767451178869.png"></p>
+<ul>
+<li>映射网络：简化结构，深度从 StyleGAN2 的 8 层减少到 2 层，禁用混合正则化和路径长度正则化</li>
+<li>生成器架构：StyleGAN3 重构生成器架构，确保细节位置完全继承自粗粒度特征，实现平移等变性和旋转等变性<ul>
+<li>输入替换：傅里叶特征替代固定常数。StyleGAN 使用 $4\times4\times512$ 的固定常数作为输入，边界信息会泄露绝对坐标。所以改用傅里叶特征，通过固定频率的正弦或余弦信号定义输入，避免边界依赖</li>
+<li>抗锯齿滤波器：替换双线性上采样，采用 Kaiser 窗 sinc 滤波器。一般选择 $n=6$ ，每个输出像素受 6 个输入像素影响，平衡抗锯齿效果和计算效率。一般滤波器部署在两个位置：替代 StyleGAN2 的双线性上采样和过滤非线性的封装流程中的下采样结构，而且只部署在生成器合成网络中，判别器中无部署</li>
+<li>过滤非线性：非线性激活函数会产生任意高频信号，破坏频域一致性，所以将其包裹在 2×上采样—激活函数—2×下采样的流程中，确保激活后的高频信号被低通滤波压制</li>
+<li>平移等变优化：放弃 StyleGAN2 固定的 2× 上采样 + 两层卷积的结构，采用 14 层固定结构，每一层的截止频率、阻带频率、采样频率都按照几何级数递进</li>
+<li>旋转等变优化：为了实现任意角度旋转等变，做了如下修改<ul>
+<li>卷积核：将所有的 $3\times3$ 卷积修改为 $1\times1$ 卷积，通过加倍特征图数量补偿容量损失</li>
+<li>滤波器径向化：下采样时使用 jinc 滤波器，替代 sinc 滤波器，确保旋转之后频率特性一致</li>
+</ul>
+</li>
+<li>移除 StyleGAN2 中的跳跃连接、混合正则化、路径长度正则化等，使用 EMA 归一化，避免信号幅度漂移,提升频谱可控性，同时避免正则化对等地性的干扰</li>
+</ul>
+</li>
+<li>Kasier 窗：定义为 $w[n]=\frac{I_0[\beta\sqrt{1-(1-\frac{2n}{N-1})^2}]}{I_0[\beta]}$ ，输出第 $n$ 个数据的权重<ul>
+<li>$n$ 的取值范围为 $[0,N]$ ， $N$ 为窗的长度</li>
+<li>其中 $I_0(x)$ 是第一类 bessel 函数，它被定义为贝塞尔微分方程的解 $x^2\frac{d^2y}{dx^2}+x\frac{dy}{dx}+(x^2-n^2)y=0$ ， $I_0$ 是当 $n=0$ 时的解</li>
+<li>通过调整 $N$ 和 $\beta$ 可以在旁瓣幅度和主瓣宽度之间进行权衡。当 $\beta$ 增大时主瓣宽度增加，旁瓣衰减增强</li>
+</ul>
+</li>
+<li>sinc 滤波器是由 sinc 函数构造的滤波器<ul>
+<li>归一化的函数定义为 $sinc(x)=\frac{\sin(\pi x)}{\pi x}$</li>
+<li>非归一化的函数定义为 $sinc(x)=\frac{\sin(\pi x)}{x}$</li>
+</ul>
+</li>
+<li>jinc 滤波器是一种基于第一类 bessel 函数的特殊函数，广泛应用于图像处理和信号处理领域<ul>
+<li>函数的数字表达式为 $jinc(x)=\frac{I_1(\pi x)}{x}$ ，其中 $I_1$ 为一阶的第一类 bessel 函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>感觉有些网络我记录的并不是很好，不过基本上都把它们的代码用 pytorch 实现了，也都在自己的电脑上稍微跑了跑。这东西就先告一段落吧，深度学习的板块基本上都学习过了，接下来打算先做做强化学习去了，后续再看到有关的论文啥的就再来补充吧。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>落
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://luo25177.github.io/2026/01/03/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/" title="生成对抗网络GAN">https://luo25177.github.io/2026/01/03/生成对抗网络GAN/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog_NexT/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/Blog_NexT/tags/GAN/" rel="tag"># GAN</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog_NexT/2025/12/27/Transformer-%E6%A8%A1%E5%9E%8B/" rel="prev" title="Transformer 模型">
+      <i class="fa fa-chevron-left"></i> Transformer 模型
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">一些需要用到的知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">散度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">2.2.</span> <span class="nav-text">图像生成评价指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lipschitz-%E8%BF%9E%E7%BB%AD"><span class="nav-number">2.3.</span> <span class="nav-text">Lipschitz 连续</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">主要结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E5%88%AB%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">判别器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B"><span class="nav-number">3.3.</span> <span class="nav-text">训练流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%9A%84-GAN-%E7%BD%91%E7%BB%9C"><span class="nav-number">4.</span> <span class="nav-text">经典的 GAN 网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CGAN"><span class="nav-number">4.1.</span> <span class="nav-text">CGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCGAN"><span class="nav-number">4.2.</span> <span class="nav-text">DCGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wasserstein-GAN"><span class="nav-number">4.3.</span> <span class="nav-text">Wasserstein GAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WGAN-GP"><span class="nav-number">4.4.</span> <span class="nav-text">WGAN-GP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSGAN"><span class="nav-number">4.5.</span> <span class="nav-text">LSGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pix2Pix"><span class="nav-number">4.6.</span> <span class="nav-text">Pix2Pix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CycleGAN"><span class="nav-number">4.7.</span> <span class="nav-text">CycleGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProGAN"><span class="nav-number">4.8.</span> <span class="nav-text">ProGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StackGAN"><span class="nav-number">4.9.</span> <span class="nav-text">StackGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BigGAN"><span class="nav-number">4.10.</span> <span class="nav-text">BigGAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleGAN"><span class="nav-number">4.11.</span> <span class="nav-text">StyleGAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="落"
+      src="/Blog_NexT/images/avatar.png">
+  <p class="site-author-name" itemprop="name">落</p>
+  <div class="site-description" itemprop="description">茶凉言尽，月上柳梢</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog_NexT/archives/">
+        
+          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog_NexT/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog_NexT/tags/">
+          
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Luo25177" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Luo25177" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:beloved25177@126.com" title="E-Mail → mailto:beloved25177@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:23</span>
+  <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
+  <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog_NexT/lib/anime.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog_NexT/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog_NexT/js/utils.js"></script>
+
+<script src="/Blog_NexT/js/motion.js"></script>
+
+
+<script src="/Blog_NexT/js/schemes/pisces.js"></script>
+
+
+<script src="/Blog_NexT/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/Blog_NexT/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
