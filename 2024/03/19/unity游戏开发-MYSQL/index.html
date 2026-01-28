@@ -277,39 +277,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="MySQL配置"><a href="#MySQL配置" class="headerlink" title="MySQL配置"></a>MySQL配置</h3><ol>
+        <h3 id="mysql配置">MySQL配置</h3>
+<ol>
 <li>先安装一个数据库，我使用的是 <code>8.0.35</code> 版本的，版本没什么大的要求。也可以安装一个可视的 <code>UI</code> 界面，例如 <code>workbench</code>，方便做一些操作</li>
 <li>在数据库中添加表格，然后将某一个 <code>user</code> 的 <code>localhost</code> 设置为 <code>%</code>，就可以实现其他设备的登录了</li>
 </ol>
-<h3 id="unity端配置"><a href="#unity端配置" class="headerlink" title="unity端配置"></a>unity端配置</h3><ol>
+<h3 id="unity端配置">unity端配置</h3>
+<ol>
 <li>在 <code>Assets</code> 文件目录下新建一个文件夹 <code>Plugins</code> 用来存放数据库需要的一些文件 （必须是这个名称，不能更改，不然 unity 不能识别出来）</li>
 <li>可以不用下载 <code>MySQL Connnector/NET</code>，直接在 <code>vs</code>中安装 <code>mysql</code> 包 项目→管理 <code>NuGet</code> 程序包，直接在浏览中搜索 <code>MySQL</code>，安装第一个，之后它会自己把依赖装好</li>
-<li><p>然后，最最重要的一步，在vs的解决方案资源管理器的项目的引用之下，找到 <code>mysql.Data</code> 这个项目，查看它所在的路径，在文件资源管理器中找到它，把它拖到第一步所建好的文件夹中，然后进入unity它会报错，查看错误信息，是需要一些文件，然后再在项目引用之下找到 <code>Google.Protobuf</code> , <code>K4os.Compression.LZ4</code> , <code>K4os.Compression.LZ4.Streams</code> , <code>K4os.Hash.xxHash</code> , <code>BouncyCastle.Cryptography</code> , <code>System.IO.Pipelines</code> ,  <code>System.IO</code> , <code>System.Runtime.CompilerServices.Unsafe</code>，但是我的里面是没有 <code>ZstdSharp</code> 的，需要像第二步一样自己安装一下，然后拖到 <code>unity</code> 的 <code>Plugins</code>，需要注意版本问题，一般直接使用vs中对应程序集的路径就可以</p>
+<li>然后，最最重要的一步，在vs的解决方案资源管理器的项目的引用之下，找到 <code>mysql.Data</code> 这个项目，查看它所在的路径，在文件资源管理器中找到它，把它拖到第一步所建好的文件夹中，然后进入unity它会报错，查看错误信息，是需要一些文件，然后再在项目引用之下找到 <code>Google.Protobuf</code> , <code>K4os.Compression.LZ4</code> , <code>K4os.Compression.LZ4.Streams</code> , <code>K4os.Hash.xxHash</code> , <code>BouncyCastle.Cryptography</code> , <code>System.IO.Pipelines</code> ,  <code>System.IO</code> , <code>System.Runtime.CompilerServices.Unsafe</code>，但是我的里面是没有 <code>ZstdSharp</code> 的，需要像第二步一样自己安装一下，然后拖到 <code>unity</code> 的 <code>Plugins</code>，需要注意版本问题，一般直接使用vs中对应程序集的路径就可以</li>
+</ol>
 <p><img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/vsSet.png" alt="vsSet.png"></p>
-</li>
-<li><p>也是极其重要的一步，在unity的安装目录之下的 <code>Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32</code> 中，找到以下四个文件</p>
+<ol start="4">
+<li>
+<p>也是极其重要的一步，在unity的安装目录之下的 <code>Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32</code> 中，找到以下四个文件</p>
 <ul>
 <li><code>I18N.dll</code></li>
 <li><code>I18N.CJK.dll</code></li>
 <li><code>I18N.MidEast.dll</code></li>
-<li><p><code>I18N.West.dll</code></p>
+<li><code>I18N.West.dll</code></li>
+</ul>
 <p><img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/unitySet1.png" alt="unitySet1.png"></p>
 </li>
-</ul>
+<li>
+<p>把 <code>unity</code> 的 <code>File</code> → <code>Build Settings</code> → <code>Player Settings</code> → <code>Api Compatibility Level</code> 更改为 <code>.NET Framewok</code></p>
+<p><img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/unitySet.png" alt="unitySet.png"></p>
 </li>
-<li><p>把 <code>unity</code> 的 <code>File</code> → <code>Build Settings</code> → <code>Player Settings</code> → <code>Api Compatibility Level</code> 更改为 <code>.NET Framewok</code></p>
-<p> <img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/unitySet.png" alt="unitySet.png"></p>
+<li>
+<p>然后就可以实现在<strong>局域网之中</strong>连接到这个数据库了</p>
 </li>
-<li><p>然后就可以实现在<strong>局域网之中</strong>连接到这个数据库了</p>
-</li>
-<li><p>附上代码</p>
+<li>
+<p>附上代码</p>
  <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> InputField username;</span><br><span class="line"><span class="keyword">public</span> InputField password;</span><br><span class="line"><span class="keyword">public</span> GameObject LOG;</span><br><span class="line"><span class="keyword">public</span> Canvas canvas;</span><br><span class="line"><span class="comment">// 登录</span></span><br><span class="line"><span class="built_in">string</span> sqlSer = <span class="string">&quot;server=49a17g0230.zicp.fun;port = 21514;database = dragondata;user = root;password = Beloved@25177&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">signin</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    MySqlConnection conn = <span class="keyword">new</span> MySqlConnection(sqlSer);</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        conn.Open();</span><br><span class="line">        UnityEngine.Debug.Log(<span class="string">&quot;------链接成功------&quot;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="built_in">string</span> sqlQuary = <span class="string">&quot;select * from userlib where account = @paral1 and password = @paral2&quot;</span>;</span><br><span class="line">        MySqlCommand comd = <span class="keyword">new</span> MySqlCommand(sqlQuary, conn);</span><br><span class="line">        comd.Parameters.AddWithValue(<span class="string">&quot;paral1&quot;</span>, username.text);</span><br><span class="line">        comd.Parameters.AddWithValue(<span class="string">&quot;paral2&quot;</span>, password.text);</span><br><span class="line">    </span><br><span class="line">        MySqlDataReader reader = comd.ExecuteReader();</span><br><span class="line">        <span class="keyword">if</span> (reader.Read())</span><br><span class="line">        &#123;</span><br><span class="line">            UnityEngine.Debug.Log(<span class="string">&quot;------用户存在，登录成功！------&quot;</span>);</span><br><span class="line">            SceneManager.LoadScene(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            LOG.GetComponent&lt;showlogcontent&gt;().logmsg = <span class="string">&quot;登录失败，用户不存在&quot;</span>;</span><br><span class="line">            GameObject log = GameObject.Instantiate(LOG, transform.position, Quaternion.Euler(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">            log.transform.SetParent(canvas.transform, <span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (System.Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        UnityEngine.Debug.Log(e.Message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span></span><br><span class="line">    &#123;</span><br><span class="line">        conn.Close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注册</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">signup</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    MySqlConnection conn = <span class="keyword">new</span> MySqlConnection(sqlSer);</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        conn.Open();</span><br><span class="line">        <span class="comment">// UnityEngine.Debug.Log(&quot;-----连接成功！------&quot;);</span></span><br><span class="line">    </span><br><span class="line">        <span class="built_in">string</span> sqlQuary = <span class="string">&quot;select * from userlib where account = @paral1 and password = @paral2&quot;</span>;</span><br><span class="line">        MySqlCommand comd = <span class="keyword">new</span> MySqlCommand(sqlQuary, conn);</span><br><span class="line">        comd.Parameters.AddWithValue(<span class="string">&quot;paral1&quot;</span>, username.text);</span><br><span class="line">        comd.Parameters.AddWithValue(<span class="string">&quot;paral2&quot;</span>, password.text);</span><br><span class="line">    </span><br><span class="line">        MySqlDataReader reader = comd.ExecuteReader();</span><br><span class="line">        <span class="keyword">if</span> (reader.Read())</span><br><span class="line">            UnityEngine.Debug.Log(<span class="string">&quot;-----用户名已存在，请重新输！------&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Insert_User(username.text, password.text);</span><br><span class="line">            UnityEngine.Debug.Log(<span class="string">&quot;------注册成功，请进行登入------&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (System.Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        UnityEngine.Debug.Log(e.Message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span></span><br><span class="line">    &#123;</span><br><span class="line">        conn.Close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Insert_User</span>(<span class="params"><span class="built_in">string</span> username, <span class="built_in">string</span> password</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    MySqlConnection conn = <span class="keyword">new</span> MySqlConnection(sqlSer);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        conn.Open();</span><br><span class="line">        <span class="built_in">string</span> signupdata = System.DateTime.Now.ToString(<span class="string">&quot;G&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> sqlInsert = <span class="string">&quot;insert into userlib(account,password,signupdata) values(&#x27;&quot;</span> + username + <span class="string">&quot;&#x27;,&#x27;&quot;</span> + password + <span class="string">&quot;&#x27;,&#x27;&quot;</span> + signupdata + <span class="string">&quot;&#x27;)&quot;</span>;</span><br><span class="line">        MySqlCommand comd2 = <span class="keyword">new</span> MySqlCommand(sqlInsert, conn);</span><br><span class="line">        <span class="built_in">int</span> resule = comd2.ExecuteNonQuery();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (System.Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        UnityEngine.Debug.Log(e.Message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span></span><br><span class="line">    &#123;</span><br><span class="line">        conn.Close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="外网连接配置"><a href="#外网连接配置" class="headerlink" title="外网连接配置"></a>外网连接配置</h3><p>可以使用局域网以外的网络连接上服务器，需要下载<strong>花生壳</strong></p>
+<h3 id="外网连接配置">外网连接配置</h3>
+<p>可以使用局域网以外的网络连接上服务器，需要下载<strong>花生壳</strong></p>
 <ol>
-<li><p>下载好之后，在花生壳中新增映射</p>
-<p> <img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/HSK.png" alt="HSK.png"></p>
+<li>
+<p>下载好之后，在花生壳中新增映射</p>
+<p><img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/HSK.png" alt="HSK.png"></p>
 <ul>
 <li>映射类型选择 <code>TCP</code></li>
 <li><code>TCP</code> 选择普通 <code>TCP</code> 就行</li>
@@ -320,20 +328,28 @@
 <li>内网端口就是 <code>mysql</code> 所使用的 <code>3306</code> 端口</li>
 </ul>
 </li>
-<li><p>映射完成之后可以看到</p>
-<p> <img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/HSK1.png" alt="HSK1.png"></p>
-<p> 其中最重要的就是访问地址了，可以在 <code>mysql</code> 中试着连接一下，其中的 <code>hostname</code>  就是外网域名，port就是映射之后的端口</p>
-<p> <img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/mysqltest.png" alt="mysqltest.png"></p>
+<li>
+<p>映射完成之后可以看到</p>
+<p><img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/HSK1.png" alt="HSK1.png"></p>
+<p>其中最重要的就是访问地址了，可以在 <code>mysql</code> 中试着连接一下，其中的 <code>hostname</code>  就是外网域名，port就是映射之后的端口</p>
+<p><img src="/Blog_NexT/2024/03/19/unity%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-MYSQL/mysqltest.png" alt="mysqltest.png"></p>
 </li>
-<li><p>好像需要开启本电脑的3306端口的远程连接</p>
+<li>
+<p>好像需要开启本电脑的3306端口的远程连接</p>
 <ul>
 <li>进入应用 高级安全 <code>windowsDefender</code> 防火墙</li>
 <li>点击入站规则-&gt;新建规则</li>
 <li>配置端口， <code>mysql</code> 使用的是 <code>tcp</code> 协议，使用的是3306端口</li>
 </ul>
 </li>
-<li>在 <code>unity</code> 中创建连接<br><code>string sqlSer = &quot;server=49a17g0230.zicp.fun;port = 21514;database = database;user = root;password = password&quot;;</code><br>其中的server就是访问地址的域名，也就是外网域名，冒号后面的就是端口，也就是最终映射出的端口</li>
-<li>最后就可以实现数据库的远程连接了，并且不需要在同一个局域网</li>
+<li>
+<p>在 <code>unity</code> 中创建连接<br>
+<code>string sqlSer = &quot;server=49a17g0230.zicp.fun;port = 21514;database = database;user = root;password = password&quot;;</code><br>
+其中的server就是访问地址的域名，也就是外网域名，冒号后面的就是端口，也就是最终映射出的端口</p>
+</li>
+<li>
+<p>最后就可以实现数据库的远程连接了，并且不需要在同一个局域网</p>
+</li>
 </ol>
 
     </div>
@@ -436,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">MySQL配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unity%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">unity端配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">外网连接配置</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">MySQL配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unity%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">unity端配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">外网连接配置</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -452,20 +468,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog_NexT/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-count">123</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -509,12 +525,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.7m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20:23</span>
+    <span title="站点阅读时长">26:28</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

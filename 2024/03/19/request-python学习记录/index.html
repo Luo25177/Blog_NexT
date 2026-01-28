@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>4.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -270,7 +270,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="requests-学习"><a href="#requests-学习" class="headerlink" title="requests 学习"></a>requests 学习</h2><p><strong>静态网络与动态网络</strong></p>
+        <h2 id="requests-学习">requests 学习</h2>
+<p><strong>静态网络与动态网络</strong></p>
 <ul>
 <li>动态xml页面: 如果网络界面是由js加载上去的，那么网络就是动态的</li>
 <li>静态xml页面: 没有使用js加载</li>
@@ -285,28 +286,42 @@
 <li>入库</li>
 </ol>
 <p><strong>DNS服务器</strong>: 根据客户给定的域名，来返回对应的 ip 地址，客户通过 ip 地址请求页面，返回页面的 html+js+css+.jpg</p>
-<h3 id="url形式"><a href="#url形式" class="headerlink" title="url形式:"></a>url形式:</h3><ul>
+<h3 id="url形式">url形式:</h3>
+<ul>
 <li>scheme://host[:port# ]/path/…/[?query-string ][#anchor ]</li>
 <li>scheme: 协议(http,https,ftp)</li>
 <li>host: 服务器的ip地址或者域名</li>
 <li>port: 服务器的端口(如果是默认端口就是 80 / 443)</li>
 <li>path: 访问资源的路径</li>
 <li>query-string: 参数，发送给http服务器的数据</li>
-<li>anchor: 锚点(跳转到网页的指定冒点位置)<br>url地址带上锚点与不带锚点是一样的</li>
+<li>anchor: 锚点(跳转到网页的指定冒点位置)<br>
+url地址带上锚点与不带锚点是一样的</li>
 </ul>
-<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>http</p>
+<h3 id="http">HTTP</h3>
+<p>http</p>
 <ul>
 <li>超文本传输协议</li>
-<li>默认端口号: 80<br>https / <a target="_blank" rel="noopener" href="http://xn--yfr16ad4eh64dhfza.cn/">网址后面加.cn</a></li>
+<li>默认端口号: 80<br>
+https / <a target="_blank" rel="noopener" href="http://xn--yfr16ad4eh64dhfza.cn/">网址后面加.cn</a></li>
 <li>http + SSL(安全套接字层)</li>
-<li>默认端口号: 443<br>https 比 http 更安全，但是性能更低<br>https 在发送数据之前会对数据进行加密，服务端接收到数据之后还需要对数据进行解密，就可以获得内容</li>
+<li>默认端口号: 443<br>
+https 比 http 更安全，但是性能更低<br>
+https 在发送数据之前会对数据进行加密，服务端接收到数据之后还需要对数据进行解密，就可以获得内容</li>
 </ul>
-<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法,HTTP是一种基于”请求与响应”模式的、无状态的应用层协议。HTTP协议采用URL作为定位网络资源的的标识符。<br><a target="_blank" rel="noopener" href="http://host/">http://host</a>[:post][path]<br>host:合法的Internet主机域名或ip地址<br>port:端口号，缺省为80<br>path:请求资源的路径</p>
-<p><strong>user-agent</strong>: 包括电脑的版本号，浏览器的版本号，浏览器的内核版本，操作系统的信息(linux,windows,macos 以及对应的版本)<br>通过user-agent能够让网页知道访问它的对象的信息等，如果发现<br><strong>cookie</strong>: 就是保存在浏览器本地的本人浏览器信息，但是不太安全，而且一个站点的cookie都是有限的，不能无线申请<br><strong>session</strong>: 就是保存在网址上的个人信息数据，一般可以存储无限个</p>
+<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法,HTTP是一种基于&quot;请求与响应&quot;模式的、无状态的应用层协议。HTTP协议采用URL作为定位网络资源的的标识符。<br>
+<a target="_blank" rel="noopener" href="http://host/">http://host</a>[:post][path]<br>
+host:合法的Internet主机域名或ip地址<br>
+port:端口号，缺省为80<br>
+path:请求资源的路径</p>
+<p><strong>user-agent</strong>: 包括电脑的版本号，浏览器的版本号，浏览器的内核版本，操作系统的信息(linux,windows,macos 以及对应的版本)<br>
+通过user-agent能够让网页知道访问它的对象的信息等，如果发现<br>
+<strong>cookie</strong>: 就是保存在浏览器本地的本人浏览器信息，但是不太安全，而且一个站点的cookie都是有限的，不能无线申请<br>
+<strong>session</strong>: 就是保存在网址上的个人信息数据，一般可以存储无限个</p>
 <p>我们在申请网址的时候只需要带上name和value就可以</p>
 <p>Ajax</p>
-<h3 id="HTTP-URl的理解"><a href="#HTTP-URl的理解" class="headerlink" title="HTTP URl的理解:"></a>HTTP URl的理解:</h3><p>url是通过HTTP协议存取资源的的Internet路径，一个URL对应一个数据资源</p>
-<h3 id="HTTP协议对资源的操作"><a href="#HTTP协议对资源的操作" class="headerlink" title="HTTP协议对资源的操作"></a>HTTP协议对资源的操作</h3><div class="table-container">
+<h3 id="http-url的理解">HTTP URl的理解:</h3>
+<p>url是通过HTTP协议存取资源的的Internet路径，一个URL对应一个数据资源</p>
+<h3 id="http协议对资源的操作">HTTP协议对资源的操作</h3>
 <table>
 <thead>
 <tr>
@@ -345,11 +360,11 @@
 </tr>
 <tr>
 <td>文档</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="requests库7个主要方法"><a href="#requests库7个主要方法" class="headerlink" title="requests库7个主要方法"></a>requests库7个主要方法</h3><div class="table-container">
+<h3 id="requests库7个主要方法">requests库7个主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -388,38 +403,51 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>只有post请求才能够请求数据</p>
-<p>应用场景:<br>get(): 除了post请求之外的指令一般都使用get请求<br>post(): 提交表单，传输数据非常多的时候，例如:利用百度翻译或者传输图片</p>
-<h3 id="响应状态码"><a href="#响应状态码" class="headerlink" title="响应状态码"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45477063/article/details/124810709">响应状态码</a></h3><ul>
+<p>应用场景:<br>
+get(): 除了post请求之外的指令一般都使用get请求<br>
+post(): 提交表单，传输数据非常多的时候，例如:利用百度翻译或者传输图片</p>
+<h3 id="响应状态码"><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45477063/article/details/124810709">响应状态码</a></h3>
+<ul>
 <li>200: 成功</li>
 <li>302: 临时转移至新的url</li>
 <li>307: 临时转移至新的url</li>
 <li>404: not found</li>
 <li>500: 服务器内部错误，可能是对方反爬虫</li>
 </ul>
-<p>assert 断言<br>str 可以通过endode方法转化为 bytes<br>bytes 也可以通过decode方法转化为 str</p>
-<h3 id="爬虫的流程"><a href="#爬虫的流程" class="headerlink" title="爬虫的流程"></a>爬虫的流程</h3><ul>
-<li>url—-&gt;发送请求，获取响应—-&gt;提取数据—-&gt;保存</li>
-<li>发送请求，获取相应—-&gt;提取url<br>爬虫要根据当前的url地址对应的相应为准，当前的url地址的elements的内容和url的响应不一样</li>
-</ul>
-<h2 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h2><p>get()请求的返回值就是一个响应数据，也就是请求的结果，响应状态码<br>get()的返回值包括text，就是返回值的一个属性</p>
+<p>assert 断言<br>
+str 可以通过endode方法转化为 bytes<br>
+bytes 也可以通过decode方法转化为 str</p>
+<h3 id="爬虫的流程">爬虫的流程</h3>
 <ul>
-<li>text<ul>
+<li>url—&gt;发送请求，获取响应—&gt;提取数据—&gt;保存</li>
+<li>发送请求，获取相应—&gt;提取url<br>
+爬虫要根据当前的url地址对应的相应为准，当前的url地址的elements的内容和url的响应不一样</li>
+</ul>
+<h2 id="get">get()</h2>
+<p>get()请求的返回值就是一个响应数据，也就是请求的结果，响应状态码<br>
+get()的返回值包括text，就是返回值的一个属性</p>
+<ul>
+<li>text
+<ul>
 <li>类型 str</li>
 <li>解码类型 根据http头部对响应的编码做出有根据的推测来推测出来的文本编码</li>
-<li>修改解码方式: response.text.encoding = “utf8”<br>encoding，响应内容的编码方式</li>
+<li>修改解码方式: response.text.encoding = “utf8”<br>
+encoding，响应内容的编码方式</li>
 </ul>
 </li>
-<li>content<ul>
+<li>content
+<ul>
 <li>类型 bytes</li>
 <li>解码类型 没有指定</li>
 <li>可以修改解码方式 response.content.decode(“utf8”)</li>
 </ul>
 </li>
 </ul>
-<h3 id="判断是否请求成功"><a href="#判断是否请求成功" class="headerlink" title="判断是否请求成功"></a>判断是否请求成功</h3><p>使用assert，后面加入判断内容，如果判断内容是真的，那就不报错，否则就会报错</p>
-<h3 id="response-的常用方法"><a href="#response-的常用方法" class="headerlink" title="response 的常用方法"></a>response 的常用方法</h3><ul>
+<h3 id="判断是否请求成功">判断是否请求成功</h3>
+<p>使用assert，后面加入判断内容，如果判断内容是真的，那就不报错，否则就会报错</p>
+<h3 id="response-的常用方法">response 的常用方法</h3>
+<ul>
 <li>response.text</li>
 <li>response.content</li>
 <li>response.status_code</li>
@@ -427,30 +455,40 @@
 <li>response.headers</li>
 <li>response.url 会打印出当前的网址，并且带参数，是一种url的编码方式，可以使用url解码</li>
 </ul>
-<h3 id="字符串格式化的方式"><a href="#字符串格式化的方式" class="headerlink" title="字符串格式化的方式"></a>字符串格式化的方式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&quot;&lt;http://www.baidu.com/s?wd=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;pyhton&gt;&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="post"><a href="#post" class="headerlink" title="post()"></a>post()</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<h3 id="字符串格式化的方式">字符串格式化的方式</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&quot;&lt;http://www.baidu.com/s?wd=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;pyhton&gt;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="post">post()</h2>
+<h3 id="使用场景">使用场景</h3>
+<ul>
 <li>登录注册(post比get更安全)</li>
 <li>需要传输大文本内容的时候</li>
 </ul>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reponse = requests.post(<span class="string">&quot;&lt;http://www.baidu.com&gt;&quot;</span>,data = data,headers = headers)</span><br></pre></td></tr></table></figure>
-<p>data:字典的形式，用来存储需要传输的数据<br>传回的数据是 json 类型的一个数据</p>
+<h3 id="用法">用法</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reponse = requests.post(<span class="string">&quot;&lt;http://www.baidu.com&gt;&quot;</span>,data = data,headers = headers)</span><br></pre></td></tr></table></figure>
+<p>data:字典的形式，用来存储需要传输的数据<br>
+传回的数据是 json 类型的一个数据</p>
 <p>返回的数据的类型:json,text,html</p>
-<h3 id="使用代理ip"><a href="#使用代理ip" class="headerlink" title="使用代理ip"></a>使用代理ip</h3><ul>
+<h3 id="使用代理ip">使用代理ip</h3>
+<ul>
 <li>使用爬虫需要使用代理</li>
 <li>根据ip地址能够追查到某个地址某个人，防止真实的ip地址暴漏</li>
-<li>代理ip:<ul>
+<li>代理ip:
+<ul>
 <li>透明代理 可以追查到真实的ip地址</li>
 <li>普匿代理</li>
 <li>高匿代理 不易追查</li>
 </ul>
 </li>
-<li>检查代理ip的可用性:<ul>
+<li>检查代理ip的可用性:
+<ul>
 <li>可以使用requests添加超时参数，判断ip地址的质量</li>
 </ul>
 </li>
-<li>可以准备一堆ip地址，组成ip池，随机选择一个ip来用<ul>
-<li>随机选择ip代理地址<ul>
-<li>{“ip”:ip,”times”:0}</li>
+<li>可以准备一堆ip地址，组成ip池，随机选择一个ip来用
+<ul>
+<li>随机选择ip代理地址
+<ul>
+<li>{“ip”:ip,“times”:0}</li>
 <li>[{},{},{}]用列表来进行排序，按照使用次数来排列</li>
 <li>选择使用较少的10个ip地址，从中选取一个</li>
 </ul>
@@ -458,13 +496,15 @@
 </ul>
 </li>
 </ul>
-<h3 id="cookie-和-session"><a href="#cookie-和-session" class="headerlink" title="cookie 和 session"></a>cookie 和 session</h3><ul>
+<h3 id="cookie-和-session">cookie 和 session</h3>
+<ul>
 <li>cookie存放在客户的浏览器上，session保存在服务器上</li>
 <li>cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗</li>
 <li>session会在一定时间内保存在服务器上，当访问增多，会比较占用你的服务器的性能</li>
 <li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点只能保存20个cookie</li>
 <li>带上cookie和session的好处:能够请求到登录之后的界面</li>
-<li>带上cookie和session的弊端:<ul>
+<li>带上cookie和session的弊端:
+<ul>
 <li>一套cookie和session往往之和一个用户对应</li>
 <li>请求太快，请求太多，容易被服务器识别为爬虫</li>
 </ul>
@@ -472,11 +512,14 @@
 <li>不需要cookie的时候尽量不使用cookie</li>
 <li>但是为了获取登录之后的页面，必须使用cookie</li>
 </ul>
-<h3 id="携带cookie进行请求"><a href="#携带cookie进行请求" class="headerlink" title="携带cookie进行请求"></a>携带cookie进行请求</h3><ul>
+<h3 id="携带cookie进行请求">携带cookie进行请求</h3>
+<ul>
 <li>携带一堆cookie进行请求，把cookie组成一个cookie池</li>
 <li>cookie储存为一个字典，然后字典组成列表，进行排序使用</li>
 </ul>
-<h3 id="requests中的session类"><a href="#requests中的session类" class="headerlink" title="requests中的session类"></a>requests中的session类</h3><p>session来实现客户端和服务端的会话保持<br>使用方法:</p>
+<h3 id="requests中的session类">requests中的session类</h3>
+<p>session来实现客户端和服务端的会话保持<br>
+使用方法:</p>
 <ul>
 <li>实例化一个session对象</li>
 <li>让session来发送get或者post请求</li>
@@ -490,24 +533,32 @@
 <li>先使用session发送请求，登录对应网站，把cookie保存在session中</li>
 <li>在使用session请求登陆之后才能访问的网站，session能够自动携带登陆成功时保存在其中的cookie信息，进行请求</li>
 </ul>
-<h3 id="不发送post请求，使用cookie获取登陆后的页面"><a href="#不发送post请求，使用cookie获取登陆后的页面" class="headerlink" title="不发送post请求，使用cookie获取登陆后的页面"></a>不发送post请求，使用cookie获取登陆后的页面</h3><ul>
+<h3 id="不发送post请求-使用cookie获取登陆后的页面">不发送post请求，使用cookie获取登陆后的页面</h3>
+<ul>
 <li>cookie过期时间太长的网站</li>
 <li>cookie过期之前能够拿到所有的数据</li>
 <li>配合其他的程序一起使用，其他的程序获取cookie，当前程序专门请求页面</li>
 </ul>
-<h3 id="字典生成-字典推导式"><a href="#字典生成-字典推导式" class="headerlink" title="字典生成 字典推导式"></a>字典生成 字典推导式</h3><p>能够把cookie转化为字典:</p>
+<h3 id="字典生成-字典推导式">字典生成 字典推导式</h3>
+<p>能够把cookie转化为字典:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cookies = &#123;i.split(<span class="string">&quot;=&quot;</span>)[<span class="number">0</span>]:i.split(<span class="string">&quot;=&quot;</span>)[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> cookies.splits(<span class="string">&quot;;&quot;</span>)&#125;</span><br></pre></td></tr></table></figure>
-<p>就是能把 ; 作为分割的工具，把一个个元素分割，而且等号前面的作为 key，等号后面的作为 value<br>cookie是存在于headers中的，也可以直接放到请求里去</p>
-<h3 id="获取登陆后页面的三种方式"><a href="#获取登陆后页面的三种方式" class="headerlink" title="获取登陆后页面的三种方式"></a>获取登陆后页面的三种方式</h3><ol>
+<p>就是能把 ; 作为分割的工具，把一个个元素分割，而且等号前面的作为 key，等号后面的作为 value<br>
+cookie是存在于headers中的，也可以直接放到请求里去</p>
+<h3 id="获取登陆后页面的三种方式">获取登陆后页面的三种方式</h3>
+<ol>
 <li>实例化session，使用session发送post请求，在使用session来获取登录之后的界面</li>
 <li>headers中添加cookie键，值为cookie字符串</li>
 <li>在请求方法中添加cookie作为参数，接受字典形式的cookie，字典形式的cookie中的键是cookie的name，值是cookie的valuek</li>
 </ol>
-<h3 id="寻找登陆的-post-地址"><a href="#寻找登陆的-post-地址" class="headerlink" title="寻找登陆的 post 地址"></a>寻找登陆的 post 地址</h3><ul>
-<li>在form表单中寻找action地址<ul>
+<h3 id="寻找登陆的-post-地址">寻找登陆的 post 地址</h3>
+<ul>
+<li>在form表单中寻找action地址
+<ul>
 <li>post的数据是input标签中name的值作为变量，真正的用户名密码作为值的字典，post的url地址就是action对应的地址</li>
-<li>如果没有action的url地址的解决方法:<ul>
-<li>抓包,但是登陆的时候页面会跳转就看不到之前的界面的源码了<ul>
+<li>如果没有action的url地址的解决方法:
+<ul>
+<li>抓包,但是登陆的时候页面会跳转就看不到之前的界面的源码了
+<ul>
 <li>使用错误的密码登录</li>
 <li>在检查界面勾选上 preserve log</li>
 </ul>
@@ -517,9 +568,11 @@
 </ul>
 </li>
 </ul>
-<h3 id="requests-小技巧"><a href="#requests-小技巧" class="headerlink" title="requests 小技巧"></a>requests 小技巧</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests.utils</span><br><span class="line">requests.utils.dict_from_cookiejar  <span class="comment"># 就是把cookie对象转化为字典</span></span><br><span class="line">requests.utils.cookiejar_from_dict  <span class="comment"># 就是把为字典转化为cookies</span></span><br><span class="line">requests.utils.unquote(未解码的url地址) <span class="comment"># 就是对url地址解码</span></span><br><span class="line">requests.utils.quote(url) <span class="comment"># 就是把url进行编码，但是不会把/编码，会对:?进行编码</span></span><br><span class="line">response = requests.get(url,timeout = <span class="number">10</span>) <span class="comment"># 设置超时，10s钟之内没有返回响应就会报错</span></span><br><span class="line">response = requests.get(<span class="string">&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;</span>,verify = <span class="literal">False</span>) <span class="comment"># 获取证书验证 verify 就是表示是否证书验证，false就是不验证，默认为true</span></span><br><span class="line"><span class="keyword">assert</span> response.status_code == <span class="number">200</span> <span class="comment"># 断言，如果为真就继续运行，如果为假就会报错</span></span><br></pre></td></tr></table></figure>
+<h3 id="requests-小技巧">requests 小技巧</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests.utils</span><br><span class="line">requests.utils.dict_from_cookiejar  <span class="comment"># 就是把cookie对象转化为字典</span></span><br><span class="line">requests.utils.cookiejar_from_dict  <span class="comment"># 就是把为字典转化为cookies</span></span><br><span class="line">requests.utils.unquote(未解码的url地址) <span class="comment"># 就是对url地址解码</span></span><br><span class="line">requests.utils.quote(url) <span class="comment"># 就是把url进行编码，但是不会把/编码，会对:?进行编码</span></span><br><span class="line">response = requests.get(url,timeout = <span class="number">10</span>) <span class="comment"># 设置超时，10s钟之内没有返回响应就会报错</span></span><br><span class="line">response = requests.get(<span class="string">&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;</span>,verify = <span class="literal">False</span>) <span class="comment"># 获取证书验证 verify 就是表示是否证书验证，false就是不验证，默认为true</span></span><br><span class="line"><span class="keyword">assert</span> response.status_code == <span class="number">200</span> <span class="comment"># 断言，如果为真就继续运行，如果为假就会报错</span></span><br></pre></td></tr></table></figure>
 <p>cookie 是存在于 response 中的，就是网页保存到我们本地的 cookie</p>
-<p>alias:可以对指令进行重命名，但是只能在linux中使用，例如<br>alias fanyi=”Python 绝对路径/xxx.py”,就相当于在终端种输入了 python 绝对路径/xxx.py</p>
+<p>alias:可以对指令进行重命名，但是只能在linux中使用，例如<br>
+alias fanyi=“Python 绝对路径/xxx.py”,就相当于在终端种输入了 python 绝对路径/xxx.py</p>
 
     </div>
 
@@ -621,7 +674,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#requests-%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">requests 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">url形式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-URl%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP URl的理解:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E5%8D%8F%E8%AE%AE%E5%AF%B9%E8%B5%84%E6%BA%90%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP协议对资源的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests%E5%BA%937%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">requests库7个主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.6.</span> <span class="nav-text">响应状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E8%99%AB%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.7.</span> <span class="nav-text">爬虫的流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get"><span class="nav-number">2.</span> <span class="nav-text">get()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E8%AF%B7%E6%B1%82%E6%88%90%E5%8A%9F"><span class="nav-number">2.1.</span> <span class="nav-text">判断是否请求成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#response-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">response 的常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">字符串格式化的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post"><span class="nav-number">3.</span> <span class="nav-text">post()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86ip"><span class="nav-number">3.3.</span> <span class="nav-text">使用代理ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-%E5%92%8C-session"><span class="nav-number">3.4.</span> <span class="nav-text">cookie 和 session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%BA%E5%B8%A6cookie%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82"><span class="nav-number">3.5.</span> <span class="nav-text">携带cookie进行请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests%E4%B8%AD%E7%9A%84session%E7%B1%BB"><span class="nav-number">3.6.</span> <span class="nav-text">requests中的session类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82%EF%BC%8C%E4%BD%BF%E7%94%A8cookie%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E5%90%8E%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="nav-number">3.7.</span> <span class="nav-text">不发送post请求，使用cookie获取登陆后的页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90-%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="nav-number">3.8.</span> <span class="nav-text">字典生成 字典推导式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E5%90%8E%E9%A1%B5%E9%9D%A2%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.9.</span> <span class="nav-text">获取登陆后页面的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E7%99%BB%E9%99%86%E7%9A%84-post-%E5%9C%B0%E5%9D%80"><span class="nav-number">3.10.</span> <span class="nav-text">寻找登陆的 post 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">3.11.</span> <span class="nav-text">requests 小技巧</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#requests-%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">requests 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">url形式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-url%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP URl的理解:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http%E5%8D%8F%E8%AE%AE%E5%AF%B9%E8%B5%84%E6%BA%90%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP协议对资源的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests%E5%BA%937%E4%B8%AA%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">requests库7个主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.6.</span> <span class="nav-text">响应状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E8%99%AB%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.7.</span> <span class="nav-text">爬虫的流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get"><span class="nav-number">2.</span> <span class="nav-text">get()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E8%AF%B7%E6%B1%82%E6%88%90%E5%8A%9F"><span class="nav-number">2.1.</span> <span class="nav-text">判断是否请求成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#response-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">response 的常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">字符串格式化的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post"><span class="nav-number">3.</span> <span class="nav-text">post()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86ip"><span class="nav-number">3.3.</span> <span class="nav-text">使用代理ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-%E5%92%8C-session"><span class="nav-number">3.4.</span> <span class="nav-text">cookie 和 session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%BA%E5%B8%A6cookie%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82"><span class="nav-number">3.5.</span> <span class="nav-text">携带cookie进行请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests%E4%B8%AD%E7%9A%84session%E7%B1%BB"><span class="nav-number">3.6.</span> <span class="nav-text">requests中的session类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82-%E4%BD%BF%E7%94%A8cookie%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E5%90%8E%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="nav-number">3.7.</span> <span class="nav-text">不发送post请求，使用cookie获取登陆后的页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90-%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="nav-number">3.8.</span> <span class="nav-text">字典生成 字典推导式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E5%90%8E%E9%A1%B5%E9%9D%A2%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.9.</span> <span class="nav-text">获取登陆后页面的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E7%99%BB%E9%99%86%E7%9A%84-post-%E5%9C%B0%E5%9D%80"><span class="nav-number">3.10.</span> <span class="nav-text">寻找登陆的 post 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">3.11.</span> <span class="nav-text">requests 小技巧</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -637,20 +690,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog_NexT/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-count">123</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -694,12 +747,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.7m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20:23</span>
+    <span title="站点阅读时长">26:28</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

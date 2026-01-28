@@ -269,12 +269,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="安装显卡驱动"><a href="#安装显卡驱动" class="headerlink" title="安装显卡驱动"></a>安装显卡驱动</h2><p>众所周知，在 ubuntu 上很多项目都需要利用 CUDA 调用 GPU 来进行高效的并行计算，CUDA通过CPU任务分发和GPU并行处理的方式，显著提升计算效率，尤其在需要大规模并行计算的人工智能和深度学习领域发挥着关键作用。但是想要使用 CUDA 就需要安装 NVIDIA 的显卡驱动，但是很多时候安装就很容易出问题，所以如果要用的话，就把它作为第一件事，降低时间成本。</p>
-<h3 id="查找驱动"><a href="#查找驱动" class="headerlink" title="查找驱动"></a>查找驱动</h3><p>在 NVIDIA 官网的驱动页面，可以自己选择手动搜索驱动程序，根据自己电脑的显卡型号（可以上网查查，或者查看购买记录），搜索适合自己显卡的驱动</p>
-<h3 id="查看合适的版本号"><a href="#查看合适的版本号" class="headerlink" title="查看合适的版本号"></a>查看合适的版本号</h3><p>需要利用外部的工具来查看合适的 NVIDIA 合适的版本号，ubuntu-drivers-common 是 ubuntu 系统中用于管理硬件驱动的核心工具，特别是针对专有驱动程序（如 NVIDIA/AMD 显卡驱动、无线网卡驱动等）。它提供了 ubuntu-drivers 命令行工具，能够自动扫描硬件并列出可用的驱动版本（包括开源和专有驱动）</p>
+        <h2 id="安装显卡驱动">安装显卡驱动</h2>
+<p>众所周知，在 ubuntu 上很多项目都需要利用 CUDA 调用 GPU 来进行高效的并行计算，CUDA通过CPU任务分发和GPU并行处理的方式，显著提升计算效率，尤其在需要大规模并行计算的人工智能和深度学习领域发挥着关键作用。但是想要使用 CUDA 就需要安装 NVIDIA 的显卡驱动，但是很多时候安装就很容易出问题，所以如果要用的话，就把它作为第一件事，降低时间成本。</p>
+<h3 id="查找驱动">查找驱动</h3>
+<p>在 NVIDIA 官网的驱动页面，可以自己选择手动搜索驱动程序，根据自己电脑的显卡型号（可以上网查查，或者查看购买记录），搜索适合自己显卡的驱动</p>
+<h3 id="查看合适的版本号">查看合适的版本号</h3>
+<p>需要利用外部的工具来查看合适的 NVIDIA 合适的版本号，ubuntu-drivers-common 是 ubuntu 系统中用于管理硬件驱动的核心工具，特别是针对专有驱动程序（如 NVIDIA/AMD 显卡驱动、无线网卡驱动等）。它提供了 ubuntu-drivers 命令行工具，能够自动扫描硬件并列出可用的驱动版本（包括开源和专有驱动）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ubuntu-drivers-common</span><br><span class="line">ubuntu-drivers devices</span><br></pre></td></tr></table></figure>
 <p>看看推荐哪个版本的，到时候到官网上就下载对应版本的驱动即可，小版本号一般不是很重要，可以选择一个较新的小版本号</p>
-<h3 id="禁用-nouveau"><a href="#禁用-nouveau" class="headerlink" title="禁用 nouveau"></a>禁用 nouveau</h3><p>很多Linux发行版默认集成了Nouveau驱动，在使用NVIDIA显卡时默认安装Nouveau驱动。但是用户除了想让正常显示图形界面外很多时候还需要一些其他功能，Nouveau驱动不能完成，同时还会对安装其他插件造成干扰，因此需要禁用掉</p>
+<h3 id="禁用-nouveau">禁用 nouveau</h3>
+<p>很多Linux发行版默认集成了Nouveau驱动，在使用NVIDIA显卡时默认安装Nouveau驱动。但是用户除了想让正常显示图形界面外很多时候还需要一些其他功能，Nouveau驱动不能完成，同时还会对安装其他插件造成干扰，因此需要禁用掉</p>
 <p>打开黑名单</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/modprobe.d/blacklist-nouveau.conf</span><br></pre></td></tr></table></figure>
 <p>将 nouveau 拉入黑名单</p>
@@ -284,27 +288,33 @@
 <p>重启之后，检验是否禁用成功，若无输出则表示禁用成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
 <p>在安装 NVIDIA 之前需要禁用掉 nouveau</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>下载之后是一个 <code>.run</code> 文件，为其添加可执行权限，之后执行安装</p>
+<h3 id="安装">安装</h3>
+<p>下载之后是一个 <code>.run</code> 文件，为其添加可执行权限，之后执行安装</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x xxx.run</span><br><span class="line">./xxx.run</span><br></pre></td></tr></table></figure>
 <p>安装过程会出现几个问题，一般都是选择继续安装，有几个问题比较特别，这里提一下</p>
 <ol>
 <li>Install NVIDIA’s 32-bit compatibility libraries? 是否要安装 32 位的库，如果是 64 位的电脑就没必要装</li>
 <li>Would you like to run the nvidia-xconfig utility to automatically update your X configuration file so that the NVIDIA X driver will be used when you restart X? Any pre-existing X configuration file will be backed up. 当安装了NVIDIA显卡驱动后，系统询问是否要自动配置X窗口系统来使用NVIDIA驱动，很多都建议是 No，虽然选择 Yes 会做备份，但是有时候会出现一些奇怪的问题。但是如果已经装好了选择了 Yes，出现了问题想要重新装显卡驱动的，可以看看这篇文章 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Dy1211186431/article/details/135926295">https://blog.csdn.net/Dy1211186431/article/details/135926295</a></li>
 </ol>
-<h3 id="安装之后掉显卡的问题"><a href="#安装之后掉显卡的问题" class="headerlink" title="安装之后掉显卡的问题"></a>安装之后掉显卡的问题</h3><p>安装显卡之后，如果内核更新，会导致掉显卡，所以就直接禁用内核更新，关于内核的指令如下：</p>
+<h3 id="安装之后掉显卡的问题">安装之后掉显卡的问题</h3>
+<p>安装显卡之后，如果内核更新，会导致掉显卡，所以就直接禁用内核更新，关于内核的指令如下：</p>
 <ol>
 <li>查看所有内核 <code>dpkg --get-selections |grep linux-image</code></li>
 <li>禁用内核更新 <code>sudo apt-mark hold linux-image-generic linux-headers-generic</code></li>
 <li>取消禁止内核更新 <code>sudo apt-mark unhold linux-image-generic linux-headers-generic</code></li>
 </ol>
 <p>另外，我发现ubuntu20.04掉内核就很抽象，内核更新之后，电脑的 BIOS 启动项中的安全启动被打开了，而且后续安装 NVIDIA 显卡也需要在 BIOS 启动项中的安全启动关掉，但是一关掉 BIOS 中的安全启动之后，启动 Ubuntu20.04 之后显卡就又好了，只能说有点怪</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这种安装驱动的方法，不知道能不能适用于所有人，有些是在<strong>软件与更新</strong>中直接安装推荐版本的显卡驱动的，但是我之前使用的时候经常出问题，而且也不支持 HDMI 外接额外的显示器，显卡驱动也容易掉。至少对于我来说，利用这种方法之后，显卡驱动就没再出现过什么问题了，对于外接屏幕也适配的很好。我的电脑是惠普的，据说联想的电脑安装显卡驱动挺难搞的，如果没用过这种方法，可以试试。如果出问题了，就在选择进入哪个系统的界面中进入 ubuntu recovery，将系统回退一下即可。</p>
-<h2 id="中文输入法"><a href="#中文输入法" class="headerlink" title="中文输入法"></a>中文输入法</h2><h3 id="ibus"><a href="#ibus" class="headerlink" title="ibus"></a>ibus</h3><p>在 ubuntu 中，默认是使用英文输入法的，要想搜索什么东西，都很不方便</p>
+<h3 id="小结">小结</h3>
+<p>这种安装驱动的方法，不知道能不能适用于所有人，有些是在<strong>软件与更新</strong>中直接安装推荐版本的显卡驱动的，但是我之前使用的时候经常出问题，而且也不支持 HDMI 外接额外的显示器，显卡驱动也容易掉。至少对于我来说，利用这种方法之后，显卡驱动就没再出现过什么问题了，对于外接屏幕也适配的很好。我的电脑是惠普的，据说联想的电脑安装显卡驱动挺难搞的，如果没用过这种方法，可以试试。如果出问题了，就在选择进入哪个系统的界面中进入 ubuntu recovery，将系统回退一下即可。</p>
+<h2 id="中文输入法">中文输入法</h2>
+<h3 id="ibus">ibus</h3>
+<p>在 ubuntu 中，默认是使用英文输入法的，要想搜索什么东西，都很不方便</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ibus ibus-pinyin</span><br></pre></td></tr></table></figure>
 <p>启动 ibus 守护进程</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibus-daemon -drx</span><br></pre></td></tr></table></figure>
 <p>在系统设置中，找到“区域和语言”设置，选择“输入法”标签，然后添加 IBus 作为输入源。为语言的 input source 添加 chinese intelligent pinyin。之后利用指令 <code>ibus-setup</code> 打开 ibus 的配置文件，修改 input-Method ，为其添加 intelligent pinyin。需要注意的是，这是智能拼音，其他的不能正常拼音打字。有时候好像就没有 <code>intelligent pinyin</code> 这个选项，这个还挺奇怪的，不过后面都没怎么遇到过了，实在不行试试重启</p>
-<h3 id="搜狗输入法"><a href="#搜狗输入法" class="headerlink" title="搜狗输入法"></a>搜狗输入法</h3><p>实际上使用过后，发现 ibus 确实很难用，主要是它有时候被我无意中将符号切换成英文的了，查找很久也没解决，另外就是 ibus 的提示词非常离谱，打字就很麻烦，几乎全程都是在找字，所以选择使用 搜狗输入法。直接按照官方教程安装即可，链接如下：</p>
+<h3 id="搜狗输入法">搜狗输入法</h3>
+<p>实际上使用过后，发现 ibus 确实很难用，主要是它有时候被我无意中将符号切换成英文的了，查找很久也没解决，另外就是 ibus 的提示词非常离谱，打字就很麻烦，几乎全程都是在找字，所以选择使用 搜狗输入法。直接按照官方教程安装即可，链接如下：</p>
 <p><a target="_blank" rel="noopener" href="https://shurufa.sogou.com/linux/guide">搜狗输入法官网</a></p>
 
     </div>
@@ -422,20 +432,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog_NexT/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-count">123</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -479,12 +489,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.7m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20:23</span>
+    <span title="站点阅读时长">26:28</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

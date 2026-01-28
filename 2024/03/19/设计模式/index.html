@@ -294,85 +294,115 @@
 
       
         <p><a target="_blank" rel="noopener" href="https://github.com/Luo25177/Design-Pattern">GitHub - Luo25177/Design-Pattern</a></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a><strong>设计原则</strong></h3><ol>
-<li>依赖倒置原则<ul>
+<h2 id="介绍">介绍</h2>
+<h3 id="设计原则"><strong>设计原则</strong></h3>
+<ol>
+<li>依赖倒置原则
+<ul>
 <li>高层模块(稳定)不应该依赖于低层模块(变化)，二者都应该依赖于抽象(稳定)，稳定的东西不应该依赖于变化的东西</li>
 <li>抽象(稳定)不应该依赖于实现细节(变化)，实现细节应该依赖于抽象(稳定)，稳定的东西不应该依赖于变化的东西</li>
 <li>解决: 创建抽象类，之后的类依赖抽象类</li>
 <li>依赖：例如A依赖B，在编译A的时候只有B存在才能编译成功 编译式依赖</li>
 </ul>
 </li>
-<li>开放封闭原则<ul>
+<li>开放封闭原则
+<ul>
 <li>对扩展开放，对更改关闭</li>
 <li>类模块应该是可以扩展的，但是不可以修改</li>
 </ul>
 </li>
-<li>单一职责原则<ul>
+<li>单一职责原则
+<ul>
 <li>一个类应该仅有一个引起它变化的原因，一个类不能放太多功能，也就是不能有太多的责任</li>
 <li>变化的方向隐含着类的责任</li>
 </ul>
 </li>
-<li>Liskov替换原则<ul>
+<li>Liskov替换原则
+<ul>
 <li>子类必须能够替换它们的基类(is-a)</li>
 <li>继承表达类型抽象</li>
 </ul>
 </li>
-<li>接口隔离原则<ul>
+<li>接口隔离原则
+<ul>
 <li>不应该强迫客户程序依赖他们不用的方法</li>
 <li>接口应该小而完备</li>
 <li>真正有必要暴漏出去的方法才做成 public</li>
 </ul>
 </li>
-<li>优先使用对象组合而不是类继承<ul>
-<li>类继承通常为”白箱复用”，对象组合通常为”黑箱复用”</li>
+<li>优先使用对象组合而不是类继承
+<ul>
+<li>类继承通常为&quot;白箱复用&quot;，对象组合通常为&quot;黑箱复用&quot;</li>
 <li>继承在某种程度上破坏了封装性，子类父类耦合度高，父类对子类开放的太多</li>
 <li>而对象组合只要求被组合的对象具有良好定义的接口，耦合度比较低</li>
 </ul>
 </li>
-<li>封装变化点<ul>
+<li>封装变化点
+<ul>
 <li>使用封装来创建对象之间的分界层，让设计者可以在分界层一侧进行修改，而不会对另一侧的产生不良影响，从而出现高层次的封装</li>
 </ul>
 </li>
-<li>针对接口编程，而不是针对实现编程<ul>
+<li>针对接口编程，而不是针对实现编程
+<ul>
 <li>不将变量类型声明为某个特定的具体类，而是声明为某个接口</li>
 <li>客户程序无需获取对象的具体类型，只需要知道对象所具有的接口</li>
-<li>减少系统中各部分的依赖关系，从而实现”高内聚，松耦合”的类型设计方案</li>
+<li>减少系统中各部分的依赖关系，从而实现&quot;高内聚，松耦合&quot;的类型设计方案</li>
 </ul>
 </li>
 </ol>
-<h3 id="设计模式是为了让程序具有更好的"><a href="#设计模式是为了让程序具有更好的" class="headerlink" title="设计模式是为了让程序具有更好的"></a>设计模式是为了让程序具有更好的</h3><ol>
+<h3 id="设计模式是为了让程序具有更好的">设计模式是为了让程序具有更好的</h3>
+<ol>
 <li>代码重用性，相同功能的代码不用多次编写</li>
 <li>可读性，编程规范性，便于其他程序员阅读和理解</li>
 <li>可扩展性，当需要增加新的功能时，非常方便</li>
 <li>可靠性，当我们增加新的功能时对原来的功能没有影响</li>
 </ol>
-<h3 id="设计模式七大原则"><a href="#设计模式七大原则" class="headerlink" title="设计模式七大原则"></a>设计模式七大原则</h3><ol>
-<li>单一职责原则<br>一类代码只负责一项职责<br>提高类的可读性可维护性<br>降低变更引起的风险</li>
-<li>接口隔离原则<br>客户端不应该依赖不需要的接口，即一个类对另一个类的依赖应该建立最小的接口上</li>
-<li>依赖倒转(转置)原则<br>高层模块不应该依赖底层模块<br>抽象不应该依赖细节，抽象的相较于细节的比较稳定<br>中心原则面向接口编程</li>
-<li>里氏替换原则<br>子类中尽量不要重写父类的方法</li>
-<li>开闭原则<br>当软件需要变化时，尽量通过扩展软件实体的行为来实现变化，而不是修改代码，对扩展开放，对修改关闭</li>
-<li>迪米特法则<br>一个类除了对外提供的public方法以外，不对外泄露任何信息<br>只与直接的朋友通信<br>降低类之间的耦合程度</li>
-<li>合成复用原则<br>尽量使用合成/聚合的方式，而不是使用继承</li>
+<h3 id="设计模式七大原则">设计模式七大原则</h3>
+<ol>
+<li>单一职责原则<br>
+一类代码只负责一项职责<br>
+提高类的可读性可维护性<br>
+降低变更引起的风险</li>
+<li>接口隔离原则<br>
+客户端不应该依赖不需要的接口，即一个类对另一个类的依赖应该建立最小的接口上</li>
+<li>依赖倒转(转置)原则<br>
+高层模块不应该依赖底层模块<br>
+抽象不应该依赖细节，抽象的相较于细节的比较稳定<br>
+中心原则面向接口编程</li>
+<li>里氏替换原则<br>
+子类中尽量不要重写父类的方法</li>
+<li>开闭原则<br>
+当软件需要变化时，尽量通过扩展软件实体的行为来实现变化，而不是修改代码，对扩展开放，对修改关闭</li>
+<li>迪米特法则<br>
+一个类除了对外提供的public方法以外，不对外泄露任何信息<br>
+只与直接的朋友通信<br>
+降低类之间的耦合程度</li>
+<li>合成复用原则<br>
+尽量使用合成/聚合的方式，而不是使用继承</li>
 </ol>
-<h3 id="抽象向下"><a href="#抽象向下" class="headerlink" title="抽象向下"></a>抽象向下</h3><ol>
+<h3 id="抽象向下">抽象向下</h3>
+<ol>
 <li>封装</li>
 <li>继承</li>
 <li>多态</li>
 </ol>
 <p>基类的析构函数写成虚函数</p>
-<h2 id="C-的四种转换类型"><a href="#C-的四种转换类型" class="headerlink" title="C++的四种转换类型"></a>C++的四种转换类型</h2><h3 id="const-cast"><a href="#const-cast" class="headerlink" title="const_cast"></a><strong>const_cast</strong></h3><p>去掉类型的 <code>const</code> 或者 <code>volatile</code> 属性</p>
+<h2 id="c-的四种转换类型">C++的四种转换类型</h2>
+<h3 id="const-cast"><strong>const_cast</strong></h3>
+<p>去掉类型的 <code>const</code> 或者 <code>volatile</code> 属性</p>
 <ul>
 <li><code>const_cast&lt;目标类型&gt;(标识符)</code></li>
 </ul>
-<h3 id="static-cast"><a href="#static-cast" class="headerlink" title="static_cast"></a>static_cast</h3><p>无条件转换，静态类型转换</p>
+<h3 id="static-cast">static_cast</h3>
+<p>无条件转换，静态类型转换</p>
 <ul>
 <li>基类和子类之间的转换：其中子类指针转化为父类指针是安全的，但是父类指针转换为子类指针是不安全的</li>
 <li>基本数据类型转换， <code>enum,struct,int char,float</code> 等， <code>static_cast</code> 不能进行无关类型(如非基类和子类)指针之间的转换</li>
 <li>把任何类型的表达式转化为 <code>void</code> 类型</li>
 <li><code>static_cast</code> 不能去掉类型的 <code>const</code>， <code>volatile</code> 属性</li>
 </ul>
-<h3 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h3><p>有条件转换，动态类型转换，运行时检查类型安全(转换失败返回null)</p>
+<h3 id="dynamic-cast">dynamic_cast</h3>
+<p>有条件转换，动态类型转换，运行时检查类型安全(转换失败返回null)</p>
 <ul>
 <li>有条件转换，动态类型转换，运行时检查类型安全（转换失败返回NULL）：</li>
 <li>将一个基类对象指针（或引用） <code>cast</code> 到继承类指针， <code>dynamic_cast</code> 会根据基类指针是否真正指向继承类指针来做相应处理， 即会作出一定的判断。</li>
@@ -383,7 +413,8 @@
 <li>在类层次间进行上行转换时， <code>dynamic_cast和static_cast</code> 的效果是一样的；</li>
 <li>在进行下行转换时， <code>dynamic_cast</code> 具有类型检查的功能，比 <code>static_cast</code> 更安全。</li>
 </ul>
-<h3 id="reinterpret-cast"><a href="#reinterpret-cast" class="headerlink" title="reinterpret_cast"></a>reinterpret_cast</h3><p>仅重新解释类型，但是没有进行二进制的转换</p>
+<h3 id="reinterpret-cast">reinterpret_cast</h3>
+<p>仅重新解释类型，但是没有进行二进制的转换</p>
 <ul>
 <li>仅重新解释类型，但没有进行二进制的转换：</li>
 <li>转换的类型必须是一个指针，应用、算术类型、函数指针或者成员指针。</li>
@@ -391,7 +422,7 @@
 <li>最普通的用途就是在函数指针类型之间进行转换。</li>
 <li>很难保证移植性。</li>
 </ul>
-<h2 id="类的继承特点"><a href="#类的继承特点" class="headerlink" title="类的继承特点"></a>类的继承特点</h2><div class="table-container">
+<h2 id="类的继承特点">类的继承特点</h2>
 <table>
 <thead>
 <tr>
@@ -422,8 +453,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h3><p>友元函数: 如果在本类以外的其他地方定义的函数, 在类体重用 friend 进行声明. 此函数就称为本类的有元函数, 友元函数可以访问这个类中的私有成员</p>
+<h3 id="友元">友元</h3>
+<p>友元函数: 如果在本类以外的其他地方定义的函数, 在类体重用 friend 进行声明. 此函数就称为本类的有元函数, 友元函数可以访问这个类中的私有成员</p>
 <p>友元类: 类 A 将另一个类 B 声明为其友元类, 友元类 B 中的所有函数都是 A 类的友元函数, 可以访问 A 类中的所有成员</p>
 <ul>
 <li>友元关系不能被继承。</li>
@@ -431,23 +462,29 @@
 <li>友元关系不具有传递性。若类B是类A的友元，类C是B的友元，类C不一定是类A的友元，同样要看类中是否有相应的申明。</li>
 </ul>
 <hr>
-<h1 id="面向对象设计模式"><a href="#面向对象设计模式" class="headerlink" title="面向对象设计模式"></a>面向对象设计模式</h1><p>子类可以使用父类指针来表示，所以类一般都声明为指针，指针具有多态性，变量要声明成基类，虚函数是运行时依赖。</p>
+<h1 id="面向对象设计模式">面向对象设计模式</h1>
+<p>子类可以使用父类指针来表示，所以类一般都声明为指针，指针具有多态性，变量要声明成基类，虚函数是运行时依赖。</p>
 <p><code>c++</code> 中构造函数如果调用虚函数的话就是一种静态绑定，不是动态绑定，原因：如果在基类的构造函数中调用虚函数的话，那么在子类创建时会先调用基类的构造函数，基类的构造函数会调用子类重写的虚函数，那就会造成子类未完成构造函数但是却调用自身的虚函数，违背了规则。但是在其他的语言 <code>jave，c#</code> 中构造函数调用虚函数是一种动态绑定</p>
 <p>模板类是编译式多态，虚函数是运行式多态，也就是说模板类运行时性能高于基于虚函数的类，有了泛型编程的迭代器就不再使用虚函数的迭代器了</p>
-<h2 id="组件协作模式"><a href="#组件协作模式" class="headerlink" title="组件协作模式"></a>组件协作模式</h2><h3 id="模板模式-template"><a href="#模板模式-template" class="headerlink" title="模板模式 template"></a><strong>模板模式 template</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406223604450.png" alt="20200406223604450.png"></p>
+<h2 id="组件协作模式">组件协作模式</h2>
+<h3 id="模板模式-template"><strong>模板模式 template</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406223604450.png" alt="20200406223604450.png"></p>
 <ul>
 <li>封装不变的部分，将不变的部分抽取出来；</li>
 <li>扩展可变部分，将可变的设置抽象方法，让具体子类来实现。</li>
 <li>抽取的公共代码，便于后期维护</li>
-<li>行为有基类来控制，具体操作有子类实现。<br>就是先定义一个通用的基类，然后在对应创建子类，子类复写基类的方法</li>
+<li>行为有基类来控制，具体操作有子类实现。<br>
+就是先定义一个通用的基类，然后在对应创建子类，子类复写基类的方法</li>
 </ul>
-<h3 id="策略模式-strategy"><a href="#策略模式-strategy" class="headerlink" title="策略模式 strategy"></a><strong>策略模式 strategy</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406223743348.png" alt="20200406223743348.png"></p>
+<h3 id="策略模式-strategy"><strong>策略模式 strategy</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406223743348.png" alt="20200406223743348.png"></p>
 <ul>
 <li>就是当遇到相同的目的的算法，但是每一个都不通用，就可以写一个基类算法来减少if-else语句的使用，子类的算法都是继承自基类</li>
 <li>基类写对应的算法的抽象，在子类里直接重载该算法</li>
 <li>定义一系列算法，把它们一个个封装起来，并且使它们可互相替换。使得算法可独立于使用它的客户程序而变化</li>
 </ul>
-<h3 id="观察者模式-observer"><a href="#观察者模式-observer" class="headerlink" title="观察者模式 observer"></a><strong>观察者模式 observer</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406223838139.png" alt="20200406223838139.png"></p>
+<h3 id="观察者模式-observer"><strong>观察者模式 observer</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406223838139.png" alt="20200406223838139.png"></p>
 <p>对于一个持续运行的程序，需要用的另一个观察者的类来观察程序中运行的情况，可以随意添加多个观察者。创建一个基类观察者，子类观察者都依附于它，并且在对应的项目结构体中引用一个基类的观察者变量，之后可以转换为子类观察者</p>
 <p>定义对象间的一种一对多（<strong>变化</strong>）的依赖关系，以便当一个对象（<strong>Subject</strong>）的状态发生改变时，所有依赖于它的对象都能得到通知并自动更新</p>
 <ul>
@@ -455,94 +492,125 @@
 <li>目标发出通知时，无需指定观察者，通知会自动传播</li>
 <li>观察者会自己决定是否需要订阅通知，目标对象对此一无所知</li>
 </ul>
-<h2 id="单一职责模式"><a href="#单一职责模式" class="headerlink" title="单一职责模式"></a>单一职责模式</h2><h3 id="装饰模式-decrote"><a href="#装饰模式-decrote" class="headerlink" title="装饰模式 decrote"></a><strong>装饰模式 decrote</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200405220429862.png" alt="20200405220429862.png"></p>
+<h2 id="单一职责模式">单一职责模式</h2>
+<h3 id="装饰模式-decrote"><strong>装饰模式 decrote</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200405220429862.png" alt="20200405220429862.png"></p>
 <p>创建一个基类，然后在基类的基础上创建装饰类，各个装饰类里含有一个基类，可以之后传入装饰类里对应的类，类的多态，运行时装配</p>
 <p>其实就是在创建基类，每一个子类和对应的装饰都应该依赖于基类，可以创建一个装饰者基类，让所有的装饰者都依赖于它，在装饰者里可以引用一个基类，以便在使用的时候可以转化为其他的装饰类或者是其他的子类。</p>
 <p>动态（组合）地给一个对象增加一些额外的职责。就增加功能而言，Decorator 模式比生成子类（继承）更为灵活（消除重复代码 &amp; 减少子类个数）</p>
 <p>Decorator 模式应用的要点在于解决<strong>主体类在多个方向上的扩展功能</strong></p>
-<h3 id="桥模式-bridge"><a href="#桥模式-bridge" class="headerlink" title="桥模式 bridge"></a><strong>桥模式 bridge</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406115540814.png" alt="20200406115540814.png"></p>
+<h3 id="桥模式-bridge"><strong>桥模式 bridge</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406115540814.png" alt="20200406115540814.png"></p>
 <p>在设计中如果责任划分的不清晰，使用继承得到的加过往往是随着需求变化的，子类极具膨胀，同时充斥着重复代码，关键是划清责任</p>
 <p>要实现一定的功能，但是每一个子类都继承自父类，但是不能够完全继承父类的所有功能，而子类的子类又要调用父类的其他功能，这时候就可以简化</p>
-<p>就是对象间的组合关系，抽象的基类沿着各自的子类变化。Bridge 模式使用“ <strong>对象间的组合关系</strong> ”解耦了抽象和实现之间固有的绑定关系，使得抽象和实现可以沿着各自的维度来变化</p>
-<h2 id="对象创建模式"><a href="#对象创建模式" class="headerlink" title="对象创建模式"></a>对象创建模式</h2><h3 id="工厂模式-factory"><a href="#工厂模式-factory" class="headerlink" title="工厂模式 factory"></a><strong>工厂模式 factory</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406123133241.png" alt="20200406123133241.png"></p>
+<p>就是对象间的组合关系，抽象的基类沿着各自的子类变化。Bridge 模式使用“ <strong>对象间的组合关系</strong> ”解耦了抽象和实现之间固有的绑定关系，使得抽象和实现可以沿着各自的维度来变化</p>
+<h2 id="对象创建模式">对象创建模式</h2>
+<h3 id="工厂模式-factory"><strong>工厂模式 factory</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406123133241.png" alt="20200406123133241.png"></p>
 <p>隔离类对象使用者和具体类型之间的耦合关系，同样要求这些“易变类”拥有“稳定的接口”。在创建对象时，尽量避免new，从而避免创建对象中的紧耦合，从而支持对象创建的稳定。定义一个创建对象的接口，让子类来决定实例化哪个类，使一个类延迟化实现，主要是针对没有什么关联性的对象的创建</p>
 <p>工厂模式旨在解决“单个对象” 的需求变化，但是创建方法和参数相同</p>
-<h3 id="抽象工厂-abstract-factory"><a href="#抽象工厂-abstract-factory" class="headerlink" title="抽象工厂 abstract_factory"></a><strong>抽象工厂 abstract_factory</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406143418783.png" alt="20200406143418783.png"></p>
+<h3 id="抽象工厂-abstract-factory"><strong>抽象工厂 abstract_factory</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406143418783.png" alt="20200406143418783.png"></p>
 <p>提供一个接口，让该接口负责创建一系列“相关或者相互依赖的对象”，无需指定它们具体的类</p>
 <p>与工厂模式不同之处在于，可以处理<strong>一系列相互依赖的对象</strong>的创建工作，不同系列的对象之间不能互相依赖</p>
-<h3 id="原型模式-prototype"><a href="#原型模式-prototype" class="headerlink" title="原型模式 prototype"></a><strong>原型模式 prototype</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406145115826.png" alt="20200406145115826.png"></p>
+<h3 id="原型模式-prototype"><strong>原型模式 prototype</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406145115826.png" alt="20200406145115826.png"></p>
 <p>相当于把工厂模式里的基类和工厂基类合并到一起，通过克隆自己来创建对象</p>
 <p>与工厂模式的不同之处在于使用时创建一个原型对象，通过克隆原型对象来使用，使用原型实例创建指定对象种类，然后拷贝指定对象创建类型使用原型克隆的方法，可以灵活动态创建拥有某些稳定接口的新对象，所做的工作就是注册一个新的对象，然后再任何需要的地方 clone</p>
 <p>使用<strong>原型实例</strong>指定创建对象的种类，然后通过<strong>拷贝</strong>这些原型来创建新的对象</p>
-<h3 id="构建器-builder"><a href="#构建器-builder" class="headerlink" title="构建器 builder"></a><strong>构建器 builder</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406151348724.png" alt="20200406151348724.png"></p>
+<h3 id="构建器-builder"><strong>构建器 builder</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406151348724.png" alt="20200406151348724.png"></p>
 <p>在设计程序中，有时候面临着“一个复杂对象”的创建工作，通常各个部分的子对象用一定的算法构成，由于需求的变换子对象也经常面临着一些剧烈的变化，但是将他们组合到一起就会比较稳定。</p>
 <p>提供一种封装机制来隔离出负载对象的各个部分的变化，将一个复杂对象的构建与其表示相分离，使得同样的构建过程可以创建不同的表示，构建过程是稳定的，但是创建的不同表示是动态的</p>
 <p>将一个复杂对象的构建与其表示相分离，使得同样的构建过程（稳定）可以创建不同的表示（变化）</p>
 <p>缺点是难以应对“分步骤构建算法”的需求变动</p>
-<h2 id="对象性能模式"><a href="#对象性能模式" class="headerlink" title="对象性能模式"></a>对象性能模式</h2><p>只有这两种模式是为了解决性能问题，降低对象创建个数</p>
-<h3 id="单件模式-singleton"><a href="#单件模式-singleton" class="headerlink" title="单件模式 singleton"></a><strong>单件模式 singleton</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406153527896.png" alt="20200406153527896.png"></p>
+<h2 id="对象性能模式">对象性能模式</h2>
+<p>只有这两种模式是为了解决性能问题，降低对象创建个数</p>
+<h3 id="单件模式-singleton"><strong>单件模式 singleton</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406153527896.png" alt="20200406153527896.png"></p>
 <p>模式中的实例构造器可以设置为protected 以允许子类派生，模式一般不要支持拷贝构造方法和 clone 接口，因为这有可能导致多个对象实例，违背 Singleton 模式的初衷</p>
 <p>面向对象设计模式使用抽象类来解决问题，但是有时候抽象类中的虚函数可能会带来巨大的成本，必须谨慎处理。在软件系统中，有些特殊的类必须保证他们在系统中只存在一个实例才能保证正确性以及良好的效率，处理方式：</p>
 <ol>
 <li>单锁 会出现多线程时，代价太大</li>
 <li>双检查锁 会出现内存读写 <code>reorder</code> 解决方法: c++11 出现 <code>volite</code> 关键字来避免该变量创建时 <code>reorder</code></li>
 </ol>
-<h3 id="享元模式-flyweight"><a href="#享元模式-flyweight" class="headerlink" title="享元模式 flyweight"></a><strong>享元模式 flyweight</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406154613171.png" alt="20200406154613171.png"></p>
+<h3 id="享元模式-flyweight"><strong>享元模式 flyweight</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406154613171.png" alt="20200406154613171.png"></p>
 <p>采用<strong>对象共享</strong>的做法来降低系统中对象的<strong>个数</strong>，从而降低细粒度对象给系统带来的内存压力。在具体实现方面，要注意对象<strong>状态</strong>（最好状态不可更改）的处理</p>
 <p>创建之后对象状态不能更改，要注意对象状态的处理，尽可能实现只读的方式，在系统中采用纯粹对象方案的问题在于大量细粒度的对象会很快充斥在系统中，从而带来很高的运行代价，运用共享的技术有效的支持大量细粒度的对象。</p>
 <p>其实就是把创建过的对象放入对象池中，但是有些对象是不支持享元模式的，就是防止重复创建，有些对象被多个对象使用就没必要重复创建浪费空间了，可以只创建一个存入对象池中，如果已经创建了就不再创建而是调用之前创建好的</p>
-<h2 id="接口隔离模式"><a href="#接口隔离模式" class="headerlink" title="接口隔离模式"></a>接口隔离模式</h2><p>在组建构建过程中，某些接口之间直接依赖常常会带来很多问题，采用添加一层间接接口(稳定)来隔离本来相互紧密关联的接口，软件设计的核心是间接思想</p>
-<h3 id="门面模式-facade"><a href="#门面模式-facade" class="headerlink" title="门面模式 facade"></a><strong>门面模式 facade</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406164137493.png" alt="20200406164137493.png"></p>
+<h2 id="接口隔离模式">接口隔离模式</h2>
+<p>在组建构建过程中，某些接口之间直接依赖常常会带来很多问题，采用添加一层间接接口(稳定)来隔离本来相互紧密关联的接口，软件设计的核心是间接思想</p>
+<h3 id="门面模式-facade"><strong>门面模式 facade</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406164137493.png" alt="20200406164137493.png"></p>
 <p>为子系统中的一组接口提供一个一致（<strong>稳定</strong>）的界面，Facade 模式定义了一个高层接口，这个接口使得这一子系统更加容易使用（<strong>复用</strong>）（隔离变化和稳定）</p>
 <p>防止外部的对象与命令的对象直接紧耦合，所以提出间接层，添加接口来把客户类与内部系统本身的类隔离起来，以至于外部看不到内部的对象，最终的实现上无论内部怎么改变，但是外部所看到的接口是不变的，简化了外部系统与内部的交互。</p>
 <p>facade 设计模式组件的内部应该是“相互耦合关系比较大的一系列组件”，而不是一个简单功能的集合，从客户程序的角度看，该模式简化了整个组件系统的接口，对于组件内部与外部客户程序来说，达到了一种“解耦”的效果，内部子系统的任何变化不会影响到接口的变化。</p>
-<h3 id="代理模式-proxy"><a href="#代理模式-proxy" class="headerlink" title="代理模式 proxy"></a><strong>代理模式 proxy</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406165510496.png" alt="20200406165510496.png"></p>
+<h3 id="代理模式-proxy"><strong>代理模式 proxy</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406165510496.png" alt="20200406165510496.png"></p>
 <p>在面向对象时，有些对象由于某种原因（例如对象的创建的开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，在不失去透明操作对象的同时来管理这些对象特有的复杂性为其他对象提供代理或者接口。</p>
 <p>代理模式的实现方法或者实现粒度都相差很大，又可能对某个单个对象做copy之类的技术，实现细粒度的控制，也有可能对组件模块提供抽象代理层，在架构层做proxy</p>
-<p>为其他对象提供一种代理以控制（<strong>隔离</strong> ，即使用接口）对这个对象的访问</p>
-<h3 id="适配器-adapter"><a href="#适配器-adapter" class="headerlink" title="适配器 adapter"></a><strong>适配器 adapter</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2020050113333475.png" alt="2020050113333475.png"></p>
+<p>为其他对象提供一种代理以控制（<strong>隔离</strong> ，即使用接口）对这个对象的访问</p>
+<h3 id="适配器-adapter"><strong>适配器 adapter</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2020050113333475.png" alt="2020050113333475.png"></p>
 <p>适配器的目的就是为了移植不同类型的接口转移为其他的接口来达到实现接口匹配的配置，让原本接口不匹配的类可以一起工作</p>
 <p>实际上组合一个类，支持实现的一个类，适配器就是为了改变一些旧的已经存在的类的接口来实现类的接口统一</p>
 <p><code>public</code> 继承是共有接口， <code>protect,private</code> 都是实现继承，但是不继承接口</p>
-<h3 id="中介者-mediator"><a href="#中介者-mediator" class="headerlink" title="中介者 mediator"></a><strong>中介者 mediator</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406173151833.png" alt="20200406173151833.png"></p>
-<p>用一个中介对象来封装（<strong>封装变化</strong>）一系列的对象交互。中介者使各对象不需要显式的相互引用（<strong>编译时依赖 -&gt; 运行时依赖</strong> ），从而使其耦合松散（<strong>管理变化</strong>），而且可以独立地改变它们之间的交互</p>
+<h3 id="中介者-mediator"><strong>中介者 mediator</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406173151833.png" alt="20200406173151833.png"></p>
+<p>用一个中介对象来封装（<strong>封装变化</strong>）一系列的对象交互。中介者使各对象不需要显式的相互引用（<strong>编译时依赖 -&gt; 运行时依赖</strong> ），从而使其耦合松散（<strong>管理变化</strong>），而且可以独立地改变它们之间的交互</p>
 <p>在软件构建过程中，经常会出现多个对象互相交互关联的情况，就是两个类相互依赖或者紧密依赖，而且这种引用关系经常会面临不断地变化，这种情况下可以使用一个中介者来改善类之间的紧耦合关系 从而来抵御改变的类</p>
 <p>用一个中介类来封装一系列的对象交互（封装变化），中介者使各个对象之间不需要显示的相互引用（编译式依赖），转变为运行式依赖，而且可以独立的改变它们之间的交互，主要是为了解决对象之间直接的耦合关系。可以提供一个中介，让参与这些相互依赖的对象之间减少紧耦合，这个中介与这些对象需要时相互依赖的关系，以后需要相互调用的时候，就可以先调用中介通过中介来调用对应的目标，但是者之间需要一个通用的调用消息规范。中介中可以添加观察者模式，宗旨就是直接依赖关系转化为相互依赖关系。facade 解决的是系统内与系统外的隔离，中介者解决的是系统内类之间的依赖关系，多个对象出现各种依赖原则</p>
-<h2 id="状态变化模式"><a href="#状态变化模式" class="headerlink" title="状态变化模式"></a>状态变化模式</h2><h3 id="状态模式-State"><a href="#状态模式-State" class="headerlink" title="状态模式 State"></a><strong>状态模式 State</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406202242155.png" alt="20200406202242155.png"></p>
+<h2 id="状态变化模式">状态变化模式</h2>
+<h3 id="状态模式-state"><strong>状态模式 State</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406202242155.png" alt="20200406202242155.png"></p>
 <p>在组建构建过程中，某些对象的状态经常发生变化，对这些变化要进行有效的管理并且高层不受影响，软件构件过程中，某些对象的状态的改变其行为也会随之改变，状态类型也会发生改变</p>
 <p>state模式将所有与一个特定状态相关的行为都放入一个state的子类对象中，在对象状态切换时，切换相应的对象，但是同时维持state的接口，这样实现了具体操作与状态转换之间的解耦，为不同的状态引入不同的对象使得状态转变变得更加明确，而且保证不会出现不一致的情况，因为转换是原子性的，要么彻底转换过来，要么不转换</p>
 <p>在之后就没必要更改已经写好的状态器，但是可以不断地新增加子类，内部可以无限变化，但是对于外部的接口是固定的，不用太过于计较它们之间的差异性，需要注意它们之间共同的东西，把共同的相似的东西结合到一起，如果state没有实例变量，那么各个上下文可以共享同一个state对象，从而节省对象的开销</p>
-<h3 id="备忘录-Memento"><a href="#备忘录-Memento" class="headerlink" title="备忘录 Memento"></a><strong>备忘录 Memento</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406203835970.png" alt="20200406203835970.png"></p>
+<h3 id="备忘录-memento"><strong>备忘录 Memento</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406203835970.png" alt="20200406203835970.png"></p>
 <p>在软件构造中，某些对象的状态转换中，可能由于某些需求,在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后可以把对象恢复到这个原先保存的状态</p>
 <p>备忘录存储原发起对象内部状态，在需要时回复原发器的状态，核心是信息隐藏，即原发器需要对外部隐藏信息，也要保持封装性，同时又要把状态保存到外界。</p>
 <p>采用效率较高，又容易正确实现的序列化方案来实现Memento模式</p>
-<h2 id="数据结构模式"><a href="#数据结构模式" class="headerlink" title="数据结构模式"></a>数据结构模式</h2><p>在一些组件内部具有特定的数据结构，如果让客户程序依赖这些特定的数据结构，将极大地破坏组件的复用，这时候将这些特定的数据结构封装在内部，在外部提供一些统一的接口来实现与特定数据结构无关的访问</p>
-<h3 id="组合模式-composite"><a href="#组合模式-composite" class="headerlink" title="组合模式 composite"></a><strong>组合模式 composite</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406205814663.png" alt="20200406205814663.png"></p>
+<h2 id="数据结构模式">数据结构模式</h2>
+<p>在一些组件内部具有特定的数据结构，如果让客户程序依赖这些特定的数据结构，将极大地破坏组件的复用，这时候将这些特定的数据结构封装在内部，在外部提供一些统一的接口来实现与特定数据结构无关的访问</p>
+<h3 id="组合模式-composite"><strong>组合模式 composite</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406205814663.png" alt="20200406205814663.png"></p>
 <p>在软件某些情况下，客户代码过多的依赖与对象容器复杂的内部实现结构，对象容器内部实现结构（而非抽象接口）的变化将引起客户代码的频繁变化，带来代码维护性，扩展性等弊端。</p>
 <p>方式：将对象组合成<strong>树形结构</strong>以表示“部分-整体”的层次结构。Composite 使得用户对单个对象和组合对象的使用具有<strong>一致性</strong>（稳定）</p>
 <p>Composite 模式采用树形结构来实现普遍存在的对象容器，从而将“一对多”的关系转换为“一对一”的关系，使得客户的代码可以一致的（复用）处理对象和对象容器，无需关心处理的是单个的对象还是组合的对象容器，客户代码将与纯粹的抽象接口而不是对象内部的实现结构，从而更能对应变化，其实就是一种多类型的递归调用</p>
-<h3 id="迭代器-iterator"><a href="#迭代器-iterator" class="headerlink" title="迭代器 iterator"></a><strong>迭代器 iterator</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406211152758.png" alt="20200406211152758.png"></p>
+<h3 id="迭代器-iterator"><strong>迭代器 iterator</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406211152758.png" alt="20200406211152758.png"></p>
 <p>迭代器，在软件构建过程中，集合对象内部结构常常变化各异，但对于这些集合对象，我们希望在不爆露其内部结构的同时，可以让外部的客户代码透明的访问其中包含的元素，同时这种透明遍历为同一种算法在多种集合对象中进行操作提供了可能，提供一种方法顺序访问一个集合对象中的各种元素，而又不暴露该对象内部的实现</p>
 <p>提供一种方法顺序访问一个聚合对象中的各个元素，而又<strong>不暴露</strong>（稳定）该对象的内部表示</p>
 <p>通过迭代器来隔离实现与应用，访问一个对象无需暴漏其内部表示，迭代堕胎，为遍历不同的集合结构体重一个统一的接口，从而支持同样的算法在不同的遍历结构上进行操作，遍历时有必要关注迭代器自身的问题，可能会导致问题</p>
-<h3 id="职责链-Chain-of-Resposibilty"><a href="#职责链-Chain-of-Resposibilty" class="headerlink" title="职责链 Chain of Resposibilty"></a><strong>职责链 Chain of Resposibilty</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406212924906.png" alt="20200406212924906.png"></p>
+<h3 id="职责链-chain-of-resposibilty"><strong>职责链 Chain of Resposibilty</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406212924906.png" alt="20200406212924906.png"></p>
 <p>相当于是链表，在软件构件过程中，一个请求可能被多个对象处理，但是每个请求在运行中只能有一个接收者，如果显式制定的话，就会形成紧耦合，请求时不指定具体的接收者，使多个对象都有机会处理请求，避免请求的发送者和接收者之间的紧耦合关系，将这些对象连成一条链，就相当于一个链表，沿着这条链处理请求，直到有对象都处理完请求</p>
 <p>使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递请求，直到有一个对象处理它为止</p>
 <p>职责链的应用场景在于一个请求可能有多个接收者，但是最终的接收者只有这一个这时候请求发送者与接收者的耦合可能出现”变化脆弱“的症状吗，所以需要解耦合</p>
-<h2 id="行为变化模式"><a href="#行为变化模式" class="headerlink" title="行为变化模式"></a>行为变化模式</h2><p>在组件构建过程中，组件行为的变化经常导致组件本身剧烈的变化，行为变化模式将组件之间的行为和变化解耦合，从而支持组件行为的变化，实现两者之间的松耦合</p>
-<h3 id="命令模式-Command"><a href="#命令模式-Command" class="headerlink" title="命令模式 Command"></a><strong>命令模式 Command</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406214504166.png" alt="20200406214504166.png"></p>
+<h2 id="行为变化模式">行为变化模式</h2>
+<p>在组件构建过程中，组件行为的变化经常导致组件本身剧烈的变化，行为变化模式将组件之间的行为和变化解耦合，从而支持组件行为的变化，实现两者之间的松耦合</p>
+<h3 id="命令模式-command"><strong>命令模式 Command</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406214504166.png" alt="20200406214504166.png"></p>
 <p>在软件构建过程中，行为请求者与行为实现者通常呈现出紧耦合的关系，但在某些场合，比如需要对行为进行记录，撤销，事务等处理，这种无法抵御变化的紧耦合是不合适的，将请求封装为一个对象，从而使你可以用不同的请求对客户进行参数化，对请求排队或记录请求日志，以及可以撤销的操作</p>
 <p>将一个请求（行为）封装为一个对象，从而使你可用不同的请求对客户进行参数化。对请求排队或记录请求日志，以及支持可撤销的操作</p>
 <p>根本的目的是将行为请求者与行为实现者解耦，在面向对象中，常见的手段是将行为对象抽象为对象，实现Command接口的具体命令对象具体的command有时候需要保存一些额外的状态信息，同时在使用命令模式的同时也可以使用composite模式将多个指令封装</p>
-<h3 id="访问器-Visitor"><a href="#访问器-Visitor" class="headerlink" title="访问器 Visitor"></a><strong>访问器 Visitor</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406220227848.png" alt="20200406220227848.png"></p>
+<h3 id="访问器-visitor"><strong>访问器 Visitor</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406220227848.png" alt="20200406220227848.png"></p>
 <p>在软件构件的过程中，由于需求的改变，其次是类结构层次中常常需要增加新的行为或者方法，如果直接在基类中更改，对子类来说是一种负担，会破坏原有设计，再不更改类结构层次的条件下在运行时透明的添加新的行为动作， <code>visitor</code> 主要是利用双重分发，在不更改原先类的层次结构时透明的为各个类动态的添加功能</p>
 <p>表示一个作用于某对象结构中的各元素的操作。使得可以在不改变（<strong>稳定</strong>）各元素的类的前提下定义（<strong>扩展</strong>）作用于这些元素的新操作（变化）</p>
 <p>缺点：在需要基类稳定的同时，也需要相关的子类也要稳定，visitor类想要写下来时需要基类的所有子类必须确定下来并且稳定，需要确定它们的数目，visitor基类稳定的前提时element所有子类都需要稳定，这个模式的条件极其苛刻</p>
-<h2 id="领域规则模式"><a href="#领域规则模式" class="headerlink" title="领域规则模式"></a>领域规则模式</h2><p>在特定领域中，某些变化虽然频繁，但是可以抽象为某种规则，这时候结合特定领域，将问题抽象为语法规则，从而给出在该领域下的一般性解决方法</p>
-<h3 id="解析器-Interpreter"><a href="#解析器-Interpreter" class="headerlink" title="解析器 Interpreter"></a><strong>解析器 Interpreter</strong></h3><p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406222304558.png" alt="20200406222304558.png"></p>
+<h2 id="领域规则模式">领域规则模式</h2>
+<p>在特定领域中，某些变化虽然频繁，但是可以抽象为某种规则，这时候结合特定领域，将问题抽象为语法规则，从而给出在该领域下的一般性解决方法</p>
+<h3 id="解析器-interpreter"><strong>解析器 Interpreter</strong></h3>
+<p><img src="/Blog_NexT/2024/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20200406222304558.png" alt="20200406222304558.png"></p>
 <p>将领域内的问题表达为某种语法规则下的句子，然后构建一个解释器来解释遮掩的句子，在这个领域内，只要符合这个规则，解释器就能够解释，从而达到解决问题的目的</p>
-<p>interpreter模式的应用场合时interpreter的难点，只有满足<strong>业务规则频繁变化并且类似的结构不断出现并且容易抽象为语法规则问题</strong>才适合使用interpreter模式<br>使用interpreter模式来表示文法规则，从而可以使面向对象技巧来方便的扩展文法，比较适合简单的文法表示，对于复杂的文法表示interpreter会产生较大的类层次接口，需要求助于语法分析生成器额工具</p>
-<h2 id="两种手段分解-amp-抽象"><a href="#两种手段分解-amp-抽象" class="headerlink" title="两种手段分解&amp;抽象"></a>两种手段分解&amp;抽象</h2><h3 id="重构技巧"><a href="#重构技巧" class="headerlink" title="重构技巧"></a>重构技巧</h3><ul>
+<p>interpreter模式的应用场合时interpreter的难点，只有满足<strong>业务规则频繁变化并且类似的结构不断出现并且容易抽象为语法规则问题</strong>才适合使用interpreter模式<br>
+使用interpreter模式来表示文法规则，从而可以使面向对象技巧来方便的扩展文法，比较适合简单的文法表示，对于复杂的文法表示interpreter会产生较大的类层次接口，需要求助于语法分析生成器额工具</p>
+<h2 id="两种手段分解-抽象">两种手段分解&amp;抽象</h2>
+<h3 id="重构技巧">重构技巧</h3>
+<ul>
 <li>静态→动态</li>
 <li>早绑定→晚绑定</li>
 <li>继承→组合,组合一个指针，可以指向该类的子类,是一种松耦合,指针指向是灵活的</li>
@@ -550,7 +618,8 @@
 <li>紧耦合→松耦合</li>
 </ul>
 <p>设计模式的宗旨：管理变化，提高服用</p>
-<h3 id="不用设计模式的情况"><a href="#不用设计模式的情况" class="headerlink" title="不用设计模式的情况:"></a>不用设计模式的情况:</h3><ol>
+<h3 id="不用设计模式的情况">不用设计模式的情况:</h3>
+<ol>
 <li>代码可读性很差</li>
 <li>需求理解还很浅</li>
 <li>变化没有显现</li>
@@ -558,7 +627,8 @@
 <li>项目没有复用价值</li>
 <li>项目将要发布时</li>
 </ol>
-<h3 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a>经验之谈</h3><ol>
+<h3 id="经验之谈">经验之谈</h3>
+<ol>
 <li>不要为模式而模式</li>
 <li>关注抽象类&amp;接口</li>
 <li>清理变化点和稳定点</li>
@@ -566,7 +636,7 @@
 <li>要有Framework和Application的区域隔离思维</li>
 <li>良好的设计是演化的结果</li>
 </ol>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><div class="table-container">
+<h2 id="概述">概述</h2>
 <table>
 <thead>
 <tr>
@@ -629,7 +699,7 @@
 </tr>
 <tr>
 <td>Mediator</td>
-<td>用一个中介对象来封装（封装变化）一系列的对象交互。中介者使各对象不需要显式的相互引用（编译时依赖 → 运行时依赖 ），从而使其耦合松散（管理变化），而且可以独立地改变它们之间的交互</td>
+<td>用一个中介对象来封装（封装变化）一系列的对象交互。中介者使各对象不需要显式的相互引用（编译时依赖 → 运行时依赖 ），从而使其耦合松散（管理变化），而且可以独立地改变它们之间的交互</td>
 </tr>
 <tr>
 <td>Adapter</td>
@@ -669,7 +739,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 
     </div>
 
@@ -770,7 +839,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%BA%E4%BA%86%E8%AE%A9%E7%A8%8B%E5%BA%8F%E5%85%B7%E6%9C%89%E6%9B%B4%E5%A5%BD%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">设计模式是为了让程序具有更好的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">设计模式七大原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%90%91%E4%B8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">抽象向下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">C++的四种转换类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#const-cast"><span class="nav-number">2.1.</span> <span class="nav-text">const_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-cast"><span class="nav-number">2.2.</span> <span class="nav-text">static_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">2.3.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinterpret-cast"><span class="nav-number">2.4.</span> <span class="nav-text">reinterpret_cast</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E7%89%B9%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">类的继承特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8B%E5%85%83"><span class="nav-number">3.1.</span> <span class="nav-text">友元</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">面向对象设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">组件协作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F-template"><span class="nav-number">1.1.</span> <span class="nav-text">模板模式 template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-strategy"><span class="nav-number">1.2.</span> <span class="nav-text">策略模式 strategy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-observer"><span class="nav-number">1.3.</span> <span class="nav-text">观察者模式 observer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">单一职责模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-decrote"><span class="nav-number">2.1.</span> <span class="nav-text">装饰模式 decrote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%A5%E6%A8%A1%E5%BC%8F-bridge"><span class="nav-number">2.2.</span> <span class="nav-text">桥模式 bridge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">对象创建模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-factory"><span class="nav-number">3.1.</span> <span class="nav-text">工厂模式 factory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82-abstract-factory"><span class="nav-number">3.2.</span> <span class="nav-text">抽象工厂 abstract_factory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-prototype"><span class="nav-number">3.3.</span> <span class="nav-text">原型模式 prototype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%99%A8-builder"><span class="nav-number">3.4.</span> <span class="nav-text">构建器 builder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%80%A7%E8%83%BD%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">对象性能模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F-singleton"><span class="nav-number">4.1.</span> <span class="nav-text">单件模式 singleton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F-flyweight"><span class="nav-number">4.2.</span> <span class="nav-text">享元模式 flyweight</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">接口隔离模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%A8%E9%9D%A2%E6%A8%A1%E5%BC%8F-facade"><span class="nav-number">5.1.</span> <span class="nav-text">门面模式 facade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-proxy"><span class="nav-number">5.2.</span> <span class="nav-text">代理模式 proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8-adapter"><span class="nav-number">5.3.</span> <span class="nav-text">适配器 adapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E4%BB%8B%E8%80%85-mediator"><span class="nav-number">5.4.</span> <span class="nav-text">中介者 mediator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">状态变化模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F-State"><span class="nav-number">6.1.</span> <span class="nav-text">状态模式 State</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95-Memento"><span class="nav-number">6.2.</span> <span class="nav-text">备忘录 Memento</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A8%A1%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">数据结构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-composite"><span class="nav-number">7.1.</span> <span class="nav-text">组合模式 composite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-iterator"><span class="nav-number">7.2.</span> <span class="nav-text">迭代器 iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%8C%E8%B4%A3%E9%93%BE-Chain-of-Resposibilty"><span class="nav-number">7.3.</span> <span class="nav-text">职责链 Chain of Resposibilty</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%8F%98%E5%8C%96%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">行为变化模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-Command"><span class="nav-number">8.1.</span> <span class="nav-text">命令模式 Command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%99%A8-Visitor"><span class="nav-number">8.2.</span> <span class="nav-text">访问器 Visitor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E8%A7%84%E5%88%99%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.</span> <span class="nav-text">领域规则模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%99%A8-Interpreter"><span class="nav-number">9.1.</span> <span class="nav-text">解析器 Interpreter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%89%8B%E6%AE%B5%E5%88%86%E8%A7%A3-amp-%E6%8A%BD%E8%B1%A1"><span class="nav-number">10.</span> <span class="nav-text">两种手段分解&amp;抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%9E%84%E6%8A%80%E5%B7%A7"><span class="nav-number">10.1.</span> <span class="nav-text">重构技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">10.2.</span> <span class="nav-text">不用设计模式的情况:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E4%B9%8B%E8%B0%88"><span class="nav-number">10.3.</span> <span class="nav-text">经验之谈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">11.</span> <span class="nav-text">概述</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%BA%E4%BA%86%E8%AE%A9%E7%A8%8B%E5%BA%8F%E5%85%B7%E6%9C%89%E6%9B%B4%E5%A5%BD%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">设计模式是为了让程序具有更好的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">设计模式七大原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%90%91%E4%B8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">抽象向下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">C++的四种转换类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#const-cast"><span class="nav-number">2.1.</span> <span class="nav-text">const_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-cast"><span class="nav-number">2.2.</span> <span class="nav-text">static_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">2.3.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinterpret-cast"><span class="nav-number">2.4.</span> <span class="nav-text">reinterpret_cast</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E7%89%B9%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">类的继承特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8B%E5%85%83"><span class="nav-number">3.1.</span> <span class="nav-text">友元</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">面向对象设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">组件协作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F-template"><span class="nav-number">1.1.</span> <span class="nav-text">模板模式 template</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-strategy"><span class="nav-number">1.2.</span> <span class="nav-text">策略模式 strategy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-observer"><span class="nav-number">1.3.</span> <span class="nav-text">观察者模式 observer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">单一职责模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-decrote"><span class="nav-number">2.1.</span> <span class="nav-text">装饰模式 decrote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%A5%E6%A8%A1%E5%BC%8F-bridge"><span class="nav-number">2.2.</span> <span class="nav-text">桥模式 bridge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">对象创建模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-factory"><span class="nav-number">3.1.</span> <span class="nav-text">工厂模式 factory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82-abstract-factory"><span class="nav-number">3.2.</span> <span class="nav-text">抽象工厂 abstract_factory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-prototype"><span class="nav-number">3.3.</span> <span class="nav-text">原型模式 prototype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%99%A8-builder"><span class="nav-number">3.4.</span> <span class="nav-text">构建器 builder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%80%A7%E8%83%BD%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">对象性能模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BB%B6%E6%A8%A1%E5%BC%8F-singleton"><span class="nav-number">4.1.</span> <span class="nav-text">单件模式 singleton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F-flyweight"><span class="nav-number">4.2.</span> <span class="nav-text">享元模式 flyweight</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">接口隔离模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%A8%E9%9D%A2%E6%A8%A1%E5%BC%8F-facade"><span class="nav-number">5.1.</span> <span class="nav-text">门面模式 facade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-proxy"><span class="nav-number">5.2.</span> <span class="nav-text">代理模式 proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8-adapter"><span class="nav-number">5.3.</span> <span class="nav-text">适配器 adapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E4%BB%8B%E8%80%85-mediator"><span class="nav-number">5.4.</span> <span class="nav-text">中介者 mediator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">状态变化模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F-state"><span class="nav-number">6.1.</span> <span class="nav-text">状态模式 State</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95-memento"><span class="nav-number">6.2.</span> <span class="nav-text">备忘录 Memento</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A8%A1%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">数据结构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-composite"><span class="nav-number">7.1.</span> <span class="nav-text">组合模式 composite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-iterator"><span class="nav-number">7.2.</span> <span class="nav-text">迭代器 iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%8C%E8%B4%A3%E9%93%BE-chain-of-resposibilty"><span class="nav-number">7.3.</span> <span class="nav-text">职责链 Chain of Resposibilty</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%8F%98%E5%8C%96%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">行为变化模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-command"><span class="nav-number">8.1.</span> <span class="nav-text">命令模式 Command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%99%A8-visitor"><span class="nav-number">8.2.</span> <span class="nav-text">访问器 Visitor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E8%A7%84%E5%88%99%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.</span> <span class="nav-text">领域规则模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%99%A8-interpreter"><span class="nav-number">9.1.</span> <span class="nav-text">解析器 Interpreter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%89%8B%E6%AE%B5%E5%88%86%E8%A7%A3-%E6%8A%BD%E8%B1%A1"><span class="nav-number">10.</span> <span class="nav-text">两种手段分解&amp;抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%9E%84%E6%8A%80%E5%B7%A7"><span class="nav-number">10.1.</span> <span class="nav-text">重构技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">10.2.</span> <span class="nav-text">不用设计模式的情况:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E4%B9%8B%E8%B0%88"><span class="nav-number">10.3.</span> <span class="nav-text">经验之谈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">11.</span> <span class="nav-text">概述</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -786,20 +855,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog_NexT/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-count">123</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -843,12 +912,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.7m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20:23</span>
+    <span title="站点阅读时长">26:28</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>

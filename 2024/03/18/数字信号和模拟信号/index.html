@@ -312,17 +312,19 @@
 <p><img src="https://pic1.zhimg.com/80/v2-4a9af5e31e5443d40cbc5007245d6a18_720w.webp" alt="https://pic1.zhimg.com/80/v2-4a9af5e31e5443d40cbc5007245d6a18_720w.webp"></p>
 <p><strong>为什么要进行数模转换呢</strong></p>
 <ol>
-<li><p>模拟信号转数字信号：ADC</p>
-<p> 因为需要使用计算机对数据进行各种计算来处理成矩阵图像，而模拟信号是无法被计算机处理的。计算机只能处理离散的具体数据，而模拟数据是连续的，是不具体的，故而无法对模拟信号进行处理。计算机的时间不是连续的，是有最小的时钟信号的</p>
-<p> <strong>过程</strong></p>
-<p> <img src="/Blog_NexT/2024/03/18/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7/Untitled.png" alt="Untitled"></p>
-<p> 如图，输入为模拟信号，通过采样保持电路（S/H）对其进行处理，创建该信号的近似数字表示，信号幅度不再是无限，而是根据ADC分辨率量化成的离散值，具有较高分辨率的ADC将具有更精细的步长，并且能更准确的表达输入模拟信号，ADC的最后一级将数字化信号编码为代表模拟信号幅度的二进制比特流</p>
+<li>
+<p>模拟信号转数字信号：ADC</p>
+<p>因为需要使用计算机对数据进行各种计算来处理成矩阵图像，而模拟信号是无法被计算机处理的。计算机只能处理离散的具体数据，而模拟数据是连续的，是不具体的，故而无法对模拟信号进行处理。计算机的时间不是连续的，是有最小的时钟信号的</p>
+<p><strong>过程</strong></p>
+<p><img src="/Blog_NexT/2024/03/18/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7/Untitled.png" alt="Untitled"></p>
+<p>如图，输入为模拟信号，通过采样保持电路（S/H）对其进行处理，创建该信号的近似数字表示，信号幅度不再是无限，而是根据ADC分辨率量化成的离散值，具有较高分辨率的ADC将具有更精细的步长，并且能更准确的表达输入模拟信号，ADC的最后一级将数字化信号编码为代表模拟信号幅度的二进制比特流</p>
 </li>
-<li><p>数字信号转模拟信号：DAC</p>
-<p> 对于一些设备的控制，不可能只用数字信号就能控制的了的，所以需要一些手段来进行连续的控制，例如电机的控制，电机是通过控制电流或者电压来控制的，但是电流和电压是连续的模拟信号，所以就需要数字信号转化为模拟信号，常使用保持器来保证控制的连续性</p>
-<p> <strong>过程</strong></p>
-<p> <img src="/Blog_NexT/2024/03/18/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7/Untitled%201.png" alt="Untitled"></p>
-<p> DAC提供反向操作，DAC的输入是来自数字系统的二进制数据流，它输出的离散值可近似为模拟信号，DAC分辨率越高，输出信号也会更加接近真实的，平滑连续的模拟信号，在模拟信号链中经常还有一个后置滤波器，用于进一步平滑波形</p>
+<li>
+<p>数字信号转模拟信号：DAC</p>
+<p>对于一些设备的控制，不可能只用数字信号就能控制的了的，所以需要一些手段来进行连续的控制，例如电机的控制，电机是通过控制电流或者电压来控制的，但是电流和电压是连续的模拟信号，所以就需要数字信号转化为模拟信号，常使用保持器来保证控制的连续性</p>
+<p><strong>过程</strong></p>
+<p><img src="/Blog_NexT/2024/03/18/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7/Untitled%201.png" alt="Untitled"></p>
+<p>DAC提供反向操作，DAC的输入是来自数字系统的二进制数据流，它输出的离散值可近似为模拟信号，DAC分辨率越高，输出信号也会更加接近真实的，平滑连续的模拟信号，在模拟信号链中经常还有一个后置滤波器，用于进一步平滑波形</p>
 </li>
 </ol>
 
@@ -440,20 +442,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog_NexT/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog_NexT/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog_NexT/tags/">
           
-        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-count">123</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -497,12 +499,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.3m</span>
+    <span title="站点总字数">1.7m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20:23</span>
+    <span title="站点阅读时长">26:28</span>
   <img src="https://gcore.jsdelivr.net/gh/CNhuazhu/TuChuang4/blog/备案图标.png">
   <a href="http://www.beian.miit.gov.cn/" target="_blank">豫ICP备2024056598号-1</a>
 </div>
